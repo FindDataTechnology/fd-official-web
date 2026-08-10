@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../components/Layout.astro';
+import { t } from '../i18n';
+
+const locale = 'en';
+const phases = (await getCollection('roadmap')).sort((a, b) => a.data.order - b.data.order);
+const title = t(locale, 'roadmap.title') + ' — FindData Technology';
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'roadmap.sub')}>
+  <h1 class="page">{t(locale, 'roadmap.title')}</h1>
+  <p class="page-sub">{t(locale, 'roadmap.sub')}</p>
+  <ol class="phases">
+    {
+      phases.map((p) => (
+        <li class={`phase ${p.data.status}`}>
+          <div class="phase-head">
+            <span class="phase-name">
+              {p.data.name} <em>{p.data.pinyin}</em>
+            </span>
+            <span class={`phase-status ${p.data.status}`}>{t(locale, `roadmap.status.${p.data.status}`)}</span>
+          </div>
+          <p class="phase-period">{p.data.period_en}</p>
+          <p class="phase-goal">{p.data.goal_en}</p>
+        </li>
+      ))
+    }
+  </ol>
+</Layout>

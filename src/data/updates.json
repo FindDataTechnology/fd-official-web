@@ -1,0 +1,320 @@
+[
+  {
+    "repo": "fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
+    "version": "Unreleased",
+    "date": null,
+    "upcoming": true,
+    "summary": [
+      "**NBS GDP** (`nbs-gdp`): National Bureau of Statistics macroeconomic data",
+      "**CISA Industry** (`cisa-industry`): China Iron and Steel Association data",
+      "**AMAC Fund** (`amac-fund`): Asset Management Association of China",
+      "**SHFE Futures** (`shfe-metal-futures`): Shanghai Futures Exchange",
+      "**SAC Securities** (`sac-securities`): Securities Association of China",
+      "**Agriculture** (`agriculture`): Dalian Commodity Exchange",
+      "**CME Agricultural** (`cme-agricultural-futures`): CME Group",
+      "**Chemicals** (`chemicals`): SCI99 chemical industry data",
+      "**Electronics** (`electronics`): CEIA electronics association",
+      "**Nonferrous Metals** (`nonferrous`): CNIA non-ferrous metals data",
+      "**Flowers KIFC** (`flowers-kifc`): Kunming flower auction center",
+      "**Financial Platforms** (`fin_platforms`): Wind financial terminal",
+      "Added `errors.py` module with custom exception types",
+      "Enhanced `runner.py` with lazy loading for all adapters",
+      "Added comprehensive test suite in `tests/test_runners.py`",
+      "Updated manifests with `fetch.runner` and `ranking_seed` fields",
+      "Integrated caching layer for improved performance",
+      "Updated README with usage examples and rate limit policies",
+      "Created deployment guide in `docs/DEPLOYMENT.md`",
+      "Added comprehensive task tracking in OpenSpec workflow",
+      "Updated `pyproject.toml` to include new dependencies (requests, beautifulsoup4, scrapling)",
+      "Enhanced manifest schema compliance with fd-open-data-protocol",
+      "Improved error handling across all data source adapters",
+      "Resolved import errors for new adapter modules",
+      "Fixed runner routing for all 21 new data sources",
+      "Corrected manifest YAML syntax validation"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/0bd8184d659750a35e6b28b53f2237481495176d",
+    "version": "0bd8184",
+    "date": "2026-08-10",
+    "upcoming": false,
+    "summary": [
+      "Add CI deploy pipeline + openspec change add-flagship-roadmap-updates"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/67378a3103f2644917a17bb1630ec4be2f72003b",
+    "version": "67378a3",
+    "date": "2026-08-10",
+    "upcoming": false,
+    "summary": [
+      "Render per-repo READMEs on-site + add homepage about section"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/70cb489671654b3c8c7b2363d9fa1faa7938b27e",
+    "version": "70cb489",
+    "date": "2026-08-10",
+    "upcoming": false,
+    "summary": [
+      "Official website for FindDataTechnology (Astro, en/zh, live MCP demo)"
+    ]
+  },
+  {
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/88062ef3fbed30a8b7aa1aa9acbd6d6b0236d980",
+    "version": "88062ef",
+    "date": "2026-08-10",
+    "upcoming": false,
+    "summary": [
+      "ci: buildkit http=true for HTTP-only Harbor (fix unauthorized push)"
+    ]
+  },
+  {
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/955a96990bee976de053ef1265722b5a9eb7ae7d",
+    "version": "955a969",
+    "date": "2026-08-10",
+    "upcoming": false,
+    "summary": [
+      "ci: use HARBOR_USER/HARBOR_PASS for Harbor push"
+    ]
+  },
+  {
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/cef7aa9986f3aba3e15e7915265d69ec50c9b1a3",
+    "version": "cef7aa9",
+    "date": "2026-08-10",
+    "upcoming": false,
+    "summary": [
+      "feat: multi-cluster master DB + worker image build via GitHub Actions"
+    ]
+  },
+  {
+    "repo": "fd-vaas-skills",
+    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/f8c0f1b62a26973deb817e2aad278ab3363def3c",
+    "version": "f8c0f1b",
+    "date": "2026-08-10",
+    "upcoming": false,
+    "summary": [
+      "chore(video-creator): phase 6 wrap-up - SKILL.md type list, data-viz README, batch-2 placeholder"
+    ]
+  },
+  {
+    "repo": "fd-vaas-skills",
+    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/fac146436f68ddfbebbe81802ea05f95a682fcc7",
+    "version": "fac1464",
+    "date": "2026-08-10",
+    "upcoming": false,
+    "summary": [
+      "feat(video-creator): add data-viz video type (batch-1 phase 5)"
+    ]
+  },
+  {
+    "repo": "fd-vaas-skills",
+    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/6b5ca51b05e791f4be6b97d2a11c9c197ff1922c",
+    "version": "6b5ca51",
+    "date": "2026-08-10",
+    "upcoming": false,
+    "summary": [
+      "feat(video-creator): add listicle video type (batch-1 phase 4)"
+    ]
+  },
+  {
+    "repo": "fd-vaas-skills",
+    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/b78979d33193a2d893d0322d797e8eee134fac17",
+    "version": "b78979d",
+    "date": "2026-08-10",
+    "upcoming": false,
+    "summary": [
+      "feat(video-creator): add news-flash video type (batch-1 phase 3)"
+    ]
+  },
+  {
+    "repo": "fd-vaas-skills",
+    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/f97abf0e5035b4b2574cdcfb4fd309268e04c207",
+    "version": "f97abf0",
+    "date": "2026-08-10",
+    "upcoming": false,
+    "summary": [
+      "feat(video-creator): add kinetic-quote video type (batch-1 phase 2)"
+    ]
+  },
+  {
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/512e93c0f90c5257cb2fa677a641d529c6bbda66",
+    "version": "512e93c",
+    "date": "2026-08-08",
+    "upcoming": false,
+    "summary": [
+      "fix: reconciler CronJob targets in-cluster fd-open-pg/fd-open-redis (cluster cannot reach 192.168.1.4 LAN DB)"
+    ]
+  },
+  {
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/85b7571b173341d4e5492f12b3a3fd6475b4c2cf",
+    "version": "85b7571",
+    "date": "2026-08-08",
+    "upcoming": false,
+    "summary": [
+      "feat: series-mode crawl (bulk per-entity fetch + explode) + reconciler CronJob manifest"
+    ]
+  },
+  {
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/4c67874a96db2a2f8a20f81b0d74b55cb261b8e4",
+    "version": "4c67874",
+    "date": "2026-08-07",
+    "upcoming": false,
+    "summary": [
+      "fix: LLM section cache sharing + partial-hit extraction (0.3.3)"
+    ]
+  },
+  {
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/00f27c82d16972038a2ce922ad2f5c107b4db80f",
+    "version": "00f27c8",
+    "date": "2026-08-04",
+    "upcoming": false,
+    "summary": [
+      "v0.3.0: add document storage (local + MinIO)"
+    ]
+  },
+  {
+    "repo": "fd-world",
+    "url": "https://github.com/FindDataTechnology/fd-world/commit/50cb3ba4e900f39045c5239a0d24efee12b1da60",
+    "version": "50cb3ba",
+    "date": "2026-08-04",
+    "upcoming": false,
+    "summary": [
+      "Bump version to 0.1.1"
+    ]
+  },
+  {
+    "repo": "fd-world",
+    "url": "https://github.com/FindDataTechnology/fd-world/commit/c135a9b92c68e8e6fe5ae64714a07df0d1e0c078",
+    "version": "c135a9b",
+    "date": "2026-08-04",
+    "upcoming": false,
+    "summary": [
+      "Initial release: fd-world v0.1.0"
+    ]
+  },
+  {
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/f18dd9aec7cefa1412d9821536a8f5783b7b4dba",
+    "version": "f18dd9a",
+    "date": "2026-08-04",
+    "upcoming": false,
+    "summary": [
+      "Bump version to 0.1.3"
+    ]
+  },
+  {
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/01472743d0332a3a2eef4e5582a8ea9efd846142",
+    "version": "0147274",
+    "date": "2026-08-04",
+    "upcoming": false,
+    "summary": [
+      "feat: add registry auto-generator + catalog validation (v0.1.2)"
+    ]
+  },
+  {
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/e3162eb61d886a26b7e296c24ee3d69050c4a377",
+    "version": "e3162eb",
+    "date": "2026-08-02",
+    "upcoming": false,
+    "summary": [
+      "Bump version to 0.1.2"
+    ]
+  },
+  {
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/aba14120ad409de8e94cf73b328ca3f503895771",
+    "version": "aba1412",
+    "date": "2026-08-02",
+    "upcoming": false,
+    "summary": [
+      "Add remote browser support + update GitHub URLs to FindDataTechnology"
+    ]
+  },
+  {
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/e7756b53b214bd8b614737e8b431985e49236dcf",
+    "version": "e7756b5",
+    "date": "2026-08-02",
+    "upcoming": false,
+    "summary": [
+      "Initial commit: industry data spiders with remote browser support"
+    ]
+  },
+  {
+    "repo": "fd-open-data-protocol",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-protocol/commit/906babc1f82aa66b153b922519f79b1daa7b647e",
+    "version": "906babc",
+    "date": "2026-07-28",
+    "upcoming": false,
+    "summary": [
+      "Initial release: fd-open-data-protocol v0.1.0"
+    ]
+  },
+  {
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/01c5eb39a8df4a593346f396cb8d97091f763ba7",
+    "version": "01c5eb3",
+    "date": "2026-07-15",
+    "upcoming": false,
+    "summary": [
+      "feat: add 18 official-datasource MCP tools + offering-report-types (v0.2.0)"
+    ]
+  },
+  {
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/a3d1b2d98d4c814bc80143ddcec212c8bb7a8875",
+    "version": "a3d1b2d",
+    "date": "2026-07-14",
+    "upcoming": false,
+    "summary": [
+      "chore: remove dead test-output JSONs and gitignore extraction CSVs"
+    ]
+  },
+  {
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/d9f2c3469d6582a704f4b1fc22e4e5d2e075d719",
+    "version": "d9f2c34",
+    "date": "2026-07-12",
+    "upcoming": false,
+    "summary": [
+      "Rename package cnreport-mcp -> fd-cn-report (distribution + CLI)"
+    ]
+  },
+  {
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/d664bc1ccbab5a667191e1f680e4c5f7a987487e",
+    "version": "d664bc1",
+    "date": "2026-07-12",
+    "upcoming": false,
+    "summary": [
+      "Rename package gov-scraw -> fd-cn-gov (folder, distribution, module, CLI)"
+    ]
+  },
+  {
+    "repo": "fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
+    "version": "0.1.0",
+    "date": "2024-07-27",
+    "upcoming": false,
+    "summary": [
+      "Core data source registry with 7 sources (akshare, yfinance, edgar, wbgapi, cn-report, cn-gov, world)",
+      "Basic MCP server implementation",
+      "Database schema for sources, functions, columns",
+      "Initial test suite"
+    ]
+  }
+]

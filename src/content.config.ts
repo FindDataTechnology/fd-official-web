@@ -30,4 +30,31 @@ const repos = defineCollection({
   }),
 });
 
-export const collections = { docs, repos };
+// `roadmap` — one md per development phase. Bilingual fields in a single file
+// (goal_en/goal_zh etc.) so status/period stay single-source; progress updates
+// are frontmatter-only edits.
+const roadmap = defineCollection({
+  loader: glob({ base: './src/content/roadmap', pattern: '**/*.md' }),
+  schema: z.object({
+    name: z.string(),
+    pinyin: z.string(),
+    period_en: z.string(),
+    period_zh: z.string(),
+    goal_en: z.string(),
+    goal_zh: z.string(),
+    status: z.enum(['in-progress', 'planned', 'done']),
+    order: z.number(),
+  }),
+});
+
+// `flagship` — curated bilingual copy for the flagship product page
+// (en.md / zh.md), hand-written narrative distinct from the raw README.
+const flagship = defineCollection({
+  loader: glob({ base: './src/content/flagship', pattern: '**/*.md' }),
+  schema: z.object({
+    title: z.string(),
+    tagline: z.string(),
+  }),
+});
+
+export const collections = { docs, repos, roadmap, flagship };

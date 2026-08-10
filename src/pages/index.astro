@@ -2,9 +2,11 @@
 import Layout from '../components/Layout.astro';
 import { t } from '../i18n';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getCollection } from 'astro:content';
 
 const locale = 'en';
 const title = 'FindData Technology — Open data, wired for AI agents';
+const phases = (await getCollection('roadmap')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Layout locale={locale} title={title} description={t(locale, 'hero.sub')}>
@@ -25,5 +27,22 @@ const title = 'FindData Technology — Open data, wired for AI agents';
   <section class="about">
     <h2>{t(locale, 'about.title')}</h2>
     <p>{t(locale, 'about.body')}</p>
+    <p><a href={getRelativeLocaleUrl(locale, 'fd-open-data-mcp')}>{t(locale, 'flagship.cta')}</a></p>
+  </section>
+  <section class="roadmap-strip">
+    <h2><a href={getRelativeLocaleUrl(locale, 'roadmap')}>{t(locale, 'roadmap.strip.title')}</a></h2>
+    <ol>
+      {
+        phases.map((p) => (
+          <li class={p.data.status}>
+            <b>
+              {p.data.name} <em>{p.data.pinyin}</em>
+            </b>
+            <span class="period">{p.data.period_en}</span>
+            <span class={`phase-status ${p.data.status}`}>{t(locale, `roadmap.status.${p.data.status}`)}</span>
+          </li>
+        ))
+      }
+    </ol>
   </section>
 </Layout>

@@ -1,0 +1,46 @@
+---
+import Layout from '../components/Layout.astro';
+import { t } from '../i18n';
+// Generated at build time by scripts/fetch-repos.mjs (changelogs + commits).
+import updatesJson from '../data/updates.json';
+
+interface Entry {
+  repo: string;
+  url: string;
+  version: string;
+  date: string | null;
+  upcoming: boolean;
+  summary: string[];
+}
+
+const locale = 'en';
+const entries: Entry[] = updatesJson;
+const title = t(locale, 'updates.title') + ' — FindData Technology';
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'updates.sub')}>
+  <h1 class="page">{t(locale, 'updates.title')}</h1>
+  <p class="page-sub">{t(locale, 'updates.sub')}</p>
+  {
+    entries.length ? (
+      <ol class="feed">
+        {entries.map((e) => (
+          <li class={e.upcoming ? 'upcoming' : ''}>
+            <div class="feed-head">
+              <a class="feed-repo" href={e.url} target="_blank" rel="noopener noreferrer">{e.repo}</a>
+              <span class="feed-ver">{e.upcoming ? t(locale, 'updates.upcoming') : e.version}</span>
+              {e.date && <time>{e.date}</time>}
+            </div>
+            <ul>
+              {e.summary.map((s) => (
+                <li set:html={s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/`([^`]+)`/g, '<code>$1</code>')} />
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    ) : (
+      <p class="page-sub">{t(locale, 'updates.empty')}</p>
+    )
+  }
+</Layout>

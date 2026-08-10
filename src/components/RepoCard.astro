@@ -17,9 +17,17 @@ interface Props {
 
 const { repo, featured, locale = 'en' } = Astro.props;
 const base = locale === 'zh' ? '/zh/repos' : '/repos';
-// Link to the on-site README page when we have one; else straight to GitHub.
-const href = repo.hasReadme ? `${base}/${repo.name}` : repo.url;
-const external = !repo.hasReadme;
+// Flagship gets its curated product page; other repos link to the on-site
+// README page when we have one, else straight to GitHub.
+const href =
+  repo.name === 'fd-open-data-mcp'
+    ? locale === 'zh'
+      ? '/zh/fd-open-data-mcp'
+      : '/fd-open-data-mcp'
+    : repo.hasReadme
+      ? `${base}/${repo.name}`
+      : repo.url;
+const external = !repo.hasReadme && repo.name !== 'fd-open-data-mcp';
 ---
 
 <li class:list={['card', { featured }]}>

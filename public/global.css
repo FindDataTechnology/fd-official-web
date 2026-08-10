@@ -127,6 +127,45 @@ article.doc th, article.doc td { border: 1px solid var(--border); padding: 6px 1
 article.doc img { max-width: 100%; border-radius: 8px; }
 article.doc hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
 
+/* roadmap */
+ol.phases { list-style: none; padding: 0; display: grid; gap: 16px; max-width: 760px; }
+li.phase { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+li.phase.in-progress { border-color: var(--accent); }
+.phase-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.phase-name { font-weight: 700; font-size: 1.15rem; }
+.phase-name em { color: var(--muted); font-style: italic; font-weight: 400; font-size: 0.9rem; margin-left: 6px; }
+.phase-status { font-family: var(--mono); font-size: 0.78rem; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border); color: var(--muted); white-space: nowrap; }
+.phase-status.in-progress { color: #06201b; background: var(--accent); border-color: var(--accent); }
+.phase-status.done { color: var(--accent); border-color: var(--accent); }
+.phase-period { color: var(--accent-2); font-family: var(--mono); font-size: 0.85rem; margin: 8px 0 4px; }
+.phase-goal { color: var(--muted); margin: 0; }
+
+.roadmap-strip { max-width: 860px; margin: 64px auto 0; }
+.roadmap-strip h2 { font-size: 1.3rem; margin-bottom: 14px; }
+.roadmap-strip h2 a { color: var(--accent-2); }
+.roadmap-strip ol { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.roadmap-strip li { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px; }
+.roadmap-strip li.in-progress { border-color: var(--accent); }
+.roadmap-strip li b em { color: var(--muted); font-weight: 400; font-size: 0.85rem; }
+.roadmap-strip .period { color: var(--muted); font-size: 0.82rem; font-family: var(--mono); }
+.roadmap-strip .phase-status { align-self: flex-start; }
+
+/* updates feed */
+ol.feed { list-style: none; padding: 0; display: grid; gap: 14px; max-width: 820px; }
+ol.feed > li { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; }
+ol.feed > li.upcoming { border-color: var(--accent); }
+.feed-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.feed-repo { font-family: var(--mono); font-weight: 700; }
+.feed-ver { color: var(--accent); font-family: var(--mono); font-size: 0.85rem; }
+li.upcoming .feed-ver { background: var(--accent); color: #06201b; padding: 1px 8px; border-radius: 12px; font-size: 0.75rem; }
+.feed-head time { color: var(--muted); font-size: 0.82rem; font-family: var(--mono); margin-left: auto; }
+ol.feed ul { margin: 8px 0 0; padding-left: 1.2em; color: var(--muted); font-size: 0.92rem; }
+ol.feed li li { margin: 2px 0; }
+ol.feed code { font-family: var(--mono); background: #0a0f1e; padding: 1px 5px; border-radius: 4px; font-size: 0.88em; }
+
+/* flagship */
+.flagship-tagline { color: var(--accent); font-size: 1.1rem; margin-top: -8px; }
+
 /* demo */
 .widget { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 22px; max-width: 720px; }
 .widget form { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }

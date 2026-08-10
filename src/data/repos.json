@@ -18,15 +18,6 @@
     "hasReadme": true
   },
   {
-    "name": "fd-vaas-skills",
-    "description": "VAAS - Video Automation & Distribution System: a natural-language video creation and multi-platform publishing skill chain for Claude Code / Agent runtimes.",
-    "language": "Python",
-    "stars": 0,
-    "updated": "2026-08-10",
-    "url": "https://github.com/FindDataTechnology/fd-vaas-skills",
-    "hasReadme": true
-  },
-  {
     "name": "fd-official-web",
     "description": null,
     "language": "Astro",
@@ -40,8 +31,17 @@
     "description": "Scrapy crawler with redis queue scheduler",
     "language": "Python",
     "stars": 0,
-    "updated": "2026-08-08",
+    "updated": "2026-08-10",
     "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp",
+    "hasReadme": true
+  },
+  {
+    "name": "fd-vaas-skills",
+    "description": "VAAS - Video Automation & Distribution System: a natural-language video creation and multi-platform publishing skill chain for Claude Code / Agent runtimes.",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-10",
+    "url": "https://github.com/FindDataTechnology/fd-vaas-skills",
     "hasReadme": true
   },
   {
