@@ -17,7 +17,7 @@ const title = t(locale, 'repos.title') + ' — FindData Technology';
   {
     repos.length ? (
       <ul class="grid">
-        {repos.map((r) => <RepoCard repo={r} featured={featured.has(r.name)} />)}
+        {repos.map((r) => <RepoCard repo={r} featured={featured.has(r.name)} locale={locale} />)}
       </ul>
     ) : (
       <p class="page-sub">{t(locale, 'repos.empty')}</p>

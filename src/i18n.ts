@@ -35,6 +35,11 @@ export const ui = {
     'demo.running': 'Running…',
     'demo.error': 'Query failed',
     'demo.empty': 'No result yet.',
+    'about.title': 'What is FindData Technology?',
+    'about.body':
+      'FindData Technology is an open-source org building open-data infrastructure for AI agents. The flagship, fd-open-data-mcp, is a semantic concept layer over multi-source financial and economic data: ask for data as concepts and entities (price.close for Moutai, GDP for China) and get ranked, failover, refreshed answers from every major source — akshare, yfinance, EDGAR, World Bank, and more.',
+    'repo.back': 'All repos',
+    'repo.view': 'View on GitHub',
     'footer.org': 'FindDataTechnology',
     'footer.line': 'Open-source data infrastructure for AI.',
   },
@@ -73,6 +78,11 @@ export const ui = {
     'demo.running': '查询中…',
     'demo.error': '查询失败',
     'demo.empty': '暂无结果。',
+    'about.title': 'FindData Technology 是什么？',
+    'about.body':
+      'FindData Technology 是一个为 AI 智能体构建开放数据基础设施的开源组织。旗舰项目 fd-open-data-mcp 是覆盖多源金融与经济数据的语义概念层：以概念与实体的方式查询数据（茅台的 price.close、中国的 GDP），系统会从 akshare、yfinance、EDGAR、世界银行等主流数据源中按质量排序、故障转移并定时刷新，返回结果。',
+    'repo.back': '全部项目',
+    'repo.view': '在 GitHub 查看',
     'footer.org': 'FindDataTechnology',
     'footer.line': '面向 AI 的开源数据基础设施。',
   },

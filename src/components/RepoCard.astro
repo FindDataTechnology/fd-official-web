@@ -6,22 +6,26 @@ export interface Repo {
   stars: number;
   updated: string;
   url: string;
+  hasReadme?: boolean;
 }
 
 interface Props {
   repo: Repo;
   featured?: boolean;
+  locale?: string;
 }
 
-const { repo, featured } = Astro.props;
+const { repo, featured, locale = 'en' } = Astro.props;
+const base = locale === 'zh' ? '/zh/repos' : '/repos';
+// Link to the on-site README page when we have one; else straight to GitHub.
+const href = repo.hasReadme ? `${base}/${repo.name}` : repo.url;
+const external = !repo.hasReadme;
 ---
 
 <li class:list={['card', { featured }]}>
-  <a href={repo.url} target="_blank" rel="noopener noreferrer">
+  <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
     <span class="name">{repo.name}</span>
     <span class="desc">{repo.description ?? ''}</span>
-    <span class="meta">
-      {[repo.language, repo.stars ? `★ ${repo.stars}` : '', repo.updated].filter(Boolean).join(' · ')}
-    </span>
+    <span class="meta">{[repo.language, repo.stars ? `★ ${repo.stars}` : '', repo.updated].filter(Boolean).join(' · ')}</span>
   </a>
 </li>

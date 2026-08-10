@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+import { t } from '../../i18n';
+
+export async function getStaticPaths() {
+  const repos = await getCollection('repos');
+  return repos.map((r) => ({ params: { name: r.data.repo }, props: { repo: r } }));
+}
+
+const locale = 'en';
+const { repo } = Astro.props;
+const { Content } = await render(repo);
+const title = `${repo.data.title} — FindData Technology`;
+---
+
+<Layout locale={locale} title={title} description={repo.data.description ?? repo.data.title}>
+  <a class="doc-back" href="/repos">← {t(locale, 'repo.back')}</a>
+  <article class="doc">
+    <p class="repo-meta">
+      <a href={repo.data.url} target="_blank" rel="noopener noreferrer">{t(locale, 'repo.view')} ↗</a>
+      {[repo.data.language, repo.data.stars ? `★ ${repo.data.stars}` : '', repo.data.updated].filter(Boolean).join(' · ')}
+    </p>
+    <Content />
+  </article>
+</Layout>
