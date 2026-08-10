@@ -1,0 +1,44 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # twice daily, off the :00/:30 rush
+    - cron: '7 3,15 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # fetch-repos.mjs uses GITHUB_TOKEN for org repo/README/changelog data
+      - run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: rsync to server (atomic swap)
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/fd_deploy
+          chmod 600 ~/.ssh/fd_deploy
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          SSH="ssh -i ~/.ssh/fd_deploy -o IdentitiesOnly=yes"
+          rsync -az --delete -e "$SSH" dist/ "$DEPLOY_USER@$DEPLOY_HOST:/opt/fd/web/dist-new/"
+          $SSH "$DEPLOY_USER@$DEPLOY_HOST" 'set -e; rm -rf /opt/fd/web/dist.prev; [ -d /opt/fd/web/dist ] && mv /opt/fd/web/dist /opt/fd/web/dist.prev || true; mv /opt/fd/web/dist-new /opt/fd/web/dist'
