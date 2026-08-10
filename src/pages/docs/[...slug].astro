@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+
+export async function getStaticPaths() {
+  const docs = (await getCollection('docs')).filter((d) => d.id.startsWith('en/'));
+  return docs.map((d) => ({ params: { slug: d.id.slice(3) }, props: { doc: d } }));
+}
+
+const locale = 'en';
+const { doc } = Astro.props;
+const { Content } = await render(doc);
+---
+
+<Layout locale={locale} title={doc.data.title}>
+  <a class="doc-back" href="/docs">← {locale === 'en' ? 'All docs' : '全部文档'}</a>
+  <article class="doc"><Content /></article>
+</Layout>

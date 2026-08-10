@@ -1,0 +1,21 @@
+---
+import Layout from '../components/Layout.astro';
+import DemoWidget from '../components/DemoWidget.astro';
+import { t } from '../i18n';
+
+const locale = 'en';
+const title = t(locale, 'demo.title') + ' — FindData Technology';
+const strings = {
+  query: t(locale, 'demo.query'),
+  placeholder: t(locale, 'demo.placeholder'),
+  date: t(locale, 'demo.date'),
+  submit: t(locale, 'demo.submit'),
+  empty: t(locale, 'demo.empty'),
+};
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'demo.sub')}>
+  <h1 class="page">{t(locale, 'demo.title')}</h1>
+  <p class="page-sub">{t(locale, 'demo.sub')}</p>
+  <DemoWidget strings={strings} />
+</Layout>

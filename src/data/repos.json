@@ -1,0 +1,66 @@
+[
+  {
+    "name": "fd-open-data-mcp",
+    "description": "Open-data ontology MCP: a semantic concept layer over multi-datasource financial/economic data (akshare, yfinance, edgar, wbgapi, cn-report, cn-gov).",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-08",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp"
+  },
+  {
+    "name": "fd-open-data-protocol",
+    "description": "The open-data datasource protocol: a manifest contract a datasource exposes to be ingested by fd-open-data-mcp.",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-07-28",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-protocol"
+  },
+  {
+    "name": "scraw-fd-open-data-mcp",
+    "description": "Scrapy crawler with redis queue scheduler",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-08",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp"
+  },
+  {
+    "name": "fd-vaas-skills",
+    "description": "VAAS - Video Automation & Distribution System: a natural-language video creation and multi-platform publishing skill chain for Claude Code / Agent runtimes.",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-08",
+    "url": "https://github.com/FindDataTechnology/fd-vaas-skills"
+  },
+  {
+    "name": "fd-cn-report",
+    "description": "Chinese financial report MCP server — Shenwan industry AI rule system, outline extraction, AI structured extraction, Elasticsearch store + search",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-07",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report"
+  },
+  {
+    "name": "fd-world",
+    "description": "CLI for multi-source data access - AKShare, World Bank, CKAN, Chinese Statistics",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-04",
+    "url": "https://github.com/FindDataTechnology/fd-world"
+  },
+  {
+    "name": "fd-cn-gov",
+    "description": "Ministry open-information scrapers + datasource registry",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-04",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov"
+  },
+  {
+    "name": "fd-industry-data",
+    "description": "Industry data spiders with remote browser support",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-02",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data"
+  }
+]

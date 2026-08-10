@@ -1,0 +1,25 @@
+---
+import Layout from '../../components/Layout.astro';
+import { t } from '../../i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const locale = 'zh';
+const title = 'FindData Technology — 为 AI 智能体打通开放数据';
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'hero.sub')}>
+  <section class="hero">
+    <span class="tagline">{t(locale, 'tagline')}</span>
+    <h1>{t(locale, 'hero.title')}</h1>
+    <p class="sub">{t(locale, 'hero.sub')}</p>
+    <div class="cta">
+      <a class="primary" href={getRelativeLocaleUrl(locale, 'demo')}>{t(locale, 'cta.demo')}</a>
+      <a class="secondary" href={getRelativeLocaleUrl(locale, 'docs')}>{t(locale, 'cta.docs')}</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>926</b><span>{t(locale, 'stat.concepts')}</span></div>
+      <div class="stat"><b>8</b><span>{t(locale, 'stat.sources')}</span></div>
+      <div class="stat"><b>16</b><span>{t(locale, 'stat.tools')}</span></div>
+    </div>
+  </section>
+</Layout>

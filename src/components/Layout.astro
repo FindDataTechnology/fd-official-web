@@ -1,0 +1,63 @@
+---
+import { t } from '../i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+interface Props {
+  locale: string;
+  title: string;
+  description?: string;
+}
+
+const { locale, title, description } = Astro.props;
+const other = locale === 'zh' ? 'en' : 'zh';
+// Current path without the locale prefix, for the language-switch link.
+const path = Astro.url.pathname.replace(/^\/zh(?=\/|$)/, '') || '/';
+
+const nav = [
+  { href: getRelativeLocaleUrl(locale, ''), label: t(locale, 'nav.home') },
+  { href: getRelativeLocaleUrl(locale, 'repos'), label: t(locale, 'nav.repos') },
+  { href: getRelativeLocaleUrl(locale, 'docs'), label: t(locale, 'nav.docs') },
+  { href: getRelativeLocaleUrl(locale, 'demo'), label: t(locale, 'nav.demo') },
+];
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/global.css" />
+  </head>
+  <body>
+    <header class="site">
+      <nav>
+        <a class="brand" href={getRelativeLocaleUrl(locale, '')}>
+          Find<em>Data</em>
+        </a>
+        <div class="nav-links">
+          {
+            nav.map((n) => (
+              <a href={n.href}>{n.label}</a>
+            ))
+          }
+        </div>
+        <a class="lang" href={getRelativeLocaleUrl(other, path)}>{t(locale, 'switch.lang')}</a>
+      </nav>
+    </header>
+
+    <main><slot /></main>
+
+    <footer class="site">
+      <div class="inner">
+        <span>
+          © {new Date().getFullYear()} <a href="https://github.com/FindDataTechnology">{t(locale, 'footer.org')}</a>
+        </span>
+        <span>{t(locale, 'footer.line')}</span>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+---
+export interface Repo {
+  name: string;
+  description: string | null;
+  language: string | null;
+  stars: number;
+  updated: string;
+  url: string;
+}
+
+interface Props {
+  repo: Repo;
+  featured?: boolean;
+}
+
+const { repo, featured } = Astro.props;
+---
+
+<li class:list={['card', { featured }]}>
+  <a href={repo.url} target="_blank" rel="noopener noreferrer">
+    <span class="name">{repo.name}</span>
+    <span class="desc">{repo.description ?? ''}</span>
+    <span class="meta">
+      {[repo.language, repo.stars ? `★ ${repo.stars}` : '', repo.updated].filter(Boolean).join(' · ')}
+    </span>
+  </a>
+</li>

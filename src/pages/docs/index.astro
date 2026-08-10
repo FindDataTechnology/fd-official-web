@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+import { t } from '../../i18n';
+
+const locale = 'en';
+const docs = (await getCollection('docs'))
+  .filter((d) => d.id.startsWith('en/'))
+  .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100));
+const title = t(locale, 'docs.title') + ' — FindData Technology';
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'docs.sub')}>
+  <h1 class="page">{t(locale, 'docs.title')}</h1>
+  <p class="page-sub">{t(locale, 'docs.sub')}</p>
+  <div class="doc-grid">
+    {docs.map((d) => (
+      <a href={`/docs/${d.id.slice(3)}`}>
+        <b>{d.data.title}</b>
+        <span>{d.body}</span>
+      </a>
+    ))}
+  </div>
+</Layout>

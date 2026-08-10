@@ -1,0 +1,59 @@
+---
+interface Props {
+  strings: {
+    query: string;
+    placeholder: string;
+    date: string;
+    submit: string;
+    empty: string;
+  };
+}
+
+const { strings } = Astro.props;
+---
+
+<section class="widget">
+  <form id="demo-form">
+    <label>
+      {strings.query}
+      <input name="query" required placeholder={strings.placeholder} autocomplete="off" />
+    </label>
+    <label>
+      {strings.date}
+      <input name="date" type="date" />
+    </label>
+    <button type="submit">{strings.submit}</button>
+  </form>
+  <pre id="demo-result">{strings.empty}</pre>
+</section>
+
+<script>
+  const form = document.getElementById('demo-form') as HTMLFormElement | null;
+  const out = document.getElementById('demo-result') as HTMLPreElement | null;
+  const btn = form?.querySelector('button') as HTMLButtonElement | null;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!out || !btn || !form) return;
+    const fd = new FormData(form);
+    const payload: Record<string, string> = { query: String(fd.get('query') ?? '') };
+    const date = String(fd.get('date') ?? '');
+    if (date) payload.date = date;
+
+    out.textContent = '…';
+    btn.disabled = true;
+    try {
+      const res = await fetch('/demo-api', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const text = await res.text();
+      out.textContent = res.ok ? text : `HTTP ${res.status}: ${text}`;
+    } catch (err) {
+      out.textContent = `error: ${(err as Error).message}`;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>

@@ -1,0 +1,88 @@
+// UI strings for the two locales. `en` is the default; missing keys fall back to en.
+export const ui = {
+  en: {
+    'nav.home': 'Home',
+    'nav.repos': 'Repos',
+    'nav.docs': 'Docs',
+    'nav.demo': 'Demo',
+    'switch.lang': '中文',
+    tagline: 'One protocol · One MCP · Every source',
+    'hero.title': 'Open data, wired for AI agents',
+    'hero.sub':
+      'FindData Technology builds an open-data ontology MCP: ask for financial and economic data as concepts and entities — price.close for Moutai, GDP for China — and get ranked, failover, refreshed answers from every major source.',
+    'cta.demo': 'Try the live demo',
+    'cta.docs': 'Read the docs',
+    'stat.concepts': 'indicator concepts',
+    'stat.sources': 'data sources',
+    'stat.tools': 'MCP tools',
+    'repos.title': 'Open-source projects',
+    'repos.sub': 'Auto-listed from the GitHub API at build time.',
+    'repos.stars': 'stars',
+    'repos.updated': 'updated',
+    'repos.empty': 'No repositories yet — check back soon.',
+    'docs.title': 'Documentation',
+    'docs.sub': 'Install and run the open-data ontology MCP.',
+    'docs.quickstart': 'Quickstart',
+    'docs.protocol': 'Protocol',
+    'docs.datasource': 'Add a datasource',
+    'docs.back': 'All docs',
+    'demo.title': 'Live demo',
+    'demo.sub': 'Query the live MCP server from the browser — no signup needed. Natural language in, structured data out.',
+    'demo.query': 'Query',
+    'demo.placeholder': 'e.g. Moutai price.close',
+    'demo.date': 'Date (optional)',
+    'demo.submit': 'Query',
+    'demo.running': 'Running…',
+    'demo.error': 'Query failed',
+    'demo.empty': 'No result yet.',
+    'footer.org': 'FindDataTechnology',
+    'footer.line': 'Open-source data infrastructure for AI.',
+  },
+  zh: {
+    'nav.home': '首页',
+    'nav.repos': '项目',
+    'nav.docs': '文档',
+    'nav.demo': '演示',
+    'switch.lang': 'EN',
+    tagline: '一个协议 · 一个 MCP · 全源数据',
+    'hero.title': '为 AI 智能体打通开放数据',
+    'hero.sub':
+      'FindData Technology 构建开放数据本体 MCP：以概念与实体的方式查询金融与经济数据——茅台的收盘价、中国的 GDP——系统会从主流数据源中按质量排序、故障转移并定时刷新。',
+    'cta.demo': '在线体验',
+    'cta.docs': '阅读文档',
+    'stat.concepts': '个指标概念',
+    'stat.sources': '个数据源',
+    'stat.tools': '个 MCP 工具',
+    'repos.title': '开源项目',
+    'repos.sub': '构建时从 GitHub API 自动获取。',
+    'repos.stars': '星标',
+    'repos.updated': '更新',
+    'repos.empty': '暂无项目——敬请期待。',
+    'docs.title': '文档',
+    'docs.sub': '安装并运行开放数据本体 MCP。',
+    'docs.quickstart': '快速开始',
+    'docs.protocol': '协议',
+    'docs.datasource': '接入数据源',
+    'docs.back': '全部文档',
+    'demo.title': '在线演示',
+    'demo.sub': '直接在浏览器中查询在线 MCP 服务——无需注册。输入自然语言，返回结构化数据。',
+    'demo.query': '查询',
+    'demo.placeholder': '如：贵州茅台 price.close',
+    'demo.date': '日期（可选）',
+    'demo.submit': '查询',
+    'demo.running': '查询中…',
+    'demo.error': '查询失败',
+    'demo.empty': '暂无结果。',
+    'footer.org': 'FindDataTechnology',
+    'footer.line': '面向 AI 的开源数据基础设施。',
+  },
+} as const;
+
+export type Locale = keyof typeof ui;
+export type UiKey = keyof (typeof ui)['en'];
+
+/** Translate a key for a locale, falling back to English. */
+export function t(locale: string, key: UiKey): string {
+  const l = ui as Record<string, Record<string, string>>;
+  return l[locale]?.[key] ?? l.en[key];
+}
