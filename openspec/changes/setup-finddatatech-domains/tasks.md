@@ -2,7 +2,7 @@
 
 - [x] 1.1 ICP 备案 for `finddatatech.cloud` — **approved** (user confirmed 2026-08-21 in Tencent Cloud console → 备案管理).
 - [x] 1.2 A records: `dig +short www/chat/apex .finddatatech.cloud` → `124.220.7.175` (all three confirmed).
-- [ ] 1.3 Tencent security group — **NOT met.** External `nc 124.220.7.175 443` times out (443 closed inbound), while external `http://124.220.7.175:30830` returns 200 (30830 is OPEN — must be closed). User must open 443 + close 30830 in the console.
+- [x] 1.3 Tencent security group — **met** (user-configured 2026-08-21): inbound TCP 443 open (`0.0.0.0/0`), inbound TCP 30830 closed. Verified externally: `nc 124.220.7.175 443` succeeds, `nc 124.220.7.175 30830` now times out. Port 80 left open for certbot HTTP-01 renewal.
 - [x] 1.4 Baseline on IP: `http://124.220.7.175` → `200`; `/mcp` → `401` without bearer, `200` with bearer.
 
 ## 2. nginx server blocks (HTTP stage)
