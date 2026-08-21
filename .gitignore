@@ -13,9 +13,10 @@ yarn-error.log*
 pnpm-debug.log*
 
 
-# environment variables
+# environment variables / secrets — NEVER commit
 .env
-.env.production
+.env.*
+!.env.example
 .mcp.json
 ssh-mcp-server.json
 

@@ -1,0 +1,40 @@
+# FindDataTechnology official site — www.finddatatech.cloud
+# :80 stage. certbot --nginx will add the :443 ssl block + HTTP->HTTPS 301.
+# limit_req_zone `mcp` is defined once in the `fd` site (default_server) block;
+# this block only references it.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name www.finddatatech.cloud;
+
+    root /opt/fd/web/dist;
+    index index.html;
+
+    add_header X-Content-Type-Options nosniff always;
+    add_header X-Frame-Options SAMEORIGIN always;
+
+    # Static site (Astro build)
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Playground backend proxy (demo-proxy injects the bearer token server-side)
+    location /demo-api {
+        proxy_pass http://127.0.0.1:8898/query;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+    }
+
+    # Remote MCP endpoint (FastMCP streamable-http), bearer-token gated + rate limited
+    location /mcp {
+        include /etc/nginx/fd-auth.conf;
+        limit_req zone=mcp burst=5 nodelay;
+        proxy_pass http://127.0.0.1:30899/mcp;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header Connection "";
+        proxy_read_timeout 300s;
+        proxy_buffering off;
+    }
+}

@@ -1,0 +1,269 @@
+# LibreChat (slim — no RAG/vectordb/rag_api) on k3s via raw manifests.
+# LibreChat has no official Helm chart; its native form is docker-compose, so
+# we run the official image directly as Deployments + Services + PVCs + one
+# ConfigMap holding librechat.yaml.
+#
+# Secrets created out-of-band (no values in git). Run once on the box:
+#   S=$(openssl rand -hex 32); R=$(openssl rand -hex 32); C=$(openssl rand -hex 16); M=$(openssl rand -hex 16)
+#   sudo k3s kubectl -n librechat create secret generic librechat-env \
+#     --from-literal=CREDS_KEY="$C" \
+#     --from-literal=JWT_SECRET="$S" \
+#     --from-literal=JWT_REFRESH_SECRET="$R" \
+#     --from-literal=MEILI_MASTER_KEY="$M" \
+#     --from-literal=LITELLM_API_KEY='sk-ThqY8JihQuEzQfXsD6sxwYMSvedoNWbPjCjiOPNEk8TCDSop' \
+#     --from-literal=MCP_TOKEN="$(grep -E '^MCP_TOKEN=' /opt/fd/finddata/fd-open-data-mcp/.env | cut -d= -f2-)"
+# ponytail: JWT_REFRESH_SECRET is NOT optional in recent LibreChat — generateRefreshToken()
+# throws "secretOrPrivateKey must have a value" at login without it, surfacing as a generic
+# "internal server error" even though the password check passed.
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: librechat
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: librechat-config
+  namespace: librechat
+data:
+  librechat.yaml: |
+    version: 1.3.13
+    cache: true
+    endpoints:
+      custom:
+        - name: "LiteLLM"
+          apiKey: "${LITELLM_API_KEY}"
+          baseURL: "http://124.223.42.3:30080/v1"
+          models:
+            default:
+              - deepseek-v4-flash
+              - deepseek-v4-pro
+              - glm-5.2
+              - kimi-k3
+              - minimax-m3
+              - qwen-3.7-plus
+            fetch: true
+          titleConvo: false
+          modelDisplayLabel: "LiteLLM"
+    mcpServers:
+      fd-open-data-mcp:
+        type: streamable-http
+        url: "http://fd-open-data-mcp.mcp.svc.cluster.local:8899/mcp"
+        headers:
+          Authorization: "Bearer ${MCP_TOKEN}"
+        timeout: 30000
+    mcpSettings:
+      # ponytail: *.svc.cluster.local is an in-cluster "local domain" — LibreChat's
+      # SSRF guard blocks it. allowedAddresses (host:port SSRF exemption) did NOT
+      # match a cluster-DNS hostname, so use allowedDomains (strict whitelist) with
+      # the exact proto+host+port string the guard quotes in its error. Bare
+      # domain is listed too as a fallback. Widen as more in-cluster MCP servers appear.
+      allowedDomains:
+        - "http://fd-open-data-mcp.mcp.svc.cluster.local:8899"
+        - "fd-open-data-mcp.mcp.svc.cluster.local"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: librechat-mongo
+  namespace: librechat
+spec:
+  selector:
+    app: librechat-mongo
+  ports:
+    - port: 27017
+      targetPort: 27017
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: librechat-mongo
+  namespace: librechat
+  labels:
+    app: librechat-mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: librechat-mongo
+  template:
+    metadata:
+      labels:
+        app: librechat-mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo:7
+          # ponytail: IfNotPresent — box can't reach docker.io; images are
+          # imported via `docker save | k3s ctr images import -`.
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: data
+              mountPath: /data/db
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: librechat-mongo-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: librechat-mongo-data
+  namespace: librechat
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: librechat-meili
+  namespace: librechat
+spec:
+  selector:
+    app: librechat-meili
+  ports:
+    - port: 7700
+      targetPort: 7700
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: librechat-meili
+  namespace: librechat
+  labels:
+    app: librechat-meili
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: librechat-meili
+  template:
+    metadata:
+      labels:
+        app: librechat-meili
+    spec:
+      containers:
+        - name: meilisearch
+          image: getmeili/meilisearch:v1.6
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7700
+          env:
+            - name: MEILI_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: librechat-env
+                  key: MEILI_MASTER_KEY
+          volumeMounts:
+            - name: data
+              mountPath: /meili_data
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: librechat-meili-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: librechat-meili-data
+  namespace: librechat
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: librechat-api
+  namespace: librechat
+spec:
+  type: NodePort
+  selector:
+    app: librechat-api
+  ports:
+    - name: http
+      port: 3080
+      targetPort: 3080
+      nodePort: 30830
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: librechat-api
+  namespace: librechat
+  labels:
+    app: librechat-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: librechat-api
+  template:
+    metadata:
+      labels:
+        app: librechat-api
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/danny-avila/librechat:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3080
+          envFrom:
+            - secretRef:
+                name: librechat-env
+          env:
+            - name: MONGO_URI
+              value: "mongodb://librechat-mongo:27017/LibreChat"
+            - name: MEILI_SERVER
+              value: "http://librechat-meili:7700"
+            - name: ENDPOINTS
+              value: "custom"
+            # ponytail: registration is OFF by default in recent LibreChat, which
+            # hides the Sign up link and leaves a fresh DB with no loginable account.
+            # Flip to "false" after the first admin registers so the public :30830
+            # can't be used to burn LiteLLM credits via open signup.
+            - name: ALLOW_REGISTRATION
+              value: "true"
+          volumeMounts:
+            - name: config
+              mountPath: /app/librechat.yaml
+              subPath: librechat.yaml
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+      volumes:
+        - name: config
+          configMap:
+            name: librechat-config

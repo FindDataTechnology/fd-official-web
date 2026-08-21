@@ -1,0 +1,85 @@
+# fd-open-data-mcp on k3s (single-node, 124.220.7.175).
+#
+# The Secret is created out-of-band from the on-box .env so no sensitive
+# values live in git. Run once on the box:
+#   sudo k3s kubectl -n mcp create secret generic fd-mcp-env \
+#     --from-env-file=/opt/fd/finddata/fd-open-data-mcp/.env
+#
+# The whole /opt/fd/finddata tree is hostPath-mounted RW so the container has
+# exact filesystem parity with the systemd unit: the live daas.db (which the
+# server commits to via update_entity/concepts/bindings) + FINDDATA_ROOT
+# provider data both resolve identically. No re-seed.
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mcp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fd-open-data-mcp
+  namespace: mcp
+  labels:
+    app: fd-open-data-mcp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fd-open-data-mcp
+  template:
+    metadata:
+      labels:
+        app: fd-open-data-mcp
+    spec:
+      containers:
+        - name: fd-open-data-mcp
+          image: finddata/fd-open-data-mcp:torch
+          # ponytail: IfNotPresent + local-only tag — this box cannot reach
+          # registry-1.docker.io (firewalled), so a remote pull ALWAYS fails.
+          # Images are delivered via `docker save | k3s ctr images import -`.
+          # After importing a NEW digest under the same :torch tag, force a
+          # fresh pod (`kubectl delete pod -l app=...` or rollout restart) so
+          # the kubelet re-resolves the tag to the new image rather than
+          # reusing the cached old one. Never use imagePullPolicy:Always here.
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8899
+          envFrom:
+            - secretRef:
+                name: fd-mcp-env
+          volumeMounts:
+            - name: finddata
+              mountPath: /opt/fd/finddata
+          resources:
+            limits:
+              # Raised for the torch image: MiniLM CPU inference needs headroom.
+              # ~1.2Gi is observed headroom; revisit if the node OOMs alongside
+              # the LibreChat stack.
+              memory: "2Gi"
+              cpu: "1000m"
+            requests:
+              memory: "512Mi"
+              cpu: "200m"
+          # ponytail: no liveness/readiness probes yet — add if CrashLoops.
+      volumes:
+        - name: finddata
+          hostPath:
+            path: /opt/fd/finddata
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fd-open-data-mcp
+  namespace: mcp
+spec:
+  type: NodePort
+  selector:
+    app: fd-open-data-mcp
+  ports:
+    - name: http
+      port: 8899
+      targetPort: 8899
+      nodePort: 30899
+      protocol: TCP
