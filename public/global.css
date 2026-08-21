@@ -193,3 +193,6 @@ footer.site {
 footer.site .inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 footer.site a { color: var(--muted); }
 footer.site a:hover { color: var(--accent); }
+footer.site .gh { display: inline-flex; align-items: center; gap: 6px; }
+footer.site .gh svg { display: block; }
+footer.site .org { display: inline-flex; align-items: center; gap: 8px; }

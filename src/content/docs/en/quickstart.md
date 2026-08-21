@@ -1,6 +1,7 @@
 ---
 title: Quickstart
 order: 1
+description: Install and run the open-data ontology MCP — ask for data as concepts and entities, get ranked, failover, refreshed answers.
 ---
 
 # Quickstart
