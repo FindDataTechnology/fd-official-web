@@ -1,6 +1,7 @@
 ---
 title: Protocol overview
 order: 2
+description: "`fd-open-data-protocol` is the manifest contract a datasource must expose to be ingested by `fd-open-data-mcp`."
 ---
 
 # The open-data protocol

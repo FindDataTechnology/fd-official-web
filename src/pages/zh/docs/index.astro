@@ -17,7 +17,7 @@ const title = t(locale, 'docs.title') + ' — FindData Technology';
     {docs.map((d) => (
       <a href={`/zh/docs/${d.id.slice(3)}`}>
         <b>{d.data.title}</b>
-        <span>{d.body}</span>
+        <span>{d.data.description}</span>
       </a>
     ))}
   </div>

@@ -1,6 +1,7 @@
 ---
 title: 协议概览
 order: 2
+description: "`fd-open-data-protocol` 是数据源接入 `fd-open-data-mcp` 所需的清单契约。"
 ---
 
 # 开放数据协议

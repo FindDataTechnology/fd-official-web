@@ -22,6 +22,7 @@ export const ui = {
     'repos.stars': 'stars',
     'repos.updated': 'updated',
     'repos.empty': 'No repositories yet — check back soon.',
+    'repos.noDesc': 'No description available',
     'docs.title': 'Documentation',
     'docs.sub': 'Install and run the open-data ontology MCP.',
     'docs.quickstart': 'Quickstart',
@@ -56,6 +57,7 @@ export const ui = {
     'roadmap.strip.title': 'Where we are',
     'footer.org': 'FindDataTechnology',
     'footer.line': 'Open-source data infrastructure for AI.',
+    'footer.viewSource': 'View source',
   },
   zh: {
     'nav.home': '首页',
@@ -79,6 +81,7 @@ export const ui = {
     'repos.stars': '星标',
     'repos.updated': '更新',
     'repos.empty': '暂无项目——敬请期待。',
+    'repos.noDesc': '暂无描述',
     'docs.title': '文档',
     'docs.sub': '安装并运行开放数据本体 MCP。',
     'docs.quickstart': '快速开始',
@@ -113,6 +116,7 @@ export const ui = {
     'roadmap.strip.title': '当前进展',
     'footer.org': 'FindDataTechnology',
     'footer.line': '面向 AI 的开源数据基础设施。',
+    'footer.viewSource': '查看源码',
   },
 } as const;
 

@@ -1,4 +1,6 @@
 ---
+import { t } from '../i18n';
+
 export interface Repo {
   name: string;
   description: string | null;
@@ -33,7 +35,7 @@ const external = !repo.hasReadme && repo.name !== 'fd-open-data-mcp';
 <li class:list={['card', { featured }]}>
   <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
     <span class="name">{repo.name}</span>
-    <span class="desc">{repo.description ?? ''}</span>
+    <span class="desc">{repo.description?.trim() || t(locale, 'repos.noDesc')}</span>
     <span class="meta">{[repo.language, repo.stars ? `★ ${repo.stars}` : '', repo.updated].filter(Boolean).join(' · ')}</span>
   </a>
 </li>

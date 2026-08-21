@@ -1,6 +1,7 @@
 ---
 title: Add a datasource
 order: 3
+description: Expose any data source as a first-class provider in the ontology.
 ---
 
 # Adding a datasource
