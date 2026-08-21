@@ -55,4 +55,4 @@ fd-open-data-mcp serve        # stdio 传输
 
 ## 远程访问
 
-站点切换到 HTTPS 后，可将远程 MCP 地址 `https://finddata.cn/mcp` 配合组织提供的 bearer token 供智能体客户端接入。在 IP 直连阶段，网页演示可通过纯 HTTP 使用；部分 MCP 客户端会拒绝非 HTTPS 服务，直到完成 HTTPS 切换。
+站点已完成 HTTPS 切换，可将远程 MCP 地址 `https://www.finddatatech.cloud/mcp` 配合组织提供的 bearer token 供智能体客户端接入。网页演示与远程 MCP 端点均已通过 HTTPS 提供。

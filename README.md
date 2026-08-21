@@ -9,7 +9,7 @@ The official website for [FindDataTechnology](https://github.com/FindDataTechnol
 
 ## Stack
 
-[Astro](https://astro.build) (static output) served behind **nginx** on the Tencent CN box — see [`OPS.md`](OPS.md) for deployment, env vars, and the `finddata.cn` HTTPS swap.
+[Astro](https://astro.build) (static output) served behind **nginx** on the Tencent CN box, live at `www.finddatatech.cloud` — see [`OPS.md`](OPS.md) for deployment, env vars, and HTTPS setup.
 
 ## Develop
 
