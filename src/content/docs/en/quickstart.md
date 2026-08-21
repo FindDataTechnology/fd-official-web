@@ -55,4 +55,4 @@ Or use natural language over the AI search tool (`ai_search`) to go from query â
 
 ## Remote access
 
-The live server is exposed for agent clients once the site is on HTTPS: add the remote MCP URL `https://finddata.cn/mcp` with the org's bearer token. During the IP-first phase the web playground works over plain HTTP; some MCP clients refuse non-HTTPS servers until the HTTPS swap.
+The live server is exposed for agent clients over HTTPS: add the remote MCP URL `https://www.finddatatech.cloud/mcp` with the org's bearer token. The domain swap has shipped â€” the web playground and remote MCP endpoint are both served over HTTPS.
