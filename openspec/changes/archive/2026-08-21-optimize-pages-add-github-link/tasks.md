@@ -32,7 +32,7 @@
 - [x] 5.2 Grep built `dist/docs/index.html` + `dist/zh/docs/index.html` — confirm cards show the `description` text, not `# Quickstart` / raw markdown H1
 - [x] 5.3 Spot-check built `dist/repos/index.html` + `dist/zh/repos/index.html` — `fd-official-web` card shows the fallback string, not a blank line
 - [x] 5.4 Spot-check built `dist/index.html` — footer has the GitHub icon linking to the org and a view-source link to `fd-official-web`; ICP line present
-- [ ] 5.5 Deploy (CI auto-deploys on push to `main`) + browser-verify `/docs`, `/repos`, and the footer GitHub links
+- [x] 5.5 Deploy (CI auto-deploys on push to `main`) + browser-verify `/docs`, `/repos`, and the footer GitHub links — PR #2 merged, CI run 32498985243 success, live HTML grep-verified
 
 ## 6. Out-of-repo follow-up (not in this change)
 

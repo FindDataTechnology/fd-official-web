@@ -4,7 +4,7 @@
     "description": "Open-data ontology MCP: a semantic concept layer over multi-datasource financial/economic data (akshare, yfinance, edgar, wbgapi, cn-report, cn-gov).",
     "language": "Python",
     "stars": 0,
-    "updated": "2026-08-10",
+    "updated": "2026-08-21",
     "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
     "hasReadme": true
   },
@@ -13,7 +13,7 @@
     "description": "The open-data datasource protocol: a manifest contract a datasource exposes to be ingested by fd-open-data-mcp.",
     "language": "Python",
     "stars": 0,
-    "updated": "2026-07-28",
+    "updated": "2026-08-18",
     "url": "https://github.com/FindDataTechnology/fd-open-data-protocol",
     "hasReadme": true
   },
@@ -22,7 +22,7 @@
     "description": null,
     "language": "Astro",
     "stars": 0,
-    "updated": "2026-08-10",
+    "updated": "2026-08-21",
     "url": "https://github.com/FindDataTechnology/fd-official-web",
     "hasReadme": true
   },
@@ -31,7 +31,7 @@
     "description": "Scrapy crawler with redis queue scheduler",
     "language": "Python",
     "stars": 0,
-    "updated": "2026-08-10",
+    "updated": "2026-08-21",
     "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp",
     "hasReadme": true
   },
@@ -40,8 +40,17 @@
     "description": "VAAS - Video Automation & Distribution System: a natural-language video creation and multi-platform publishing skill chain for Claude Code / Agent runtimes.",
     "language": "Python",
     "stars": 0,
-    "updated": "2026-08-10",
+    "updated": "2026-08-21",
     "url": "https://github.com/FindDataTechnology/fd-vaas-skills",
+    "hasReadme": true
+  },
+  {
+    "name": "fd-daas-mcp",
+    "description": "DAAS - Data As a Service: layered data platform (fd-daas-mcp MCP server + fd-open-data-mcp upstream) behind one SQLite file",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-19",
+    "url": "https://github.com/FindDataTechnology/fd-daas-mcp",
     "hasReadme": true
   },
   {
@@ -49,8 +58,26 @@
     "description": "Chinese financial report MCP server — Shenwan industry AI rule system, outline extraction, AI structured extraction, Elasticsearch store + search",
     "language": "Python",
     "stars": 0,
-    "updated": "2026-08-07",
+    "updated": "2026-08-19",
     "url": "https://github.com/FindDataTechnology/fd-cn-report",
+    "hasReadme": true
+  },
+  {
+    "name": "fd-polygon",
+    "description": "Polygon.io US equities datasource package for fd-open-data-mcp (OHLCV bars via polygon-api-client)",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-16",
+    "url": "https://github.com/FindDataTechnology/fd-polygon",
+    "hasReadme": true
+  },
+  {
+    "name": "fd-open-bench",
+    "description": "Open-source benchmark platform for evaluating AI agents — datasets, batch evaluation, leaderboards, and business metrics.",
+    "language": "Python",
+    "stars": 0,
+    "updated": "2026-08-15",
+    "url": "https://github.com/FindDataTechnology/fd-open-bench",
     "hasReadme": true
   },
   {

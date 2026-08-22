@@ -28,7 +28,7 @@
 - [x] 5.1 `npm run build` — passes (exit 0, 44 pages, fetches 12 repos)
 - [x] 5.2 Grep built `dist/` for `finddata.cn` — authored copy is clean (0 hits). 2 hits remain in `dist/repos/fd-official-web/index.html` + zh mirror, from the gitignored GitHub-README mirror (see 1.4 note). They resolve after the README push + rebuild, which is part of deploy (5.4).
 - [x] 5.3 Grep built `dist/` for `>16</b>` = 0 (gone). Rendered homepage shows `45` (tools) + `13` (sources) + `15` (concepts, post-4.1 rebuild).
-- [ ] 5.4 Deploy (per OPS.md: `npm run build` → rsync+swap, or the `fd-site-deploy` skill) and browser-verify `https://www.finddatatech.cloud` hero stats + `/docs/quickstart` remote URL. NOTE: CI (`.github/workflows/deploy.yml`) auto-deploys on push to `main` twice daily (03:07 / 15:07 UTC) + on every push — pushing this change triggers a deploy that also re-fetches the (now-updated) README, clearing the last 2 `finddata.cn` hits.
+- [x] 5.4 Deployed via CI (PR #1 merged → push-deploy ran, conclusion=success). Browser-verified `https://www.finddatatech.cloud`: hero stats `15/13/45`, quickstart remote URL `https://www.finddatatech.cloud/mcp`, `finddata.cn` hits on live site = 0 (incl. the repos/fd-official-web README mirror — re-fetched by the CI build).
 
 ## 6. Out-of-repo follow-up (not in this change, recorded for tracking)
 
