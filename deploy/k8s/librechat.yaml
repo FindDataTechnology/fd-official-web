@@ -32,7 +32,7 @@ data:
     cache: true
     endpoints:
       custom:
-        - name: "LiteLLM"
+        - name: "Find Data Technology"
           apiKey: "${LITELLM_API_KEY}"
           baseURL: "http://124.223.42.3:30080/v1"
           models:
@@ -45,7 +45,7 @@ data:
               - qwen-3.7-plus
             fetch: true
           titleConvo: false
-          modelDisplayLabel: "LiteLLM"
+          modelDisplayLabel: "Find Data Technology"
     mcpServers:
       fd-open-data-mcp:
         type: streamable-http
