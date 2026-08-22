@@ -3,9 +3,7 @@
 ## Purpose
 
 Defines the `/docs` section of the site — bilingual documentation covering flagship install/quickstart, the open-data protocol manifest contract, and an add-a-datasource guide.
-
 ## Requirements
-
 ### Requirement: Flagship install and quickstart docs
 The `/docs` section SHALL document how to install and run `fd-open-data-mcp`: `uv sync` (+ `--extra data`), `migrate`, `import-catalog`, `consume-concepts`, `propose-bindings`, `seed-entities`, `generate-schedules`, and `read`/`serve`.
 
@@ -15,7 +13,7 @@ The `/docs` section SHALL document how to install and run `fd-open-data-mcp`: `u
 
 #### Scenario: Remote MCP usage documented
 - **WHEN** the docs describe remote usage
-- **THEN** they explain connecting to the live server URL and that it requires HTTPS (available after the domain swap) or a bearer token
+- **THEN** they state the live remote MCP URL as `https://www.finddatatech.cloud/mcp` and that connecting requires a bearer token; HTTPS is already live (the domain swap shipped), not a pending prerequisite
 
 ### Requirement: Protocol spec overview
 The `/docs` section SHALL include an overview of the `fd-open-data-protocol` manifest contract (what a datasource must expose to be ingested).
@@ -37,3 +35,15 @@ All docs pages SHALL be available in both EN and 中文 via per-locale content c
 #### Scenario: Docs render in both locales
 - **WHEN** a visitor opens the same doc page in EN and in `/zh`
 - **THEN** each renders the corresponding locale's content
+
+### Requirement: Docs index card previews
+The `/docs` index page SHALL render each doc as a card showing the doc title and a one-line description preview, sourced from the doc's `description` frontmatter field — not the raw markdown body.
+
+#### Scenario: Card shows description preview
+- **WHEN** a visitor opens the `/docs` index
+- **THEN** each card displays the doc's title and its `description` frontmatter value as a short preview, with no raw markdown (no `#` heading, no full body) rendered into the card
+
+#### Scenario: Doc without description renders gracefully
+- **WHEN** a doc lacks a `description` frontmatter field
+- **THEN** its card renders the title with an empty (non-breaking) preview, and the build does not fail
+

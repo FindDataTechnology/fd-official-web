@@ -7,11 +7,11 @@ Defines the live `fd-open-data-mcp` backend service exposed at `/mcp` — stream
 ## Requirements
 
 ### Requirement: Remote MCP server at /mcp
-The deployed `fd-open-data-mcp` SHALL be reachable as a remote MCP server over the streamable-http transport at the `/mcp` path, reverse-proxied by nginx to the local FastMCP process.
+The deployed `fd-open-data-mcp` SHALL be reachable as a remote MCP server over the streamable-http transport at the `/mcp` path, reverse-proxied by nginx to the local FastMCP process (the k3s `fd-open-data-mcp` Deployment, image `finddata/fd-open-data-mcp:torch`).
 
 #### Scenario: MCP endpoint responds
 - **WHEN** a client performs an MCP handshake against `/mcp`
-- **THEN** the server responds as a valid streamable-http MCP endpoint (16 tools available)
+- **THEN** the server responds as a valid streamable-http MCP endpoint (45 tools available on the deployed image)
 
 ### Requirement: Bearer-token gating on /mcp
 The `/mcp` endpoint SHALL require `Authorization: Bearer <token>`; requests without a valid token SHALL be rejected with HTTP 401.
@@ -39,8 +39,8 @@ The backend SHALL run on the server with its sqlite database (`daas.db`) and con
 - **THEN** the server resolves it through the ontology against its local database and datasources
 
 ### Requirement: Managed as a service
-The backend SHALL run under systemd so it starts on boot, restarts on failure, and has a health check path.
+The backend SHALL be managed via the k3s Deployment so it restarts on failure and has a health check path.
 
 #### Scenario: Backend restarts on failure
 - **WHEN** the backend process exits unexpectedly
-- **THEN** systemd restarts it
+- **THEN** the k3s Deployment controller restarts it
