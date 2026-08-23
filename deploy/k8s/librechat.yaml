@@ -53,6 +53,15 @@ data:
         headers:
           Authorization: "Bearer ${MCP_TOKEN}"
         timeout: 30000
+      # fd-cn-report runs in a SEPARATE k3s cluster (zihan, tailscale
+      # 100.64.0.4), reached cross-cluster via its NodePort 30802. Same
+      # MCP_TOKEN secret — zihan's MCP_BEARER_TOKEN is byte-identical.
+      fd-cn-report:
+        type: streamable-http
+        url: "http://100.64.0.4:30802/mcp"
+        headers:
+          Authorization: "Bearer ${MCP_TOKEN}"
+        timeout: 30000
     mcpSettings:
       # ponytail: *.svc.cluster.local is an in-cluster "local domain" — LibreChat's
       # SSRF guard blocks it. allowedAddresses (host:port SSRF exemption) did NOT
@@ -62,6 +71,11 @@ data:
       allowedDomains:
         - "http://fd-open-data-mcp.mcp.svc.cluster.local:8899"
         - "fd-open-data-mcp.mcp.svc.cluster.local"
+        # fd-cn-report: cross-cluster via zihan's tailscale IP (100.64.0.4:30802).
+        # ponytail: raw CGNAT IP — if LibreChat's SSRF guard blocks it as private,
+        # the log quotes the exact string to whitelist; widen here then re-rollout.
+        - "http://100.64.0.4:30802"
+        - "100.64.0.4"
 ---
 apiVersion: v1
 kind: Service
