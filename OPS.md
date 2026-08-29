@@ -4,19 +4,16 @@ Ops notes for the FindDataTechnology official site (this repo → `/opt/fd/web` 
 
 ## Deploy
 
-**Automatic (default):** `.github/workflows/deploy.yml` runs on every push to `main` + twice daily (03:07 / 15:07 UTC). It fetches repo data, `astro build`s, rsyncs `dist/`, then atomically swaps into `/opt/fd/web/dist` (previous release kept at `dist.prev`).
+**Automatic (GitOps, since 2026-08-29):** `.github/workflows/build-image.yml` runs on every push to `main` + twice daily (03:07 / 15:07 UTC). It builds `dist/`, packages it into `23.144.68.246:30880/fd-web/official-web:<sha>-<ts>`, pushes to Harbor, and commits the new image tag into `deploy/k8s/fd-web.yaml` (`[skip ci]`). The in-cluster **ArgoCD** (argocd namespace, pinned to china-cheap-3 node in the chengsi k3s cluster) auto-syncs and rolls the `official-web` Deployment in namespace `fd-web` (NodePort 30442). Host nginx keeps TLS termination and serves `/demo-api` + `/mcp` directly.
 
-**Manual:** `/fd-site-deploy` skill in Claude Code, or by hand:
+GitHub holds **no server SSH credential** — only a project-scoped Harbor push robot (`HARBOR_USER`/`HARBOR_PASS`).
 
-```bash
-npm run build
-rsync -az --delete dist/ fd-deploy:/opt/fd/web/dist-new/
-ssh fd-deploy 'rm -rf /opt/fd/web/dist.prev && mv /opt/fd/web/dist /opt/fd/web/dist.prev && mv /opt/fd/web/dist-new /opt/fd/web/dist'
-```
+**Manual:** trigger `build-image` via workflow_dispatch, or push to main. `/fd-site-deploy` skill = local build + push + tag bump.
 
-`fd-deploy` is an ssh config host using the dedicated key `~/.ssh/fd_deploy` (pubkey in the server's `authorized_keys`, comment `fd-official-web-deploy`; private key also in repo secret `DEPLOY_SSH_KEY`, alongside `DEPLOY_HOST` / `DEPLOY_USER`).
+**Rollback:** `git revert` the tag-bump commit (ArgoCD auto-syncs back), or one-line nginx rollback: restore `try_files` in `location /` + `systemctl reload nginx` (the static root `/opt/fd/web/dist` is kept as fallback backend).
 
-**Rollback:** `ssh fd-deploy 'rm -rf /opt/fd/web/dist && mv /opt/fd/web/dist.prev /opt/fd/web/dist'`
+**ArgoCD UI:** `ssh -L 18443:127.0.0.1:30443 -p 40925 root@103.236.89.174` → http://127.0.0.1:18443 (admin; password in local password manager).
+
 
 ## Layout on the server
 

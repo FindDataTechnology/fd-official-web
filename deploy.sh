@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# DEPRECATED 2026-08-29: GitOps (build-image.yml + ArgoCD) is the deploy path now.
+# This rsync path is kept only as an emergency fallback while /opt/fd/web/dist exists.
 # Deploy the static Astro build to the Tencent box.
 #
 #   npm run build            # first (also fetches repos.json)
