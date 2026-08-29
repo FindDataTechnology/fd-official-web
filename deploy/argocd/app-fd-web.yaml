@@ -1,0 +1,31 @@
+# ArgoCD Application for fd-official-web.
+# Applied once manually (bootstrap); ArgoCD then watches deploy/k8s/ in this repo.
+# This file lives OUTSIDE deploy/k8s so the Application is not self-managed.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fd-web
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/FindDataTechnology/fd-official-web.git
+    targetRevision: main
+    path: deploy/k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fd-web
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 30s
+        factor: 2
+        maxDuration: 5m

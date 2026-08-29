@@ -1,0 +1,58 @@
+name: build-image
+
+# GitOps half of the deploy pipeline: build the site + image here, push to the
+# private Harbor, then bump the image tag in deploy/k8s/fd-web.yaml. The in-china
+# ArgoCD picks the manifest change up and rolls the cluster Deployment.
+# GitHub holds ZERO server credentials — only a project-scoped Harbor push robot.
+on:
+  push:
+    branches: [main]
+  schedule:
+    # twice daily, off the :00/:30 rush (site data refresh from GitHub org)
+    - cron: '7 3,15 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write # commit the image-tag bump back to main
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # fetch-repos.mjs / fetch-indicators.mjs use GITHUB_TOKEN for org data
+      - run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & push image
+        env:
+          HARBOR_USER: ${{ secrets.HARBOR_USER }}
+          HARBOR_PASS: ${{ secrets.HARBOR_PASS }}
+        run: |
+          set -euo pipefail
+          # sha + timestamp: scheduled rebuilds of the same commit still roll out
+          TAG="${GITHUB_SHA::7}-$(date -u +%Y%m%d%H%M)"
+          echo "$HARBOR_PASS" | docker login 23.144.68.246:30880 -u "$HARBOR_USER" --password-stdin
+          docker build -t "23.144.68.246:30880/fd-web/official-web:$TAG" .
+          docker push "23.144.68.246:30880/fd-web/official-web:$TAG"
+          echo "TAG=$TAG" >> "$GITHUB_ENV"
+
+      - name: Bump manifest image tag
+        run: |
+          set -euo pipefail
+          sed -i "s|image: harbor.local/fd-web/official-web:.*|image: harbor.local/fd-web/official-web:$TAG|" deploy/k8s/fd-web.yaml
+          if git diff --quiet; then echo "tag unchanged"; exit 0; fi
+          git config user.name "fd-ci"
+          git config user.email "ci@finddatatech.cloud"
+          git add deploy/k8s/fd-web.yaml
+          git commit -m "chore(deploy): image $TAG [skip ci]"
+          git push

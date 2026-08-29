@@ -1,0 +1,75 @@
+# fd-official-web in-cluster serving stack.
+# Managed by ArgoCD (Application: deploy/argocd/app-fd-web.yaml, path deploy/k8s).
+# Image tag is bumped by CI (.github/workflows/build-image.yml) — never edit by hand.
+#
+# Pinned to the chengsi node: host nginx proxies location / to this NodePort and
+# cross-node pod networking is unavailable in this NAT-jailed cluster.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fd-web
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: official-web
+  namespace: fd-web
+  labels:
+    app: official-web
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: official-web
+  template:
+    metadata:
+      labels:
+        app: official-web
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: vm-0-9-ubuntu
+      containers:
+        - name: web
+          image: harbor.local/fd-web/official-web:c0ffee0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: official-web
+  namespace: fd-web
+spec:
+  type: NodePort
+  selector:
+    app: official-web
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      nodePort: 30442
