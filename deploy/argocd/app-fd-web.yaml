@@ -14,6 +14,10 @@ spec:
     repoURL: https://github.com/FindDataTechnology/fd-official-web.git
     targetRevision: main
     path: deploy/k8s
+    # deploy/k8s/ 还有 librechat.yaml / mcp.yaml（人工管理，非本 app 范围）——
+    # 必须过滤，否则 ArgoCD 会收养甚至 prune 其他工作负载
+    directory:
+      include: fd-web.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: fd-web
