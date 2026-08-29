@@ -40,18 +40,27 @@ Secrets are k8s Secrets made from the on-box .env files (`fd-mcp-env`, `librecha
 
 nginx config: `/etc/nginx/sites-available/fd` (IP-on-:80 fallback, default_server) + `www.finddatatech.cloud` + `chat.finddatatech.cloud` (TLS, managed by certbot). Repo copies: `deploy/nginx/`. Routes: `www` `/` → `/opt/fd/web/dist` · `www` `/demo-api` → 8898 · `www`+`fd` `/mcp` → **30899** (bearer check + `limit_req`) · `chat` `/` → **30830** (WebSocket/SSE, long timeouts).
 
-## Images (no registry — docker.io is firewalled on this box)
+## Images — Harbor registry on china-cheap-2
 
-Build on the box, import straight to containerd; all Deployments use `imagePullPolicy: IfNotPresent`:
+Private Harbor (v2.12) runs on **china-cheap-2** (`103.236.89.174`, SSH port `20400`, root; creds in the finddata workspace `ssh-config.json`). It speaks **plain HTTP on loopback only** (no usable public HTTP ports on that box; tailnet ACLs block peers), so consumers reach it through SSH tunnels:
 
-```bash
-cd /opt/fd/finddata
-sudo docker build -f fd-open-data-mcp/Dockerfile -t finddata/fd-open-data-mcp:torch .
-sudo docker save finddata/fd-open-data-mcp:torch | sudo k3s ctr images import -
-sudo k3s kubectl -n mcp delete pod -l app=fd-open-data-mcp   # force re-resolve of :torch
-```
+- **This box**: `harbor-tunnel.service` (systemd, key `~/.ssh/harbor_tunnel`) → `127.0.0.1:5000`.
+- On cheap-2 itself: `harbor-endpoint.service` (socat watchdog) forwards `127.0.0.1:5000` → harbor nginx container (docker host-ports are broken on that box — internal k3s iptables — don't expose Harbor directly).
+- Harbor admin password: see the operator's local `finddata/.harbor-creds` (never commit).
+- cheap-2 egress is heavily firewalled (no docker.io CDNs, no pypi.org, no github) — **never build there**; use it only as storage.
+- The site image itself uses the america-box registry + GitOps path (see Deploy above); Harbor backs the **mcp + librechat** images.
 
-⚠️ `sudo k3s crictl rmi --prune` deletes imported images that no running pod references — re-import after any prune.
+### Image sources
+
+- `finddata/fd-open-data-mcp:torch` — build from the exact `/opt/fd/finddata` tree (use the web-box `Dockerfile`; the GitHub HEAD one is the slim variant). Build on the **america box** (23.144.68.246; full internet, docker + skopeo): sync source there (`FROM scratch` + `COPY` + `docker push` into its registry works when SSH is GFW-flaky), `docker build`, push to its local registry (`127.0.0.1:5000`).
+- Foreign images (`mongo:7`, `meilisearch:v1.6`, `librechat`) — `skopeo copy` on the america box from docker.io/ghcr.
+- **Relay into Harbor** (america↔cheap-2 links are unreliable): run on THIS box — `skopeo copy --src-tls-verify=false --dest-tls-verify=false --dest-creds admin:$HP docker://23.144.68.246:5000/<img> docker://127.0.0.1:5000/<img>`. Slow (≈3 Mbps) but unattended.
+
+### k3s pull config
+
+`/etc/rancher/k3s/registries.yaml` maps **`harbor.fd`** → `http://127.0.0.1:5000`. Harbor projects `finddata`/`cache` are **public-pull** (containerd 2.x ignores registries.yaml auth and k3s didn't pass imagePullSecrets to it either — the `harbor-auth` secrets in mcp/librechat are harmless future-proofing; push still needs admin). Manifests: `harbor.fd/finddata/fd-open-data-mcp:torch`, `harbor.fd/cache/mongo:7`, etc. `imagePullPolicy: IfNotPresent` — after pushing a new digest under the same tag, `ctr -n k8s.io images rm harbor.fd/finddata/fd-open-data-mcp:torch` then rollout-restart, or containerd reuses the cached tag.
+
+⚠️ The pull path shares the box's ~3 Mbps uplink — cold pulls of the full set take hours. Keep Harbor as the durable copy.
 
 ## Services
 

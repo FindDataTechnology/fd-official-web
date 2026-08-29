@@ -92,9 +92,11 @@ spec:
       labels:
         app: librechat-mongo
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: vm-0-9-ubuntu
       containers:
         - name: mongo
-          image: mongo:7
+          image: harbor.fd/cache/mongo:7
           # ponytail: IfNotPresent — box can't reach docker.io; images are
           # imported via `docker save | k3s ctr images import -`.
           imagePullPolicy: IfNotPresent
@@ -157,9 +159,11 @@ spec:
       labels:
         app: librechat-meili
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: vm-0-9-ubuntu
       containers:
         - name: meilisearch
-          image: getmeili/meilisearch:v1.6
+          image: harbor.fd/cache/meilisearch:v1.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7700
@@ -230,9 +234,11 @@ spec:
       labels:
         app: librechat-api
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: vm-0-9-ubuntu
       containers:
         - name: api
-          image: ghcr.io/danny-avila/librechat:latest
+          image: harbor.fd/cache/librechat:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3080

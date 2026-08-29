@@ -32,19 +32,27 @@ spec:
       labels:
         app: fd-open-data-mcp
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: vm-0-9-ubuntu
       containers:
         - name: fd-open-data-mcp
-          image: finddata/fd-open-data-mcp:torch
-          # ponytail: IfNotPresent + local-only tag — this box cannot reach
-          # registry-1.docker.io (firewalled), so a remote pull ALWAYS fails.
-          # Images are delivered via `docker save | k3s ctr images import -`.
-          # After importing a NEW digest under the same :torch tag, force a
-          # fresh pod (`kubectl delete pod -l app=...` or rollout restart) so
-          # the kubelet re-resolves the tag to the new image rather than
-          # reusing the cached old one. Never use imagePullPolicy:Always here.
+          image: harbor.fd/finddata/fd-open-data-mcp:torch
+          # ponytail: harbor.fd resolves via k3s registries.yaml to the Harbor
+          # registry on china-cheap-2, reached through the harbor-tunnel
+          # systemd SSH tunnel (127.0.0.1:5000 on this box). IfNotPresent keeps
+          # restarts cheap; Harbor keeps the image so docker.io's firewall no
+          # longer matters. After pushing a NEW digest under :torch, run
+          # `kubectl rollout restart` to re-resolve the tag.
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8899
+          env:
+            # MiniLM is baked into the image; never phone home (hf-mirror is
+            # unreachable from the pod and made ai_search hang on HEAD retries).
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: TRANSFORMERS_OFFLINE
+              value: "1"
           envFrom:
             - secretRef:
                 name: fd-mcp-env
