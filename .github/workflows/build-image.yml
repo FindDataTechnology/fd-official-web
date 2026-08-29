@@ -33,6 +33,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Allow plain-HTTP Harbor registry
+        run: |
+          echo '{"insecure-registries": ["23.144.68.246:30880"]}' | sudo tee /etc/docker/daemon.json
+          sudo systemctl restart docker
+
       - name: Build & push image
         env:
           HARBOR_USER: ${{ secrets.HARBOR_USER }}
