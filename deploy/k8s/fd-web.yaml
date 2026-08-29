@@ -37,7 +37,7 @@ spec:
         kubernetes.io/hostname: vm-0-9-ubuntu
       containers:
         - name: web
-          image: 23.144.68.246:30880/fd-web/official-web:ea0ebb2-202608291537
+          image: 23.144.68.246:30880/fd-web/official-web:1f292a7-202608291612
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
