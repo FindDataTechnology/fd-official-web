@@ -54,8 +54,8 @@ jobs:
       - name: Bump manifest image tag
         run: |
           set -euo pipefail
-          sed -i "s|image: harbor.local/fd-web/official-web:.*|image: harbor.local/fd-web/official-web:$TAG|" deploy/k8s/fd-web.yaml
-          if git diff --quiet; then echo "tag unchanged"; exit 0; fi
+          sed -i "s|image: 23.144.68.246:30880/fd-web/official-web:.*|image: 23.144.68.246:30880/fd-web/official-web:$TAG|" deploy/k8s/fd-web.yaml
+          if git diff --quiet -- deploy/k8s/fd-web.yaml; then echo "tag unchanged"; exit 0; fi
           git config user.name "fd-ci"
           git config user.email "ci@finddatatech.cloud"
           git add deploy/k8s/fd-web.yaml
