@@ -7,6 +7,12 @@ import { getCollection } from 'astro:content';
 const locale = 'zh';
 const title = 'FindData Technology — 为 AI 智能体打通开放数据';
 const phases = (await getCollection('roadmap')).sort((a, b) => a.data.order - b.data.order);
+// Hand-written app entries (zh/<slug>.md) — the products layer above open source.
+const apps = (await getCollection('apps'))
+  .filter((a) => a.id.startsWith('zh/'))
+  .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100))
+  .slice(0, 3);
+const slugOf = (a) => a.id.split('/')[1];
 ---
 
 <Layout locale={locale} title={title} description={t(locale, 'hero.sub')}>
@@ -19,15 +25,33 @@ const phases = (await getCollection('roadmap')).sort((a, b) => a.data.order - b.
       <a class="secondary" href={getRelativeLocaleUrl(locale, 'docs')}>{t(locale, 'cta.docs')}</a>
     </div>
     <div class="stats">
-      <div class="stat"><b>15</b><span>{t(locale, 'stat.concepts')}</span></div>
-      <div class="stat"><b>13</b><span>{t(locale, 'stat.sources')}</span></div>
-      <div class="stat"><b>45</b><span>{t(locale, 'stat.tools')}</span></div>
+      <div class="stat"><b>6026</b><span>{t(locale, 'stat.indicators')}</span></div>
+      <div class="stat"><b>28</b><span>{t(locale, 'stat.sources')}</span></div>
+      <div class="stat"><b>56</b><span>{t(locale, 'stat.tools')}</span></div>
     </div>
   </section>
   <section class="about">
     <h2>{t(locale, 'about.title')}</h2>
     <p>{t(locale, 'about.body')}</p>
     <p><a href={getRelativeLocaleUrl(locale, 'fd-open-data-mcp')}>{t(locale, 'flagship.cta')}</a></p>
+  </section>
+  <section class="apps-strip">
+    <h2><a href={getRelativeLocaleUrl(locale, 'apps')}>{t(locale, 'home.products.title')}</a></h2>
+    <p class="sub">{t(locale, 'home.products.sub')}</p>
+    <ul class="grid">
+      {
+        apps.map((a) => (
+          <li class="card">
+            <a class="card-main" href={`/zh/apps/${slugOf(a)}`}>
+              <span class="name">{a.data.name}</span>
+              <span class="desc">{a.data.tagline}</span>
+              <span class="meta">{a.data.kind}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p><a href={getRelativeLocaleUrl(locale, 'apps')}>{t(locale, 'home.products.all')}</a></p>
   </section>
   <section class="roadmap-strip">
     <h2><a href={getRelativeLocaleUrl(locale, 'roadmap')}>{t(locale, 'roadmap.strip.title')}</a></h2>
