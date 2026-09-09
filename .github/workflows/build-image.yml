@@ -35,7 +35,10 @@ jobs:
 
       - name: Allow plain-HTTP Harbor registry
         run: |
-          echo '{"insecure-registries": ["23.144.68.246:30880"]}' | sudo tee /etc/docker/daemon.json
+          # PUSH_HOST is the active cheap-cluster Harbor (public endpoint);
+          # IMAGE_REF keeps the legacy host string so cluster-side registry
+          # rewrites and historical manifests keep resolving unchanged.
+          echo '{"insecure-registries": ["harbor.finddatatech.cloud:8080"]}' | sudo tee /etc/docker/daemon.json
           sudo systemctl restart docker
 
       - name: Build & push image
@@ -46,9 +49,12 @@ jobs:
           set -euo pipefail
           # sha + timestamp: scheduled rebuilds of the same commit still roll out
           TAG="${GITHUB_SHA::7}-$(date -u +%Y%m%d%H%M)"
-          echo "$HARBOR_PASS" | docker login 23.144.68.246:30880 -u "$HARBOR_USER" --password-stdin
-          docker build -t "23.144.68.246:30880/fd-web/official-web:$TAG" .
-          docker push "23.144.68.246:30880/fd-web/official-web:$TAG"
+          REF="23.144.68.246:30880/fd-web/official-web"     # canonical image ref (cluster rewrites it)
+          PUSH="harbor.finddatatech.cloud:8080/fd-web/official-web"  # active Harbor endpoint
+          echo "$HARBOR_PASS" | docker login harbor.finddatatech.cloud:8080 -u "$HARBOR_USER" --password-stdin
+          docker build -t "$REF:$TAG" .
+          docker tag "$REF:$TAG" "$PUSH:$TAG"
+          docker push "$PUSH:$TAG"
           echo "TAG=$TAG" >> "$GITHUB_ENV"
 
       - name: Bump manifest image tag

@@ -11,7 +11,7 @@ set -euo pipefail
 
 HOST="${FD_HOST:-124.220.7.175}"
 USER="${FD_USER:-ubuntu}"
-SITE_DIR=/opt/fd/web
+SITE_DIR=/opt/fd/web/dist
 DIST="${1:-dist}"
 
 [ -d "$DIST" ] || { echo "run 'npm run build' first (builds $DIST)"; exit 1; }
