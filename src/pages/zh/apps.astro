@@ -1,0 +1,33 @@
+---
+import Layout from '../../components/Layout.astro';
+import { getCollection } from 'astro:content';
+import { t } from '../../i18n';
+
+const locale = 'zh';
+// Hand-written entries, one file per app per locale (<slug>.<locale>.md).
+const apps = (await getCollection('apps'))
+  .filter((a) => a.id.startsWith('zh/'))
+  .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100));
+// App slug = filename under the locale dir (zh/<slug>.md → <slug>).
+const slugOf = (a) => a.id.split('/')[1];
+const title = t(locale, 'apps.title') + ' — FindData Technology';
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'apps.sub')}>
+  <h1 class="page">{t(locale, 'apps.title')}</h1>
+  <p class="page-sub">{t(locale, 'apps.sub')}</p>
+  <ul class="grid">
+    {
+      apps.map((a) => (
+        <li class="card">
+          <a class="card-main" href={`/zh/apps/${slugOf(a)}`}>
+            <span class="name">{a.data.name}</span>
+            <span class="desc">{a.data.tagline}</span>
+            <span class="meta">{[a.data.kind, a.data.demoUrl ? t(locale, 'apps.cta') : ''].filter(Boolean).join(' · ')}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  {!apps.length && <p class="page-sub">{t(locale, 'apps.empty')}</p>}
+</Layout>

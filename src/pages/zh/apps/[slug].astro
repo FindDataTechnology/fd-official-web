@@ -1,0 +1,29 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../../components/Layout.astro';
+import { t } from '../../../i18n';
+
+export async function getStaticPaths() {
+  const apps = (await getCollection('apps')).filter((a) => a.id.startsWith('zh/'));
+  // App slug = filename under the locale dir (zh/<slug>.md → <slug>).
+  return apps.map((a) => ({ params: { slug: a.id.split('/')[1] }, props: { app: a } }));
+}
+
+const locale = 'zh';
+const { app } = Astro.props;
+const { Content } = await render(app);
+const title = `${app.data.name} — FindData Technology`;
+---
+
+<Layout locale={locale} title={title} description={app.data.tagline}>
+  <a class="doc-back" href="/zh/apps">← {t(locale, 'apps.back')}</a>
+  <article class="doc">
+    <h1>{app.data.name}</h1>
+    <p class="flagship-tagline">{app.data.tagline}</p>
+    {app.data.kind && <p class="repo-meta">{app.data.kind}</p>}
+    {app.data.demoUrl && (
+      <a class="repo-demo-btn" href={app.data.demoUrl} target="_blank" rel="noopener noreferrer">▶ {t(locale, 'apps.cta')}</a>
+    )}
+    <Content />
+  </article>
+</Layout>

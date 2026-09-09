@@ -31,6 +31,22 @@ const repos = defineCollection({
   }),
 });
 
+// `apps` — hand-written product/app pages for deployed apps that are not
+// public GitHub repos (e.g. the legal line, hosted only in private Gitee
+// mirrors). Committed, not fetched: renders with no network access. One file
+// per app per locale, `<locale>/<slug>.md`; locale is the leading id segment
+// (same convention as `docs`).
+const apps = defineCollection({
+  loader: glob({ base: './src/content/apps', pattern: '**/*.md' }),
+  schema: z.object({
+    name: z.string(),
+    tagline: z.string(),
+    kind: z.string().optional(),
+    demoUrl: z.string().optional(),
+    order: z.number().optional().default(100),
+  }),
+});
+
 // `roadmap` — one md per development phase. Bilingual fields in a single file
 // (goal_en/goal_zh etc.) so status/period stay single-source; progress updates
 // are frontmatter-only edits.
@@ -58,4 +74,4 @@ const flagship = defineCollection({
   }),
 });
 
-export const collections = { docs, repos, roadmap, flagship };
+export const collections = { docs, repos, apps, roadmap, flagship };

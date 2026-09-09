@@ -15,6 +15,7 @@ const path = Astro.url.pathname.replace(/^\/zh(?=\/|$)/, '') || '/';
 
 const nav = [
   { href: getRelativeLocaleUrl(locale, ''), label: t(locale, 'nav.home') },
+  { href: getRelativeLocaleUrl(locale, 'apps'), label: t(locale, 'nav.apps') },
   { href: getRelativeLocaleUrl(locale, 'repos'), label: t(locale, 'nav.repos') },
   { href: getRelativeLocaleUrl(locale, 'docs'), label: t(locale, 'nav.docs') },
   { href: getRelativeLocaleUrl(locale, 'indicators'), label: t(locale, 'nav.indicators') },
