@@ -36,12 +36,13 @@ spec:
         kubernetes.io/hostname: vm-0-9-ubuntu
       containers:
         - name: fd-open-data-mcp
-          image: harbor.fd/finddata/fd-open-data-mcp:torch
-          # ponytail: harbor.fd resolves via k3s registries.yaml to the Harbor
-          # registry on china-cheap-2, reached through the harbor-tunnel
-          # systemd SSH tunnel (127.0.0.1:5000 on this box). IfNotPresent keeps
-          # restarts cheap; Harbor keeps the image so docker.io's firewall no
-          # longer matters. After pushing a NEW digest under :torch, run
+          image: 23.144.68.246:30880/finddata/fd-open-data-mcp:torch
+          # Ref string keeps the legacy host so the node's registries.yaml
+          # rewrite (23.144.68.246:30880 -> cheap-fleet Harbor NodePorts)
+          # resolves it against the ACTIVE registry — the old harbor.fd
+          # loopback tunnel to cheap-2 is retired. :torch is built by
+          # fd-open-data-mcp docker-publish.yml (workflow_dispatch, torch=true).
+          # After pushing a NEW digest under :torch, run
           # `kubectl rollout restart` to re-resolve the tag.
           imagePullPolicy: IfNotPresent
           ports:
