@@ -1,69 +1,19 @@
-name: build-image
-
-# GitOps half of the deploy pipeline: build the site + image here, push to the
-# private Harbor, then bump the image tag in deploy/k8s/fd-web.yaml. The in-china
-# ArgoCD picks the manifest change up and rolls the cluster Deployment.
-# GitHub holds ZERO server credentials — only a project-scoped Harbor push robot.
-on:
-  push:
-    branches: [main]
-  schedule:
-    # twice daily, off the :00/:30 rush (site data refresh from GitHub org)
-    - cron: '7 3,15 * * *'
-  workflow_dispatch:
-
-permissions:
-  contents: write # commit the image-tag bump back to main
-
+# DISABLED (2026-09-10): site image builds are DOMESTIC-ONLY.
+#
+# Policy: GitHub-hosted runners must NEVER push to the domestic Harbor
+# (harbor.finddatatech.cloud) or any CN server — foreign runner IPs hammering
+# domestic endpoints risk IP bans. The site deploys via:
+#   - static fallback: bash deploy.sh (rsync dist to the box, nginx serves it)
+#   - pod path:        docker build on the fd-deploy box + push to the
+#                      domestic Harbor + kubectl apply deploy/k8s/fd-web.yaml
+# (see ops-notes in the finddata workspace openspec changes).
+name: build-image (disabled)
+on: workflow_dispatch
 jobs:
-  build-push:
+  refuse:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - run: npm ci
-
-      # fetch-repos.mjs / fetch-indicators.mjs use GITHUB_TOKEN for org data
-      - run: npm run build
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Allow plain-HTTP Harbor registry
+      - name: Refuse
         run: |
-          # PUSH_HOST is the active cheap-cluster Harbor (public endpoint);
-          # IMAGE_REF keeps the legacy host string so cluster-side registry
-          # rewrites and historical manifests keep resolving unchanged.
-          echo '{"insecure-registries": ["harbor.finddatatech.cloud:8080"]}' | sudo tee /etc/docker/daemon.json
-          sudo systemctl restart docker
-
-      - name: Build & push image
-        env:
-          HARBOR_USER: ${{ secrets.HARBOR_USER }}
-          HARBOR_PASS: ${{ secrets.HARBOR_PASS }}
-        run: |
-          set -euo pipefail
-          # sha + timestamp: scheduled rebuilds of the same commit still roll out
-          TAG="${GITHUB_SHA::7}-$(date -u +%Y%m%d%H%M)"
-          REF="23.144.68.246:30880/fd-web/official-web"     # canonical image ref (cluster rewrites it)
-          PUSH="harbor.finddatatech.cloud:8080/fd-web/official-web"  # active Harbor endpoint
-          echo "$HARBOR_PASS" | docker login harbor.finddatatech.cloud:8080 -u "$HARBOR_USER" --password-stdin
-          docker build -t "$REF:$TAG" .
-          docker tag "$REF:$TAG" "$PUSH:$TAG"
-          docker push "$PUSH:$TAG"
-          echo "TAG=$TAG" >> "$GITHUB_ENV"
-
-      - name: Bump manifest image tag
-        run: |
-          set -euo pipefail
-          sed -i "s|image: 23.144.68.246:30880/fd-web/official-web:.*|image: 23.144.68.246:30880/fd-web/official-web:$TAG|" deploy/k8s/fd-web.yaml
-          if git diff --quiet -- deploy/k8s/fd-web.yaml; then echo "tag unchanged"; exit 0; fi
-          git config user.name "fd-ci"
-          git config user.email "ci@finddatatech.cloud"
-          git add deploy/k8s/fd-web.yaml
-          git commit -m "chore(deploy): image $TAG [skip ci]"
-          git push
+          echo "::error::Image builds are domestic-only (box). Do not re-enable pushes from GitHub runners."
+          exit 1
