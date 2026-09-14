@@ -1,6 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../../components/Layout.astro';
+import DemoCta from '../../../components/DemoCta.astro';
+import RepoCard, { type Repo } from '../../../components/RepoCard.astro';
+import { site } from '../../../config';
 import { t } from '../../../i18n';
 
 const locale = 'zh';
@@ -8,11 +11,28 @@ const docs = (await getCollection('docs'))
   .filter((d) => d.id.startsWith('zh/'))
   .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100));
 const title = t(locale, 'docs.title') + ' — FindData Technology';
+
+// All public FindDataTechnology projects, from the committed README
+// collection (always present, no GitHub API needed). Each card links to the
+// on-site project page (full README) with a GitHub shortcut on the card.
+const projects: Repo[] = (await getCollection('repos'))
+  .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100))
+  .map((e) => ({
+    name: e.data.repo,
+    description: e.data.description ?? null,
+    language: e.data.language ?? null,
+    stars: e.data.stars ?? 0,
+    updated: e.data.updated ?? '',
+    url: e.data.url,
+    hasReadme: true,
+  }));
+const featured = new Set(site.featured);
 ---
 
 <Layout locale={locale} title={title} description={t(locale, 'docs.sub')}>
   <h1 class="page">{t(locale, 'docs.title')}</h1>
   <p class="page-sub">{t(locale, 'docs.sub')}</p>
+  <DemoCta locale={locale} />
   <div class="doc-grid">
     {docs.map((d) => (
       <a href={`/zh/docs/${d.id.slice(3)}`}>
@@ -21,4 +41,9 @@ const title = t(locale, 'docs.title') + ' — FindData Technology';
       </a>
     ))}
   </div>
+
+  <h2 class="projects-h2">{t(locale, 'repos.title')}</h2>
+  <ul class="grid">
+    {projects.map((r) => <RepoCard repo={r} featured={featured.has(r.name)} locale={locale} />)}
+  </ul>
 </Layout>

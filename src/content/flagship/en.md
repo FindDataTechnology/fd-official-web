@@ -18,8 +18,8 @@ The server resolves each concept against **every source that carries it**, ranks
 
 ## By the numbers
 
-- **15 indicator concepts** across finance, macro, and industry domains
-- **45 MCP tools** — catalog, entity identity, semantic layer, entity graph, vector search, fetch, scheduled refresh, crawl policies
+- **6,026 indicators** across 755 functions from 28 data sources, mapped to **255 ontology concepts**
+- **56 MCP tools** — catalog, entity identity, semantic layer, entity graph, vector search, fetch, scheduled refresh, crawl policies
 - **Major sources live**: akshare, yfinance, SEC EDGAR, World Bank, and growing Chinese government / industry feeds
 
 ## How it fits

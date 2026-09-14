@@ -1,0 +1,16 @@
+{
+  "fd-open-data-mcp": "开放数据本体 MCP：多数据源金融/经济数据的语义概念层（akshare、yfinance、edgar、wbgapi、cn-report、cn-gov）。",
+  "fd-open-data-protocol": "开放数据源协议：数据源对外声明的 manifest 契约，供 fd-open-data-mcp 接入与摄取。",
+  "fd-cn-gov": "中国政府部委公开信息采集器 + 数据源注册表（覆盖 11 个部委）。",
+  "fd-cn-report": "中国财报 MCP 服务器——申万行业 AI 规则体系、年报目录提取、AI 结构化抽取、Elasticsearch 存储与检索。",
+  "fd-daas-mcp": "DAAS（数据即服务）：单个 SQLite 文件承载的分层式数据平台（fd-daas-mcp 聚合服务 + fd-open-data-mcp 上游）。",
+  "fd-find-data-business-mcp": "商业化登录门禁 MCP 服务器：向付费用户供给 FindData 自采数据，复用上游缓存/调度/目录但不暴露任何上游供应商标识。",
+  "fd-industry-data": "行业数据爬虫，支持远程浏览器。",
+  "fd-official-web": "FindData Technology 官网——面向 AI Agent 的开放数据本体 MCP。",
+  "fd-open-bench": "开源的 AI Agent 评测平台——数据集、批量评测、排行榜与业务指标。",
+  "fd-polygon": "Polygon.io 美股数据源包（基于 polygon-api-client 的 OHLCV 行情）。",
+  "fd-vaas-skills": "VAAS 视频自动化与分发系统：面向 Claude Code / Agent 的自然语言视频创作与多平台发布技能链。",
+  "fd-world": "多源数据访问 CLI——AKShare、世界银行、CKAN、中国国家统计。",
+  "fd-craw-private": "Platform——基于 DeepSeek Harness（dsh）运行时的浏览器对话界面。",
+  "scraw-fd-open-data-mcp": "统一的概念驱动爬虫：消费 CrawlPlan，经共享适配器注册表抓取，并预热读缓存。"
+}

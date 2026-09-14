@@ -1,0 +1,134 @@
+---
+// Development-plan Gantt on a real-world calendar axis. The content carries
+// durations (not dates), so the chain is anchored at the build date: the
+// current (in-progress) phase starts "now" and later phases queue after it.
+// Server-rendered SVG, no JS.
+import { t } from '../i18n';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  locale: 'en' | 'zh';
+}
+const { locale } = Astro.props;
+
+interface Phase {
+  name: string;
+  pinyin: string;
+  period: string;
+  status: string;
+}
+const phases: Phase[] = (await getCollection('roadmap'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((p) => ({
+    name: p.data.name,
+    pinyin: p.data.pinyin,
+    period: locale === 'zh' ? p.data.period_zh : p.data.period_en,
+    status: p.data.status,
+  }));
+
+// "2–3 months" -> 2.5, "1 year"/"1 年" -> 12
+function months(period: string): number {
+  const nums = [...period.matchAll(/[\d.]+/g)].map(Number);
+  let v = nums.length ? (nums.length > 1 ? (nums[0] + nums[nums.length - 1]) / 2 : nums[0]) : 3;
+  if (/年|year/i.test(period)) v *= 12;
+  return v;
+}
+
+const DAY = 86_400_000;
+const today = new Date();
+// Real-world anchors: current phase starts today; the rest queue after it.
+const anchorIdx = Math.max(...phases.map((p, i) => (p.status !== 'planned' ? i : -1)));
+// Real-world anchors: current phase starts today; the rest queue after it.
+const startAt: Date[] = phases.map((_, i) =>
+  new Date(today.getTime() + phases.slice(0, i).reduce((a, q) => a + months(q.period), 0) * 30.44 * DAY),
+);
+const totalMonths = phases.reduce((a, p) => a + months(p.period), 0);
+const endAt = new Date(today.getTime() + totalMonths * 30.44 * DAY);
+
+const W = 940;
+const rowH = 64;
+const padL = 130;
+const padR = 28;
+const top = 30;
+const H = top + phases.length * rowH + 36;
+const t0 = startAt[0].getTime();
+const t1 = endAt.getTime();
+const x = (d: Date) => padL + ((d.getTime() - t0) / (t1 - t0)) * (W - padL - padR);
+const barY = (i: number) => top + i * rowH + 22;
+const BAR_H = 30;
+
+const fmt = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}`;
+const endOf = (i: number) => new Date(startAt[i].getTime() + months(phases[i].period) * 30.44 * DAY);
+// Full date range, always ("2026.08 – 2026.11").
+const range = (i: number) => `${fmt(startAt[i])} – ${fmt(endOf(i))}`;
+
+// Quarter-ish ticks: every 3 real months from the anchor.
+const ticks: Date[] = [];
+{
+  const d = new Date(t0);
+  d.setDate(1);
+  while (d <= endAt) {
+    if (d >= t0) ticks.push(new Date(d));
+    d.setMonth(d.getMonth() + 3);
+  }
+}
+const fmtAxis = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+---
+
+<section class="gantt" aria-label={t(locale, 'roadmap.ganttTitle')}>
+  <h3>{t(locale, 'roadmap.ganttTitle')}</h3>
+  <div class="gantt-scroll">
+    <svg class="gantt-svg" viewBox={`0 0 ${W} ${H}`} role="img" min-width="640">
+      {ticks.map((d) => (
+        <line class="gantt-grid" x1={x(d)} y1={top - 4} x2={x(d)} y2={top + phases.length * rowH + 6} />
+      ))}
+      {ticks.map((d) => (
+        <text class="gantt-tick" x={x(d)} y={H - 14} text-anchor="middle">{fmtAxis(d)}</text>
+      ))}
+      <!-- now marker: real-world today -->
+      <line class="gantt-now" x1={x(today)} y1={top - 10} x2={x(today)} y2={top + phases.length * rowH + 6} />
+      <text class="gantt-now-label" x={x(today) + 6} y={top - 14}>▼ {t(locale, 'roadmap.now')}</text>
+      {phases.map((p, i) => (
+        <text class="gantt-name" x={0} y={barY(i) + 1}>{p.name}</text>
+      ))}
+      {phases.map((p, i) => (
+        <text class="gantt-pinyin" x={0} y={barY(i) + 17}>{p.pinyin}</text>
+      ))}
+      {phases.map((p, i) => {
+        const s = startAt[i];
+        const e = endOf(i);
+        const bw = x(e) - x(s);
+        // Full label inside the bar when it fits; otherwise immediately to the
+        // bar's right, vertically centered in the row's own clear space.
+        const inside = range(i).length * 7.8 + 14 <= bw;
+        return (
+          <g>
+            <rect
+              class:list={['gantt-bar', `gantt-bar-${p.status}`]}
+              x={x(s) + 1}
+              y={barY(i)}
+              width={Math.max(bw - 2, 8)}
+              height={BAR_H}
+              rx="6"
+            >
+              <title>{`${p.name} · ${range(i)}`}</title>
+            </rect>
+            <text
+              class:list={['gantt-bar-label', { ip: p.status === 'in-progress' }]}
+              x={inside ? x(s) + bw / 2 : x(e) + 8}
+              y={barY(i) + 20}
+              text-anchor={inside ? 'middle' : 'start'}
+            >
+              {range(i)}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  </div>
+  <div class="gantt-legend">
+    <span><i class="lg-ip"></i>{t(locale, 'roadmap.status.in-progress')}</span>
+    <span><i class="lg-done"></i>{t(locale, 'roadmap.status.done')}</span>
+    <span><i class="lg-planned"></i>{t(locale, 'roadmap.status.planned')}</span>
+  </div>
+</section>

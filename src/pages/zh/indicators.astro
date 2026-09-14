@@ -1,0 +1,14 @@
+---
+import Layout from '../../components/Layout.astro';
+import IndicatorsExplorer from '../../components/IndicatorsExplorer.astro';
+import { t } from '../../i18n';
+
+const locale = 'zh';
+const title = t(locale, 'indicators.title') + ' — FindData Technology';
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'indicators.sub')}>
+  <h1 class="page">{t(locale, 'indicators.title')}</h1>
+  <p class="page-sub">{t(locale, 'indicators.sub')}</p>
+  <IndicatorsExplorer locale={locale} />
+</Layout>

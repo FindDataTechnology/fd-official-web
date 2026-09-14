@@ -7,8 +7,9 @@
   },
   "scripts": {
     "repos:fetch": "node scripts/fetch-repos.mjs",
+    "indicators:fetch": "node scripts/fetch-indicators.mjs",
     "dev": "astro dev",
-    "build": "npm run repos:fetch && astro build",
+    "build": "npm run repos:fetch && npm run indicators:fetch && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },

@@ -1,0 +1,14 @@
+---
+import { t } from '../i18n';
+import { site } from '../config';
+
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const href = locale === 'zh' ? `/zh${site.demo.pageUrl}` : site.demo.pageUrl;
+---
+<a class="demo-cta" href={href}>
+  <span class="demo-cta-label">▶ {t(locale, 'repos.demoCta')}</span>
+  <span class="demo-cta-sub">{t(locale, 'repos.demoCtaSub')}</span>
+</a>

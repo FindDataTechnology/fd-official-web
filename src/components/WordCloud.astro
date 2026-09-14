@@ -1,0 +1,145 @@
+---
+// Indicator-universe word cloud: every concept sized by the number of registry
+// columns bound to it (hub concepts like price.close tower over the tail).
+// Two deterministic server-side spiral layouts — 中文 (default) and English —
+// toggled client-side by swapping SVG visibility. No client layout pass, no
+// dependency. Clicking a term feeds the explorer's search.
+import { t } from '../i18n';
+import data from '../data/indicators.json';
+
+interface Props {
+  locale: 'en' | 'zh';
+}
+const { locale } = Astro.props;
+
+interface Concept {
+  id: number;
+  code: string;
+  name_en: string | null;
+  name_zh: string | null;
+  bindings?: number;
+}
+const concepts = (data.concepts ?? []) as Concept[];
+
+const W = 960;
+const H = 420;
+const PAD = 6;
+const MAX_WORDS = 120;
+// CJK glyphs are full-width in the mono stack; Latin averages ~0.62em.
+const CHAR_W = { zh: 1.02, en: 0.62 } as const;
+
+const ranked = concepts
+  .map((c) => ({
+    code: c.code,
+    en: c.name_en || c.code,
+    zh: c.name_zh || c.name_en || c.code,
+    w: c.bindings ?? 0,
+  }))
+  .sort((a, b) => b.w - a.w || a.code.localeCompare(b.code))
+  .slice(0, MAX_WORDS);
+
+const maxW = ranked[0]?.w ?? 1;
+const sizeFor = (w: number) =>
+  Math.round(11 + 23 * (Math.log1p(w) / Math.log1p(maxW || 1)));
+
+function layout(lang: 'zh' | 'en') {
+  const boxes: { x1: number; y1: number; x2: number; y2: number }[] = [];
+  const words: {
+    text: string;
+    code: string;
+    zh: string | null;
+    w: number;
+    size: number;
+    tier: string;
+    opacity: number;
+    x: number;
+    y: number;
+  }[] = [];
+  ranked.forEach((entry, i) => {
+    const text = entry[lang];
+    const size = sizeFor(entry.w);
+    const tw = [...text].length * size * CHAR_W[lang] + 10;
+    const th = size * 1.15;
+    let at: { x: number; y: number } | null = null;
+    for (let step = 0; step < 3000 && !at; step++) {
+      const angle = step * 0.35;
+      const r = 9.2 * Math.sqrt(step);
+      const cx = W / 2 + r * Math.cos(angle);
+      const cy = H / 2 + r * Math.sin(angle) * 0.62;
+      const x1 = cx - tw / 2;
+      const y1 = cy - th / 2;
+      const x2 = cx + tw / 2;
+      const y2 = cy + th / 2;
+      if (x1 < 2 || y1 < 4 || x2 > W - 2 || y2 > H - 4) continue;
+      const free = boxes.every(
+        (p) => x1 > p.x2 + PAD || x2 < p.x1 - PAD || y1 > p.y2 + PAD || y2 < p.y1 - PAD,
+      );
+      if (free) {
+        boxes.push({ x1, y1, x2, y2 });
+        at = { x: x1, y: y1 + size * 0.82 }; // text baseline
+      }
+    }
+    if (!at) return; // canvas full — the smallest tail words drop first
+    // Tiering is rank-based, so 中文 and EN keep the same hubs.
+    const tier = i < 8 ? 'hub' : i < 28 ? 'link' : 'tail';
+    const opacity = tier === 'tail' ? Math.max(0.45, 0.92 - (i / ranked.length) * 0.45) : 1;
+    words.push({ text, code: entry.code, zh: entry.zh, w: entry.w, size, tier, opacity, ...at });
+  });
+  return words;
+}
+
+const clouds = { zh: layout('zh'), en: layout('en') };
+---
+
+<section class="wordcloud" data-active="zh" aria-label={t(locale, 'indicators.cloud.title')}>
+  <div class="wc-head">
+    <div>
+      <h3>{t(locale, 'indicators.cloud.title')}</h3>
+      <p class="wc-hint">{t(locale, 'indicators.cloud.hint')}</p>
+    </div>
+    <div class="wc-lang" role="group" aria-label="language">
+      <button type="button" class="wc-lang-btn active" data-lang="zh">中文</button>
+      <button type="button" class="wc-lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+  {(['zh', 'en'] as const).map((lang) => (
+    <svg class="wc-svg" data-lang={lang} viewBox={`0 0 ${W} ${H}`} role="img">
+      {clouds[lang].map((w) => (
+        <text
+          class={`wc-word wc-${w.tier}`}
+          data-term={w.text}
+          x={w.x}
+          y={w.y}
+          font-size={`${w.size}px`}
+          opacity={w.opacity}
+        >
+          {w.text}
+          <title>{`${w.code}${w.zh ? ' · ' + w.zh : ''} — ${w.w} bound column(s)`}</title>
+        </text>
+      ))}
+    </svg>
+  ))}
+</section>
+
+<script>
+  const root = document.querySelector('.wordcloud');
+  root?.querySelector('.wc-lang')?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.wc-lang-btn');
+    if (!btn) return;
+    root.setAttribute('data-active', btn.dataset.lang ?? 'zh');
+    root.querySelectorAll('.wc-lang-btn').forEach((b) =>
+      b.classList.toggle('active', b === btn),
+    );
+  });
+
+  root?.addEventListener('click', (e) => {
+    const word = (e.target as HTMLElement).closest<SVGTextElement>('.wc-word');
+    const term = word?.dataset.term;
+    const input = document.getElementById('ind-search-input') as HTMLInputElement | null;
+    if (!word || !term || !input) return;
+    input.value = term;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.focus();
+    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>

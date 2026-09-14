@@ -34,14 +34,20 @@ spec:
     spec:
       containers:
         - name: fd-open-data-mcp
-          image: finddata/fd-open-data-mcp:torch
-          # ponytail: IfNotPresent + local-only tag — this box cannot reach
-          # registry-1.docker.io (firewalled), so a remote pull ALWAYS fails.
-          # Images are delivered via `docker save | k3s ctr images import -`.
-          # After importing a NEW digest under the same :torch tag, force a
-          # fresh pod (`kubectl delete pod -l app=...` or rollout restart) so
-          # the kubelet re-resolves the tag to the new image rather than
-          # reusing the cached old one. Never use imagePullPolicy:Always here.
+          image: harbor.fd/finddata/fd-open-data-mcp:torch
+          # ponytail: harbor.fd resolves via k3s registries.yaml to the Harbor
+          # registry on china-cheap-2, reached through the harbor-tunnel
+          # systemd SSH tunnel (127.0.0.1:5000 on this box). IfNotPresent keeps
+          # restarts cheap; Harbor keeps the image so docker.io's firewall no
+          # longer matters. After pushing a NEW digest under :torch, run
+          # `kubectl rollout restart` to re-resolve the tag.
+          # 2026-08-30: the tunnel was DOWN and the local copy had been GC'd by
+          # a DiskPressure eviction — pods stuck in ImagePullBackOff and the
+          # public chat site 502'd. Restored by streaming from america's docker
+          # (127.0.0.1:5000/finddata/fd-open-data-mcp:torch, the only other
+          # copy): `ssh america "docker save …|gzip" | k3s ctr images import -`
+          # then `ctr images tag` to harbor.fd/…:torch. If it disappears again,
+          # re-run that pair; the image is NOT in Harbor (no :torch tag there).
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8899

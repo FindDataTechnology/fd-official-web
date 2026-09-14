@@ -10,7 +10,7 @@
 #     --from-literal=JWT_SECRET="$S" \
 #     --from-literal=JWT_REFRESH_SECRET="$R" \
 #     --from-literal=MEILI_MASTER_KEY="$M" \
-#     --from-literal=LITELLM_API_KEY='sk-ThqY8JihQuEzQfXsD6sxwYMSvedoNWbPjCjiOPNEk8TCDSop' \
+#     --from-literal=NEWAPI_KEY="$NEWAPI_KEY"   # real key stays out of git; paste it on the box
 #     --from-literal=MCP_TOKEN="$(grep -E '^MCP_TOKEN=' /opt/fd/finddata/fd-open-data-mcp/.env | cut -d= -f2-)"
 # ponytail: JWT_REFRESH_SECRET is NOT optional in recent LibreChat — generateRefreshToken()
 # throws "secretOrPrivateKey must have a value" at login without it, surfacing as a generic
@@ -32,8 +32,11 @@ data:
     cache: true
     endpoints:
       custom:
-        - name: "Find Data Technology"
-          apiKey: "${LITELLM_API_KEY}"
+        # ponytail: despite the historical "LiteLLM" label, this endpoint has
+        # always been NewAPI (Kong :30080 -> newapi) — renamed to "NewAPI" to
+        # stop people blaming the LiteLLM proxy on America for its errors.
+        - name: "NewAPI"
+          apiKey: "${NEWAPI_KEY}"
           baseURL: "http://124.223.42.3:30080/v1"
           models:
             default:
@@ -42,10 +45,12 @@ data:
               - glm-5.2
               - kimi-k3
               - minimax-m3
-              - qwen-3.7-plus
+              # ponytail: real NewAPI model id is "qwen3.7-plus" (no hyphen
+              # after qwen) — "qwen-3.7-plus" 503s with model_not_found.
+              - qwen3.7-plus
             fetch: true
           titleConvo: false
-          modelDisplayLabel: "Find Data Technology"
+          modelDisplayLabel: "NewAPI"
     mcpServers:
       fd-open-data-mcp:
         type: streamable-http
@@ -62,6 +67,17 @@ data:
         headers:
           Authorization: "Bearer ${MCP_TOKEN}"
         timeout: 30000
+      # fd-daas-mcp also runs on zihan (fd-mcp ns, NodePort 30804).
+      # Same MCP_TOKEN family as fd-cn-report.
+      fd-daas-mcp:
+        type: streamable-http
+        url: "http://100.64.0.4:30804/mcp"
+        headers:
+          Authorization: "Bearer ${MCP_TOKEN}"
+        timeout: 30000
+      # fd-find-data-business-mcp (zihan :30803) is NOT wired in: it enforces
+      # per-user ES384 JWTs from auth.finddatatech.cloud — a static bearer
+      # 401s. Re-wire only after a service JWT is minted (MCP_BUSINESS_TOKEN).
     mcpSettings:
       # ponytail: *.svc.cluster.local is an in-cluster "local domain" — LibreChat's
       # SSRF guard blocks it. allowedAddresses (host:port SSRF exemption) did NOT
@@ -75,6 +91,7 @@ data:
         # ponytail: raw CGNAT IP — if LibreChat's SSRF guard blocks it as private,
         # the log quotes the exact string to whitelist; widen here then re-rollout.
         - "http://100.64.0.4:30802"
+        - "http://100.64.0.4:30804"
         - "100.64.0.4"
 ---
 apiVersion: v1
@@ -108,9 +125,9 @@ spec:
     spec:
       containers:
         - name: mongo
-          image: mongo:7
-          # ponytail: IfNotPresent — box can't reach docker.io; images are
-          # imported via `docker save | k3s ctr images import -`.
+          # ponytail: harbor.fd/cache/* is dead (its SSH-tunnel registry mirror
+          # to cheap-2 never came back); docker.io works via the k3s mirror list.
+          image: docker.io/library/mongo:7
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 27017
@@ -124,6 +141,10 @@ spec:
             requests:
               memory: "128Mi"
               cpu: "100m"
+      # ponytail: pin to the control-plane node — local-path PVC data (accounts,
+      # conversations) was created here and local-path volumes are node-bound.
+      nodeSelector:
+        kubernetes.io/hostname: vm-0-9-ubuntu
       volumes:
         - name: data
           persistentVolumeClaim:
@@ -173,7 +194,7 @@ spec:
     spec:
       containers:
         - name: meilisearch
-          image: getmeili/meilisearch:v1.6
+          image: docker.io/getmeili/meilisearch:v1.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7700
@@ -193,6 +214,8 @@ spec:
             requests:
               memory: "128Mi"
               cpu: "100m"
+      nodeSelector:
+        kubernetes.io/hostname: vm-0-9-ubuntu
       volumes:
         - name: data
           persistentVolumeClaim:
@@ -244,9 +267,16 @@ spec:
       labels:
         app: librechat-api
     spec:
+      # Harbor "cache" project rejects anonymous pulls (401) — this secret
+      # (same admin credential as registries.yaml) is required, or the pod
+      # sits in ImagePullBackOff. Created out-of-band in the librechat ns.
+      imagePullSecrets:
+        - name: harbor-pull
       containers:
         - name: api
-          image: ghcr.io/danny-avila/librechat:latest
+          # Re-homed 2026-08-30: pushed ghcr.io/danny-avila/librechat to the
+          # America Harbor (project "cache", public) after harbor.fd died.
+          image: 23.144.68.246:30880/cache/librechat:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3080
@@ -281,3 +311,6 @@ spec:
         - name: config
           configMap:
             name: librechat-config
+      # ponytail: keep next to mongo/meili on vm-0-9 (image cache + MCP svc DNS).
+      nodeSelector:
+        kubernetes.io/hostname: vm-0-9-ubuntu

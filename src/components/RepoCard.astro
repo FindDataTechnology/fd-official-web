@@ -1,5 +1,10 @@
 ---
 import { t } from '../i18n';
+import { site } from '../config';
+import GitHubIcon from './GitHubIcon.astro';
+// Committed zh overlay — the generated repos/*.md frontmatter is English-only
+// (synced from GitHub), and the site's audience reads Chinese first.
+import zhDescriptions from '../data/repo-descriptions-zh.json';
 
 export interface Repo {
   name: string;
@@ -22,20 +27,44 @@ const base = locale === 'zh' ? '/zh/repos' : '/repos';
 // Flagship gets its curated product page; other repos link to the on-site
 // README page when we have one, else straight to GitHub.
 const href =
-  repo.name === 'fd-open-data-mcp'
+  repo.name === site.flagship
     ? locale === 'zh'
       ? '/zh/fd-open-data-mcp'
       : '/fd-open-data-mcp'
     : repo.hasReadme
       ? `${base}/${repo.name}`
       : repo.url;
-const external = !repo.hasReadme && repo.name !== 'fd-open-data-mcp';
+const external = !repo.hasReadme && repo.name !== site.flagship;
+const isFlagship = repo.name === site.flagship;
+const demoHref = locale === 'zh' ? `/zh${site.demo.pageUrl}` : site.demo.pageUrl;
+// MCP servers wired into the self-hosted LibreChat get a chat shortcut.
+const chatProject = (site.chat.projects as readonly string[]).includes(repo.name);
+// Bilingual description: locale's language leads, the other follows — both
+// are always present (the site serves the Chinese-speaking community).
+const zh = (zhDescriptions as Record<string, string>)[repo.name] ?? '';
+const en = repo.description?.trim() || t(locale, 'repos.noDesc');
+const primary = locale === 'zh' ? (zh || en) : en;
+const secondary = locale === 'zh' ? (zh && en !== zh ? en : '') : zh;
 ---
 
 <li class:list={['card', { featured }]}>
-  <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
+  <a class="card-main" href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
     <span class="name">{repo.name}</span>
-    <span class="desc">{repo.description?.trim() || t(locale, 'repos.noDesc')}</span>
+    <span class="desc">
+      {primary}
+      {secondary && <span class="desc-alt">{secondary}</span>}
+    </span>
     <span class="meta">{[repo.language, repo.stars ? `★ ${repo.stars}` : '', repo.updated].filter(Boolean).join(' · ')}</span>
   </a>
+  <a class="card-gh" href={repo.url} target="_blank" rel="noopener noreferrer" aria-label={`${repo.name} on GitHub`}>
+    <GitHubIcon size={16} />
+  </a>
+  {isFlagship && (
+    <a class="card-demo" href={demoHref}>{t(locale, 'repos.demoBtn')}</a>
+  )}
+  {chatProject && (
+    <a class="card-demo" href={site.chat.url} target="_blank" rel="noopener noreferrer">
+      {t(locale, 'repos.chatBtn')} ↗
+    </a>
+  )}
 </li>
