@@ -10,7 +10,7 @@
 #     --from-literal=JWT_SECRET="$S" \
 #     --from-literal=JWT_REFRESH_SECRET="$R" \
 #     --from-literal=MEILI_MASTER_KEY="$M" \
-#     --from-literal=LITELLM_API_KEY='sk-ThqY8JihQuEzQfXsD6sxwYMSvedoNWbPjCjiOPNEk8TCDSop' \
+#     --from-literal=LITELLM_API_KEY="$K" \   # K=$(grep ^LITELLM_API_KEY= /opt/fd/web/.env | cut -d= -f2-)
 #     --from-literal=MCP_TOKEN="$(grep -E '^MCP_TOKEN=' /opt/fd/finddata/fd-open-data-mcp/.env | cut -d= -f2-)"
 # ponytail: JWT_REFRESH_SECRET is NOT optional in recent LibreChat — generateRefreshToken()
 # throws "secretOrPrivateKey must have a value" at login without it, surfacing as a generic

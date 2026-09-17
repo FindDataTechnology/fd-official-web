@@ -29,3 +29,15 @@ src/content/repos/
 # jetbrains setting folder
 .idea/
 ssh-config.json
+
+# credential files / key material — NEVER commit
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+.harbor-creds*
+.harbor-ci-*
+*creds*
+*-password*
