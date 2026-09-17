@@ -2,6 +2,7 @@
 name: "Contract Template Data"
 tagline: "The official Chinese contract-template corpus (SAMR 合同示范文本), crawled daily and served structured — the reference layer for contract drafting and review."
 kind: "Data service"
+line: legal
 order: 20
 ---
 
@@ -27,7 +28,7 @@ SQLite/JSONL and archives the collected documents to object storage (MinIO).
 ## What it is for
 
 The corpus is the reference layer of our legal line: it grounds clause
-libraries and drafting workflows (see [LawBench](/apps/law-bench)), powers
+libraries and drafting workflows (see [LawBench](/products/law-bench)), powers
 clause retrieval, and gives reviewers a standard-form baseline to compare a
 draft against.
 

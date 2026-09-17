@@ -3,6 +3,7 @@ name: "LawBench 合同智能平台"
 tagline: "从条款库起草合同，AI 三重评审（法律·商业·完整性），rubric 评测让合同质量可度量。"
 kind: "法律 AI 平台"
 demoUrl: "http://23.144.68.246:30830"
+line: legal
 order: 10
 ---
 

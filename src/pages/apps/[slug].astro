@@ -1,29 +1,26 @@
 ---
-import { getCollection, render } from 'astro:content';
-import Layout from '../../components/Layout.astro';
-import { t } from '../../i18n';
+import { getCollection } from 'astro:content';
 
+// Legacy /apps/<slug> → /products/<slug> redirect stub (meta-refresh; static
+// hosting has no server rewrite, and Astro 7 config redirects take no paths).
 export async function getStaticPaths() {
   const apps = (await getCollection('apps')).filter((a) => a.id.startsWith('en/'));
-  // App slug = filename under the locale dir (en/<slug>.md → <slug>).
-  return apps.map((a) => ({ params: { slug: a.id.split('/')[1] }, props: { app: a } }));
+  return apps.map((a) => ({ params: { slug: a.id.split('/')[1] } }));
 }
 
-const locale = 'en';
-const { app } = Astro.props;
-const { Content } = await render(app);
-const title = `${app.data.name} — FindData Technology`;
+const slug = Astro.params.slug!;
+const dest = `/products/${slug}`;
 ---
 
-<Layout locale={locale} title={title} description={app.data.tagline}>
-  <a class="doc-back" href="/apps">← {t(locale, 'apps.back')}</a>
-  <article class="doc">
-    <h1>{app.data.name}</h1>
-    <p class="flagship-tagline">{app.data.tagline}</p>
-    {app.data.kind && <p class="repo-meta">{app.data.kind}</p>}
-    {app.data.demoUrl && (
-      <a class="repo-demo-btn" href={app.data.demoUrl} target="_blank" rel="noopener noreferrer">▶ {t(locale, 'apps.cta')}</a>
-    )}
-    <Content />
-  </article>
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <meta http-equiv="refresh" content={`0;url=${dest}`} />
+    <link rel="canonical" href={dest} />
+  </head>
+  <body>
+    <p>This page has moved to <a href={dest}>{dest}</a>.</p>
+  </body>
+</html>

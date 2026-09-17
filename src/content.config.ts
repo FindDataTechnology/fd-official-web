@@ -31,11 +31,17 @@ const repos = defineCollection({
   }),
 });
 
+// The four product lines — one vocabulary shared by the apps schema, the
+// products catalog tabs, and the homepage card wall (add-product-portal).
+export const PRODUCT_LINES = ['data', 'legal', 'paas', 'token'] as const;
+
 // `apps` — hand-written product/app pages for deployed apps that are not
 // public GitHub repos (e.g. the legal line, hosted only in private Gitee
 // mirrors). Committed, not fetched: renders with no network access. One file
 // per app per locale, `<locale>/<slug>.md`; locale is the leading id segment
-// (same convention as `docs`).
+// (same convention as `docs`). `line` is required and must be one of the four
+// product lines; slugs must never equal a line name (guarded in the products
+// pages' getStaticPaths — a colliding slug would shadow a line tab page).
 const apps = defineCollection({
   loader: glob({ base: './src/content/apps', pattern: '**/*.md' }),
   schema: z.object({
@@ -43,6 +49,7 @@ const apps = defineCollection({
     tagline: z.string(),
     kind: z.string().optional(),
     demoUrl: z.string().optional(),
+    line: z.enum(PRODUCT_LINES),
     order: z.number().optional().default(100),
   }),
 });

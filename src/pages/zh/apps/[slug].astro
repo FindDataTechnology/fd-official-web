@@ -1,29 +1,25 @@
 ---
-import { getCollection, render } from 'astro:content';
-import Layout from '../../../components/Layout.astro';
-import { t } from '../../../i18n';
+import { getCollection } from 'astro:content';
 
+// 旧地址 /zh/apps/<slug> → /zh/products/<slug> 的重定向桩页(静态站用 meta 刷新)。
 export async function getStaticPaths() {
   const apps = (await getCollection('apps')).filter((a) => a.id.startsWith('zh/'));
-  // App slug = filename under the locale dir (zh/<slug>.md → <slug>).
-  return apps.map((a) => ({ params: { slug: a.id.split('/')[1] }, props: { app: a } }));
+  return apps.map((a) => ({ params: { slug: a.id.split('/')[1] } }));
 }
 
-const locale = 'zh';
-const { app } = Astro.props;
-const { Content } = await render(app);
-const title = `${app.data.name} — FindData Technology`;
+const slug = Astro.params.slug!;
+const dest = `/zh/products/${slug}`;
 ---
 
-<Layout locale={locale} title={title} description={app.data.tagline}>
-  <a class="doc-back" href="/zh/apps">← {t(locale, 'apps.back')}</a>
-  <article class="doc">
-    <h1>{app.data.name}</h1>
-    <p class="flagship-tagline">{app.data.tagline}</p>
-    {app.data.kind && <p class="repo-meta">{app.data.kind}</p>}
-    {app.data.demoUrl && (
-      <a class="repo-demo-btn" href={app.data.demoUrl} target="_blank" rel="noopener noreferrer">▶ {t(locale, 'apps.cta')}</a>
-    )}
-    <Content />
-  </article>
-</Layout>
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <title>正在跳转…</title>
+    <meta http-equiv="refresh" content={`0;url=${dest}`} />
+    <link rel="canonical" href={dest} />
+  </head>
+  <body>
+    <p>本页已迁移至 <a href={dest}>{dest}</a>。</p>
+  </body>
+</html>

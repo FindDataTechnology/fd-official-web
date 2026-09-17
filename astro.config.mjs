@@ -9,4 +9,12 @@ export default defineConfig({
     locales: ['en', 'zh'],
     defaultLocale: 'en',
   },
+  // Legacy catalog URLs → /products. The dynamic /apps/[slug] redirects live
+  // as meta-refresh stub pages under src/pages/apps/[slug].astro instead:
+  // this Astro version's config redirects take no `paths` for static output.
+  redirects: {
+    '/apps': '/products',
+    '/zh/apps': '/zh/products',
+  },
 });
+

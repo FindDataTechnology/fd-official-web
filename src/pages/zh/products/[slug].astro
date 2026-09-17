@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import Layout from '../../../components/Layout.astro';
+import { t } from '../../../i18n';
+import { PRODUCT_LINES } from '../../../content.config';
+
+export async function getStaticPaths() {
+  const apps = (await getCollection('apps')).filter((a) => a.id.startsWith('zh/'));
+  // App slug = filename under the locale dir (zh/<slug>.md → <slug>). A slug
+  // equal to a line name would shadow that line's tab page — fail the build.
+  return apps.map((a) => {
+    const slug = a.id.split('/')[1];
+    if ((PRODUCT_LINES as readonly string[]).includes(slug)) {
+      throw new Error(`app slug "${slug}" collides with a product line name (zh/${slug}.md) — rename the entry`);
+    }
+    return { params: { slug }, props: { app: a } };
+  });
+}
+
+const locale = 'zh';
+const { app } = Astro.props;
+const { Content } = await render(app);
+const title = `${app.data.name} — FindData Technology`;
+---
+
+<Layout locale={locale} title={title} description={app.data.tagline}>
+  <a class="doc-back" href={getRelativeLocaleUrl(locale, 'products')}>← {t(locale, 'apps.back')}</a>
+  <article class="doc">
+    <h1>{app.data.name}</h1>
+    <p class="flagship-tagline">{app.data.tagline}</p>
+    <p class="repo-meta">
+      {app.data.kind && <span>{app.data.kind} · </span>}
+      <a href={getRelativeLocaleUrl(locale, `products/${app.data.line}`)}>{t(locale, `line.${app.data.line}` as const)}</a>
+    </p>
+    {app.data.demoUrl && (
+      <a class="repo-demo-btn" href={app.data.demoUrl} target="_blank" rel="noopener noreferrer">▶ {t(locale, 'apps.cta')}</a>
+    )}
+    <Content />
+  </article>
+</Layout>

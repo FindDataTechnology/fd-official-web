@@ -3,16 +3,18 @@ import Layout from '../../components/Layout.astro';
 import { t } from '../../i18n';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getCollection } from 'astro:content';
+import { PRODUCT_LINES } from '../../content.config';
+// 首页统计数字构建时从 /indicators 同源的指标导出中派生,两个页面永远一致;
+// 每次构建重新导出(scripts/fetch-indicators.mjs),提交的快照作离线回退。
+import indicatorData from '../../data/indicators.json';
 
 const locale = 'zh';
-const title = 'FindData Technology — 为 AI 智能体打通开放数据';
+const title = '寻数科技 FindData Technology — 聚焦文本与数据处理';
 const phases = (await getCollection('roadmap')).sort((a, b) => a.data.order - b.data.order);
-// Hand-written app entries (zh/<slug>.md) — the products layer above open source.
-const apps = (await getCollection('apps'))
-  .filter((a) => a.id.startsWith('zh/'))
-  .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100))
-  .slice(0, 3);
-const slugOf = (a) => a.id.split('/')[1];
+const concepts = (indicatorData as { concepts?: Array<{ source?: string | null }> }).concepts ?? [];
+const statIndicators = concepts.length;
+const statSources = new Set(concepts.map((c) => c.source || '—')).size;
+const statTools = (indicatorData as { tools_count?: number | null }).tools_count ?? null;
 ---
 
 <Layout locale={locale} title={title} description={t(locale, 'hero.sub')}>
@@ -25,33 +27,33 @@ const slugOf = (a) => a.id.split('/')[1];
       <a class="secondary" href={getRelativeLocaleUrl(locale, 'docs')}>{t(locale, 'cta.docs')}</a>
     </div>
     <div class="stats">
-      <div class="stat"><b>6026</b><span>{t(locale, 'stat.indicators')}</span></div>
-      <div class="stat"><b>28</b><span>{t(locale, 'stat.sources')}</span></div>
-      <div class="stat"><b>56</b><span>{t(locale, 'stat.tools')}</span></div>
+      <div class="stat"><b>{statIndicators}</b><span>{t(locale, 'stat.indicators')}</span></div>
+      <div class="stat"><b>{statSources}</b><span>{t(locale, 'stat.sources')}</span></div>
+      {statTools != null && (
+        <div class="stat"><b>{statTools}</b><span>{t(locale, 'stat.tools')}</span></div>
+      )}
     </div>
   </section>
-  <section class="about">
-    <h2>{t(locale, 'about.title')}</h2>
-    <p>{t(locale, 'about.body')}</p>
-    <p><a href={getRelativeLocaleUrl(locale, 'fd-open-data-mcp')}>{t(locale, 'flagship.cta')}</a></p>
-  </section>
-  <section class="apps-strip">
-    <h2><a href={getRelativeLocaleUrl(locale, 'apps')}>{t(locale, 'home.products.title')}</a></h2>
-    <p class="sub">{t(locale, 'home.products.sub')}</p>
+  <section class="lines-strip">
+    <h2><a href={getRelativeLocaleUrl(locale, 'products')}>{t(locale, 'home.lines.title')}</a></h2>
+    <p class="sub">{t(locale, 'home.lines.sub')}</p>
     <ul class="grid">
       {
-        apps.map((a) => (
+        PRODUCT_LINES.map((l) => (
           <li class="card">
-            <a class="card-main" href={`/zh/apps/${slugOf(a)}`}>
-              <span class="name">{a.data.name}</span>
-              <span class="desc">{a.data.tagline}</span>
-              <span class="meta">{a.data.kind}</span>
+            <a class="card-main" href={getRelativeLocaleUrl(locale, `products/${l}`)}>
+              <span class="name">{t(locale, `line.${l}`)}</span>
+              <span class="desc">{t(locale, `line.${l}.desc`)}</span>
             </a>
           </li>
         ))
       }
     </ul>
-    <p><a href={getRelativeLocaleUrl(locale, 'apps')}>{t(locale, 'home.products.all')}</a></p>
+  </section>
+  <section class="research">
+    <h2>{t(locale, 'home.research.title')}</h2>
+    <p>{t(locale, 'home.research.papers')}</p>
+    <p>{t(locale, 'home.research.finetune')}</p>
   </section>
   <section class="roadmap-strip">
     <h2><a href={getRelativeLocaleUrl(locale, 'roadmap')}>{t(locale, 'roadmap.strip.title')}</a></h2>

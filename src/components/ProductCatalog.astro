@@ -1,0 +1,74 @@
+---
+import Layout from './Layout.astro';
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { t } from '../i18n';
+import { PRODUCT_LINES, type ProductLine } from '../content.config';
+
+interface Props {
+  locale: string;
+  line: ProductLine;
+}
+
+const { locale, line } = Astro.props;
+// Hand-written entries, one file per app per locale (<locale>/<slug>.md);
+// the active tab lists only its own line.
+const apps = (await getCollection('apps'))
+  .filter((a) => a.id.startsWith(`${locale}/`) && a.data.line === line)
+  .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100));
+// App slug = filename under the locale dir (en/<slug>.md → <slug>).
+const slugOf = (a) => a.id.split('/')[1];
+const title = t(locale, 'apps.title') + ' — FindData Technology';
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'apps.sub')}>
+  <h1 class="page">{t(locale, 'apps.title')}</h1>
+  <p class="page-sub">{t(locale, 'apps.sub')}</p>
+  <nav class="line-tabs" aria-label={t(locale, 'apps.title')}>
+    {
+      PRODUCT_LINES.map((l) => (
+        <a href={getRelativeLocaleUrl(locale, `products/${l}`)} class={l === line ? 'active' : ''} aria-current={l === line ? 'page' : undefined}>
+          {t(locale, `line.${l}` as const)}
+        </a>
+      ))
+    }
+  </nav>
+  <ul class="grid">
+    {
+      apps.map((a) => (
+        <li class="card">
+          <a class="card-main" href={getRelativeLocaleUrl(locale, `products/${slugOf(a)}`)}>
+            <span class="name">{a.data.name}</span>
+            <span class="desc">{a.data.tagline}</span>
+            <span class="meta">{[a.data.kind, a.data.demoUrl ? t(locale, 'apps.cta') : ''].filter(Boolean).join(' · ')}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  {!apps.length && <p class="page-sub">{t(locale, 'apps.empty')}</p>}
+</Layout>
+
+<style>
+  .line-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0 24px;
+  }
+  .line-tabs a {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: var(--fg-muted, inherit);
+    border: 1px solid currentColor;
+    opacity: 0.75;
+    text-decoration: none;
+  }
+  .line-tabs a.active {
+    opacity: 1;
+    font-weight: 700;
+  }
+</style>

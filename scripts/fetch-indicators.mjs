@@ -138,6 +138,28 @@ async function main() {
   }
   if (byId.size === 0) throw new Error('list_concepts returned no concepts');
 
+  // 2b. tools/list total (paginated) — feeds the homepage stats so they can
+  //     derive from this same export instead of hardcoded numbers. Null on
+  //     failure: the homepage then omits the stat rather than lying.
+  let toolsCount = null;
+  try {
+    let cursor;
+    toolsCount = 0;
+    do {
+      const page = await mcpRequest(sessionId, {
+        jsonrpc: '2.0',
+        id: 3,
+        method: 'tools/list',
+        params: cursor ? { cursor } : {},
+      });
+      const res = page.json.result;
+      toolsCount += res?.tools?.length ?? 0;
+      cursor = res?.nextCursor;
+    } while (cursor);
+  } catch {
+    toolsCount = null;
+  }
+
   let concepts = [...byId.values()].map((c) => Object.fromEntries(KEEP.map((k) => [k, c[k] ?? null])));
   concepts.sort((a, b) => (a.entity_type ?? '').localeCompare(b.entity_type ?? '') || (a.code ?? '').localeCompare(b.code ?? ''));
 
@@ -172,6 +194,7 @@ async function main() {
   const payload = {
     generated_at: new Date().toISOString(),
     source: 'mcp',
+    ...(toolsCount != null ? { tools_count: toolsCount } : {}),
     concepts,
   };
   await mkdir(new URL('./', OUT), { recursive: true });

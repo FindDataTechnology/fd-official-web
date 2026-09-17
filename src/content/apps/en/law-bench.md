@@ -3,6 +3,7 @@ name: "LawBench — Contract Intelligence"
 tagline: "Draft contracts from a clause library, review them with AI across three dimensions, and evaluate every draft against rubrics."
 kind: "Legal AI platform"
 demoUrl: "http://23.144.68.246:30830"
+line: legal
 order: 10
 ---
 

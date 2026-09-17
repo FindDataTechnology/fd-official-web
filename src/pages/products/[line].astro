@@ -1,0 +1,12 @@
+---
+import ProductCatalog from '../../components/ProductCatalog.astro';
+import { PRODUCT_LINES, type ProductLine } from '../../content.config';
+
+export async function getStaticPaths() {
+  return PRODUCT_LINES.map((line) => ({ params: { line }, props: { line } }));
+}
+
+const { line } = Astro.props as { line: ProductLine };
+---
+
+<ProductCatalog locale="en" line={line} />

@@ -28,3 +28,4 @@ src/content/repos/
 
 # jetbrains setting folder
 .idea/
+ssh-config.json
