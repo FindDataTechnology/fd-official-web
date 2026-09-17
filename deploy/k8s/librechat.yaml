@@ -10,7 +10,7 @@
 #     --from-literal=JWT_SECRET="$S" \
 #     --from-literal=JWT_REFRESH_SECRET="$R" \
 #     --from-literal=MEILI_MASTER_KEY="$M" \
-#     --from-literal=LITELLM_API_KEY="$K" \   # K=$(grep ^LITELLM_API_KEY= /opt/fd/web/.env | cut -d= -f2-)
+#     --from-literal=NEWAPI_KEY="$K" \   # K = FindDataRouter key (token.finddatatech.cloud)
 #     --from-literal=MCP_TOKEN="$(grep -E '^MCP_TOKEN=' /opt/fd/finddata/fd-open-data-mcp/.env | cut -d= -f2-)"
 # ponytail: JWT_REFRESH_SECRET is NOT optional in recent LibreChat — generateRefreshToken()
 # throws "secretOrPrivateKey must have a value" at login without it, surfacing as a generic
@@ -32,20 +32,19 @@ data:
     cache: true
     endpoints:
       custom:
-        - name: "LiteLLM"
-          apiKey: "${LITELLM_API_KEY}"
-          baseURL: "http://124.223.42.3:30080/v1"
+        # ponytail: historical labels "LiteLLM" then "NewAPI" both pointed at the
+        # old Kong gateway on 124.223.42.3 — dead. The gateway is now our own
+        # FindDataRouter (new-api at token.finddatatech.cloud); the secret key
+        # name NEWAPI_KEY is kept for continuity with the live librechat-env.
+        - name: "FindDataRouter"
+          apiKey: "${NEWAPI_KEY}"
+          baseURL: "https://token.finddatatech.cloud/v1"
           models:
             default:
-              - deepseek-v4-flash
-              - deepseek-v4-pro
-              - glm-5.2
-              - kimi-k3
-              - minimax-m3
-              - qwen-3.7-plus
+              - nvidia/nemotron-3-ultra-550b-a55b:free
             fetch: true
           titleConvo: false
-          modelDisplayLabel: "LiteLLM"
+          modelDisplayLabel: "FindDataRouter"
     mcpServers:
       fd-open-data-mcp:
         type: streamable-http
@@ -96,7 +95,7 @@ spec:
         kubernetes.io/hostname: vm-0-9-ubuntu
       containers:
         - name: mongo
-          image: harbor.fd/cache/mongo:7
+          image: harbor.finddatatech.cloud:8080/finddata/mongo:7
           # ponytail: IfNotPresent — box can't reach docker.io; images are
           # imported via `docker save | k3s ctr images import -`.
           imagePullPolicy: IfNotPresent
@@ -163,7 +162,7 @@ spec:
         kubernetes.io/hostname: vm-0-9-ubuntu
       containers:
         - name: meilisearch
-          image: harbor.fd/cache/meilisearch:v1.6
+          image: harbor.finddatatech.cloud:8080/finddata/meilisearch:v1.6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7700
@@ -238,7 +237,7 @@ spec:
         kubernetes.io/hostname: vm-0-9-ubuntu
       containers:
         - name: api
-          image: harbor.fd/cache/librechat:latest
+          image: harbor.finddatatech.cloud:8080/finddata/librechat:20260918
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3080
@@ -255,7 +254,7 @@ spec:
             # ponytail: registration is OFF by default in recent LibreChat, which
             # hides the Sign up link and leaves a fresh DB with no loginable account.
             # Flip to "false" after the first admin registers so the public :30830
-            # can't be used to burn LiteLLM credits via open signup.
+            # can't be used to burn FindDataRouter quota via open signup.
             - name: ALLOW_REGISTRATION
               value: "true"
           volumeMounts:
