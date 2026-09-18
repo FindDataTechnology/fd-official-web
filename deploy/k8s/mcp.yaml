@@ -43,7 +43,7 @@ spec:
       # version never serves and the previous one keeps serving.
       initContainers:
         - name: migrate-schema
-          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-dc697f5
+          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-2782733
           imagePullPolicy: IfNotPresent
           # Same database-URL source as the server container:
           # FD_OPEN_DATA_MCP_DATABASE_URL arrives via the fd-mcp-env Secret.
@@ -53,12 +53,12 @@ spec:
           command: ["python", "-m", "fd_open_data_mcp.db.migrate_stage"]
       containers:
         - name: fd-open-data-mcp
-          # Immutable sha tag (commit dc697f5, db-schema-lifecycle rollout:
+          # Immutable sha tag (commit 2782733, db-schema-lifecycle rollout:
           # migrate-schema initContainer + startup schema gate + multi-source
           # observations). Built by the Jenkins fd-open-data-mcp job from
           # Gitee main and pushed to the domestic Harbor. New releases =
           # new sha tags, so IfNotPresent always pulls the referenced digest.
-          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-dc697f5
+          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-2782733
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8899
