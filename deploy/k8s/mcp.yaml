@@ -34,6 +34,27 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: vm-0-9-ubuntu
+      # Schema migration stage: alembic upgrade head must complete BEFORE the
+      # server starts (initContainers gate the main container). Serialized by
+      # a session-level Postgres advisory lock
+      # pg_advisory_lock(hashtext('fd_mcp_schema_migrate')) held for the whole
+      # run, so concurrent pod starts queue instead of racing; already-at-head
+      # is a no-op success (idempotent). A non-zero exit fails the pod: the new
+      # version never serves and the previous one keeps serving.
+      # ORDERING: only apply this manifest once the :torch image contains the
+      # db-schema-lifecycle change (migrate_stage + /app/alembic). An older
+      # image would fail the initContainer (module not found) and the pod
+      # would never start.
+      initContainers:
+        - name: migrate-schema
+          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:torch
+          imagePullPolicy: IfNotPresent
+          # Same database-URL source as the server container:
+          # FD_OPEN_DATA_MCP_DATABASE_URL arrives via the fd-mcp-env Secret.
+          envFrom:
+            - secretRef:
+                name: fd-mcp-env
+          command: ["python", "-m", "fd_open_data_mcp.db.migrate_stage"]
       containers:
         - name: fd-open-data-mcp
           image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:torch
