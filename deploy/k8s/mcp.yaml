@@ -41,13 +41,9 @@ spec:
       # run, so concurrent pod starts queue instead of racing; already-at-head
       # is a no-op success (idempotent). A non-zero exit fails the pod: the new
       # version never serves and the previous one keeps serving.
-      # ORDERING: only apply this manifest once the :torch image contains the
-      # db-schema-lifecycle change (migrate_stage + /app/alembic). An older
-      # image would fail the initContainer (module not found) and the pod
-      # would never start.
       initContainers:
         - name: migrate-schema
-          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:torch
+          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-dc697f5
           imagePullPolicy: IfNotPresent
           # Same database-URL source as the server container:
           # FD_OPEN_DATA_MCP_DATABASE_URL arrives via the fd-mcp-env Secret.
@@ -57,14 +53,12 @@ spec:
           command: ["python", "-m", "fd_open_data_mcp.db.migrate_stage"]
       containers:
         - name: fd-open-data-mcp
-          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:torch
-          # Ref names the cheap-fleet Harbor directly. The node's
-          # registries.yaml pins this host to http://100.64.0.8:30880 so
-          # containerd speaks plain HTTP; the old 23.144.68.246:30880 alias
-          # and its rewrite rule are retired. :torch is built by
-          # fd-open-data-mcp docker-publish.yml (workflow_dispatch, torch=true).
-          # After pushing a NEW digest under :torch, run
-          # `kubectl rollout restart` to re-resolve the tag.
+          # Immutable sha tag (commit dc697f5, db-schema-lifecycle rollout:
+          # migrate-schema initContainer + startup schema gate + multi-source
+          # observations). Built by the Jenkins fd-open-data-mcp job from
+          # Gitee main and pushed to the domestic Harbor. New releases =
+          # new sha tags, so IfNotPresent always pulls the referenced digest.
+          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-dc697f5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8899
