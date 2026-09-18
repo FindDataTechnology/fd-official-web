@@ -50,6 +50,11 @@ spec:
           envFrom:
             - secretRef:
                 name: fd-mcp-env
+          # The sqlite URL points inside the hostPath tree - the stage needs
+          # the same mount as the server to reach (and bootstrap) the db.
+          volumeMounts:
+            - name: finddata
+              mountPath: /opt/fd/finddata
           command: ["python", "-m", "fd_open_data_mcp.db.migrate_stage"]
       containers:
         - name: fd-open-data-mcp
