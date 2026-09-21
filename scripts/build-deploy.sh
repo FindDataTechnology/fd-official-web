@@ -20,6 +20,14 @@ CLONE_URL="${CLONE_URL:-https://github.com/FindDataTechnology/fd-official-web.gi
 WORK="${WORK:-/opt/fd/build/fd-official-web}"
 ENVF="${ENVF:-/opt/fd/fd-web-build.env}"
 [ -f "$ENVF" ] && . "$ENVF"
+# Base image; docker.io is unreachable from the CN build box, so fall back to
+# a working mirror and retag when the canonical name is missing.
+NODE_IMAGE="${NODE_IMAGE:-node:22-alpine}"
+NODE_MIRROR="${NODE_MIRROR:-dockerproxy.net/library/node:22-alpine}"
+if ! docker image inspect "$NODE_IMAGE" >/dev/null 2>&1    && ! docker pull "$NODE_IMAGE" >/dev/null 2>&1; then
+  docker pull "$NODE_MIRROR" >/dev/null
+  docker tag "$NODE_MIRROR" "$NODE_IMAGE"
+fi
 
 : "${FD_WEB_DEPLOY_PASS:?FD_WEB_DEPLOY_PASS missing in $ENVF}"
 DEPLOY_HOST="${FD_WEB_DEPLOY_HOST:-124.220.7.175}"
@@ -39,7 +47,7 @@ docker run --rm \
   -e GITHUB_TOKEN="${GITHUB_TOKEN:-}" \
   -e FD_INDICATORS_MCP_TOKEN="${FD_INDICATORS_MCP_TOKEN:-}" \
   -e FD_INDICATORS_MCP_URL="${FD_INDICATORS_MCP_URL:-https://www.finddatatech.cloud/mcp}" \
-  -v "$WORK":/app -w /app node:22-alpine \
+  -v "$WORK":/app -w /app "$NODE_IMAGE" \
   sh -c 'npm ci --no-audit --no-fund && npm run build'
 
 echo "== deploy: rsync -> $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH =="
