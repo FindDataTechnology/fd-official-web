@@ -1,0 +1,18 @@
+# In-container site build (Dockerfile.build) — keep the context lean and
+# NEVER let live secrets enter the build context or an image layer.
+.git
+.github
+.env
+.env.*
+!.env.example
+node_modules
+dist
+.astro
+.impeccable
+.claude
+.vscode
+.mcp.json
+ssh-config.json
+ssh-mcp-server.json
+openspec/changes/archive
+.DS_Store

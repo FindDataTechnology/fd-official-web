@@ -22,10 +22,21 @@ interface Concept {
   frequency: string | null;
   entity_type: string | null;
   source: string | null;
+  deprecated?: boolean | null;
   sample?: { entity: string; points: [string, string][] };
 }
 
-const concepts = (data.concepts ?? []) as Concept[];
+const raw = data as { generated_at?: string; concepts?: Concept[] };
+// Public catalog = active (non-deprecated) concepts; retired duplicates are
+// excluded from discovery upstream and never shown here.
+const concepts = (raw.concepts ?? []).filter((c) => !c.deprecated);
+const asOf = raw.generated_at
+  ? new Date(raw.generated_at).toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
+  : null;
 const counts = (key: keyof Concept) => {
   const m = new Map<string, number>();
   for (const c of concepts) {
@@ -69,9 +80,11 @@ const payload = JSON.stringify({
     source: counts('source'),
   },
   strings,
-  demoHref: locale === 'zh' ? '/zh/demo' : '/demo',
+  demoHref: locale === 'zh' ? '/zh/fd-open-data-mcp' : '/fd-open-data-mcp',
 }).replaceAll('<', '\\u003c');
 ---
+
+{asOf && <p class="catalog-asof">{t(locale, 'indicators.asOf').replace('{date}', asOf)}</p>}
 
 <div class="stats" style="margin-top: 0; margin-bottom: 36px;">
   {stats.map((s) => <div class="stat"><b>{s.n}</b><span>{s.label}</span></div>)}

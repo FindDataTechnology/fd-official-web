@@ -1,6 +1,8 @@
 {
-  "generated_at": "2026-08-28T17:13:34+00:00",
-  "source": "local-db",
+  "generated_at": "2026-09-21T10:54:56.952Z",
+  "source": "mcp",
+  "tools_count": 52,
+  "active_concepts": 413,
   "concepts": [
     {
       "id": 94,
@@ -12,7 +14,8 @@
       "measure": "",
       "frequency": "yearly",
       "entity_type": "city",
-      "source": "wikidata"
+      "source": "wikidata",
+      "deprecated": false
     },
     {
       "id": 95,
@@ -24,7 +27,8 @@
       "measure": "",
       "frequency": "yearly",
       "entity_type": "city",
-      "source": "wikidata"
+      "source": "wikidata",
+      "deprecated": false
     },
     {
       "id": 96,
@@ -36,7 +40,8 @@
       "measure": "",
       "frequency": "yearly",
       "entity_type": "city",
-      "source": "wikidata"
+      "source": "wikidata",
+      "deprecated": false
     },
     {
       "id": 97,
@@ -48,7 +53,8 @@
       "measure": "",
       "frequency": "yearly",
       "entity_type": "city",
-      "source": "wikidata"
+      "source": "wikidata",
+      "deprecated": false
     },
     {
       "id": 98,
@@ -60,7 +66,8 @@
       "measure": "",
       "frequency": "yearly",
       "entity_type": "city",
-      "source": "wikidata"
+      "source": "wikidata",
+      "deprecated": false
     },
     {
       "id": 99,
@@ -72,7 +79,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "city",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 100,
@@ -84,7 +92,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "city",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 101,
@@ -96,7 +105,8 @@
       "measure": "",
       "frequency": "yearly",
       "entity_type": "city",
-      "source": "wikidata"
+      "source": "wikidata",
+      "deprecated": false
     },
     {
       "id": 102,
@@ -108,7 +118,8 @@
       "measure": "",
       "frequency": "yearly",
       "entity_type": "city",
-      "source": "wikidata"
+      "source": "wikidata",
+      "deprecated": false
     },
     {
       "id": 103,
@@ -120,7 +131,21 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "city",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 274,
+      "code": "gdp",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "cny_billion",
+      "measure": "nominal_current_cny",
+      "frequency": "quarterly",
+      "entity_type": "city",
+      "source": null,
+      "deprecated": false
     },
     {
       "id": 110,
@@ -132,7 +157,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "city",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 111,
@@ -144,7 +170,151 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "city",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 409,
+      "code": "employee_count",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "persons",
+      "measure": "total_employees",
+      "frequency": "on_demand",
+      "entity_type": "company",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 285,
+      "code": "esg.environment",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "point_100",
+      "measure": "environmental_score",
+      "frequency": "yearly",
+      "entity_type": "company",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 287,
+      "code": "esg.governance",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "point_100",
+      "measure": "governance_score",
+      "frequency": "yearly",
+      "entity_type": "company",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 286,
+      "code": "esg.social",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "point_100",
+      "measure": "social_score",
+      "frequency": "yearly",
+      "entity_type": "company",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 284,
+      "code": "extraction.confidence",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "probability",
+      "measure": "extraction_confidence",
+      "frequency": "variable",
+      "entity_type": "company",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 283,
+      "code": "extraction.indicator",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "string",
+      "measure": "indicator_identifier",
+      "frequency": "variable",
+      "entity_type": "company",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 280,
+      "code": "financial.net_profit",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_cny_thousand",
+      "measure": "net_profit",
+      "frequency": "yearly",
+      "entity_type": "company",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 279,
+      "code": "financial.revenue",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_cny_thousand",
+      "measure": "operating_revenue",
+      "frequency": "yearly",
+      "entity_type": "company",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 281,
+      "code": "financial.total_assets",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_cny_thousand",
+      "measure": "total_assets",
+      "frequency": "yearly",
+      "entity_type": "company",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 282,
+      "code": "financial.total_liabilities",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_cny_thousand",
+      "measure": "total_liabilities",
+      "frequency": "yearly",
+      "entity_type": "company",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 408,
+      "code": "market_capitalization",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "usd",
+      "measure": "market_cap",
+      "frequency": "on_demand",
+      "entity_type": "company",
+      "source": null,
+      "deprecated": false
     },
     {
       "id": 74,
@@ -156,7 +326,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 47,
@@ -168,7 +339,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 53,
@@ -180,7 +352,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 54,
@@ -192,7 +365,1854 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 416,
+      "code": "dc.age.median",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "year",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 634,
+      "code": "dc.amount_economicactivity_grossdomesticproduction_nominal",
+      "name_en": "GDP (Nominal)",
+      "name_zh": null,
+      "category": null,
+      "unit": "USD",
+      "measure": "amount",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 635,
+      "code": "dc.amount_economicactivity_grossdomesticproduction_realvalue",
+      "name_en": "GDP (Real)",
+      "name_zh": null,
+      "category": null,
+      "unit": "USD",
+      "measure": "amount",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 545,
+      "code": "dc.annual_consumption_fuel_biogasoline",
+      "name_en": "Annual Consumption Fuel BioGasoline",
+      "name_zh": null,
+      "category": null,
+      "unit": "",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 546,
+      "code": "dc.annual_consumption_fuel_kerosene_nonenergyuse",
+      "name_en": "Annual Consumption Fuel Kerosene NonEnergyUse",
+      "name_zh": null,
+      "category": null,
+      "unit": "",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 547,
+      "code": "dc.annual_consumption_fuel_transportindustry_biogasoline",
+      "name_en": "Annual Consumption Fuel TransportIndustry BioGasoline",
+      "name_zh": null,
+      "category": null,
+      "unit": "",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 548,
+      "code": "dc.annual_emissions_carbondioxideequivalent100yearglobalwarmingpotential_ricecultivation",
+      "name_en": "Annual Emissions CO2 Equivalent RiceCultivation",
+      "name_zh": null,
+      "category": null,
+      "unit": "tonne",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 549,
+      "code": "dc.annual_generation_fuel_biogasoline",
+      "name_en": "Annual Generation Fuel BioGasoline",
+      "name_zh": null,
+      "category": null,
+      "unit": "",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 638,
+      "code": "dc.count_birthevent_livebirth",
+      "name_en": "Live Births",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 570,
+      "code": "dc.count_death_10to14years",
+      "name_en": "Deaths, 10-14 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 571,
+      "code": "dc.count_death_10to14years_female",
+      "name_en": "Deaths, 10-14 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 572,
+      "code": "dc.count_death_10to14years_male",
+      "name_en": "Deaths, 10-14 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 573,
+      "code": "dc.count_death_15to19years",
+      "name_en": "Deaths, 15-19 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 574,
+      "code": "dc.count_death_15to19years_female",
+      "name_en": "Deaths, 15-19 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 575,
+      "code": "dc.count_death_15to19years_male",
+      "name_en": "Deaths, 15-19 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 576,
+      "code": "dc.count_death_15to64years",
+      "name_en": "Deaths, 15-64 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 577,
+      "code": "dc.count_death_15to64years_female",
+      "name_en": "Deaths, 15-64 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 578,
+      "code": "dc.count_death_15to64years_male",
+      "name_en": "Deaths, 15-64 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 579,
+      "code": "dc.count_death_20to24years",
+      "name_en": "Deaths, 20-24 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 580,
+      "code": "dc.count_death_20to24years_female",
+      "name_en": "Deaths, 20-24 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 581,
+      "code": "dc.count_death_20to24years_male",
+      "name_en": "Deaths, 20-24 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 582,
+      "code": "dc.count_death_25to29years",
+      "name_en": "Deaths, 25-29 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 583,
+      "code": "dc.count_death_25to29years_female",
+      "name_en": "Deaths, 25-29 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 584,
+      "code": "dc.count_death_25to29years_male",
+      "name_en": "Deaths, 25-29 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 585,
+      "code": "dc.count_death_30to34years",
+      "name_en": "Deaths, 30-34 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 586,
+      "code": "dc.count_death_30to34years_female",
+      "name_en": "Deaths, 30-34 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 587,
+      "code": "dc.count_death_30to34years_male",
+      "name_en": "Deaths, 30-34 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 588,
+      "code": "dc.count_death_35to39years",
+      "name_en": "Deaths, 35-39 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 589,
+      "code": "dc.count_death_35to39years_female",
+      "name_en": "Deaths, 35-39 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 590,
+      "code": "dc.count_death_35to39years_male",
+      "name_en": "Deaths, 35-39 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 591,
+      "code": "dc.count_death_40to44years",
+      "name_en": "Deaths, 40-44 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 592,
+      "code": "dc.count_death_40to44years_female",
+      "name_en": "Deaths, 40-44 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 593,
+      "code": "dc.count_death_40to44years_male",
+      "name_en": "Deaths, 40-44 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 594,
+      "code": "dc.count_death_45to49years",
+      "name_en": "Deaths, 45-49 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 595,
+      "code": "dc.count_death_45to49years_female",
+      "name_en": "Deaths, 45-49 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 596,
+      "code": "dc.count_death_45to49years_male",
+      "name_en": "Deaths, 45-49 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 600,
+      "code": "dc.count_death_50to54years",
+      "name_en": "Deaths, 50-54 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 601,
+      "code": "dc.count_death_50to54years_female",
+      "name_en": "Deaths, 50-54 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 602,
+      "code": "dc.count_death_50to54years_male",
+      "name_en": "Deaths, 50-54 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 603,
+      "code": "dc.count_death_55to59years",
+      "name_en": "Deaths, 55-59 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 604,
+      "code": "dc.count_death_55to59years_female",
+      "name_en": "Deaths, 55-59 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 605,
+      "code": "dc.count_death_55to59years_male",
+      "name_en": "Deaths, 55-59 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 597,
+      "code": "dc.count_death_5to9years",
+      "name_en": "Deaths, 5-9 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 598,
+      "code": "dc.count_death_5to9years_female",
+      "name_en": "Deaths, 5-9 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 599,
+      "code": "dc.count_death_5to9years_male",
+      "name_en": "Deaths, 5-9 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 606,
+      "code": "dc.count_death_60to64years",
+      "name_en": "Deaths, 60-64 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 607,
+      "code": "dc.count_death_60to64years_female",
+      "name_en": "Deaths, 60-64 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 608,
+      "code": "dc.count_death_60to64years_male",
+      "name_en": "Deaths, 60-64 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 612,
+      "code": "dc.count_death_65ormoreyears",
+      "name_en": "Deaths, 65OrMore",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 613,
+      "code": "dc.count_death_65ormoreyears_female",
+      "name_en": "Deaths, 65OrMore (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 614,
+      "code": "dc.count_death_65ormoreyears_male",
+      "name_en": "Deaths, 65OrMore (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 609,
+      "code": "dc.count_death_65to69years",
+      "name_en": "Deaths, 65-69 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 610,
+      "code": "dc.count_death_65to69years_female",
+      "name_en": "Deaths, 65-69 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 611,
+      "code": "dc.count_death_65to69years_male",
+      "name_en": "Deaths, 65-69 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 615,
+      "code": "dc.count_death_70to74years",
+      "name_en": "Deaths, 70-74 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 616,
+      "code": "dc.count_death_70to74years_female",
+      "name_en": "Deaths, 70-74 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 617,
+      "code": "dc.count_death_70to74years_male",
+      "name_en": "Deaths, 70-74 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 618,
+      "code": "dc.count_death_75to79years",
+      "name_en": "Deaths, 75-79 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 619,
+      "code": "dc.count_death_75to79years_female",
+      "name_en": "Deaths, 75-79 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 620,
+      "code": "dc.count_death_75to79years_male",
+      "name_en": "Deaths, 75-79 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 621,
+      "code": "dc.count_death_80ormoreyears",
+      "name_en": "Deaths, 80+ Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 622,
+      "code": "dc.count_death_80ormoreyears_female",
+      "name_en": "Deaths, 80+ Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 623,
+      "code": "dc.count_death_80ormoreyears_male",
+      "name_en": "Deaths, 80+ Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 624,
+      "code": "dc.count_death_ageadjusted_asafractionof_count_person",
+      "name_en": "Deaths, AgeAdjusted, AsAFractionOf, Count, Person",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 627,
+      "code": "dc.count_death_asafractionof_count_person",
+      "name_en": "Deaths, AsAFractionOf, Count, Person",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 559,
+      "code": "dc.count_death_female",
+      "name_en": "Deaths (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 625,
+      "code": "dc.count_death_female_ageadjusted_asafractionof_count_person_female",
+      "name_en": "Deaths, AgeAdjusted, AsAFractionOf, Count, Person (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 628,
+      "code": "dc.count_death_female_asafractionof_count_person_female",
+      "name_en": "Deaths, AsAFractionOf, Count, Person (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 630,
+      "code": "dc.count_death_lessthan1year_asafractionof_count_birthevent",
+      "name_en": "Deaths, LessThan1Year, AsAFractionOf, Count, BirthEvent",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 631,
+      "code": "dc.count_death_lessthan1year_female_asafractionof_count_birthevent_female",
+      "name_en": "Deaths, LessThan1Year, AsAFractionOf, Count, BirthEvent (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 632,
+      "code": "dc.count_death_lessthan1year_male_asafractionof_count_birthevent_male",
+      "name_en": "Deaths, LessThan1Year, AsAFractionOf, Count, BirthEvent (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 560,
+      "code": "dc.count_death_male",
+      "name_en": "Deaths (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 626,
+      "code": "dc.count_death_male_ageadjusted_asafractionof_count_person_male",
+      "name_en": "Deaths, AgeAdjusted, AsAFractionOf, Count, Person (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 629,
+      "code": "dc.count_death_male_asafractionof_count_person_male",
+      "name_en": "Deaths, AsAFractionOf, Count, Person (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 561,
+      "code": "dc.count_death_upto14years",
+      "name_en": "Deaths, 0-14 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 564,
+      "code": "dc.count_death_upto14years_asafractionof_count_person_upto14years",
+      "name_en": "Deaths, 0-14 Years, AsAFractionOf, Count, Person, 0-14 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 562,
+      "code": "dc.count_death_upto14years_female",
+      "name_en": "Deaths, 0-14 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 565,
+      "code": "dc.count_death_upto14years_female_asafractionof_count_person_upto14years_female",
+      "name_en": "Deaths, 0-14 Years, AsAFractionOf, Count, Person, 0-14 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 563,
+      "code": "dc.count_death_upto14years_male",
+      "name_en": "Deaths, 0-14 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 566,
+      "code": "dc.count_death_upto14years_male_asafractionof_count_person_upto14years_male",
+      "name_en": "Deaths, 0-14 Years, AsAFractionOf, Count, Person, 0-14 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 567,
+      "code": "dc.count_death_upto4years",
+      "name_en": "Deaths, 0-4 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 568,
+      "code": "dc.count_death_upto4years_female",
+      "name_en": "Deaths, 0-4 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 569,
+      "code": "dc.count_death_upto4years_male",
+      "name_en": "Deaths, 0-4 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 552,
+      "code": "dc.count_household",
+      "name_en": "Count Household",
+      "name_zh": null,
+      "category": null,
+      "unit": "",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 553,
+      "code": "dc.count_medicalconditionincident_conditionpulmonarytuberculosis_newcase_bacteriologicaltest",
+      "name_en": "Count MedicalConditionIncident ConditionPulmonaryTuberculosis NewCase BacteriologicalTest",
+      "name_zh": null,
+      "category": null,
+      "unit": "",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 550,
+      "code": "dc.count_medicalconditionincident_covid_19_patienthospitalized",
+      "name_en": "COVID-19",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": true
+    },
+    {
+      "id": 551,
+      "code": "dc.count_medicalconditionincident_covid_19_patientinicu",
+      "name_en": "COVID-19",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": true
+    },
+    {
+      "id": 651,
+      "code": "dc.count_person_10to14years",
+      "name_en": "Population, 10-14 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 652,
+      "code": "dc.count_person_10to14years_female",
+      "name_en": "Population, 10-14 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 653,
+      "code": "dc.count_person_10to14years_male",
+      "name_en": "Population, 10-14 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 654,
+      "code": "dc.count_person_15to19years",
+      "name_en": "Population, 15-19 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 655,
+      "code": "dc.count_person_15to19years_female",
+      "name_en": "Population, 15-19 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 656,
+      "code": "dc.count_person_15to19years_male",
+      "name_en": "Population, 15-19 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 657,
+      "code": "dc.count_person_15to64years_female",
+      "name_en": "Population, 15-64 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 658,
+      "code": "dc.count_person_15to64years_male",
+      "name_en": "Population, 15-64 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 659,
+      "code": "dc.count_person_20to24years",
+      "name_en": "Population, 20-24 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 660,
+      "code": "dc.count_person_20to24years_female",
+      "name_en": "Population, 20-24 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 661,
+      "code": "dc.count_person_20to24years_male",
+      "name_en": "Population, 20-24 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 662,
+      "code": "dc.count_person_25to29years",
+      "name_en": "Population, 25-29 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 663,
+      "code": "dc.count_person_25to29years_female",
+      "name_en": "Population, 25-29 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 664,
+      "code": "dc.count_person_25to29years_male",
+      "name_en": "Population, 25-29 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 665,
+      "code": "dc.count_person_25to34years",
+      "name_en": "Population, 25To34",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 666,
+      "code": "dc.count_person_25to64years_tertiaryeducation_asafractionofcount_person_25to64years",
+      "name_en": "Population, 25To64, TertiaryEducation, AsAFractionOfCount, Person, 25To64",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 667,
+      "code": "dc.count_person_25to64years_tertiaryeducation_female_asafractionofcount_person_25to64years_female",
+      "name_en": "Population, 25To64, TertiaryEducation, AsAFractionOfCount, Person, 25To64 (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 668,
+      "code": "dc.count_person_25to64years_tertiaryeducation_male_asafractionofcount_person_25to64years_male",
+      "name_en": "Population, 25To64, TertiaryEducation, AsAFractionOfCount, Person, 25To64 (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 669,
+      "code": "dc.count_person_30to34years",
+      "name_en": "Population, 30-34 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 670,
+      "code": "dc.count_person_30to34years_female",
+      "name_en": "Population, 30-34 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 671,
+      "code": "dc.count_person_30to34years_male",
+      "name_en": "Population, 30-34 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 672,
+      "code": "dc.count_person_35to39years",
+      "name_en": "Population, 35-39 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 673,
+      "code": "dc.count_person_35to39years_female",
+      "name_en": "Population, 35-39 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 674,
+      "code": "dc.count_person_35to39years_male",
+      "name_en": "Population, 35-39 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 675,
+      "code": "dc.count_person_35to44years",
+      "name_en": "Population, 35To44",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 676,
+      "code": "dc.count_person_40to44years",
+      "name_en": "Population, 40-44 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 677,
+      "code": "dc.count_person_40to44years_female",
+      "name_en": "Population, 40-44 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 678,
+      "code": "dc.count_person_40to44years_male",
+      "name_en": "Population, 40-44 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 679,
+      "code": "dc.count_person_45to49years",
+      "name_en": "Population, 45-49 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 680,
+      "code": "dc.count_person_45to49years_female",
+      "name_en": "Population, 45-49 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 681,
+      "code": "dc.count_person_45to49years_male",
+      "name_en": "Population, 45-49 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 682,
+      "code": "dc.count_person_45to54years",
+      "name_en": "Population, 45To54",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 683,
+      "code": "dc.count_person_5to9years",
+      "name_en": "Population, 5-9 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 684,
+      "code": "dc.count_person_5to9years_female",
+      "name_en": "Population, 5-9 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 641,
+      "code": "dc.count_person_belowpovertylevelinthepast12months",
+      "name_en": "Population Below Poverty Level",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 644,
+      "code": "dc.count_person_inlaborforce",
+      "name_en": "Population in Labor Force",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 642,
+      "code": "dc.count_person_perarea",
+      "name_en": "Population Density",
+      "name_zh": null,
+      "category": null,
+      "unit": "person/km²",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 645,
+      "code": "dc.count_person_upto14years",
+      "name_en": "Population, 0-14 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 646,
+      "code": "dc.count_person_upto14years_female",
+      "name_en": "Population, 0-14 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 647,
+      "code": "dc.count_person_upto14years_male",
+      "name_en": "Population, 0-14 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 648,
+      "code": "dc.count_person_upto4years",
+      "name_en": "Population, 0-4 Years",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 649,
+      "code": "dc.count_person_upto4years_female",
+      "name_en": "Population, 0-4 Years (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 650,
+      "code": "dc.count_person_upto4years_male",
+      "name_en": "Population, 0-4 Years (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 554,
+      "code": "dc.cumulativecount_medicalconditionincident_covid_19_confirmedcase",
+      "name_en": "Cumulative COVID-19 Confirmed Cases",
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": true
+    },
+    {
+      "id": 633,
+      "code": "dc.fertilityrate_person_female",
+      "name_en": "Fertility Rate (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "births per woman",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 643,
+      "code": "dc.growthrate_count_person",
+      "name_en": "Population Growth Rate",
+      "name_zh": null,
+      "category": null,
+      "unit": "percent",
+      "measure": "rate",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 417,
+      "code": "dc.income.median",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "USD",
+      "measure": "amount",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 415,
+      "code": "dc.life_expectancy",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "year",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 636,
+      "code": "dc.lifeexpectancy_person_female",
+      "name_en": "Life Expectancy at Birth (Female)",
+      "name_zh": null,
+      "category": null,
+      "unit": "year",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 637,
+      "code": "dc.lifeexpectancy_person_male",
+      "name_en": "Life Expectancy at Birth (Male)",
+      "name_zh": null,
+      "category": null,
+      "unit": "year",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "datacommons",
+      "deprecated": false
+    },
+    {
+      "id": 410,
+      "code": "dc.population.count",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 412,
+      "code": "dc.population.female",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 411,
+      "code": "dc.population.male",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 418,
+      "code": "dc.poverty.count",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "person",
+      "measure": "value",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 419,
+      "code": "dc.unemployment.rate",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "percent",
+      "measure": "rate",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": null,
+      "deprecated": false
     },
     {
       "id": 179,
@@ -204,7 +2224,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 226,
@@ -216,7 +2237,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 143,
@@ -228,7 +2250,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 144,
@@ -240,7 +2263,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 75,
@@ -252,7 +2276,8 @@
       "measure": "",
       "frequency": "irregular",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 145,
@@ -264,7 +2289,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 146,
@@ -276,7 +2302,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 104,
@@ -288,7 +2315,21 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 266,
+      "code": "exports",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": null,
+      "deprecated": false
     },
     {
       "id": 88,
@@ -300,7 +2341,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 227,
@@ -312,7 +2354,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 105,
@@ -324,7 +2367,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 91,
@@ -336,7 +2380,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 92,
@@ -348,7 +2393,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 106,
@@ -360,7 +2406,21 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 267,
+      "code": "imports",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": null,
+      "deprecated": false
     },
     {
       "id": 109,
@@ -372,7 +2432,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 55,
@@ -384,7 +2445,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 134,
@@ -396,7 +2458,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 135,
@@ -408,7 +2471,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 76,
@@ -420,7 +2484,8 @@
       "measure": "",
       "frequency": "irregular",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 136,
@@ -432,7 +2497,21 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 268,
+      "code": "life_expectancy",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "years",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": null,
+      "deprecated": false
     },
     {
       "id": 77,
@@ -444,7 +2523,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 78,
@@ -456,7 +2536,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 204,
@@ -468,7 +2549,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 228,
@@ -480,7 +2562,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 205,
@@ -492,7 +2575,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 229,
@@ -504,7 +2588,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 206,
@@ -516,7 +2601,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 230,
@@ -528,7 +2614,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 48,
@@ -540,7 +2627,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 5,
@@ -552,7 +2640,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 6,
@@ -564,7 +2653,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 56,
@@ -576,7 +2666,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 207,
@@ -588,7 +2679,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 231,
@@ -600,7 +2692,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 49,
@@ -612,7 +2705,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 232,
@@ -624,7 +2718,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 89,
@@ -636,7 +2731,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 90,
@@ -648,7 +2744,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 50,
@@ -660,775 +2757,8 @@
       "measure": "",
       "frequency": "monthly",
       "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 51,
-      "code": "UNEMPLOYMENT_CN",
-      "name_en": "Urban Unemployment Rate",
-      "name_zh": "城镇调查失业率",
-      "category": "中国宏观",
-      "unit": "%",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 52,
-      "code": "USED_HOUSE_PRICE",
-      "name_en": "Used House Price Index",
-      "name_zh": "二手住宅价格指数",
-      "category": "中国宏观",
-      "unit": "index",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 156,
-      "code": "US_CONSUMER_CONFIDENCE",
-      "name_en": "US Consumer Confidence",
-      "name_zh": "美国消费者信心",
-      "category": "美国宏观",
-      "unit": "index",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 157,
-      "code": "US_CORE_CPI",
-      "name_en": "US Core CPI YoY",
-      "name_zh": "美国核心CPI同比",
-      "category": "美国宏观",
-      "unit": "%",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 158,
-      "code": "US_CPI_MOM",
-      "name_en": "US CPI MoM",
-      "name_zh": "美国CPI环比",
-      "category": "美国宏观",
-      "unit": "%",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 57,
-      "code": "US_CPI_YOY",
-      "name_en": "US CPI YoY",
-      "name_zh": "美国CPI同比",
-      "category": "价格指数",
-      "unit": "%",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 93,
-      "code": "US_GDP_YOY",
-      "name_en": "US GDP YoY",
-      "name_zh": "美国GDP同比增速",
-      "category": "国民核算",
-      "unit": "%",
-      "measure": "",
-      "frequency": "quarterly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 159,
-      "code": "US_HOUSE_PRICE",
-      "name_en": "US House Price Index",
-      "name_zh": "美国房价指数",
-      "category": "美国宏观",
-      "unit": "index",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 160,
-      "code": "US_HOUSE_STARTS",
-      "name_en": "US Housing Starts",
-      "name_zh": "美国新屋开工",
-      "category": "美国宏观",
-      "unit": "units",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 161,
-      "code": "US_INDUSTRIAL_PROD",
-      "name_en": "US Industrial Production",
-      "name_zh": "美国工业产出",
-      "category": "美国宏观",
-      "unit": "index",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 79,
-      "code": "US_INTEREST_RATE",
-      "name_en": "US Fed Funds Rate",
-      "name_zh": "美国联邦基金利率",
-      "category": "利率",
-      "unit": "%",
-      "measure": "",
-      "frequency": "irregular",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 162,
-      "code": "US_ISM_PMI",
-      "name_en": "US ISM Manufacturing PMI",
-      "name_zh": "美国ISM制造业PMI",
-      "category": "美国宏观",
-      "unit": "index",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 107,
-      "code": "US_NONFARM",
-      "name_en": "US Nonfarm Payrolls",
-      "name_zh": "美国非农就业人数",
-      "category": "就业",
-      "unit": "千人",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 163,
-      "code": "US_PPI",
-      "name_en": "US PPI",
-      "name_zh": "美国PPI",
-      "category": "美国宏观",
-      "unit": "%",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 164,
-      "code": "US_RETAIL_SALES",
-      "name_en": "US Retail Sales",
-      "name_zh": "美国零售销售",
-      "category": "美国宏观",
-      "unit": "currency",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 165,
-      "code": "US_TRADE_BALANCE",
-      "name_en": "US Trade Balance",
-      "name_zh": "美国贸易差额",
-      "category": "美国宏观",
-      "unit": "currency",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 108,
-      "code": "US_UNEMPLOYMENT",
-      "name_en": "US Unemployment Rate",
-      "name_zh": "美国失业率",
-      "category": "就业",
-      "unit": "%",
-      "measure": "",
-      "frequency": "monthly",
-      "entity_type": "country",
-      "source": "akshare"
-    },
-    {
-      "id": 7,
-      "code": "WB_AG.LND.FRST.ZS",
-      "name_en": "Forest area (% of land)",
-      "name_zh": "森林面积占比",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 8,
-      "code": "WB_BX.KLT.DINV.WD.GD.ZS",
-      "name_en": "FDI net inflows (% of GDP)",
-      "name_zh": "FDI占GDP比重",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 9,
-      "code": "WB_CO2",
-      "name_en": "CO2 per capita",
-      "name_zh": "人均CO2排放",
-      "category": "世界银行",
-      "unit": "tons",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 10,
-      "code": "WB_EDUCATION_EXP",
-      "name_en": "Education Expenditure",
-      "name_zh": "教育支出占GDP",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 11,
-      "code": "WB_EG.USE.ELEC.KH.PC",
-      "name_en": "Electric power consumption per capita",
-      "name_zh": "人均用电量",
-      "category": "世界银行",
-      "unit": "kWh",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 12,
-      "code": "WB_ELECTRICITY",
-      "name_en": "Electricity per capita",
-      "name_zh": "人均用电量",
-      "category": "世界银行",
-      "unit": "kWh",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 13,
-      "code": "WB_EN.ATM.CO2E.PC",
-      "name_en": "CO2 emissions per capita",
-      "name_zh": "人均CO2排放",
-      "category": "世界银行",
-      "unit": "吨",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 14,
-      "code": "WB_EXPORTS",
-      "name_en": "Exports (% of GDP)",
-      "name_zh": "出口占GDP比重",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 15,
-      "code": "WB_FDI",
-      "name_en": "FDI (% of GDP)",
-      "name_zh": "FDI占GDP比重",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 16,
-      "code": "WB_FOREST",
-      "name_en": "Forest Area",
-      "name_zh": "森林面积占比",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 17,
-      "code": "WB_FP.CPI.TOTL.ZG",
-      "name_en": "Inflation, consumer prices (annual %)",
-      "name_zh": "通货膨胀率(CPI)",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 18,
-      "code": "WB_GDP",
-      "name_en": "GDP (current US$)",
-      "name_zh": "GDP(现价美元)",
-      "category": "世界银行",
-      "unit": "currency",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 19,
-      "code": "WB_GDP_GROWTH",
-      "name_en": "GDP growth",
-      "name_zh": "GDP年增长率",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 20,
-      "code": "WB_GDP_PERCAPITA",
-      "name_en": "GDP per capita",
-      "name_zh": "人均GDP(现价美元)",
-      "category": "世界银行",
-      "unit": "currency",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 21,
-      "code": "WB_GNI_PERCAPITA",
-      "name_en": "GNI per capita",
-      "name_zh": "人均GNI",
-      "category": "世界银行",
-      "unit": "currency",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 22,
-      "code": "WB_HEALTH_EXP",
-      "name_en": "Health Expenditure",
-      "name_zh": "医疗支出占GDP",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 23,
-      "code": "WB_IMPORTS",
-      "name_en": "Imports (% of GDP)",
-      "name_zh": "进口占GDP比重",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 24,
-      "code": "WB_INFLATION",
-      "name_en": "Inflation CPI",
-      "name_zh": "通货膨胀率(CPI)",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 25,
-      "code": "WB_INTERNET",
-      "name_en": "Internet Users",
-      "name_zh": "互联网使用率",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 26,
-      "code": "WB_IT.NET.USER.ZS",
-      "name_en": "Internet users (% of pop)",
-      "name_zh": "互联网使用率",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 27,
-      "code": "WB_LABOR_FORCE",
-      "name_en": "Labor Force",
-      "name_zh": "劳动力总数",
-      "category": "世界银行",
-      "unit": "people",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 28,
-      "code": "WB_LIFE_EXPECTANCY",
-      "name_en": "Life Expectancy",
-      "name_zh": "预期寿命",
-      "category": "世界银行",
-      "unit": "years",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 29,
-      "code": "WB_LITERACY",
-      "name_en": "Literacy Rate",
-      "name_zh": "成人识字率",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 30,
-      "code": "WB_NE.EXP.GNFS.ZS",
-      "name_en": "Exports (% of GDP)",
-      "name_zh": "出口占GDP比重",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 31,
-      "code": "WB_NE.IMP.GNFS.ZS",
-      "name_en": "Imports (% of GDP)",
-      "name_zh": "进口占GDP比重",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 32,
-      "code": "WB_NY.GDP.MKTP.CD",
-      "name_en": "GDP (current US$)",
-      "name_zh": "GDP(现价美元)",
-      "category": "世界银行",
-      "unit": "美元",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 33,
-      "code": "WB_NY.GDP.MKTP.KD.ZG",
-      "name_en": "GDP growth (annual %)",
-      "name_zh": "GDP年增长率",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 34,
-      "code": "WB_NY.GDP.PCAP.CD",
-      "name_en": "GDP per capita (current US$)",
-      "name_zh": "人均GDP(现价美元)",
-      "category": "世界银行",
-      "unit": "美元",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 35,
-      "code": "WB_NY.GNP.PCAP.CD",
-      "name_en": "GNI per capita (current US$)",
-      "name_zh": "人均GNI(现价美元)",
-      "category": "世界银行",
-      "unit": "美元",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 37,
-      "code": "WB_POPULATION",
-      "name_en": "Population",
-      "name_zh": "总人口",
-      "category": "世界银行",
-      "unit": "people",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 36,
-      "code": "WB_POP_GROWTH",
-      "name_en": "Population Growth",
-      "name_zh": "人口增长率",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 38,
-      "code": "WB_SE.ADT.LITR.ZS",
-      "name_en": "Literacy rate, adult total (% of pop)",
-      "name_zh": "成人识字率",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 39,
-      "code": "WB_SE.XPD.TOTL.GD.ZS",
-      "name_en": "Education expenditure (% of GDP)",
-      "name_zh": "教育支出占GDP比重",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 40,
-      "code": "WB_SH.XPD.CHEX.GD.ZS",
-      "name_en": "Health expenditure (% of GDP)",
-      "name_zh": "医疗支出占GDP比重",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 41,
-      "code": "WB_SL.TLF.TOTL.IN",
-      "name_en": "Labor force, total",
-      "name_zh": "劳动力总数",
-      "category": "世界银行",
-      "unit": "人",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 42,
-      "code": "WB_SL.UEM.TOTL.ZS",
-      "name_en": "Unemployment (% of labor force)",
-      "name_zh": "失业率",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 43,
-      "code": "WB_SP.DYN.LE00.IN",
-      "name_en": "Life expectancy at birth (years)",
-      "name_zh": "预期寿命",
-      "category": "世界银行",
-      "unit": "年",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 44,
-      "code": "WB_SP.POP.GROW",
-      "name_en": "Population growth (annual %)",
-      "name_zh": "人口增长率",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 45,
-      "code": "WB_SP.POP.TOTL",
-      "name_en": "Population, total",
-      "name_zh": "总人口",
-      "category": "世界银行",
-      "unit": "人",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 46,
-      "code": "WB_UNEMPLOYMENT",
-      "name_en": "Unemployment",
-      "name_zh": "失业率",
-      "category": "世界银行",
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": "worldbank"
-    },
-    {
-      "id": 253,
-      "code": "co2.per_capita",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
-      "unit": "kt",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": null
-    },
-    {
-      "id": 252,
-      "code": "co2_emissions",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
-      "unit": "kt",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": null
-    },
-    {
-      "id": 248,
-      "code": "gdp",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
-      "unit": "usd",
-      "measure": "nominal_current",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": null
-    },
-    {
-      "id": 249,
-      "code": "gdp",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
-      "unit": "usd",
-      "measure": "per_capita",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": null
-    },
-    {
-      "id": 250,
-      "code": "gdp",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
-      "unit": "%",
-      "measure": "growth",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": null
-    },
-    {
-      "id": 254,
-      "code": "inflation",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
-      "unit": "%",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": null
-    },
-    {
-      "id": 251,
-      "code": "population.total",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
-      "unit": "persons",
-      "measure": "",
-      "frequency": "yearly",
-      "entity_type": "country",
-      "source": null
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 255,
@@ -1440,220 +2770,2868 @@
       "measure": "",
       "frequency": "yearly",
       "entity_type": "country",
-      "source": null
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 51,
+      "code": "UNEMPLOYMENT_CN",
+      "name_en": "Urban Unemployment Rate",
+      "name_zh": "城镇调查失业率",
+      "category": "中国宏观",
+      "unit": "%",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 156,
+      "code": "US_CONSUMER_CONFIDENCE",
+      "name_en": "US Consumer Confidence",
+      "name_zh": "美国消费者信心",
+      "category": "美国宏观",
+      "unit": "index",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 157,
+      "code": "US_CORE_CPI",
+      "name_en": "US Core CPI YoY",
+      "name_zh": "美国核心CPI同比",
+      "category": "美国宏观",
+      "unit": "%",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 158,
+      "code": "US_CPI_MOM",
+      "name_en": "US CPI MoM",
+      "name_zh": "美国CPI环比",
+      "category": "美国宏观",
+      "unit": "%",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 57,
+      "code": "US_CPI_YOY",
+      "name_en": "US CPI YoY",
+      "name_zh": "美国CPI同比",
+      "category": "价格指数",
+      "unit": "%",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 93,
+      "code": "US_GDP_YOY",
+      "name_en": "US GDP YoY",
+      "name_zh": "美国GDP同比增速",
+      "category": "国民核算",
+      "unit": "%",
+      "measure": "",
+      "frequency": "quarterly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 159,
+      "code": "US_HOUSE_PRICE",
+      "name_en": "US House Price Index",
+      "name_zh": "美国房价指数",
+      "category": "美国宏观",
+      "unit": "index",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 160,
+      "code": "US_HOUSE_STARTS",
+      "name_en": "US Housing Starts",
+      "name_zh": "美国新屋开工",
+      "category": "美国宏观",
+      "unit": "units",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 161,
+      "code": "US_INDUSTRIAL_PROD",
+      "name_en": "US Industrial Production",
+      "name_zh": "美国工业产出",
+      "category": "美国宏观",
+      "unit": "index",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 79,
+      "code": "US_INTEREST_RATE",
+      "name_en": "US Fed Funds Rate",
+      "name_zh": "美国联邦基金利率",
+      "category": "利率",
+      "unit": "%",
+      "measure": "",
+      "frequency": "irregular",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 162,
+      "code": "US_ISM_PMI",
+      "name_en": "US ISM Manufacturing PMI",
+      "name_zh": "美国ISM制造业PMI",
+      "category": "美国宏观",
+      "unit": "index",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 107,
+      "code": "US_NONFARM",
+      "name_en": "US Nonfarm Payrolls",
+      "name_zh": "美国非农就业人数",
+      "category": "就业",
+      "unit": "千人",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 163,
+      "code": "US_PPI",
+      "name_en": "US PPI",
+      "name_zh": "美国PPI",
+      "category": "美国宏观",
+      "unit": "%",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 164,
+      "code": "US_RETAIL_SALES",
+      "name_en": "US Retail Sales",
+      "name_zh": "美国零售销售",
+      "category": "美国宏观",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 165,
+      "code": "US_TRADE_BALANCE",
+      "name_en": "US Trade Balance",
+      "name_zh": "美国贸易差额",
+      "category": "美国宏观",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 108,
+      "code": "US_UNEMPLOYMENT",
+      "name_en": "US Unemployment Rate",
+      "name_zh": "美国失业率",
+      "category": "就业",
+      "unit": "%",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 52,
+      "code": "USED_HOUSE_PRICE",
+      "name_en": "Used House Price Index",
+      "name_zh": "二手住宅价格指数",
+      "category": "中国宏观",
+      "unit": "index",
+      "measure": "",
+      "frequency": "monthly",
+      "entity_type": "country",
+      "source": "akshare",
+      "deprecated": false
+    },
+    {
+      "id": 7,
+      "code": "WB_AG.LND.FRST.ZS",
+      "name_en": "Forest area (% of land)",
+      "name_zh": "森林面积占比",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 8,
+      "code": "WB_BX.KLT.DINV.WD.GD.ZS",
+      "name_en": "FDI net inflows (% of GDP)",
+      "name_zh": "FDI占GDP比重",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 9,
+      "code": "WB_CO2",
+      "name_en": "CO2 per capita",
+      "name_zh": "人均CO2排放",
+      "category": "世界银行",
+      "unit": "tons",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 10,
+      "code": "WB_EDUCATION_EXP",
+      "name_en": "Education Expenditure",
+      "name_zh": "教育支出占GDP",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 11,
+      "code": "WB_EG.USE.ELEC.KH.PC",
+      "name_en": "Electric power consumption per capita",
+      "name_zh": "人均用电量",
+      "category": "世界银行",
+      "unit": "kWh",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 12,
+      "code": "WB_ELECTRICITY",
+      "name_en": "Electricity per capita",
+      "name_zh": "人均用电量",
+      "category": "世界银行",
+      "unit": "kWh",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 13,
+      "code": "WB_EN.ATM.CO2E.PC",
+      "name_en": "CO2 emissions per capita",
+      "name_zh": "人均CO2排放",
+      "category": "世界银行",
+      "unit": "吨",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 14,
+      "code": "WB_EXPORTS",
+      "name_en": "Exports (% of GDP)",
+      "name_zh": "出口占GDP比重",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 15,
+      "code": "WB_FDI",
+      "name_en": "FDI (% of GDP)",
+      "name_zh": "FDI占GDP比重",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 16,
+      "code": "WB_FOREST",
+      "name_en": "Forest Area",
+      "name_zh": "森林面积占比",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 17,
+      "code": "WB_FP.CPI.TOTL.ZG",
+      "name_en": "Inflation, consumer prices (annual %)",
+      "name_zh": "通货膨胀率(CPI)",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 18,
+      "code": "WB_GDP",
+      "name_en": "GDP (current US$)",
+      "name_zh": "GDP(现价美元)",
+      "category": "世界银行",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 19,
+      "code": "WB_GDP_GROWTH",
+      "name_en": "GDP growth",
+      "name_zh": "GDP年增长率",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 20,
+      "code": "WB_GDP_PERCAPITA",
+      "name_en": "GDP per capita",
+      "name_zh": "人均GDP(现价美元)",
+      "category": "世界银行",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 21,
+      "code": "WB_GNI_PERCAPITA",
+      "name_en": "GNI per capita",
+      "name_zh": "人均GNI",
+      "category": "世界银行",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 22,
+      "code": "WB_HEALTH_EXP",
+      "name_en": "Health Expenditure",
+      "name_zh": "医疗支出占GDP",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 23,
+      "code": "WB_IMPORTS",
+      "name_en": "Imports (% of GDP)",
+      "name_zh": "进口占GDP比重",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 24,
+      "code": "WB_INFLATION",
+      "name_en": "Inflation CPI",
+      "name_zh": "通货膨胀率(CPI)",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 25,
+      "code": "WB_INTERNET",
+      "name_en": "Internet Users",
+      "name_zh": "互联网使用率",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 26,
+      "code": "WB_IT.NET.USER.ZS",
+      "name_en": "Internet users (% of pop)",
+      "name_zh": "互联网使用率",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 27,
+      "code": "WB_LABOR_FORCE",
+      "name_en": "Labor Force",
+      "name_zh": "劳动力总数",
+      "category": "世界银行",
+      "unit": "people",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 28,
+      "code": "WB_LIFE_EXPECTANCY",
+      "name_en": "Life Expectancy",
+      "name_zh": "预期寿命",
+      "category": "世界银行",
+      "unit": "years",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 29,
+      "code": "WB_LITERACY",
+      "name_en": "Literacy Rate",
+      "name_zh": "成人识字率",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 30,
+      "code": "WB_NE.EXP.GNFS.ZS",
+      "name_en": "Exports (% of GDP)",
+      "name_zh": "出口占GDP比重",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 31,
+      "code": "WB_NE.IMP.GNFS.ZS",
+      "name_en": "Imports (% of GDP)",
+      "name_zh": "进口占GDP比重",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 32,
+      "code": "WB_NY.GDP.MKTP.CD",
+      "name_en": "GDP (current US$)",
+      "name_zh": "GDP(现价美元)",
+      "category": "世界银行",
+      "unit": "美元",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 33,
+      "code": "WB_NY.GDP.MKTP.KD.ZG",
+      "name_en": "GDP growth (annual %)",
+      "name_zh": "GDP年增长率",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 34,
+      "code": "WB_NY.GDP.PCAP.CD",
+      "name_en": "GDP per capita (current US$)",
+      "name_zh": "人均GDP(现价美元)",
+      "category": "世界银行",
+      "unit": "美元",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 35,
+      "code": "WB_NY.GNP.PCAP.CD",
+      "name_en": "GNI per capita (current US$)",
+      "name_zh": "人均GNI(现价美元)",
+      "category": "世界银行",
+      "unit": "美元",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 36,
+      "code": "WB_POP_GROWTH",
+      "name_en": "Population Growth",
+      "name_zh": "人口增长率",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 37,
+      "code": "WB_POPULATION",
+      "name_en": "Population",
+      "name_zh": "总人口",
+      "category": "世界银行",
+      "unit": "people",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 38,
+      "code": "WB_SE.ADT.LITR.ZS",
+      "name_en": "Literacy rate, adult total (% of pop)",
+      "name_zh": "成人识字率",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 39,
+      "code": "WB_SE.XPD.TOTL.GD.ZS",
+      "name_en": "Education expenditure (% of GDP)",
+      "name_zh": "教育支出占GDP比重",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 40,
+      "code": "WB_SH.XPD.CHEX.GD.ZS",
+      "name_en": "Health expenditure (% of GDP)",
+      "name_zh": "医疗支出占GDP比重",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 41,
+      "code": "WB_SL.TLF.TOTL.IN",
+      "name_en": "Labor force, total",
+      "name_zh": "劳动力总数",
+      "category": "世界银行",
+      "unit": "人",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 42,
+      "code": "WB_SL.UEM.TOTL.ZS",
+      "name_en": "Unemployment (% of labor force)",
+      "name_zh": "失业率",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 43,
+      "code": "WB_SP.DYN.LE00.IN",
+      "name_en": "Life expectancy at birth (years)",
+      "name_zh": "预期寿命",
+      "category": "世界银行",
+      "unit": "年",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 44,
+      "code": "WB_SP.POP.GROW",
+      "name_en": "Population growth (annual %)",
+      "name_zh": "人口增长率",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 45,
+      "code": "WB_SP.POP.TOTL",
+      "name_en": "Population, total",
+      "name_zh": "总人口",
+      "category": "世界银行",
+      "unit": "人",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 46,
+      "code": "WB_UNEMPLOYMENT",
+      "name_en": "Unemployment",
+      "name_zh": "失业率",
+      "category": "世界银行",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "country",
+      "source": "worldbank",
+      "deprecated": false
+    },
+    {
+      "id": 389,
+      "code": "aum",
+      "name_en": "Assets under management",
+      "name_zh": "资产规模",
+      "category": "Fund Scale",
+      "unit": "亿元",
+      "measure": "",
+      "frequency": "quarterly",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 397,
+      "code": "holder.institutional_ratio",
+      "name_en": "Institutional holder ratio",
+      "name_zh": "机构持有比例",
+      "category": "Holder Structure",
+      "unit": "%",
+      "measure": "",
+      "frequency": "semiannual",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 379,
+      "code": "nav.accumulated",
+      "name_en": "Accumulated NAV",
+      "name_zh": "累计净值",
+      "category": "Fund NAV",
+      "unit": "currency_cny",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 380,
+      "code": "nav.daily_growth",
+      "name_en": "Daily NAV growth",
+      "name_zh": "日增长率",
+      "category": "Fund NAV",
+      "unit": "%",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 378,
+      "code": "nav.unit",
+      "name_en": "Unit NAV",
+      "name_zh": "单位净值",
+      "category": "Fund NAV",
+      "unit": "currency_cny",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 388,
+      "code": "price.amount",
+      "name_en": "Turnover",
+      "name_zh": "成交额",
+      "category": "Trading Data",
+      "unit": "currency_cny",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 384,
+      "code": "price.close",
+      "name_en": "Close price",
+      "name_zh": "收盘价",
+      "category": "Price Data",
+      "unit": "currency_cny",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 385,
+      "code": "price.high",
+      "name_en": "High price",
+      "name_zh": "最高价",
+      "category": "Price Data",
+      "unit": "currency_cny",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 386,
+      "code": "price.low",
+      "name_en": "Low price",
+      "name_zh": "最低价",
+      "category": "Price Data",
+      "unit": "currency_cny",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 383,
+      "code": "price.open",
+      "name_en": "Open price",
+      "name_zh": "开盘价",
+      "category": "Price Data",
+      "unit": "currency_cny",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 387,
+      "code": "price.volume",
+      "name_en": "Volume",
+      "name_zh": "成交量",
+      "category": "Trading Data",
+      "unit": "shares",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 398,
+      "code": "rating.stars",
+      "name_en": "Star rating",
+      "name_zh": "基金评级(星)",
+      "category": "Fund Rating",
+      "unit": "stars",
+      "measure": "",
+      "frequency": "irregular",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 391,
+      "code": "return.1m",
+      "name_en": "Return, 1 month",
+      "name_zh": "近1月收益率",
+      "category": "Fund Performance",
+      "unit": "%",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 390,
+      "code": "return.1w",
+      "name_en": "Return, 1 week",
+      "name_zh": "近1周收益率",
+      "category": "Fund Performance",
+      "unit": "%",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 394,
+      "code": "return.1y",
+      "name_en": "Return, 1 year",
+      "name_zh": "近1年收益率",
+      "category": "Fund Performance",
+      "unit": "%",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 392,
+      "code": "return.3m",
+      "name_en": "Return, 3 months",
+      "name_zh": "近3月收益率",
+      "category": "Fund Performance",
+      "unit": "%",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 395,
+      "code": "return.3y",
+      "name_en": "Return, 3 years",
+      "name_zh": "近3年收益率",
+      "category": "Fund Performance",
+      "unit": "%",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 393,
+      "code": "return.6m",
+      "name_en": "Return, 6 months",
+      "name_zh": "近6月收益率",
+      "category": "Fund Performance",
+      "unit": "%",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 396,
+      "code": "return.since_inception",
+      "name_en": "Return since inception",
+      "name_zh": "成立以来收益率",
+      "category": "Fund Performance",
+      "unit": "%",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 381,
+      "code": "yield.7day_annualized",
+      "name_en": "7-day annualized yield",
+      "name_zh": "7日年化收益率",
+      "category": "Fund Yield",
+      "unit": "%",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 382,
+      "code": "yield.per_10k",
+      "name_en": "Income per 10k units",
+      "name_zh": "万份收益",
+      "category": "Fund Yield",
+      "unit": "currency_cny",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "fund",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 289,
+      "code": "trading_turnover",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_cny_million",
+      "measure": "daily_turnover",
+      "frequency": "daily",
+      "entity_type": "index",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 288,
+      "code": "trading_volume",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "shares_million",
+      "measure": "daily_volume",
+      "frequency": "daily",
+      "entity_type": "index",
+      "source": null,
+      "deprecated": false
     },
     {
       "id": 246,
       "code": "doc.date",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Report Date",
+      "name_zh": "报告日期",
+      "category": "Document Metadata",
       "unit": "",
       "measure": "",
       "frequency": "irregular",
       "entity_type": "industry",
-      "source": null
+      "source": null,
+      "deprecated": false
     },
     {
       "id": 245,
       "code": "doc.title",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Report Title",
+      "name_zh": "报告标题",
+      "category": "Document Metadata",
       "unit": "",
       "measure": "",
       "frequency": "irregular",
       "entity_type": "industry",
-      "source": null
+      "source": null,
+      "deprecated": false
     },
     {
       "id": 247,
       "code": "doc.url",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Document URL",
+      "name_zh": "文档链接",
+      "category": "Document Metadata",
       "unit": "",
       "measure": "",
       "frequency": "irregular",
       "entity_type": "industry",
-      "source": null
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 344,
+      "code": "taxonomy.actual_controller",
+      "name_en": "Controlling Shareholder",
+      "name_zh": "股东及实际控制人",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 293,
+      "code": "taxonomy.balance_sheet",
+      "name_en": "Balance Sheet",
+      "name_zh": "资产负债表",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 301,
+      "code": "taxonomy.balance_sheet.current_assets",
+      "name_en": "Current Assets",
+      "name_zh": "流动资产",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 303,
+      "code": "taxonomy.balance_sheet.current_liabilities",
+      "name_en": "Current Liabilities",
+      "name_zh": "流动负债",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 305,
+      "code": "taxonomy.balance_sheet.equity",
+      "name_en": "Owners' Equity",
+      "name_zh": "所有者权益",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 302,
+      "code": "taxonomy.balance_sheet.non_current_assets",
+      "name_en": "Non-current Assets",
+      "name_zh": "非流动资产",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 304,
+      "code": "taxonomy.balance_sheet.non_current_liabilities",
+      "name_en": "Non-current Liabilities",
+      "name_zh": "非流动负债",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 322,
+      "code": "taxonomy.business_analysis",
+      "name_en": "Business Analysis",
+      "name_zh": "主营业务分析",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 358,
+      "code": "taxonomy.carbon_emission",
+      "name_en": "Carbon Emission",
+      "name_zh": "碳排放",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 295,
+      "code": "taxonomy.cashflow_statement",
+      "name_en": "Cash Flow Statement",
+      "name_zh": "现金流量表",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 315,
+      "code": "taxonomy.cashflow_statement.financing_activities",
+      "name_en": "Financing Activities",
+      "name_zh": "筹资活动",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 314,
+      "code": "taxonomy.cashflow_statement.investing_activities",
+      "name_en": "Investing Activities",
+      "name_zh": "投资活动",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 313,
+      "code": "taxonomy.cashflow_statement.operating_activities",
+      "name_en": "Operating Activities",
+      "name_zh": "经营活动",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 297,
+      "code": "taxonomy.comprehensive_income",
+      "name_en": "Statement of Comprehensive Income",
+      "name_zh": "综合收益表",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 317,
+      "code": "taxonomy.corporate_governance",
+      "name_en": "Corporate Governance",
+      "name_zh": "公司治理",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 321,
+      "code": "taxonomy.cost_analysis",
+      "name_en": "Cost Analysis",
+      "name_zh": "成本分析",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 327,
+      "code": "taxonomy.customer_info",
+      "name_en": "Customer Info",
+      "name_zh": "销售客户",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 328,
+      "code": "taxonomy.dividend_distribution",
+      "name_en": "Dividend Distribution",
+      "name_zh": "股利分配",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 361,
+      "code": "taxonomy.dividends",
+      "name_en": "Dividends",
+      "name_zh": "股息",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 363,
+      "code": "taxonomy.donations",
+      "name_en": "Donations",
+      "name_zh": "捐赠",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 345,
+      "code": "taxonomy.emission_overview",
+      "name_en": "Emission Overview",
+      "name_zh": "发行概况",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 319,
+      "code": "taxonomy.employee_info",
+      "name_en": "Employee Info",
+      "name_zh": "员工情况",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 357,
+      "code": "taxonomy.environmental_cost",
+      "name_en": "Environmental Cost",
+      "name_zh": "环保费用",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 329,
+      "code": "taxonomy.environmental_info",
+      "name_en": "Environmental Info",
+      "name_zh": "环境信息",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 356,
+      "code": "taxonomy.environmental_investment",
+      "name_en": "Environmental Investment",
+      "name_zh": "环保投资",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 336,
+      "code": "taxonomy.eps_info",
+      "name_en": "EPS",
+      "name_zh": "每股收益",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 296,
+      "code": "taxonomy.equity_changes",
+      "name_en": "Statement of Changes in Equity",
+      "name_zh": "所有者权益变动表",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 298,
+      "code": "taxonomy.financial_notes",
+      "name_en": "Notes to Financial Statements",
+      "name_zh": "财务报表附注",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 299,
+      "code": "taxonomy.financial_ratios",
+      "name_en": "Financial Ratios",
+      "name_zh": "财务比率",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 290,
+      "code": "taxonomy.financial_statements",
+      "name_en": "Financial Statements",
+      "name_zh": "财务报表",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 330,
+      "code": "taxonomy.financial_summary",
+      "name_en": "Financial Summary",
+      "name_zh": "财务摘要",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 352,
+      "code": "taxonomy.financing_history",
+      "name_en": "Financing History",
+      "name_zh": "报告期内发行融资",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 354,
+      "code": "taxonomy.fixed_asset_depreciation",
+      "name_en": "Fixed Asset Depreciation",
+      "name_zh": "固定资产折旧",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 294,
+      "code": "taxonomy.income_statement",
+      "name_en": "Income Statement",
+      "name_zh": "利润表",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 310,
+      "code": "taxonomy.income_statement.net_profit",
+      "name_en": "Net Profit",
+      "name_zh": "净利润",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 312,
+      "code": "taxonomy.income_statement.non_recurring",
+      "name_en": "Non-recurring Gains/Losses",
+      "name_zh": "非经常性损益",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 307,
+      "code": "taxonomy.income_statement.operating_costs",
+      "name_en": "Operating Costs",
+      "name_zh": "营业成本",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 308,
+      "code": "taxonomy.income_statement.operating_profit",
+      "name_en": "Operating Profit",
+      "name_zh": "营业利润",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 311,
+      "code": "taxonomy.income_statement.period_expenses",
+      "name_en": "Period Expenses",
+      "name_zh": "期间费用",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 306,
+      "code": "taxonomy.income_statement.revenue",
+      "name_en": "Revenue",
+      "name_zh": "营业收入",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 309,
+      "code": "taxonomy.income_statement.total_profit",
+      "name_en": "Total Profit",
+      "name_zh": "利润总额",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 349,
+      "code": "taxonomy.industry_info",
+      "name_en": "Industry Info",
+      "name_zh": "行业信息",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 335,
+      "code": "taxonomy.inventory_info",
+      "name_en": "Inventory",
+      "name_zh": "存货",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 334,
+      "code": "taxonomy.investment_info",
+      "name_en": "Investment",
+      "name_zh": "投资",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 340,
+      "code": "taxonomy.issuer_info",
+      "name_en": "Issuer Info",
+      "name_zh": "发行人基本信息",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 331,
+      "code": "taxonomy.key_financials",
+      "name_en": "Key Financials",
+      "name_zh": "主要财务指标",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 342,
+      "code": "taxonomy.listing_info",
+      "name_en": "Listing Info",
+      "name_zh": "挂牌期间基本情况",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 300,
+      "code": "taxonomy.market_data",
+      "name_en": "Market Data",
+      "name_zh": "市场数据",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 355,
+      "code": "taxonomy.market_price",
+      "name_en": "Market Price",
+      "name_zh": "市场价格",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 360,
+      "code": "taxonomy.non_ifrs_adjustment",
+      "name_en": "Non-IFRS Adjustment",
+      "name_zh": "非IFRS调整",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 332,
+      "code": "taxonomy.operating_performance",
+      "name_en": "Operating Performance",
+      "name_zh": "经营业绩",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 347,
+      "code": "taxonomy.operations_info",
+      "name_en": "Operations Info",
+      "name_zh": "运营指标",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 350,
+      "code": "taxonomy.per_share_metrics",
+      "name_en": "Per-share Metrics",
+      "name_zh": "每股指标",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 346,
+      "code": "taxonomy.pollution_info",
+      "name_en": "Pollution Info",
+      "name_zh": "排污信息",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 348,
+      "code": "taxonomy.product_info",
+      "name_en": "Product Info",
+      "name_zh": "产品信息",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 325,
+      "code": "taxonomy.production_sales",
+      "name_en": "Production & Sales",
+      "name_zh": "产销量",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 343,
+      "code": "taxonomy.profit_distribution",
+      "name_en": "Profit Distribution",
+      "name_zh": "利润分配",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 337,
+      "code": "taxonomy.profitability_analysis",
+      "name_en": "Profitability Analysis",
+      "name_zh": "盈利能力分析",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 292,
+      "code": "taxonomy.prospectus_sections",
+      "name_en": "Prospectus Sections",
+      "name_zh": "招股书章节",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 351,
+      "code": "taxonomy.quarterly_financials",
+      "name_en": "Quarterly Financials",
+      "name_zh": "分季度主要财务数据",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 323,
+      "code": "taxonomy.rd_investment",
+      "name_en": "R&D Investment",
+      "name_zh": "研发投入",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 324,
+      "code": "taxonomy.rd_personnel",
+      "name_en": "R&D Personnel",
+      "name_zh": "研发人员",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 320,
+      "code": "taxonomy.related_party_transactions",
+      "name_en": "Related Party Transactions",
+      "name_zh": "关联交易",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 291,
+      "code": "taxonomy.report_sections",
+      "name_en": "Report Sections",
+      "name_zh": "报告章节",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 362,
+      "code": "taxonomy.reserves",
+      "name_en": "Reserves",
+      "name_zh": "储备",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 338,
+      "code": "taxonomy.revenue_breakdown",
+      "name_en": "Revenue Breakdown",
+      "name_zh": "营业收入构成",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 353,
+      "code": "taxonomy.revenue_ratio",
+      "name_en": "Revenue Ratio",
+      "name_zh": "营业收入占比",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 316,
+      "code": "taxonomy.risk_factors",
+      "name_en": "Risk Factors",
+      "name_zh": "风险因素",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 341,
+      "code": "taxonomy.share_capital",
+      "name_en": "Share Capital",
+      "name_zh": "股本情况",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 359,
+      "code": "taxonomy.share_repurchase",
+      "name_en": "Share Repurchase",
+      "name_zh": "股份回购",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 318,
+      "code": "taxonomy.shareholder_info",
+      "name_en": "Shareholder Info",
+      "name_zh": "股东信息",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 333,
+      "code": "taxonomy.shareholder_return",
+      "name_en": "Shareholder Return",
+      "name_zh": "股东回报",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 326,
+      "code": "taxonomy.supplier_info",
+      "name_en": "Supplier Info",
+      "name_zh": "供应商",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 364,
+      "code": "taxonomy.target_info",
+      "name_en": "Target",
+      "name_zh": "目标",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 339,
+      "code": "taxonomy.use_of_proceeds",
+      "name_en": "Use of Proceeds",
+      "name_zh": "募集资金运用",
+      "category": "report_taxonomy",
+      "unit": "string",
+      "measure": "report_section_classification",
+      "frequency": "static",
+      "entity_type": "industry",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 278,
+      "code": "document.format",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "categorical",
+      "measure": "format_type",
+      "frequency": "variable",
+      "entity_type": "organization",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 276,
+      "code": "document.publish_date",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "date",
+      "measure": "publication_date",
+      "frequency": "variable",
+      "entity_type": "organization",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 275,
+      "code": "document.title",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "string",
+      "measure": "official_document",
+      "frequency": "variable",
+      "entity_type": "organization",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 277,
+      "code": "document.url",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "url",
+      "measure": "document_url",
+      "frequency": "variable",
+      "entity_type": "organization",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 370,
+      "code": "taxonomy.doc.cn_annual",
+      "name_en": "CN Annual Report",
+      "name_zh": "A股年报",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 371,
+      "code": "taxonomy.doc.cn_interim",
+      "name_en": "CN Interim Report",
+      "name_zh": "A股半年报",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 365,
+      "code": "taxonomy.doc.cn_periodic",
+      "name_en": "CN Periodic Reports",
+      "name_zh": "A股定期报告",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 375,
+      "code": "taxonomy.doc.cn_prospectus",
+      "name_en": "CN Prospectus",
+      "name_zh": "A股招股说明书",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 372,
+      "code": "taxonomy.doc.cn_quarterly",
+      "name_en": "CN Quarterly Report",
+      "name_zh": "A股季报",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 373,
+      "code": "taxonomy.doc.hk_annual",
+      "name_en": "HK Annual Report",
+      "name_zh": "港股年报",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 377,
+      "code": "taxonomy.doc.hk_annual_report",
+      "name_en": "HK Annual Report",
+      "name_zh": "港股年度报告",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 374,
+      "code": "taxonomy.doc.hk_interim",
+      "name_en": "HK Interim Report",
+      "name_zh": "港股半年报",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 366,
+      "code": "taxonomy.doc.hk_periodic",
+      "name_en": "HK Periodic Reports",
+      "name_zh": "港股定期报告",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 376,
+      "code": "taxonomy.doc.hk_prospectus",
+      "name_en": "HK Prospectus",
+      "name_zh": "港股招股说明书",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 368,
+      "code": "taxonomy.doc.hk_report",
+      "name_en": "HK Reports",
+      "name_zh": "港股报告",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 367,
+      "code": "taxonomy.doc.prospectus",
+      "name_en": "Prospectus",
+      "name_zh": "招股说明书",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 369,
+      "code": "taxonomy.doc.realtime",
+      "name_en": "Real-time Data",
+      "name_zh": "实时数据",
+      "category": "document_taxonomy",
+      "unit": "array",
+      "measure": "document_type_classification",
+      "frequency": "static",
+      "entity_type": "organization",
+      "source": "fd-cn-report",
+      "deprecated": false
+    },
+    {
+      "id": 399,
+      "code": "aum_total",
+      "name_en": "Total AUM of current funds",
+      "name_zh": "现任基金资产总规模",
+      "category": "Manager Stats",
+      "unit": "亿元",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "person",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 402,
+      "code": "best_return",
+      "name_en": "Best return among current funds",
+      "name_zh": "现任基金最佳回报",
+      "category": "Manager Stats",
+      "unit": "%",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "person",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 400,
+      "code": "funds_count",
+      "name_en": "Number of current funds",
+      "name_zh": "现任基金数量",
+      "category": "Manager Stats",
+      "unit": "units",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "person",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 401,
+      "code": "tenure_days",
+      "name_en": "Tenure, days",
+      "name_zh": "累计从业时间",
+      "category": "Manager Stats",
+      "unit": "days",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "person",
+      "source": null,
+      "deprecated": false
+    },
+    {
+      "id": 259,
+      "code": "financials.accounts_payable",
+      "name_en": "Accounts Payable",
+      "name_zh": "应付账款",
+      "category": "Balance Sheet",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 258,
+      "code": "financials.accounts_receivable",
+      "name_en": "Accounts Receivable",
+      "name_zh": "应收账款",
+      "category": "Balance Sheet",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 2226,
+      "code": "financials.admin_expense",
+      "name_en": "Administrative Expense",
+      "name_zh": "管理费用",
+      "category": "Income Statement",
+      "unit": "currency",
+      "measure": null,
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 260,
+      "code": "financials.debt_ratio",
+      "name_en": "Debt Ratio",
+      "name_zh": "资产负债率",
+      "category": "Financial Ratios",
+      "unit": "%",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 256,
+      "code": "financials.eps",
+      "name_en": "Earnings Per Share",
+      "name_zh": "每股收益",
+      "category": "Financial Ratios",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
     },
     {
       "id": 244,
       "code": "financials.equity",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Total Equity",
+      "name_zh": "所有者权益合计",
+      "category": "Balance Sheet",
       "unit": "currency",
       "measure": "",
       "frequency": "yearly",
       "entity_type": "stock",
-      "source": null
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 2227,
+      "code": "financials.finance_expense",
+      "name_en": "Finance Expense",
+      "name_zh": "财务费用",
+      "category": "Income Statement",
+      "unit": "currency",
+      "measure": null,
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 2230,
+      "code": "financials.financing_cash_flow",
+      "name_en": "Financing Cash Flow",
+      "name_zh": "融资性现金流净额",
+      "category": "Cash Flow Statement",
+      "unit": "currency",
+      "measure": null,
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 265,
+      "code": "financials.fixed_assets",
+      "name_en": "Fixed Assets",
+      "name_zh": "固定资产",
+      "category": "Balance Sheet",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 2223,
+      "code": "financials.inventory",
+      "name_en": "Inventory",
+      "name_zh": "存货",
+      "category": "Balance Sheet",
+      "unit": "currency",
+      "measure": null,
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 2229,
+      "code": "financials.investing_cash_flow",
+      "name_en": "Investing Cash Flow",
+      "name_zh": "投资性现金流净额",
+      "category": "Cash Flow Statement",
+      "unit": "currency",
+      "measure": null,
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 264,
+      "code": "financials.investment_income",
+      "name_en": "Investment Income",
+      "name_zh": "投资收益",
+      "category": "Income Statement",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 2222,
+      "code": "financials.monetary_capital",
+      "name_en": "Monetary Capital",
+      "name_zh": "货币资金",
+      "category": "Balance Sheet",
+      "unit": "currency",
+      "measure": null,
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 2228,
+      "code": "financials.net_cash_flow",
+      "name_en": "Net Cash Flow",
+      "name_zh": "净现金流",
+      "category": "Cash Flow Statement",
+      "unit": "currency",
+      "measure": null,
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
     },
     {
       "id": 240,
       "code": "financials.net_income",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Net Income",
+      "name_zh": "净利润",
+      "category": "Income Statement",
       "unit": "currency",
       "measure": "",
       "frequency": "yearly",
       "entity_type": "stock",
-      "source": null
+      "source": null,
+      "deprecated": true
     },
     {
       "id": 241,
       "code": "financials.operating_cash_flow",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Operating Cash Flow",
+      "name_zh": "经营活动产生的现金流量净额",
+      "category": "Cash Flow Statement",
       "unit": "currency",
       "measure": "",
       "frequency": "yearly",
       "entity_type": "stock",
-      "source": null
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 2224,
+      "code": "financials.operating_cost",
+      "name_en": "Operating Cost",
+      "name_zh": "营业支出",
+      "category": "Income Statement",
+      "unit": "currency",
+      "measure": null,
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 261,
+      "code": "financials.operating_profit",
+      "name_en": "Operating Profit",
+      "name_zh": "营业利润",
+      "category": "Income Statement",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 263,
+      "code": "financials.retained_earnings",
+      "name_en": "Retained Earnings",
+      "name_zh": "未分配利润",
+      "category": "Balance Sheet",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
     },
     {
       "id": 239,
       "code": "financials.revenue",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Total Revenue",
+      "name_zh": "营业收入",
+      "category": "Income Statement",
       "unit": "currency",
       "measure": "",
       "frequency": "yearly",
       "entity_type": "stock",
-      "source": null
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 2225,
+      "code": "financials.selling_expense",
+      "name_en": "Selling Expense",
+      "name_zh": "销售费用",
+      "category": "Income Statement",
+      "unit": "currency",
+      "measure": null,
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 257,
+      "code": "financials.share_capital",
+      "name_en": "Share Capital",
+      "name_zh": "股本",
+      "category": "Balance Sheet",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
     },
     {
       "id": 242,
       "code": "financials.total_assets",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Total Assets",
+      "name_zh": "总资产",
+      "category": "Balance Sheet",
       "unit": "currency",
       "measure": "",
       "frequency": "yearly",
       "entity_type": "stock",
-      "source": null
+      "source": null,
+      "deprecated": true
     },
     {
       "id": 243,
       "code": "financials.total_liabilities",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Total Liabilities",
+      "name_zh": "总负债",
+      "category": "Balance Sheet",
       "unit": "currency",
       "measure": "",
       "frequency": "yearly",
       "entity_type": "stock",
-      "source": null
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 262,
+      "code": "financials.total_profit",
+      "name_en": "Total Profit",
+      "name_zh": "利润总额",
+      "category": "Income Statement",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "yearly",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
     },
     {
       "id": 238,
       "code": "price.amount",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
-      "unit": "currency",
-      "measure": "",
-      "frequency": "daily",
-      "entity_type": "stock",
-      "source": null
-    },
-    {
-      "id": 234,
-      "code": "price.close",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Trading Amount",
+      "name_zh": "成交额",
+      "category": "Trading Data",
       "unit": "currency",
       "measure": "",
       "frequency": "daily",
       "entity_type": "stock",
       "source": null,
-      "sample": {
-        "entity": "000001",
-        "points": [
-          [
-            "2024-01-02",
-            "7.74"
-          ],
-          [
-            "2024-01-03",
-            "7.73"
-          ],
-          [
-            "2024-01-04",
-            "7.65"
-          ],
-          [
-            "2024-01-05",
-            "7.79"
-          ],
-          [
-            "2024-03-15",
-            "8.91"
-          ],
-          [
-            "2024-03-18",
-            "8.86"
-          ]
-        ]
-      },
-      "coverage": {
-        "rows": 6,
-        "latest_date": "2024-03-18"
-      }
+      "deprecated": true
+    },
+    {
+      "id": 269,
+      "code": "price.close",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_cny",
+      "measure": "close_price",
+      "frequency": "daily",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 234,
+      "code": "price.close",
+      "name_en": "Closing Price",
+      "name_zh": "收盘价",
+      "category": "Price Data",
+      "unit": "currency",
+      "measure": "",
+      "frequency": "daily",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 403,
+      "code": "price.close",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_usd",
+      "measure": "close_price",
+      "frequency": "daily",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
     },
     {
       "id": 235,
       "code": "price.high",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Highest Price",
+      "name_zh": "最高价",
+      "category": "Price Data",
       "unit": "currency",
       "measure": "",
       "frequency": "daily",
       "entity_type": "stock",
-      "source": null
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 271,
+      "code": "price.high",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_cny",
+      "measure": "high_price",
+      "frequency": "daily",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 405,
+      "code": "price.high",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_usd",
+      "measure": "high_price",
+      "frequency": "daily",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
     },
     {
       "id": 236,
       "code": "price.low",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Lowest Price",
+      "name_zh": "最低价",
+      "category": "Price Data",
       "unit": "currency",
       "measure": "",
       "frequency": "daily",
       "entity_type": "stock",
-      "source": null
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 272,
+      "code": "price.low",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_cny",
+      "measure": "low_price",
+      "frequency": "daily",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 406,
+      "code": "price.low",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_usd",
+      "measure": "low_price",
+      "frequency": "daily",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
     },
     {
       "id": 233,
       "code": "price.open",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Opening Price",
+      "name_zh": "开盘价",
+      "category": "Price Data",
       "unit": "currency",
       "measure": "",
       "frequency": "daily",
       "entity_type": "stock",
-      "source": null
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 270,
+      "code": "price.open",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_cny",
+      "measure": "open_price",
+      "frequency": "daily",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 404,
+      "code": "price.open",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_usd",
+      "measure": "open_price",
+      "frequency": "daily",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
     },
     {
       "id": 237,
       "code": "price.volume",
-      "name_en": null,
-      "name_zh": null,
-      "category": null,
+      "name_en": "Trading Volume",
+      "name_zh": "成交量",
+      "category": "Trading Data",
       "unit": "shares",
       "measure": "",
       "frequency": "daily",
       "entity_type": "stock",
-      "source": null
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 407,
+      "code": "price.vwap",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "currency_usd",
+      "measure": "vwap",
+      "frequency": "daily",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": true
+    },
+    {
+      "id": 273,
+      "code": "trading_volume",
+      "name_en": null,
+      "name_zh": null,
+      "category": null,
+      "unit": "shares",
+      "measure": "volume",
+      "frequency": "daily",
+      "entity_type": "stock",
+      "source": null,
+      "deprecated": false
     },
     {
       "id": 208,
@@ -1665,7 +5643,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 209,
@@ -1677,7 +5656,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 210,
@@ -1689,7 +5669,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 211,
@@ -1701,7 +5682,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 212,
@@ -1713,7 +5695,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 213,
@@ -1725,7 +5708,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 214,
@@ -1737,7 +5721,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 215,
@@ -1749,7 +5734,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 216,
@@ -1761,7 +5747,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 217,
@@ -1773,7 +5760,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 218,
@@ -1785,7 +5773,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 219,
@@ -1797,7 +5786,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 220,
@@ -1809,7 +5799,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 221,
@@ -1821,7 +5812,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 222,
@@ -1833,7 +5825,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 223,
@@ -1845,7 +5838,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 224,
@@ -1857,7 +5851,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 225,
@@ -1869,7 +5864,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 147,
@@ -1881,7 +5877,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 148,
@@ -1893,7 +5890,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 149,
@@ -1905,7 +5903,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 150,
@@ -1917,7 +5916,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 151,
@@ -1929,7 +5929,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 152,
@@ -1941,7 +5942,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 153,
@@ -1953,7 +5955,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 154,
@@ -1965,7 +5968,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 155,
@@ -1977,7 +5981,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 80,
@@ -1989,7 +5994,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 81,
@@ -2001,7 +6007,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 82,
@@ -2013,7 +6020,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 83,
@@ -2025,7 +6033,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 84,
@@ -2037,7 +6046,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 85,
@@ -2049,7 +6059,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 86,
@@ -2061,7 +6072,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 87,
@@ -2073,7 +6085,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 1,
@@ -2085,7 +6098,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 2,
@@ -2097,7 +6111,8 @@
       "measure": "",
       "frequency": "irregular",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 3,
@@ -2109,7 +6124,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 4,
@@ -2121,7 +6137,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 180,
@@ -2133,7 +6150,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 181,
@@ -2145,7 +6163,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 182,
@@ -2157,7 +6176,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 183,
@@ -2169,7 +6189,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 184,
@@ -2181,7 +6202,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 185,
@@ -2193,7 +6215,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 186,
@@ -2205,7 +6228,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 187,
@@ -2217,7 +6241,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 188,
@@ -2229,7 +6254,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 189,
@@ -2241,7 +6267,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 190,
@@ -2253,7 +6280,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 191,
@@ -2265,19 +6293,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
-    },
-    {
-      "id": 193,
-      "code": "FIN_NETPROFIT_GROWTH",
-      "name_en": "Net Profit Growth",
-      "name_zh": "净利润增长率",
-      "category": "财务指标",
-      "unit": "%",
-      "measure": "",
-      "frequency": "quarterly",
-      "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 192,
@@ -2289,7 +6306,21 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
+    },
+    {
+      "id": 193,
+      "code": "FIN_NETPROFIT_GROWTH",
+      "name_en": "Net Profit Growth",
+      "name_zh": "净利润增长率",
+      "category": "财务指标",
+      "unit": "%",
+      "measure": "",
+      "frequency": "quarterly",
+      "entity_type": "symbol",
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 194,
@@ -2301,7 +6332,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 195,
@@ -2313,7 +6345,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 196,
@@ -2325,7 +6358,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 197,
@@ -2337,7 +6371,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 198,
@@ -2349,7 +6384,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 199,
@@ -2361,7 +6397,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 200,
@@ -2373,7 +6410,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 201,
@@ -2385,7 +6423,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 202,
@@ -2397,7 +6436,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 203,
@@ -2409,7 +6449,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 137,
@@ -2421,7 +6462,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 138,
@@ -2433,7 +6475,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 139,
@@ -2445,7 +6488,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 140,
@@ -2457,7 +6501,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 141,
@@ -2469,7 +6514,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 142,
@@ -2481,7 +6527,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 128,
@@ -2493,7 +6540,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 129,
@@ -2505,7 +6553,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 130,
@@ -2517,7 +6566,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 131,
@@ -2529,7 +6579,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 132,
@@ -2541,7 +6592,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 133,
@@ -2553,7 +6605,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": false
     },
     {
       "id": 166,
@@ -2565,7 +6618,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 167,
@@ -2577,7 +6631,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 168,
@@ -2589,7 +6644,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 169,
@@ -2601,7 +6657,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 170,
@@ -2613,7 +6670,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 171,
@@ -2625,7 +6683,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 172,
@@ -2637,7 +6696,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 173,
@@ -2649,7 +6709,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 174,
@@ -2661,7 +6722,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 175,
@@ -2673,7 +6735,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 176,
@@ -2685,7 +6748,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 177,
@@ -2697,7 +6761,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 178,
@@ -2709,7 +6774,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 58,
@@ -2721,7 +6787,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 59,
@@ -2733,7 +6800,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 60,
@@ -2745,7 +6813,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 61,
@@ -2757,7 +6826,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 62,
@@ -2769,7 +6839,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 63,
@@ -2781,7 +6852,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 64,
@@ -2793,7 +6865,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 65,
@@ -2805,7 +6878,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 66,
@@ -2817,7 +6891,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 67,
@@ -2829,7 +6904,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 68,
@@ -2841,7 +6917,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 69,
@@ -2853,7 +6930,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 70,
@@ -2865,7 +6943,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 71,
@@ -2877,7 +6956,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 72,
@@ -2889,7 +6969,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 73,
@@ -2901,7 +6982,8 @@
       "measure": "",
       "frequency": "quarterly",
       "entity_type": "symbol",
-      "source": "akshare"
+      "source": "akshare",
+      "deprecated": true
     },
     {
       "id": 112,
@@ -2913,7 +6995,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 113,
@@ -2925,7 +7008,8 @@
       "measure": "",
       "frequency": "yearly",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 114,
@@ -2937,7 +7021,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 115,
@@ -2949,7 +7034,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 116,
@@ -2961,7 +7047,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 117,
@@ -2973,7 +7060,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 118,
@@ -2985,7 +7073,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 119,
@@ -2997,7 +7086,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 120,
@@ -3009,7 +7099,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 121,
@@ -3021,7 +7112,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 122,
@@ -3033,7 +7125,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 123,
@@ -3045,7 +7138,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 124,
@@ -3057,7 +7151,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 125,
@@ -3069,7 +7164,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 126,
@@ -3081,7 +7177,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     },
     {
       "id": 127,
@@ -3093,7 +7190,8 @@
       "measure": "",
       "frequency": "daily",
       "entity_type": "symbol",
-      "source": "computed"
+      "source": "computed",
+      "deprecated": false
     }
   ]
 }

@@ -6,9 +6,12 @@ import { t } from '../../i18n';
 import reposJson from '../../data/repos.json';
 
 const locale = 'zh';
-const repos: Repo[] = reposJson;
+const { generated_at: capturedAt, repos } = reposJson as { generated_at?: string; repos: Repo[] };
 const featured = new Set(['fd-open-data-mcp', 'fd-open-data-protocol']);
 const title = t(locale, 'repos.title') + ' — FindData Technology';
+const captured = capturedAt
+  ? new Date(capturedAt).toLocaleDateString('zh-CN', { year: 'numeric', month: 'short', day: 'numeric' })
+  : null;
 ---
 
 <Layout locale={locale} title={title} description={t(locale, 'repos.sub')}>
@@ -16,9 +19,14 @@ const title = t(locale, 'repos.title') + ' — FindData Technology';
   <p class="page-sub">{t(locale, 'repos.sub')}</p>
   {
     repos.length ? (
-      <ul class="grid">
-        {repos.map((r) => <RepoCard repo={r} featured={featured.has(r.name)} locale={locale} />)}
-      </ul>
+      <>
+        {captured && <p class="catalog-asof">{t(locale, 'repos.asOf').replace('{date}', captured)}</p>}
+        <ul class="grid">
+          {repos.map((r) => (
+            <RepoCard repo={r} featured={featured.has(r.name)} locale={locale} />
+          ))}
+        </ul>
+      </>
     ) : (
       <p class="page-sub">{t(locale, 'repos.empty')}</p>
     )

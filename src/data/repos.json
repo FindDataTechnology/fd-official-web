@@ -1,1 +1,140 @@
-[]
+{
+  "generated_at": "2026-09-21T10:50:48.776Z",
+  "repos": [
+    {
+      "name": "fd-open-data-mcp",
+      "description": "Open-data ontology MCP: a semantic concept layer over multi-datasource financial/economic data (akshare, yfinance, edgar, wbgapi, cn-report, cn-gov).",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-09-20",
+      "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-open-data-protocol",
+      "description": "The open-data datasource protocol: a manifest contract a datasource exposes to be ingested by fd-open-data-mcp.",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-09-16",
+      "url": "https://github.com/FindDataTechnology/fd-open-data-protocol",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-craw-private",
+      "description": "Platform - browser-based chat interface built on the DeepSeek Harness (dsh) runtime",
+      "language": "JavaScript",
+      "stars": 0,
+      "updated": "2026-09-21",
+      "url": "https://github.com/FindDataTechnology/fd-craw-private",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-find-data-business-mcp",
+      "description": null,
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-09-20",
+      "url": "https://github.com/FindDataTechnology/fd-find-data-business-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-vertical-packs",
+      "description": "Vertical pack entry skills + cloud agents catalog for the FindData AI platform market",
+      "language": null,
+      "stars": 0,
+      "updated": "2026-09-19",
+      "url": "https://github.com/FindDataTechnology/fd-vertical-packs",
+      "hasReadme": true
+    },
+    {
+      "name": "scraw-fd-open-data-mcp",
+      "description": "Unified concept-driven crawler for fd-open-data-mcp — consumes a CrawlPlan, fetches via the shared adapter registry, warms the read cache.",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-09-19",
+      "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-industry-data",
+      "description": "Industry data spiders with remote browser support",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-09-18",
+      "url": "https://github.com/FindDataTechnology/fd-industry-data",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-official-web",
+      "description": "Official website for FindData Technology — open-data ontology MCP for AI agents.",
+      "language": "Astro",
+      "stars": 0,
+      "updated": "2026-09-18",
+      "url": "https://github.com/FindDataTechnology/fd-official-web",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-cn-report",
+      "description": "Chinese financial report MCP server — Shenwan industry AI rule system, outline extraction, AI structured extraction, Elasticsearch store + search",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-09-18",
+      "url": "https://github.com/FindDataTechnology/fd-cn-report",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-world",
+      "description": "CLI for multi-source data access - AKShare, World Bank, CKAN, Chinese Statistics",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-09-17",
+      "url": "https://github.com/FindDataTechnology/fd-world",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-cn-gov",
+      "description": "Ministry open-information scrapers + datasource registry",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-09-14",
+      "url": "https://github.com/FindDataTechnology/fd-cn-gov",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-polygon",
+      "description": "Polygon.io US equities datasource package for fd-open-data-mcp (OHLCV bars via polygon-api-client)",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-09-08",
+      "url": "https://github.com/FindDataTechnology/fd-polygon",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-daas-mcp",
+      "description": "DAAS - Data As a Service: layered data platform (fd-daas-mcp MCP server + fd-open-data-mcp upstream) behind one SQLite file",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-08-24",
+      "url": "https://github.com/FindDataTechnology/fd-daas-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-vaas-skills",
+      "description": "VAAS - Video Automation & Distribution System: a natural-language video creation and multi-platform publishing skill chain for Claude Code / Agent runtimes.",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-08-21",
+      "url": "https://github.com/FindDataTechnology/fd-vaas-skills",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-open-bench",
+      "description": "Open-source benchmark platform for evaluating AI agents — datasets, batch evaluation, leaderboards, and business metrics.",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-08-15",
+      "url": "https://github.com/FindDataTechnology/fd-open-bench",
+      "hasReadme": true
+    }
+  ]
+}

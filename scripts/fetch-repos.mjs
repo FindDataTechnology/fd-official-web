@@ -5,7 +5,8 @@
 //   entry, rendered on /repos/{name}. Gitignored — regenerated every build so
 //   the site stays in sync with GitHub. Relative links/images are rewritten to
 //   absolute github.com / raw.githubusercontent.com URLs so they resolve off-GitHub.
-// Falls back gracefully (empty grid, no README pages) if the API is unreachable.
+// Falls back gracefully (last-good snapshot, no README rewrite) if the API is
+// unreachable: a failed build never blanks the committed fallback data.
 import { mkdir, writeFile, rm, access } from 'node:fs/promises';
 
 const ORG = 'FindDataTechnology';
@@ -15,6 +16,16 @@ const README_DIR = new URL('../src/content/repos/', import.meta.url);
 const UPDATES_OUT = new URL('../src/data/updates.json', import.meta.url);
 const MAX_ENTRIES_PER_REPO = 5;
 const MAX_ENTRIES_TOTAL = 50;
+
+// Public-feed hygiene: internal-only commit prefixes never shown on /updates,
+// and repos on the exclusion list contribute nothing (empty for now).
+const INTERNAL_COMMIT_PREFIXES = [
+  'chore(openspec):',
+  'chore(cleanup):',
+  'chore(deps):',
+  'chore(release):',
+];
+const EXCLUDED_REPOS = [];
 
 const headers = { Accept: 'application/vnd.github+json' };
 if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
@@ -57,6 +68,7 @@ function parseChangelog(md) {
 async function fetchUpdates(list) {
   const updates = [];
   for (const r of list) {
+    if (EXCLUDED_REPOS.includes(r.name)) continue;
     try {
       const c = await fetchJson(
         `https://api.github.com/repos/${ORG}/${r.name}/contents/CHANGELOG.md`,
@@ -71,13 +83,15 @@ async function fetchUpdates(list) {
           `https://api.github.com/repos/${ORG}/${r.name}/commits?per_page=${MAX_ENTRIES_PER_REPO}`,
         );
         for (const cm of commits) {
+          const msg = String(cm.commit?.message ?? '').split('\n')[0];
+          if (INTERNAL_COMMIT_PREFIXES.some((p) => msg.startsWith(p))) continue;
           updates.push({
             repo: r.name,
             url: cm.html_url,
             version: cm.sha.slice(0, 7),
             date: String(cm.commit?.committer?.date ?? '').slice(0, 10) || null,
             upcoming: false,
-            summary: [String(cm.commit?.message ?? '').split('\n')[0]],
+            summary: [msg],
           });
         }
       } catch (e) {
@@ -109,9 +123,13 @@ function absolutize(md, repo, branch) {
 }
 
 try {
-  const list = await fetchJson(
+  const all = await fetchJson(
     `https://api.github.com/orgs/${ORG}/repos?per_page=100&sort=updated`,
   );
+  // Public only — an authenticated build token can see private repos; the
+  // public grid and feed must never include them (or their commit activity).
+  const list = all.filter((r) => !r.private);
+  if (!list.length) throw new Error('no public repos returned');
   await rm(README_DIR, { recursive: true, force: true });
   await mkdir(README_DIR, { recursive: true });
 
@@ -156,7 +174,7 @@ try {
 
   repos.sort((a, b) => rank(a.name) - rank(b.name) || b.stars - a.stars);
   await mkdir(new URL('./', REPOS_OUT), { recursive: true });
-  await writeFile(REPOS_OUT, JSON.stringify(repos, null, 2));
+  await writeFile(REPOS_OUT, JSON.stringify({ generated_at: new Date().toISOString(), repos }, null, 2));
   console.log(
     `[repos] fetched ${repos.length} repos, ${repos.filter((r) => r.hasReadme).length} READMEs`,
   );
@@ -175,10 +193,16 @@ try {
   }
   console.log(`[updates] ${updates.length} feed entries`);
 } catch (err) {
-  console.warn(`[repos] fetch failed (${err.message}); writing empty grid`);
+  // Never overwrite the committed fallback with emptiness — one flaky build
+  // must not blank the /repos grid. Only ensure the files exist at all so a
+  // first-ever build has something readable.
+  console.warn(`[repos] fetch failed (${err.message}); keeping last-good data`);
   await mkdir(new URL('./', REPOS_OUT), { recursive: true });
-  await writeFile(REPOS_OUT, JSON.stringify([]));
-  // Keep last-good updates.json if present; ensure the file exists for the build.
+  try {
+    await access(REPOS_OUT);
+  } catch {
+    await writeFile(REPOS_OUT, JSON.stringify({ generated_at: new Date().toISOString(), repos: [] }));
+  }
   try {
     await access(UPDATES_OUT);
   } catch {

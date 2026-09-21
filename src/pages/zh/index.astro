@@ -11,10 +11,23 @@ import indicatorData from '../../data/indicators.json';
 const locale = 'zh';
 const title = '寻数科技 FindData Technology — 聚焦文本与数据处理';
 const phases = (await getCollection('roadmap')).sort((a, b) => a.data.order - b.data.order);
-const concepts = (indicatorData as { concepts?: Array<{ source?: string | null }> }).concepts ?? [];
-const statIndicators = concepts.length;
-const statSources = new Set(concepts.map((c) => c.source || '—')).size;
-const statTools = (indicatorData as { tools_count?: number | null }).tools_count ?? null;
+// 统计只计活跃(非 deprecated)概念:上游已弃用的重复概念不参与发现与分发。
+// 可选计数(工具/实体/观测)仅当导出携带时才渲染。
+const raw = indicatorData as {
+  concepts?: Array<{ source?: string | null; deprecated?: boolean | null }>;
+  active_concepts?: number | null;
+  tools_count?: number | null;
+  entities_count?: number | null;
+  observations_count?: number | null;
+};
+const concepts = raw.concepts ?? [];
+const active = concepts.filter((c) => !c.deprecated);
+const statIndicators = raw.active_concepts ?? active.length;
+const statSources = new Set(active.map((c) => c.source || '—')).size;
+const statTools = raw.tools_count ?? null;
+const statEntities = raw.entities_count ?? null;
+const statObservations = raw.observations_count ?? null;
+const fmt = (n: number) => n.toLocaleString(locale);
 ---
 
 <Layout locale={locale} title={title} description={t(locale, 'hero.sub')}>
@@ -27,10 +40,16 @@ const statTools = (indicatorData as { tools_count?: number | null }).tools_count
       <a class="secondary" href={getRelativeLocaleUrl(locale, 'docs')}>{t(locale, 'cta.docs')}</a>
     </div>
     <div class="stats">
-      <div class="stat"><b>{statIndicators}</b><span>{t(locale, 'stat.indicators')}</span></div>
-      <div class="stat"><b>{statSources}</b><span>{t(locale, 'stat.sources')}</span></div>
+      <div class="stat"><b>{fmt(statIndicators)}</b><span>{t(locale, 'stat.concepts')}</span></div>
+      <div class="stat"><b>{fmt(statSources)}</b><span>{t(locale, 'stat.sources')}</span></div>
       {statTools != null && (
-        <div class="stat"><b>{statTools}</b><span>{t(locale, 'stat.tools')}</span></div>
+        <div class="stat"><b>{fmt(statTools)}</b><span>{t(locale, 'stat.tools')}</span></div>
+      )}
+      {statEntities != null && (
+        <div class="stat"><b>{fmt(statEntities)}</b><span>{t(locale, 'stat.entities')}</span></div>
+      )}
+      {statObservations != null && (
+        <div class="stat"><b>{fmt(statObservations)}</b><span>{t(locale, 'stat.observations')}</span></div>
       )}
     </div>
   </section>

@@ -1,0 +1,63 @@
+---
+// CSS-crafted Platform window for the /demo product tour. Deliberately not a
+// screenshot: no user data can leak, it stays crisp at any DPI, and both
+// locales render their own copy. Content is illustrative demo material.
+import { t } from '../i18n';
+
+interface Props {
+  locale: 'en' | 'zh';
+}
+const { locale } = Astro.props;
+const zh = locale === 'zh';
+
+const nav = zh
+  ? ['对话', '知识库', '智能体', '机器人', '追踪']
+  : ['Chat', 'Knowledge', 'Agents', 'Bots', 'Trace'];
+
+const userMsg = zh
+  ? '总结 supplier-contract-2026.pdf 的主要风险，并对照 2021 版模板检查违约条款。'
+  : 'Summarize the key risks in supplier-contract-2026.pdf and check the penalty clauses against the 2021 template.';
+
+const tools = [
+  { name: 'read_document', arg: 'contracts/supplier-2026.pdf' },
+  { name: 'search_knowledge', arg: zh ? '模板/2021 · 违约条款' : 'templates/2021 · penalties' },
+];
+
+const answer = zh
+  ? '两处条款与 2021 版模板不一致：违约金上限（第 9.2 条）与保密期长度（第 14 条）。'
+  : 'Two clauses deviate from the 2021 template: the liability cap (§9.2) and the confidentiality term (§14).';
+
+const quote = zh ? '“任一方违约……赔偿总额不超过合同总额的 30%”' : '“liability … shall not exceed 30% of the contract value”';
+
+const inputHint = zh ? '问点什么……' : 'Ask anything…';
+---
+
+<figure class="tour-mock" role="img" aria-label={zh ? 'Platform 对话界面示意' : 'Illustration of the Platform chat interface'}>
+  <div class="tm-rail">
+    <span class="tm-brand" aria-hidden="true"></span>
+    {nav.map((n, i) => <span class:list={['tm-nav', { active: i === 0 }]}>{n}</span>)}
+  </div>
+  <div class="tm-main">
+    <div class="tm-head">
+      <span class="tm-ws">{zh ? '工作区' : 'workspace'} · supplier-review</span>
+      <span class="tm-mode">{zh ? '标准模式' : 'Standard mode'}</span>
+    </div>
+    <div class="tm-thread">
+      <div class="tm-msg tm-user"><p>{userMsg}</p></div>
+      <div class="tm-msg tm-assistant">
+        {tools.map((tool) => (
+          <span class="tm-tool">
+            <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M2.5 8.5l3.5 3.5 7.5-8" />
+            </svg>
+            {tool.name} <em>· {tool.arg}</em>
+          </span>
+        ))}
+        <p>{answer}</p>
+        <blockquote>{quote}</blockquote>
+        <p class="tm-live"><span class="tm-caret" aria-hidden="true"></span></p>
+      </div>
+    </div>
+    <div class="tm-input"><span>{inputHint}</span></div>
+  </div>
+</figure>

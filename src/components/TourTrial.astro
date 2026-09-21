@@ -1,0 +1,73 @@
+---
+// Shared demo-account trial block for the /demo product tour (both locales).
+// The credentials are a dedicated demo account approved for public display —
+// they are intentionally committed here, not env-driven (design D7): rotation
+// is a content edit + rebuild.
+import { t } from '../i18n';
+
+interface Props {
+  locale: 'en' | 'zh';
+}
+const { locale } = Astro.props;
+
+const DEMO_ACCOUNT = 'aloadtree@gmail.com';
+const DEMO_PASSWORD = 'DBsuFVb0';
+const PLATFORM_URL = 'https://craw.finddatatech.cloud';
+
+const fields = [
+  { label: t(locale, 'demo.field.account'), value: DEMO_ACCOUNT, kind: 'account' },
+  { label: t(locale, 'demo.field.password'), value: DEMO_PASSWORD, kind: 'password' },
+];
+---
+
+<section class="tour-trial">
+  <div class="trial-copy">
+    <h2>{t(locale, 'demo.trial.title')}</h2>
+    <p>{t(locale, 'demo.trial.sub')}</p>
+    <a class="primary" href={PLATFORM_URL} target="_blank" rel="noopener noreferrer">
+      {t(locale, 'demo.cta')}
+      <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M6 3h7v7M13 3L5.5 10.5M11 9v4H2V4h4" />
+      </svg>
+    </a>
+  </div>
+  <div class="trial-panel">
+    {fields.map((f) => (
+      <div class="trial-field">
+        <span class="trial-label">{f.label}</span>
+        <code class="trial-value" data-copy={f.value}>{f.value}</code>
+        <button class="copy-btn" type="button" data-copy={f.value} data-label={t(locale, 'demo.copy')} aria-label={`${t(locale, 'demo.copy')} ${f.label}`}>
+          {t(locale, 'demo.copy')}
+        </button>
+      </div>
+    ))}
+    <p class="trial-note">{t(locale, 'demo.trial.note')}</p>
+  </div>
+</section>
+
+<script>
+  const btns = document.querySelectorAll<HTMLButtonElement>('.copy-btn');
+  const original = new WeakMap<HTMLButtonElement, string>();
+  btns.forEach((btn) => {
+    original.set(btn, btn.textContent ?? '');
+    btn.addEventListener('click', async () => {
+      const value = btn.dataset.copy ?? '';
+      try {
+        await navigator.clipboard.writeText(value);
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = value;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+      }
+      btn.classList.add('ok');
+      btn.textContent = btn.closest('[lang="zh"]') ? '已复制' : 'Copied';
+      setTimeout(() => {
+        btn.classList.remove('ok');
+        btn.textContent = original.get(btn) ?? '';
+      }, 1600);
+    });
+  });
+</script>

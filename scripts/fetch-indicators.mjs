@@ -34,7 +34,7 @@ const ENTITY_TYPES = [
     .filter(Boolean),
 ];
 
-const KEEP = ['id', 'code', 'name_en', 'name_zh', 'category', 'unit', 'measure', 'frequency', 'entity_type', 'source'];
+const KEEP = ['id', 'code', 'name_en', 'name_zh', 'category', 'unit', 'measure', 'frequency', 'entity_type', 'source', 'deprecated'];
 
 async function mcpRequest(sessionId, body) {
   const res = await fetch(MCP_URL, {
@@ -191,10 +191,14 @@ async function main() {
   }
 
   // 4. Write (only on success — a flaky build keeps last-good data).
+  //    active = non-deprecated: retired duplicates are excluded from discovery
+  //    and dispatch upstream, so they must not count in public stats.
+  const activeConcepts = concepts.filter((c) => !c.deprecated).length;
   const payload = {
     generated_at: new Date().toISOString(),
     source: 'mcp',
     ...(toolsCount != null ? { tools_count: toolsCount } : {}),
+    active_concepts: activeConcepts,
     concepts,
   };
   await mkdir(new URL('./', OUT), { recursive: true });
