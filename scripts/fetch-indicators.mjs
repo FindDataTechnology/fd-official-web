@@ -126,14 +126,28 @@ async function main() {
 
   // 2. list_concepts: one unfiltered call + one per entity type, merged by id
   //    (the server caps each call at 500 rows).
+  //    Sequential with one retry per batch: the /mcp edge rate-limits bursts
+  //    (limit_req burst=5), and a dropped batch used to be swallowed — which
+  //    silently shipped a partial catalog (413 of 452 active) as if complete.
+  //    A batch that still fails aborts the export so the last-good snapshot
+  //    is kept instead of a truncated one being published.
   const byId = new Map();
-  const batches = await Promise.all(
-    [null, ...ENTITY_TYPES].map((et) =>
-      callTool(sessionId, 'list_concepts', et ? { entity_type: et } : {}).catch(() => null),
-    ),
-  );
+  const batches = [];
+  for (const et of [null, ...ENTITY_TYPES]) {
+    const args = et ? { entity_type: et } : {};
+    let batch = null;
+    for (let attempt = 0; attempt < 2 && batch === null; attempt++) {
+      try {
+        batch = await callTool(sessionId, 'list_concepts', args);
+      } catch (err) {
+        if (attempt === 1) throw new Error(`list_concepts(${et ?? 'all'}) failed: ${err.message}`);
+        await new Promise((r) => setTimeout(r, 1500));
+      }
+    }
+    batches.push(batch);
+  }
   for (const batch of batches) {
-    if (!Array.isArray(batch)) continue;
+    if (!Array.isArray(batch)) throw new Error('list_concepts returned a non-array batch');
     for (const c of batch) if (c?.id != null) byId.set(c.id, c);
   }
   if (byId.size === 0) throw new Error('list_concepts returned no concepts');
