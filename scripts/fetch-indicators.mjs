@@ -2,8 +2,9 @@
 // into src/data/indicators.json for the /indicators pages.
 //
 // Speaks MCP JSON-RPC over HTTP (same handshake as server/demo-proxy.mjs),
-// calls list_concepts per entity type to bypass the server-side 500-row cap,
-// and enriches entries with a best-effort sample series (capped, per design).
+// pages list_concepts to exhaustion (limit/offset over the server's
+// deterministic (entity_type, code, id) order), and enriches entries with a
+// best-effort sample series (capped, per design).
 //
 // Falls back gracefully: on network error, missing token, or empty result it
 // logs a warning and exits 0 WITHOUT touching the existing committed snapshot
@@ -13,26 +14,14 @@
 //   FD_INDICATORS_MCP_URL        default https://www.finddatatech.cloud/mcp
 //   FD_INDICATORS_MCP_TOKEN      bearer token (required for live export)
 //   FD_INDICATORS_SAMPLE_MAX     max concepts to enrich with a sample series (default 40, 0 disables)
-//   FD_INDICATORS_ENTITY_TYPES   comma-separated extra entity types to query
 import { mkdir, writeFile, access } from 'node:fs/promises';
 
 const OUT = new URL('../src/data/indicators.json', import.meta.url);
 const MCP_URL = process.env.FD_INDICATORS_MCP_URL ?? 'https://www.finddatatech.cloud/mcp';
 const TOKEN = process.env.FD_INDICATORS_MCP_TOKEN ?? '';
 const SAMPLE_MAX = Number(process.env.FD_INDICATORS_SAMPLE_MAX ?? 40);
-const ENTITY_TYPES = [
-  'country',
-  'city',
-  'stock',
-  'symbol',
-  'industry',
-  'fund',
-  'person',
-  ...(process.env.FD_INDICATORS_ENTITY_TYPES ?? '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean),
-];
+// Server-side maximum for one list_concepts call (its own cap is 1000).
+const PAGE = 1000;
 
 const KEEP = ['id', 'code', 'name_en', 'name_zh', 'category', 'unit', 'measure', 'frequency', 'entity_type', 'source', 'deprecated'];
 
@@ -124,31 +113,29 @@ async function main() {
   const sessionId = init.sessionId;
   await mcpRequest(sessionId, { jsonrpc: '2.0', method: 'notifications/initialized' });
 
-  // 2. list_concepts: one unfiltered call + one per entity type, merged by id
-  //    (the server caps each call at 500 rows).
-  //    Sequential with one retry per batch: the /mcp edge rate-limits bursts
-  //    (limit_req burst=5), and a dropped batch used to be swallowed — which
+  // 2. list_concepts, paged to exhaustion. The server orders pages by
+  //    (entity_type, code, id) and caps `limit` at 1000, so offset paging is
+  //    gap- and duplicate-free — the whole catalog arrives, deprecated rows
+  //    included (the stats below need them to count active ones).
+  //    Sequential with one retry per page: the /mcp edge rate-limits bursts
+  //    (limit_req burst=5), and a dropped page used to be swallowed — which
   //    silently shipped a partial catalog (413 of 452 active) as if complete.
-  //    A batch that still fails aborts the export so the last-good snapshot
+  //    A page that still fails aborts the export so the last-good snapshot
   //    is kept instead of a truncated one being published.
   const byId = new Map();
-  const batches = [];
-  for (const et of [null, ...ENTITY_TYPES]) {
-    const args = et ? { entity_type: et } : {};
-    let batch = null;
-    for (let attempt = 0; attempt < 2 && batch === null; attempt++) {
+  for (let offset = 0; ; offset += PAGE) {
+    let page = null;
+    for (let attempt = 0; attempt < 2 && page === null; attempt++) {
       try {
-        batch = await callTool(sessionId, 'list_concepts', args);
+        page = await callTool(sessionId, 'list_concepts', { limit: PAGE, offset });
       } catch (err) {
-        if (attempt === 1) throw new Error(`list_concepts(${et ?? 'all'}) failed: ${err.message}`);
+        if (attempt === 1) throw new Error(`list_concepts(offset=${offset}) failed: ${err.message}`);
         await new Promise((r) => setTimeout(r, 1500));
       }
     }
-    batches.push(batch);
-  }
-  for (const batch of batches) {
-    if (!Array.isArray(batch)) throw new Error('list_concepts returned a non-array batch');
-    for (const c of batch) if (c?.id != null) byId.set(c.id, c);
+    if (!Array.isArray(page)) throw new Error('list_concepts returned a non-array batch');
+    for (const c of page) if (c?.id != null) byId.set(c.id, c);
+    if (page.length < PAGE) break;
   }
   if (byId.size === 0) throw new Error('list_concepts returned no concepts');
 
