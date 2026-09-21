@@ -36,9 +36,13 @@ Both fetch scripts keep the previous file byte-for-byte on any failure path (org
 **D4 — `/demo` is a static product tour, not an embed.**
 The Platform is login-gated; iframing an auth flow is fragile and often blocked. The tour is fully static (renders with zero backend), carries feature copy + visuals, a CTA to `craw.finddatatech.cloud`, and the demo credentials with copy buttons. The demo proxy (`server/demo-proxy.mjs`, port 8898) and the nginx `/demo-api` route are retired with the playground — nothing else consumes them.
 
-**D5 — Refresh path: scheduled build on a host with reliable GitHub reachability, deploy via the existing rsync path.**
-Policy forbids foreign-hosted runners pushing domestic. The build needs GitHub API access that is unreliable from inside China, so the candidate hosts are the america/fd-deploy box (full internet, already the fleet's build host) or the operator's Mac (demonstrably works; needs the machine awake). Deploy target stays `/opt/fd/web/dist` via `deploy.sh` — the k3s `official-web` pods are not the serving path for `/` (nginx static root is; see OPS.md rollback note). `OPS.md`'s deploy section gets rewritten to whatever is actually implemented.
-*Alternative rejected*: re-enabling the GitHub Actions build — violates the domestic-only policy the stub enforces.
+**D5 — Refresh path: cheap-1 builds (Node in Docker) and rsyncs static files; nginx serves the static root.**
+Decided during implementation, on evidence gathered then:
+- The live `/` was actually served by the in-cluster `official-web` pod (nginx proxied to NodePort 30442), so `deploy.sh`'s rsync had been a no-op; the manifest's image tag (built 2026-09-18) was the real release lever.
+- Reviving that path needs an image push to the registry k3s pulls from (`harbor.finddatatech.cloud:8080` → rewritten to `100.64.0.8:30880`), which demands registry auth the node's `registries.yaml` does not carry, plus a docker-daemon insecure-registry entry on the build box (a daemon restart there would bounce the MCP gateway stack).
+- cheap-1 already runs the fleet's buildx builders, reaches `api.github.com`, and has `docker` + `rsync` + `sshpass`; it has **no** Node and **no** docker.io access.
+So: build the site **inside `node:22-alpine`** (mirror-pulled via `dockerproxy.net`), then rsync `dist/` to `/opt/fd/web/dist` and let nginx serve it — OPS.md's documented rollback path promoted to the primary one. The pod path stays as a rollback (flip nginx back). Cron: `/etc/cron.d/fd-web-deploy`, every 6h, self-updating the script from `main`.
+*Alternatives rejected*: GitHub-hosted build (policy); registry image path (auth/daemon churn above); installing Node on the host (needless state when docker is already there).
 
 **D6 — Updates noise filter: prefix list in the script, repo exclusion list available but empty.**
 Filter commit summaries matching internal-only prefixes (`chore(openspec):`, `chore(cleanup):`, `chore(deps):`, `chore(release):`). Keep repos includable — `fd-craw-private` is a public, real product (Platform); its signal was drowned by openspec/chore chatter, not illegitimate as a repo.
@@ -69,6 +73,7 @@ Each step deploys independently; the site is never in a mixed state beyond one s
 
 ## Open Questions
 
-- Q1: Which concrete host runs the scheduled build — the america/fd-deploy box (needs a one-time Node setup + token) vs the operator's Mac (works today, sleep-dependent)? Decide at task 1; does not change the scripts.
+- ~~Q1: Which host runs the scheduled build~~ **Resolved: cheap-1**, Node-in-Docker + rsync (see D5).
 - Q2: Should the MCP use a read-only Postgres role instead of the current owner role? Recommended yes as a fast follow; does not block this change.
 - Q3: Do entity/observation counts go on the homepage hero (recommended) or only on `/indicators`? Copy-level call, decide during UI pass.
+- Q4 (found during implementation): `list_concepts` has **no pagination or limit parameter** and the server caps a call at 500 rows, so a client cannot enumerate the full 2,105-concept catalog (country alone is 1,798). The export's per-entity-type fan-out recovers the complete **active** set (452 — matches the DB exactly) but cannot reach every deprecated row. Fix belongs upstream in `fd-open-data-mcp` (expose `limit`/cursor on `list_concepts`); the site publishes only active concepts, so nothing user-visible depends on the gap today.

@@ -52,7 +52,7 @@ docker run --rm \
 
 echo "== deploy: rsync -> $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH =="
 sshpass -p "$FD_WEB_DEPLOY_PASS" ssh -o StrictHostKeyChecking=no "$DEPLOY_USER@$DEPLOY_HOST" \
-  'cp -r '"$DEPLOY_PATH"' '"$(dirname "$DEPLOY_PATH")"'/dist.prev 2>/dev/null || true'
+  'rm -rf '"$(dirname "$DEPLOY_PATH")"'/dist.prev && cp -r '"$DEPLOY_PATH"' '"$(dirname "$DEPLOY_PATH")"'/dist.prev'
 sshpass -p "$FD_WEB_DEPLOY_PASS" rsync -a --delete -e "ssh -o StrictHostKeyChecking=no" \
   "$WORK/dist/" "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
 echo "== $(date -u +%FT%TZ) deploy done: $(git -C "$WORK" rev-parse --short=8 HEAD) =="

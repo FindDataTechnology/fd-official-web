@@ -4,13 +4,15 @@ Ops notes for the FindDataTechnology official site (this repo → `/opt/fd/web` 
 
 ## Deploy
 
-**Automatic (GitOps, since 2026-08-29):** `.github/workflows/build-image.yml` runs on every push to `main` + twice daily (03:07 / 15:07 UTC). It builds `dist/`, packages it into `23.144.68.246:30880/fd-web/official-web:<sha>-<ts>`, pushes to Harbor, and commits the new image tag into `deploy/k8s/fd-web.yaml` (`[skip ci]`). The in-cluster **ArgoCD** (argocd namespace, pinned to china-cheap-3 node in the chengsi k3s cluster) auto-syncs and rolls the `official-web` Deployment in namespace `fd-web` (NodePort 30442). Host nginx keeps TLS termination and serves `/demo-api` + `/mcp` directly.
+**Domestic build + static deploy (since 2026-09-21).** `scripts/build-deploy.sh` runs on the build box (cheap-1, `103.236.89.212`): it clones/pulls `main`, builds the site **inside a `node:22-alpine` container** (the box has no host Node; docker.io is unreachable so the script falls back to the `dockerproxy.net` mirror), then rsyncs `dist/` to the web box's static root `/opt/fd/web/dist`, which nginx serves directly. A failed build never touches the live site, and the previous release is kept at `/opt/fd/web/dist.prev`.
 
-GitHub holds **no server SSH credential** — only a project-scoped Harbor push robot (`HARBOR_USER`/`HARBOR_PASS`).
+Scheduled: `/etc/cron.d/fd-web-deploy` on the build box, every 6 hours (minute 17), self-updating the script from `main` before each run. Logs: `/var/log/fd-web-deploy.log`.
 
-**Manual:** trigger `build-image` via workflow_dispatch, or push to main. `/fd-site-deploy` skill = local build + push + tag bump.
+**Why not the GitHub Actions image build:** disabled by policy since 2026-09-10 (`.github/workflows/build-image.yml` is a refusal stub) — foreign-hosted runners must not push to domestic endpoints. The `fd-web` ArgoCD app still tracks `deploy/k8s/` from GitHub and keeps the in-cluster `official-web` Deployment alive on NodePort 30442, but nginx no longer routes `/` to it.
 
-**Rollback:** `git revert` the tag-bump commit (ArgoCD auto-syncs back), or one-line nginx rollback: restore `try_files` in `location /` + `systemctl reload nginx` (the static root `/opt/fd/web/dist` is kept as fallback backend).
+**Rollback:** re-run an older checkout (`git -C /opt/fd/build/fd-official-web reset --hard <sha>` then the script), or restore `dist.prev` on the web box (`rm -rf dist && mv dist.prev dist`), or flip nginx `location /` back to `proxy_pass http://127.0.0.1:30442` + `systemctl reload nginx` (the pod path, which serves whatever image tag `deploy/k8s/fd-web.yaml` pins).
+
+**Build env** (`/opt/fd/fd-web-build.env` on the build box, chmod 600 — never commit): `FD_INDICATORS_MCP_TOKEN` (bearer for the `/mcp` catalog export), optional `GITHUB_TOKEN` (a full build makes ~50 GitHub API calls — anonymous builds fit under the 60/h cap, a token makes feed coverage robust), `FD_WEB_DEPLOY_PASS` (rsync user on the web box).
 
 **ArgoCD UI:** `ssh -L 18443:127.0.0.1:30443 -p 40925 root@103.236.89.174` → http://127.0.0.1:18443 (admin; password in local password manager).
 
@@ -19,26 +21,35 @@ GitHub holds **no server SSH credential** — only a project-scoped Harbor push 
 
 ```
 /opt/fd/
-  web/dist           static site — nginx root
+  web/dist           static site — nginx root (deploy target)
   web/dist.prev      previous release (rollback target)
   web/.env           secrets: MCP_TOKEN, MCP_URL, EDGAR_IDENTITY, ... (chmod 600, never commit)
-  web/server/demo-proxy.mjs   Node proxy on 127.0.0.1:8898 (injects MCP_TOKEN for /demo-api)
-  finddata/          fd-open-data-mcp + fd-open-data-protocol checkouts + sqlite (daas.db)
+  web/server/demo-proxy.mjs   RETIRED 2026-09-21 (playground replaced by the Platform
+                     product tour); unit stopped + disabled, nginx /demo-api removed
+  finddata/          fd-open-data-mcp + fd-open-data-protocol checkouts
                      — hostPath-mounted RW into the MCP container (same paths as bare metal)
 ```
+
+**MCP storage (2026-09-21):** the deployed MCP reads the **canonical Postgres**
+(`fd_open_data` on `guangzhou-xinru`, reached over the tailnet at `100.64.0.3:30432`)
+via `FD_OPEN_DATA_MCP_DATABASE_URL` in the `fd-mcp-env` secret. The on-box SQLite
+(`.../metadata/daas.db`) is dev-only and was the source of a long-running
+"empty catalog" incident — do not point the Deployment back at it. The
+`migrate-schema` initContainer runs `alembic upgrade head` against whatever DB
+the DSN names and gates the rollout.
 
 k3s (single-node, v1.36.3) runs the MCP + LibreChat. traefik is disabled via
 `/etc/rancher/k3s/config.yaml` (`disable: [traefik]`) so nginx keeps :80/:443.
 
 | Namespace | Workload | Exposure |
 |-----------|----------|----------|
-| `mcp` | `fd-open-data-mcp` Deployment (image `finddata/fd-open-data-mcp:torch`, all 45 tools) | NodePort **30899** → 8899 |
+| `mcp` | `fd-open-data-mcp` Deployment (image `finddata/fd-open-data-mcp:torch`, 52 tools) | NodePort **30899** → 8899 |
 | `librechat` | `librechat-api` + `-mongo` + `-meili` (slim, RAG off, LiteLLM backend) | NodePort **30830** |
 
 Manifests live in this repo: `deploy/k8s/mcp.yaml`, `deploy/k8s/librechat.yaml`.
 Secrets are k8s Secrets made from the on-box .env files (`fd-mcp-env`, `librechat-env`) — never in git.
 
-nginx config: `/etc/nginx/sites-available/fd` (IP-on-:80 fallback, default_server) + `www.finddatatech.cloud` + `chat.finddatatech.cloud` (TLS, managed by certbot). Repo copies: `deploy/nginx/`. Routes: `www` `/` → `/opt/fd/web/dist` · `www` `/demo-api` → 8898 · `www`+`fd` `/mcp` → **30899** (bearer check + `limit_req`) · `chat` `/` → **30830** (WebSocket/SSE, long timeouts).
+nginx config: `/etc/nginx/sites-available/fd` (IP-on-:80 fallback, default_server) + `www.finddatatech.cloud` + `chat.finddatatech.cloud` (TLS, managed by certbot). Repo copies: `deploy/nginx/`. Routes: `www` `/` → static root `/opt/fd/web/dist` · `www`+`fd` `/mcp` → **30899** (bearer check + `limit_req`) · `chat` `/` → **30830** (WebSocket/SSE, long timeouts). (`/demo-api` removed 2026-09-21 with the playground.)
 
 ## Images — Harbor registry on china-cheap-2
 
@@ -48,7 +59,7 @@ Private Harbor (v2.12) runs on **china-cheap-2** (`103.236.89.174`, SSH port `20
 - On cheap-2 itself: `harbor-endpoint.service` (socat watchdog) forwards `127.0.0.1:5000` → harbor nginx container (docker host-ports are broken on that box — internal k3s iptables — don't expose Harbor directly).
 - Harbor admin password: see the operator's local `finddata/.harbor-creds` (never commit).
 - cheap-2 egress is heavily firewalled (no docker.io CDNs, no pypi.org, no github) — **never build there**; use it only as storage.
-- The site image itself uses the america-box registry + GitOps path (see Deploy above); Harbor backs the **mcp + librechat** images.
+- The site is **no longer an image** (since 2026-09-21 it deploys as static files — see Deploy above); this registry backs the **mcp + librechat** images.
 
 ### Image sources
 
@@ -66,7 +77,7 @@ Private Harbor (v2.12) runs on **china-cheap-2** (`103.236.89.174`, SSH port `20
 
 | Unit / command | What |
 |------|------|
-| `fd-demo-proxy` (systemd) | `node server/demo-proxy.mjs` on `127.0.0.1:8898`; `MCP_URL` in `web/.env` → `http://127.0.0.1:30899/mcp` |
+| `fd-demo-proxy` (systemd) | **STOPPED + DISABLED** 2026-09-21 (playground retired with the Platform tour). Re-enable only if a server-side proxied query surface returns |
 | `fd-mcp` (systemd) | **STOPPED + DISABLED** (superseded by the k3s pod). Rollback: `sudo systemctl enable --now fd-mcp` + point `MCP_URL`/nginx back to 8899 |
 | `sudo k3s kubectl ...` | all container ops |
 
