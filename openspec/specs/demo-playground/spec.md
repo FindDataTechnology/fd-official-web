@@ -2,38 +2,28 @@
 
 ## Purpose
 
-Defines the `/demo` browser playground — a no-signup interface that queries the live backend through a same-origin server-side proxy so the bearer token is never exposed to the browser.
+Defines the `/demo` surface — a bilingual product tour of the Platform assistant (the PaaS product line) with a trial entry: a call-to-action into the deployed Platform and a published shared demo account a visitor can sign in with.
 
 ## Requirements
 
-### Requirement: Browser playground without signup
-The `/demo` page SHALL let a visitor query the live backend from the browser without creating an account or providing a token.
+### Requirement: Platform product tour page
+The `/demo` page (and `/zh/demo`) SHALL be a bilingual product tour for the Platform product: feature highlights (streaming agent chat, document RAG, agents/MCP/scheduled work), representative visuals, and a prominent call-to-action that opens the Platform at `https://craw.finddatatech.cloud`.
 
-#### Scenario: Query runs without credentials
-- **WHEN** a visitor submits a valid query (concept + entity + date) on `/demo`
-- **THEN** the page returns results from the live backend without any visitor-supplied credentials
+#### Scenario: Tour renders in both locales
+- **WHEN** a visitor opens `/demo` or `/zh/demo`
+- **THEN** the page renders the Platform tour with locale-appropriate copy and a visible CTA linking to `https://craw.finddatatech.cloud`
 
-### Requirement: Token never exposed to the browser
-The bearer token for the backend SHALL be injected server-side by a same-origin proxy route; the token MUST NOT be sent to or stored in the browser.
+#### Scenario: Tour renders without backend dependencies
+- **WHEN** the page is built with no MCP endpoint reachable
+- **THEN** the tour renders in full (it makes no runtime backend queries)
 
-#### Scenario: Token stays on the server
-- **WHEN** the playground calls the backend
-- **THEN** the token is added by the server-side proxy and never appears in the browser's network or storage
+### Requirement: Trial entry with published demo account
+The tour page SHALL present the shared demo account (dedicated demo credentials approved for public publication) with a copy affordance for each field and a clear label that it is a shared public demo account, in both locales.
 
-### Requirement: Playground UX
-The `/demo` page SHALL provide a form for concept/entity/date input, a results view, and clear error messaging.
+#### Scenario: Demo credentials are displayed and copyable
+- **WHEN** a visitor opens the tour page in either locale
+- **THEN** the demo account's identifier and password are visible with one-click copy affordances and a "shared demo account" label
 
-#### Scenario: Valid query shows results
-- **WHEN** a valid query is submitted
-- **THEN** the results view shows the returned data
-
-#### Scenario: Invalid query shows an error
-- **WHEN** a query fails or is malformed
-- **THEN** the page shows a readable error message rather than a blank state
-
-### Requirement: Playground works over plain HTTP (IP phase)
-During the IP-first phase the playground SHALL function over `http://<ip>` so the demo is usable before the domain/HTTPS swap.
-
-#### Scenario: Demo usable by IP
-- **WHEN** a visitor loads `http://124.220.7.175/demo`
-- **THEN** the playground is functional against the live backend
+#### Scenario: Credentials are sourced outside built artifacts of other pages
+- **WHEN** any page other than the tour renders
+- **THEN** it contains no demo credentials

@@ -6,19 +6,23 @@ Automated build-and-deploy pipeline shipping the static site to the Tencent serv
 ## Requirements
 
 ### Requirement: Automated build-and-deploy pipeline
-A GitHub Actions workflow SHALL build the site (fetch repos/READMEs/updates data → `astro build`) and deploy `dist/` to the Tencent server (`/opt/fd/web/dist`) via rsync over SSH. The workflow MUST trigger on push to the default branch and on a schedule (at least every 6 hours) so external repo changes (READMEs, CHANGELOGs, commits) propagate without manual action.
+A build-and-deploy pipeline SHALL build the site (fetch repos/READMEs/updates/indicator data → `astro build`) and deploy `dist/` to the Tencent server (`/opt/fd/web/dist`), running on infrastructure that does not push from foreign-hosted runners to domestic endpoints (the GitHub-hosted image build is disabled by policy since 2026-09-10). The pipeline MUST trigger on push to the default branch and on a schedule of at least every 6 hours so external repo changes (READMEs, CHANGELOGs, commits) and catalog changes propagate without manual action. A failed build or deploy MUST be visible to the operator.
 
 #### Scenario: Push triggers deploy
 - **WHEN** a commit is pushed to the default branch of fd-official-web
-- **THEN** the workflow builds and rsyncs the site to the server without manual intervention
+- **THEN** the pipeline builds and deploys the site to the server without manual intervention
 
 #### Scenario: Scheduled rebuild refreshes external content
 - **WHEN** the scheduled trigger fires
-- **THEN** the site is rebuilt with the latest GitHub org data (repos, READMEs, changelogs) and deployed
+- **THEN** the site is rebuilt with the latest GitHub org data (repos, READMEs, changelogs) and the latest indicator export, and deployed
 
 #### Scenario: Deploy failure is visible
-- **WHEN** the build or rsync step fails
-- **THEN** the workflow run fails visibly in the Actions tab and the live site remains on the last good deploy
+- **WHEN** the build or deploy step fails
+- **THEN** the failure is surfaced to the operator (non-zero exit or visible job status) and the live site remains on the last good deploy
+
+#### Scenario: No foreign-runner pushes
+- **WHEN** the pipeline runs
+- **THEN** no GitHub-hosted runner pushes to a domestic Harbor or CN server
 
 ### Requirement: Server requires no build tooling
 The server SHALL receive only pre-built static files; the workflow MUST NOT require Node.js, npm, or GitHub API access on the server. Nginx MUST NOT require a reload for static-only updates (atomic-ish directory replacement).
@@ -35,8 +39,12 @@ A user-invocable skill (`/fd-site-deploy`) SHALL perform a local build + rsync d
 - **THEN** the site is built locally (with fresh GitHub data) and rsynced to the server immediately
 
 ### Requirement: Secrets handling
-The deploy SSH private key SHALL be stored only in GitHub Actions secrets (CI) and local SSH config (manual); it MUST NOT be committed to the repository. The rsync user SHOULD have write access limited to `/opt/fd/web/dist`.
+The deploy SSH private key SHALL be stored only in the pipeline environment and local SSH config (manual); it MUST NOT be committed to the repository. The `GITHUB_TOKEN` used by build-time fetches and the MCP export token SHALL be provided by the build environment and MUST NOT be committed. The rsync user SHOULD have write access limited to `/opt/fd/web/dist`.
 
 #### Scenario: No secrets in repo
-- **WHEN** the repository is inspected (including CI workflow files)
+- **WHEN** the repository is inspected (including workflow/job definitions)
 - **THEN** no private keys, tokens, or passwords are present in committed files
+
+#### Scenario: Build tokens are injected by the environment
+- **WHEN** the build runs
+- **THEN** `GITHUB_TOKEN` and the MCP export token come from the pipeline environment, not from any committed file
