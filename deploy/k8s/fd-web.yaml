@@ -39,7 +39,7 @@ spec:
         kubernetes.io/hostname: vm-0-9-ubuntu
       containers:
         - name: web
-          image: harbor.finddatatech.cloud:8080/fd-web/official-web:sha-14c054c
+          image: harbor.finddatatech.cloud:8080/fd-web/official-web:sha-6588be6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
