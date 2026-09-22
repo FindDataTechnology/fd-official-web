@@ -1,0 +1,196 @@
+---
+import { t } from '../i18n';
+import DataModuleCard from './DataModuleCard.astro';
+
+interface ModuleStats {
+  indicators?: number | null;
+  mapped_indicators?: number | null;
+  entities?: number | null;
+  documents?: number | null;
+  notices?: number | null;
+}
+
+interface ModuleFilter {
+  source?: string;
+  category?: string;
+}
+
+interface Module {
+  id: string;
+  domain: string;
+  domain_en: string;
+  name_zh: string;
+  name_en: string;
+  description_zh: string;
+  description_en: string;
+  databases: string[];
+  sources: string[];
+  time_span: string;
+  cadence: string;
+  cadence_zh: string;
+  cadence_en: string;
+  as_of: string;
+  status: 'active' | 'paused';
+  stats: ModuleStats;
+  representative_codes: string[];
+  filter: ModuleFilter;
+  filter_params: ModuleFilter;
+  deep_link: string;
+  indicator_count: number;
+  mapped_indicator_count: number;
+  related: { href_en: string; href_zh: string };
+}
+
+interface Coverage {
+  total: number;
+  covered: number;
+  uncovered?: unknown[];
+  coverage_rate: number;
+}
+
+interface Props {
+  locale: 'en' | 'zh';
+  modules: Module[];
+  coverage?: Coverage;
+  snapshotAsOf?: string;
+}
+
+const { locale, modules = [], coverage, snapshotAsOf } = Astro.props;
+const isZh = locale === 'zh';
+const primary = (zh: string, en: string) => (isZh ? zh : en);
+const localizedPath = (path: string) => (isZh && path.startsWith('/') && !path.startsWith('/zh/') ? `/zh${path}` : path);
+const formatAsOf = (value?: string | null) => {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+};
+const formatRate = (value?: number) => (value == null ? '—' : `${Math.round(value * 1000) / 10}`);
+
+const groupModules = (key: 'domain' | 'databases' | 'sources') => {
+  const groups = new Map<string, Module[]>();
+  for (const module of modules) {
+    const values = key === 'domain' ? [module.domain] : module[key];
+    for (const value of values) {
+      const label = key === 'domain' ? primary(module.domain, module.domain_en) : value;
+      const list = groups.get(label) ?? [];
+      list.push(module);
+      groups.set(label, list);
+    }
+  }
+  return [...groups.entries()].map(([label, items]) => ({ label, items }));
+};
+
+const allGroups = [{ label: t(locale, 'data.group.all'), items: modules }];
+const domainGroups = groupModules('domain');
+const databaseGroups = groupModules('databases');
+const sourceGroups = groupModules('sources');
+const coverageRate = coverage?.coverage_rate;
+const coverageText = coverage ? t(locale, 'data.coverage.rate').replace('{rate}', formatRate(coverageRate)) : '';
+const snapshotDate = formatAsOf(snapshotAsOf);
+---
+
+<div class="data-explorer" data-module-explorer>
+  <div class="data-summary">
+    <div>
+      <span class="data-summary-label">{t(locale, 'data.coverage')}</span>
+      <strong class="data-summary-value">{coverage ? `${coverage.covered}/${coverage.total}` : '—'}</strong>
+      <span class="data-summary-rate">{coverageText}</span>
+    </div>
+    {snapshotDate && (
+      <p class="data-summary-asof">
+        {t(locale, 'data.snapshotAsOf').replace('{date}', snapshotDate)}
+      </p>
+    )}
+  </div>
+
+  <div class="data-toolbar" aria-label={t(locale, 'data.group.title')}>
+    <span class="data-toolbar-label">{t(locale, 'data.group.title')}</span>
+    <div class="data-tabs" role="tablist" aria-label={t(locale, 'data.group.title')}>
+      <button class="data-tab is-active" type="button" data-module-view="all" aria-pressed="true" role="tab" aria-selected="true">{t(locale, 'data.group.all')}</button>
+      <button class="data-tab" type="button" data-module-view="domain" aria-pressed="false" role="tab" aria-selected="false">{t(locale, 'data.group.byDomain')}</button>
+      <button class="data-tab" type="button" data-module-view="database" aria-pressed="false" role="tab" aria-selected="false">{t(locale, 'data.group.byDatabase')}</button>
+      <button class="data-tab" type="button" data-module-view="source" aria-pressed="false" role="tab" aria-selected="false">{t(locale, 'data.group.bySource')}</button>
+    </div>
+  </div>
+
+  {modules.length === 0 && <p class="data-empty">{t(locale, 'data.empty')}</p>}
+
+  <section class="data-view is-active" data-module-view-panel="all" aria-label={t(locale, 'data.group.all')}>
+    {allGroups.map((group) => (
+      <div class="data-group">
+        <h2 class="data-group-title">{group.label}</h2>
+        <div class="module-grid">
+          {group.items.map((module) => (
+            <DataModuleCard module={module} locale={locale} localizedPath={localizedPath} />
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section class="data-view" data-module-view-panel="domain" hidden aria-label={t(locale, 'data.group.byDomain')}>
+    {domainGroups.map((group) => (
+      <div class="data-group">
+        <h2 class="data-group-title">{group.label} <span class="data-group-count">{group.items.length}</span></h2>
+        <div class="module-grid">
+          {group.items.map((module) => (
+            <DataModuleCard module={module} locale={locale} localizedPath={localizedPath} />
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section class="data-view" data-module-view-panel="database" hidden aria-label={t(locale, 'data.group.byDatabase')}>
+    {databaseGroups.map((group) => (
+      <div class="data-group">
+        <h2 class="data-group-title">{group.label} <span class="data-group-count">{group.items.length}</span></h2>
+        <div class="module-grid">
+          {group.items.map((module) => (
+            <DataModuleCard module={module} locale={locale} localizedPath={localizedPath} />
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section class="data-view" data-module-view-panel="source" hidden aria-label={t(locale, 'data.group.bySource')}>
+    {sourceGroups.map((group) => (
+      <div class="data-group">
+        <h2 class="data-group-title">{group.label} <span class="data-group-count">{group.items.length}</span></h2>
+        <div class="module-grid">
+          {group.items.map((module) => (
+            <DataModuleCard module={module} locale={locale} localizedPath={localizedPath} />
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+</div>
+
+<script>
+  const explorer = document.querySelector<HTMLElement>('[data-module-explorer]');
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('[data-module-view]')];
+  const panels = [...document.querySelectorAll<HTMLElement>('[data-module-view-panel]')];
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const view = tab.dataset.moduleView;
+      tabs.forEach((button) => {
+        const active = button === tab;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-pressed', String(active));
+        button.setAttribute('aria-selected', String(active));
+      });
+      panels.forEach((panel) => {
+        const active = panel.dataset.moduleViewPanel === view;
+        panel.hidden = !active;
+        panel.classList.toggle('is-active', active);
+      });
+    });
+  });
+</script>

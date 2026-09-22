@@ -41,52 +41,92 @@
   },
   {
     "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/d3bf843257e5aa5cf37a5d6da939b9523f6a5229",
-    "version": "d3bf843",
-    "date": "2026-09-21",
+    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/6f2a08732059255b15afb1dc22f067fcbba8be9c",
+    "version": "6f2a087",
+    "date": "2026-09-22",
     "upcoming": false,
     "summary": [
-      "docs(vertical-packs): rehearsal task now names the SSO connect path as primary"
+      "fix(chat): stop live turn on session navigation"
     ]
   },
   {
     "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/7a32e505efe3a1a8a69e6066dfdd1f97282d765c",
-    "version": "7a32e50",
+    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/1fef3de32cca2bd2dbcb56e928c2df632c494e0d",
+    "version": "1fef3de",
     "date": "2026-09-21",
     "upcoming": false,
     "summary": [
-      "ci: stop the push-to-main failure noise; exclude vendored dirs from lint"
+      "docs(deploy): the session inspector needs the copy form on an older pod"
     ]
   },
   {
     "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/a1a0fe7b7031c1ac4d5e13c63fea733315329b0d",
-    "version": "a1a0fe7",
+    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/c19b3a8fbd7e2a1803a21b5fe4e2ecba43155d61",
+    "version": "c19b3a8",
     "date": "2026-09-21",
     "upcoming": false,
     "summary": [
-      "spec(registry): sync deltas to main specs, archive registry-sso-credentials"
+      "docs(deploy): record the live chat fixes, the build host's OOM hazard, and the session inspector"
     ]
   },
   {
     "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/594956528a5f85dd363ab534ed6362fe9e866fe8",
-    "version": "5949565",
+    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/a90c2b1a597654f1c0f890cf36f011b181847b29",
+    "version": "a90c2b1",
     "date": "2026-09-21",
     "upcoming": false,
     "summary": [
-      "docs(registry): live connect flow verified on fd-prod; tasks 1.2/5.1/5.2 closed"
+      "docs(deploy): the brand also names the built-in agent's picker row"
     ]
   },
   {
     "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/8a4e5ded818da67027b0ff237226b6525a6a9762",
-    "version": "8a4e5de",
+    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/9f65bffa2fbd0bbc4b850165ca13cb1c650e42de",
+    "version": "9f65bff",
     "date": "2026-09-21",
     "upcoming": false,
     "summary": [
-      "test(registry): live connect walk-through against a deployment"
+      "fix(agents): keep the user's own preset across a pack-agent round trip"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/955ad8df1d43d86a9344cc497370d84282b0a39d",
+    "version": "955ad8d",
+    "date": "2026-09-21",
+    "upcoming": false,
+    "summary": [
+      "fix(indicators): page the catalog instead of merging capped per-type calls"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/0b8793b89e01742f0a40f32bd9d4ad99c1fcfc35",
+    "version": "0b8793b",
+    "date": "2026-09-21",
+    "upcoming": false,
+    "summary": [
+      "chore(deploy): roll fd-open-data-mcp to sha-e763096"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/20892d0e6e696231d19223273f635f2f0686c982",
+    "version": "20892d0",
+    "date": "2026-09-21",
+    "upcoming": false,
+    "summary": [
+      "fix(indicators): never ship a silently-truncated catalog"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/3dd40f38d904db39bff22a4aa80abd2436dac7fc",
+    "version": "3dd40f3",
+    "date": "2026-09-21",
+    "upcoming": false,
+    "summary": [
+      "docs(ops)+fix(deploy): OPS.md matches reality; dist.prev rotation"
     ]
   },
   {
@@ -253,56 +293,6 @@
     "upcoming": false,
     "summary": [
       "chore(estate): clear all 11 conformance-gate violations"
-    ]
-  },
-  {
-    "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/6c081ccd0223644bb636583e3a6670b98e3cb8dd",
-    "version": "6c081cc",
-    "date": "2026-09-18",
-    "upcoming": false,
-    "summary": [
-      "deploy(mcp): pin sha-2782733 - sqlite bootstrap in the migration stage"
-    ]
-  },
-  {
-    "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/f48d8dde8a3451f4797c0beeb82f7222ccf2c645",
-    "version": "f48d8dd",
-    "date": "2026-09-18",
-    "upcoming": false,
-    "summary": [
-      "chore: drop out-of-bounds PRODUCT.md symlink"
-    ]
-  },
-  {
-    "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/5ebe561b09213a93cdac55fc7dcac0ff4df87c8f",
-    "version": "5ebe561",
-    "date": "2026-09-18",
-    "upcoming": false,
-    "summary": [
-      "chore: drop out-of-bounds DESIGN.md symlink"
-    ]
-  },
-  {
-    "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/7e6c26f0bc2467136de4a4a791ace9a720813da4",
-    "version": "7e6c26f",
-    "date": "2026-09-18",
-    "upcoming": false,
-    "summary": [
-      "deploy(mcp): pin sha-dc697f5 - first release carrying the migration stage"
-    ]
-  },
-  {
-    "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/b9535eb4d05506d2a8eaa0aa049b7cd768a00b5c",
-    "version": "b9535eb",
-    "date": "2026-09-18",
-    "upcoming": false,
-    "summary": [
-      "feat(mcp): schema migration initContainer on the fd-open-data-mcp Deployment"
     ]
   },
   {
@@ -539,6 +529,16 @@
     "upcoming": false,
     "summary": [
       "feat: http transport + bearer auth + Docker image CI (0.3.4)"
+    ]
+  },
+  {
+    "repo": "fd-polygon",
+    "url": "https://github.com/FindDataTechnology/fd-polygon/commit/853c8ed630091f109f27a1708e3b8f572f3ee979",
+    "version": "853c8ed",
+    "date": "2026-08-16",
+    "upcoming": false,
+    "summary": [
+      "docs: add agent-executable INSTALL.md spec (curl-able)"
     ]
   }
 ]

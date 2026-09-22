@@ -8,8 +8,10 @@
   "scripts": {
     "repos:fetch": "node scripts/fetch-repos.mjs",
     "indicators:fetch": "node scripts/fetch-indicators.mjs",
+    "data-modules:build": "node scripts/build-data-modules.mjs",
+    "data-modules:check": "node scripts/check-data-modules.mjs",
     "dev": "astro dev",
-    "build": "npm run repos:fetch && npm run indicators:fetch && astro build",
+    "build": "npm run repos:fetch && npm run indicators:fetch && npm run data-modules:build && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },

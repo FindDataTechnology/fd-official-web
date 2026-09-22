@@ -1,0 +1,141 @@
+---
+import { t } from '../i18n';
+
+interface ModuleStats {
+  indicators?: number | null;
+  mapped_indicators?: number | null;
+  entities?: number | null;
+  documents?: number | null;
+  notices?: number | null;
+}
+
+interface DbStat {
+  database: string;
+  value: number;
+  unit: string;
+  detail_zh: string;
+  detail_en: string;
+  as_of?: string;
+}
+
+interface Module {
+  id: string;
+  name_zh: string;
+  name_en: string;
+  description_zh: string;
+  description_en: string;
+  databases: string[];
+  sources: string[];
+  time_span: string;
+  cadence_zh: string;
+  cadence_en: string;
+  as_of: string;
+  status: 'active' | 'paused';
+  stats: ModuleStats;
+  db_stats?: DbStat[];
+  representative_codes: string[];
+  deep_link: string;
+  related: { href_en: string; href_zh: string };
+}
+
+interface Props {
+  locale: 'en' | 'zh';
+  module: Module;
+  localizedPath: (path: string) => string;
+}
+
+const { locale, module, localizedPath } = Astro.props;
+const isZh = locale === 'zh';
+const primary = (zh: string, en: string) => (isZh ? zh : en);
+const secondary = (zh: string, en: string) => (isZh ? en : zh);
+const hasValue = (value: number | null | undefined): value is number => typeof value === 'number' && Number.isFinite(value);
+const statusLabel = module.status === 'paused' ? t(locale, 'data.status.paused') : t(locale, 'data.status.active');
+const cadenceLabel = isZh ? module.cadence_zh : module.cadence_en;
+const formatAsOf = (value: string) => {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+};
+---
+
+<article class="module-card" data-module-id={module.id}>
+  <div class="module-card-top">
+    <div>
+      <h3 class="module-name">{primary(module.name_zh, module.name_en)}</h3>
+      <p class="module-name-alt">{secondary(module.name_zh, module.name_en)}</p>
+    </div>
+    <span class={`module-status${module.status === 'paused' ? ' is-paused' : ''}`}>{statusLabel}</span>
+  </div>
+  <p class="module-description">{primary(module.description_zh, module.description_en)}</p>
+  <p class="module-description-alt">{secondary(module.description_zh, module.description_en)}</p>
+
+  <div class="module-badges" aria-label={isZh ? '数据库与来源' : 'Databases and sources'}>
+    {[...new Set([...module.databases, ...module.sources])].map((name) => (
+      <span class={`badge ${module.databases.includes(name) ? 'badge-database' : 'badge-source'}`}>{name}</span>
+    ))}
+  </div>
+
+  <div class="module-stats">
+    <div class="module-stat">
+      <strong>{hasValue(module.stats.indicators) ? module.stats.indicators.toLocaleString(locale) : '—'}</strong>
+      <span>{t(locale, 'data.card.indicators')}</span>
+    </div>
+    <div class="module-stat">
+      <strong>{hasValue(module.stats.mapped_indicators) ? module.stats.mapped_indicators.toLocaleString(locale) : '—'}</strong>
+      <span>{t(locale, 'data.card.mappedIndicators')}</span>
+    </div>
+    {hasValue(module.stats.entities) && (
+      <div class="module-stat">
+        <strong>{module.stats.entities!.toLocaleString(locale)}</strong>
+        <span>{t(locale, 'data.card.entities')}</span>
+      </div>
+    )}
+    {hasValue(module.stats.documents) && (
+      <div class="module-stat">
+        <strong>{module.stats.documents!.toLocaleString(locale)}</strong>
+        <span>{t(locale, 'data.card.documents')}</span>
+      </div>
+    )}
+    {hasValue(module.stats.notices) && (
+      <div class="module-stat">
+        <strong>{module.stats.notices!.toLocaleString(locale)}</strong>
+        <span>{t(locale, 'data.card.notices')}</span>
+      </div>
+    )}
+  </div>
+
+  {(module.db_stats?.length ?? 0) > 0 && (
+    <div class="module-dbstats" aria-label={t(locale, 'data.card.dbAssets')}>
+      <span class="module-dbstats-label">{t(locale, 'data.card.dbAssets')}</span>
+      {module.db_stats!.map((s) => (
+        <div class="module-dbstat">
+          <code class="module-dbstat-db">{s.database}</code>
+          <span class="module-dbstat-value">
+            <b>{s.value.toLocaleString(locale)}</b> {t(locale, `data.db.${s.unit}`)}
+          </span>
+          <span class="module-dbstat-detail">{isZh ? s.detail_zh : s.detail_en}</span>
+        </div>
+      ))}
+    </div>
+  )}
+
+  <dl class="module-meta">
+    <div><dt>{t(locale, 'data.card.timeSpan')}</dt><dd>{module.time_span}</dd></div>
+    <div><dt>{t(locale, 'data.card.updateCadence')}</dt><dd>{cadenceLabel}</dd></div>
+    <div><dt>{t(locale, 'data.card.asOf')}</dt><dd>{formatAsOf(module.as_of)}</dd></div>
+  </dl>
+
+  <div class="module-chips" aria-label={isZh ? '代表指标' : 'Representative indicators'}>
+    {module.representative_codes.map((code) => <code class="module-chip">{code}</code>)}
+  </div>
+
+  <div class="module-actions">
+    <a class="button button-primary" href={localizedPath(module.deep_link)}>{t(locale, 'data.card.browseIndicators')}</a>
+    <a class="button button-secondary" href={isZh ? module.related.href_zh : module.related.href_en}>
+      {t(locale, 'data.card.relatedResource')} <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</article>

@@ -6,6 +6,7 @@ The official website for [FindDataTechnology](https://github.com/FindDataTechnol
 - **Platform product tour** — `/demo` showcases the Platform assistant with a published demo account
 - **Auto repo grid** — `/repos` is generated from the GitHub API at build time (never hardcoded)
 - **Indicator catalog** — `/indicators` exports the live MCP concept catalog at build time
+- **Data modules** — `/data` groups curated datasets by domain/database and links into `/indicators`
 - **Docs** — quickstart, protocol overview, add-a-datasource
 
 ## Stack
@@ -32,4 +33,5 @@ src/
   pages/                en default, zh/ prefixed
 scripts/fetch-repos.mjs       build-time GitHub API fetch (last-good fallback)
 scripts/fetch-indicators.mjs  build-time MCP catalog export (last-good fallback)
+scripts/build-data-modules.mjs build-time curated module aggregation (last-good snapshot)
 ```

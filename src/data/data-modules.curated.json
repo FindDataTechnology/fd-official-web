@@ -1,0 +1,670 @@
+{
+  "version": 1,
+  "as_of": "2026-09-22",
+  "modules": [
+    {
+      "id": "china-macro-stats",
+      "domain": "宏观与统计",
+      "domain_en": "Macro & Statistics",
+      "name_zh": "中国宏观与统计",
+      "name_en": "China Macro & Statistics",
+      "description_zh": "从增长、价格、货币、就业到能源与投资，聚合中国宏观运行的常用观测入口。",
+      "description_en": "A practical view of China’s growth, prices, money, employment, energy, and investment signals.",
+      "databases": [
+        "fd_open_data",
+        "akshare",
+        "datacommons"
+      ],
+      "sources": [
+        "akshare",
+        "datacommons",
+        "fd-cn-report"
+      ],
+      "time_span": "1986—2026",
+      "cadence": "monthly",
+      "cadence_zh": "月度 / 季度更新",
+      "cadence_en": "Monthly / quarterly",
+      "as_of": "2026-09-22",
+      "status": "active",
+      "stats": {
+        "indicators": null,
+        "entities": null,
+        "documents": null
+      },
+      "db_stats": [
+        {
+          "database": "fd_open_data",
+          "value": 12,
+          "unit": "series",
+          "detail_zh": "4,404 行观测 · CPI/PPI/PMI/M1-M2/LPR 已落地",
+          "detail_en": "4,404 observation rows · CPI/PPI/PMI/M1-M2/LPR stored",
+          "as_of": "2026-09-22"
+        }
+      ],
+      "representative_codes": [
+        "GDP_AMOUNT",
+        "GDP_YOY",
+        "CPI_YOY",
+        "M2_YOY",
+        "FAI_CUMULATIVE",
+        "RETAIL_YOY",
+        "ELECTRICITY"
+      ],
+      "filter": {
+        "source": "akshare",
+        "category": "中国宏观"
+      },
+      "mapping": {
+        "rules": [
+          {
+            "sources": [
+              "akshare"
+            ],
+            "categories": [
+              "中国宏观",
+              "利率",
+              "货币金融",
+              "价格指数",
+              "国民核算",
+              "PMI",
+              "国内贸易",
+              "就业",
+              "能源",
+              "固定资产投资",
+              "工业",
+              "房地产",
+              "对外贸易"
+            ]
+          },
+          {
+            "codes": [
+              "gdp"
+            ]
+          }
+        ]
+      },
+      "related": {
+        "href_en": "/docs/datasource",
+        "href_zh": "/zh/docs/datasource"
+      }
+    },
+    {
+      "id": "global-development",
+      "domain": "全球发展",
+      "domain_en": "Global Development",
+      "name_zh": "全球发展与国际对比",
+      "name_en": "Global Development & Comparison",
+      "description_zh": "把世界银行、Data Commons 与国家层面的发展指标放在同一套可比较口径中。",
+      "description_en": "Compare country-level development indicators from World Bank and Data Commons in one semantic layer.",
+      "databases": [
+        "world_bank",
+        "fd_open_data",
+        "datacommons"
+      ],
+      "sources": [
+        "worldbank",
+        "datacommons"
+      ],
+      "time_span": "1960—2025",
+      "cadence": "yearly",
+      "cadence_zh": "年度更新",
+      "cadence_en": "Yearly",
+      "as_of": "2026-09-22",
+      "status": "active",
+      "stats": {
+        "indicators": null,
+        "entities": null,
+        "documents": null
+      },
+      "db_stats": [
+        {
+          "database": "world_bank",
+          "value": 1499,
+          "unit": "series",
+          "detail_zh": "9,022,029 行观测 · 265 国家 · 1960–2025",
+          "detail_en": "9,022,029 observations · 265 countries · 1960–2025",
+          "as_of": "2026-09-22"
+        }
+      ],
+      "representative_codes": [
+        "WB_CO2",
+        "WB_ELECTRICITY",
+        "WB_AG.LND.FRST.ZS",
+        "WB_BX.KLT.DINV.WD.GD.ZS",
+        "dc.population.count",
+        "dc.life_expectancy",
+        "dc.unemployment.rate"
+      ],
+      "filter": {
+        "source": "worldbank",
+        "category": "世界银行"
+      },
+      "mapping": {
+        "rules": [
+          {
+            "sources": [
+              "worldbank"
+            ],
+            "categories": [
+              "世界银行"
+            ]
+          },
+          {
+            "sources": [
+              "datacommons"
+            ]
+          },
+          {
+            "sources": [
+              "akshare"
+            ],
+            "categories": [
+              "美国宏观",
+              "欧盟宏观",
+              "日本宏观"
+            ]
+          },
+          {
+            "codes": [
+              "exports",
+              "imports",
+              "life_expectancy"
+            ]
+          },
+          {
+            "code_prefixes": [
+              "dc."
+            ]
+          }
+        ]
+      },
+      "related": {
+        "href_en": "/docs/protocol",
+        "href_zh": "/zh/docs/protocol"
+      }
+    },
+    {
+      "id": "city-region",
+      "domain": "城市与区域",
+      "domain_en": "Cities & Regions",
+      "name_zh": "城市与区域",
+      "name_en": "Cities & Regions",
+      "description_zh": "面向城市面板与区域比较，覆盖人口、GDP、密度、就业和住房等空间指标。",
+      "description_en": "City and regional panels for population, GDP, density, employment, housing, and spatial comparison.",
+      "databases": [
+        "china_city_panel",
+        "wikidata",
+        "akshare"
+      ],
+      "sources": [
+        "wikidata",
+        "akshare"
+      ],
+      "time_span": "2000—2024",
+      "cadence": "yearly",
+      "cadence_zh": "年度更新",
+      "cadence_en": "Yearly",
+      "as_of": "2026-09-22",
+      "status": "active",
+      "stats": {
+        "indicators": null,
+        "entities": 297,
+        "documents": null
+      },
+      "db_stats": [
+        {
+          "database": "china_city_panel",
+          "value": 209,
+          "unit": "variables",
+          "detail_zh": "297 城 · raw/ARIMA/插值三套面板，约 155 万格值",
+          "detail_en": "297 cities · raw/ARIMA/interpolated panels, ≈1.55M cells",
+          "as_of": "2026-09-22"
+        }
+      ],
+      "representative_codes": [
+        "CITY_GDP",
+        "CITY_POPULATION",
+        "CITY_DENSITY",
+        "CITY_UNEMPLOYMENT",
+        "CITY_HOUSE_PRICE",
+        "CITY_AREA"
+      ],
+      "filter": {
+        "source": "wikidata",
+        "category": "城市指标"
+      },
+      "mapping": {
+        "rules": [
+          {
+            "sources": [
+              "wikidata",
+              "akshare"
+            ],
+            "categories": [
+              "城市指标"
+            ],
+            "entity_types": [
+              "city"
+            ]
+          },
+          {
+            "codes": [
+              "gdp"
+            ]
+          },
+          {
+            "code_prefixes": [
+              "CITY_"
+            ]
+          }
+        ]
+      },
+      "related": {
+        "href_en": "/docs/datasource",
+        "href_zh": "/zh/docs/datasource"
+      }
+    },
+    {
+      "id": "a-share-listed",
+      "domain": "公司与资本市场",
+      "domain_en": "Companies & Capital Markets",
+      "name_zh": "A股与上市公司",
+      "name_en": "A-Share & Listed Companies",
+      "description_zh": "连接公司财报、ESG、基金与行情技术因子，支持上市公司和资本市场的横向观察。",
+      "description_en": "Connect company financials, ESG, funds, and market factors for listed-company analysis.",
+      "databases": [
+        "gta_panel",
+        "fd_open_data",
+        "computed"
+      ],
+      "sources": [
+        "akshare",
+        "computed",
+        "fd-cn-report"
+      ],
+      "time_span": "1990—2026",
+      "cadence": "daily",
+      "cadence_zh": "日度 / 报告期更新",
+      "cadence_en": "Daily / reporting periods",
+      "as_of": "2026-09-22",
+      "status": "active",
+      "stats": {
+        "indicators": null,
+        "entities": 5939,
+        "documents": null
+      },
+      "db_stats": [
+        {
+          "database": "gta_panel",
+          "value": 5939,
+          "unit": "firms",
+          "detail_zh": "1,468 变量 · 288,087 行公司-年面板 · 1990–2025",
+          "detail_en": "1,468 variables · 288,087 firm-year rows · 1990–2025",
+          "as_of": "2026-09-22"
+        },
+        {
+          "database": "fd_open_data",
+          "value": 46729554,
+          "unit": "rows",
+          "detail_zh": "A 股 OHLCV 行情（4,576 只，2006–2026）· 基金数据 1,327,632 行 · 财报约 322 万行",
+          "detail_en": "A-share OHLCV history (4,576 stocks, 2006–2026) · fund data 1,327,632 rows · financial statements ≈3.22M rows",
+          "as_of": "2026-09-22"
+        }
+      ],
+      "representative_codes": [
+        "TA_MACD",
+        "TA_BOLL_MID",
+        "IDX_PRICE",
+        "FUT_PRICE",
+        "ETF_NAV",
+        "financial.net_profit",
+        "esg.environment"
+      ],
+      "filter": {
+        "source": "computed",
+        "category": "技术指标"
+      },
+      "mapping": {
+        "rules": [
+          {
+            "sources": [
+              "computed"
+            ],
+            "categories": [
+              "技术指标"
+            ]
+          },
+          {
+            "sources": [
+              "akshare"
+            ],
+            "categories": [
+              "指数行情",
+              "期货行情",
+              "ETF指标"
+            ]
+          },
+          {
+            "codes": [
+              "employee_count",
+              "market_capitalization",
+              "trading_volume",
+              "trading_turnover",
+              "aum",
+              "holder.institutional_ratio",
+              "nav.accumulated",
+              "nav.daily_growth",
+              "nav.unit",
+              "rating.stars",
+              "aum_total",
+              "best_return",
+              "funds_count",
+              "tenure_days",
+              "financial.net_profit",
+              "financial.revenue",
+              "financial.total_assets",
+              "financial.total_liabilities",
+              "esg.environment",
+              "esg.governance",
+              "esg.social",
+              "extraction.confidence",
+              "extraction.indicator"
+            ]
+          },
+          {
+            "code_prefixes": [
+              "financial.",
+              "esg."
+            ]
+          }
+        ]
+      },
+      "related": {
+        "href_en": "/fd-open-data-mcp",
+        "href_zh": "/zh/fd-open-data-mcp"
+      }
+    },
+    {
+      "id": "industry-chain",
+      "domain": "行业与产业链",
+      "domain_en": "Industry & Value Chains",
+      "name_zh": "行业与产业链",
+      "name_en": "Industry & Value Chains",
+      "description_zh": "以行业分类、公司标签和产业链语义组织结构化观测，便于从行业视角下钻。",
+      "description_en": "Organize structured observations by industry taxonomy, company tags, and value-chain semantics.",
+      "databases": [
+        "fd_open_data",
+        "yearbook_catalog",
+        "gta_panel"
+      ],
+      "sources": [
+        "fd-cn-report",
+        "akshare",
+        "computed"
+      ],
+      "time_span": "2000—2025",
+      "cadence": "quarterly",
+      "cadence_zh": "季度更新",
+      "cadence_en": "Quarterly",
+      "as_of": "2026-09-22",
+      "status": "active",
+      "stats": {
+        "indicators": null,
+        "entities": null,
+        "documents": null
+      },
+      "db_stats": [
+        {
+          "database": "yearbook_catalog",
+          "value": 53925,
+          "unit": "indicators",
+          "detail_zh": "24,332,692 个指标值 · 805,697 张表 · 120,534,734 个表格单元",
+          "detail_en": "24,332,692 indicator values · 805,697 tables · 120,534,734 table cells",
+          "as_of": "2026-09-22"
+        }
+      ],
+      "representative_codes": [
+        "taxonomy.balance_sheet",
+        "taxonomy.business_analysis",
+        "taxonomy.actual_controller",
+        "industry",
+        "company"
+      ],
+      "filter": {
+        "source": "fd-cn-report",
+        "category": "report_taxonomy"
+      },
+      "mapping": {
+        "rules": [
+          {
+            "sources": [
+              "fd-cn-report"
+            ],
+            "categories": [
+              "report_taxonomy"
+            ]
+          },
+          {
+            "code_prefixes": [
+              "taxonomy."
+            ]
+          }
+        ]
+      },
+      "related": {
+        "href_en": "/docs/datasource",
+        "href_zh": "/zh/docs/datasource"
+      }
+    },
+    {
+      "id": "legal-justice",
+      "domain": "法律与司法",
+      "domain_en": "Legal & Justice",
+      "name_zh": "法律与司法",
+      "name_en": "Legal & Justice",
+      "description_zh": "以指导性案例、司法文档和法律实体为入口，呈现法律数据的可检索结构。",
+      "description_en": "Explore guiding cases, judicial documents, and legal entities through a searchable data structure.",
+      "databases": [
+        "law_db",
+        "fd_open_data"
+      ],
+      "sources": [
+        "fd-cn-report"
+      ],
+      "time_span": "2012—2026",
+      "cadence": "paused",
+      "cadence_zh": "增量暂停",
+      "cadence_en": "Incremental crawl paused",
+      "as_of": "2026-09-22",
+      "status": "paused",
+      "stats": {
+        "indicators": null,
+        "entities": null,
+        "documents": 278,
+        "notices": 15
+      },
+      "db_stats": [
+        {
+          "database": "law_db",
+          "value": 21746,
+          "unit": "laws",
+          "detail_zh": "法条切片 609,743 条（law_chunks 362,228 + v2 247,515）· 指导案例 278 + 批次通知 15",
+          "detail_en": "609,743 law chunks (362,228 + 247,515 v2) · 278 guiding cases + 15 notices",
+          "as_of": "2026-09-22"
+        }
+      ],
+      "representative_codes": [
+        "taxonomy.doc.cn_annual",
+        "taxonomy.doc.cn_interim",
+        "document.title",
+        "document.url"
+      ],
+      "filter": {
+        "source": "fd-cn-report",
+        "category": "document_taxonomy"
+      },
+      "mapping": {
+        "rules": [
+          {
+            "sources": [
+              "fd-cn-report"
+            ],
+            "categories": [
+              "document_taxonomy"
+            ]
+          },
+          {
+            "code_prefixes": [
+              "taxonomy.doc.",
+              "document.",
+              "doc."
+            ]
+          }
+        ]
+      },
+      "related": {
+        "href_en": "/docs/protocol",
+        "href_zh": "/zh/docs/protocol"
+      }
+    },
+    {
+      "id": "reports-docs",
+      "domain": "报告与文档",
+      "domain_en": "Reports & Documents",
+      "name_zh": "报告与文档",
+      "name_en": "Reports & Documents",
+      "description_zh": "把定期报告、公告和文档元数据作为可发现资产，连接原始文档与结构化标签。",
+      "description_en": "Make periodic reports, announcements, and document metadata discoverable alongside structured tags.",
+      "databases": [
+        "fd_open_data",
+        "fd-cn-report"
+      ],
+      "sources": [
+        "fd-cn-report"
+      ],
+      "time_span": "2000—2025",
+      "cadence": "on_demand",
+      "cadence_zh": "按需更新",
+      "cadence_en": "On demand",
+      "as_of": "2026-09-22",
+      "status": "active",
+      "stats": {
+        "indicators": null,
+        "entities": null,
+        "documents": null
+      },
+      "representative_codes": [
+        "doc.date",
+        "doc.title",
+        "doc.url",
+        "document.publish_date",
+        "document.format"
+      ],
+      "filter": {
+        "category": "Document Metadata"
+      },
+      "mapping": {
+        "rules": [
+          {
+            "categories": [
+              "Document Metadata"
+            ]
+          },
+          {
+            "codes": [
+              "document.format",
+              "document.publish_date",
+              "document.title",
+              "document.url",
+              "doc.date",
+              "doc.title",
+              "doc.url"
+            ]
+          },
+          {
+            "code_prefixes": [
+              "document.",
+              "doc."
+            ]
+          }
+        ]
+      },
+      "related": {
+        "href_en": "/docs/quickstart",
+        "href_zh": "/zh/docs/quickstart"
+      }
+    },
+    {
+      "id": "alternative-crypto",
+      "domain": "另类与加密",
+      "domain_en": "Alternative & Crypto",
+      "name_zh": "另类与加密",
+      "name_en": "Alternative & Crypto",
+      "description_zh": "覆盖加密货币的行情、市值、供需和交易量，为另类资产观察提供统一入口。",
+      "description_en": "Track crypto prices, market cap, supply, and volume through a unified alternative-asset view.",
+      "databases": [
+        "fd_open_data",
+        "akshare"
+      ],
+      "sources": [
+        "akshare"
+      ],
+      "time_span": "2010—2025",
+      "cadence": "daily",
+      "cadence_zh": "日度更新",
+      "cadence_en": "Daily",
+      "as_of": "2026-09-22",
+      "status": "active",
+      "stats": {
+        "indicators": null,
+        "entities": null,
+        "documents": null
+      },
+      "db_stats": [
+        {
+          "database": "fd_open_data",
+          "value": 0,
+          "unit": "rows",
+          "detail_zh": "镜像库暂无落地观测，经 MCP 按需拉取",
+          "detail_en": "No stored observations in the mirror yet; served on demand via MCP",
+          "as_of": "2026-09-22"
+        }
+      ],
+      "representative_codes": [
+        "CRYPTO_PRICE",
+        "CRYPTO_MARKET_CAP",
+        "CRYPTO_VOLUME",
+        "CRYPTO_CIRC_SUPPLY",
+        "CRYPTO_OPEN",
+        "CRYPTO_HIGH",
+        "CRYPTO_LOW"
+      ],
+      "filter": {
+        "source": "akshare",
+        "category": "加密货币"
+      },
+      "mapping": {
+        "rules": [
+          {
+            "sources": [
+              "akshare"
+            ],
+            "categories": [
+              "加密货币"
+            ]
+          },
+          {
+            "code_prefixes": [
+              "CRYPTO_"
+            ]
+          }
+        ]
+      },
+      "related": {
+        "href_en": "/fd-open-data-mcp",
+        "href_zh": "/zh/fd-open-data-mcp"
+      }
+    }
+  ],
+  "unmapped_codes": []
+}

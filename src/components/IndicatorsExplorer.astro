@@ -27,9 +27,17 @@ interface Concept {
 }
 
 const raw = data as { generated_at?: string; concepts?: Concept[] };
+const sourceFilter = Astro.url.searchParams.get('source');
+const categoryFilter = Astro.url.searchParams.get('category');
+const hasSourceFilter = sourceFilter !== null && sourceFilter !== '';
+const hasCategoryFilter = categoryFilter !== null && categoryFilter !== '';
 // Public catalog = active (non-deprecated) concepts; retired duplicates are
-// excluded from discovery upstream and never shown here.
-const concepts = (raw.concepts ?? []).filter((c) => !c.deprecated);
+// excluded from discovery upstream and never shown here. URL filters are applied
+// server-side so SSR stats, charts, and the embedded payload all start filtered.
+const concepts = (raw.concepts ?? [])
+  .filter((c) => !c.deprecated)
+  .filter((c) => (!hasSourceFilter || (c.source ?? '—') === sourceFilter))
+  .filter((c) => (!hasCategoryFilter || (c.category ?? '—') === categoryFilter));
 const asOf = raw.generated_at
   ? new Date(raw.generated_at).toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
       year: 'numeric',
@@ -67,6 +75,11 @@ const strings = {
     entityType: t(locale, 'indicators.label.entityType'),
     source: t(locale, 'indicators.label.source'),
   },
+  filter: {
+    title: t(locale, 'indicators.filter.title'),
+    source: t(locale, 'indicators.label.source'),
+    category: t(locale, 'indicators.label.category'),
+  },
 };
 
 // Embedded for the client script (charts + search + drill-down). `<` is escaped
@@ -85,6 +98,7 @@ const payload = JSON.stringify({
 ---
 
 {asOf && <p class="catalog-asof">{t(locale, 'indicators.asOf').replace('{date}', asOf)}</p>}
+<p id="ind-filter-notice" class="catalog-asof" aria-live="polite" hidden></p>
 
 <div class="stats" style="margin-top: 0; margin-bottom: 36px;">
   {stats.map((s) => <div class="stat"><b>{s.n}</b><span>{s.label}</span></div>)}
@@ -146,19 +160,66 @@ const payload = JSON.stringify({
       noSample: string;
       tryLive: string;
       labels: Record<string, string>;
+      filter: {
+        title: string;
+        source: string;
+        category: string;
+      };
     };
     demoHref: string;
   }
 
+  type DistributionKey = 'category' | 'entity_type' | 'frequency' | 'source';
+
   const payload: Payload = JSON.parse(document.getElementById('ind-data')?.textContent ?? '{}');
   const MAX_ROWS = 60;
+  const params = new URLSearchParams(window.location.search);
+  const sourceFilter = params.get('source');
+  const categoryFilter = params.get('category');
+  const hasSourceFilter = sourceFilter !== null && sourceFilter !== '';
+  const hasCategoryFilter = categoryFilter !== null && categoryFilter !== '';
+  const displayConcepts = payload.concepts.filter(
+    (c) => (!hasSourceFilter || c.source === sourceFilter) && (!hasCategoryFilter || c.category === categoryFilter),
+  );
 
   // ── Dashboard charts ──────────────────────────────────────────────────
   const host = (id: string) => document.getElementById(id);
-  if (host('chart-category')) barChart(host('chart-category')!, topN(payload.dist.category, 12));
-  if (host('chart-entity')) donutChart(host('chart-entity')!, topN(payload.dist.entity_type, 8));
-  if (host('chart-frequency')) barChart(host('chart-frequency')!, payload.dist.frequency);
-  if (host('chart-source')) barChart(host('chart-source')!, topN(payload.dist.source, 12));
+  const countsFor = (key: DistributionKey, list: Concept[]) => {
+    const m = new Map<string, number>();
+    for (const c of list) {
+      const k = (c[key] as string) || '—';
+      m.set(k, (m.get(k) ?? 0) + 1);
+    }
+    return [...m.entries()].map(([label, value]) => ({ label, value })).sort((a, b) => b.value - a.value);
+  };
+  const renderCharts = (list: Concept[]): void => {
+    if (host('chart-category')) barChart(host('chart-category')!, topN(countsFor('category', list), 12));
+    if (host('chart-entity')) donutChart(host('chart-entity')!, topN(countsFor('entity_type', list), 8));
+    if (host('chart-frequency')) barChart(host('chart-frequency')!, countsFor('frequency', list));
+    if (host('chart-source')) barChart(host('chart-source')!, topN(countsFor('source', list), 12));
+  };
+  const renderStats = (list: Concept[]): void => {
+    const values = [
+      list.length,
+      new Set(list.map((c) => c.category || '—')).size,
+      new Set(list.map((c) => c.source || '—')).size,
+      new Set(list.map((c) => c.entity_type || '—')).size,
+    ];
+    document.querySelectorAll('.stats .stat b').forEach((el, index) => {
+      const value = values[index];
+      if (value !== undefined) el.textContent = String(value);
+    });
+  };
+  const filterNotice = document.getElementById('ind-filter-notice');
+  const filterParts: string[] = [];
+  if (hasSourceFilter) filterParts.push(`${payload.strings.filter.source}: ${sourceFilter}`);
+  if (hasCategoryFilter) filterParts.push(`${payload.strings.filter.category}: ${categoryFilter}`);
+  if (filterNotice) {
+    filterNotice.textContent = filterParts.length ? `${payload.strings.filter.title}${filterParts.join('; ')}` : '';
+    filterNotice.hidden = filterParts.length === 0;
+  }
+  renderStats(displayConcepts);
+  renderCharts(displayConcepts);
 
   // ── Search + results ──────────────────────────────────────────────────
   const input = document.getElementById('ind-search-input') as HTMLInputElement | null;
@@ -184,7 +245,7 @@ const payload = JSON.stringify({
   function renderResults(): void {
     if (!resultsEl) return;
     const q = (input?.value ?? '').trim().toLowerCase();
-    const list = q ? payload.concepts.filter((c) => matches(c, q)) : payload.concepts;
+    const list = q ? displayConcepts.filter((c) => matches(c, q)) : displayConcepts;
     if (!list.length) {
       resultsEl.innerHTML = `<p class="ind-empty">${escapeHtml(payload.strings.empty)}</p>`;
       return;
@@ -198,7 +259,7 @@ const payload = JSON.stringify({
   resultsEl?.addEventListener('click', (e) => {
     const row = (e.target as HTMLElement).closest<HTMLElement>('.ind-row');
     const id = Number(row?.dataset.id);
-    const c = payload.concepts.find((x) => x.id === id);
+    const c = displayConcepts.find((x) => x.id === id);
     if (c) {
       selected = c;
       renderDetail();

@@ -41,3 +41,6 @@ id_ed25519*
 .harbor-ci-*
 *creds*
 *-password*
+
+# impeccable local review artifacts
+.impeccable/
