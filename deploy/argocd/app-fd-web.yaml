@@ -11,7 +11,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/FindDataTechnology/fd-official-web.git
+    # gitee, not github: the cluster cannot reach github.com reliably and the
+    # ArgoCD repo credential is repo-gitee-finddata-official-web.
+    repoURL: https://gitee.com/FindDataTechnology/fd-official-web.git
     targetRevision: main
     path: deploy/k8s
     # deploy/k8s/ 还有 librechat.yaml / mcp.yaml（人工管理，非本 app 范围）——

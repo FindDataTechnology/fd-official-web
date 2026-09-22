@@ -1,10 +1,8 @@
 # fd-official-web in-cluster serving stack.
-# Managed by ArgoCD (Application: deploy/argocd/app-fd-web.yaml, path deploy/k8s).
-# Image builds: CI is disabled (domestic-only policy, 2026-09-10) — build on the
-# fd-deploy box (docker build with a pre-built dist/), push to Harbor, bump this
-# tag by hand. If Harbor push auth is unavailable, importing the image into the
-# node's containerd (k3s ctr -n k8s.io images import) also works: the pod pins
-# the chengsi node and IfNotPresent uses the local image.
+# Managed by ArgoCD (Application: deploy/argocd/app-fd-web.yaml, path deploy/k8s,
+# source = gitee main). Image builds: Jenkins job `fd-official-web` (multi-stage
+# Dockerfile builds the Astro site in-image and pushes to Harbor); bump this tag
+# to roll. Host nginx proxies location / to this NodePort.
 #
 # Pinned to the chengsi node: host nginx proxies location / to this NodePort and
 # cross-node pod networking is unavailable in this NAT-jailed cluster.
@@ -41,7 +39,7 @@ spec:
         kubernetes.io/hostname: vm-0-9-ubuntu
       containers:
         - name: web
-          image: harbor.finddatatech.cloud:8080/fd-web/official-web:0004dcb-202609180059
+          image: harbor.finddatatech.cloud:8080/fd-web/official-web:sha-14c054c
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
