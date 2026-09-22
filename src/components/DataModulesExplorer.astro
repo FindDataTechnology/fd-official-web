@@ -15,6 +15,16 @@ interface ModuleFilter {
   category?: string;
 }
 
+interface DbStat {
+  database: string;
+  value: number;
+  unit: string;
+  detail_zh: string;
+  detail_en: string;
+  as_of?: string;
+  primary?: boolean;
+}
+
 interface Module {
   id: string;
   domain: string;
@@ -32,6 +42,7 @@ interface Module {
   as_of: string;
   status: 'active' | 'paused';
   stats: ModuleStats;
+  db_stats?: DbStat[];
   representative_codes: string[];
   filter: ModuleFilter;
   filter_params: ModuleFilter;
@@ -92,6 +103,19 @@ const sourceGroups = groupModules('sources');
 const coverageRate = coverage?.coverage_rate;
 const coverageText = coverage ? t(locale, 'data.coverage.rate').replace('{rate}', formatRate(coverageRate)) : '';
 const snapshotDate = formatAsOf(snapshotAsOf);
+const dbSet = new Set<string>();
+let seriesSum = 0;
+for (const module of modules) {
+  for (const stat of module.db_stats ?? []) {
+    dbSet.add(stat.database);
+    if (stat.unit === 'series' || stat.unit === 'indicators' || stat.unit === 'variables') {
+      seriesSum += stat.value;
+    }
+  }
+}
+const assetsText = dbSet.size
+  ? `${t(locale, 'data.summary.dbCount').replace('{n}', String(dbSet.size))} · ${t(locale, 'data.summary.seriesCount').replace('{n}', seriesSum.toLocaleString(locale))}`
+  : '';
 ---
 
 <div class="data-explorer" data-module-explorer>
@@ -101,6 +125,13 @@ const snapshotDate = formatAsOf(snapshotAsOf);
       <strong class="data-summary-value">{coverage ? `${coverage.covered}/${coverage.total}` : '—'}</strong>
       <span class="data-summary-rate">{coverageText}</span>
     </div>
+    {assetsText && (
+      <div>
+        <span class="data-summary-label">{t(locale, 'data.card.dbAssets')}</span>
+        <strong class="data-summary-value">{dbSet.size}</strong>
+        <span class="data-summary-rate">{t(locale, 'data.summary.seriesCount').replace('{n}', seriesSum.toLocaleString(locale))}</span>
+      </div>
+    )}
     {snapshotDate && (
       <p class="data-summary-asof">
         {t(locale, 'data.snapshotAsOf').replace('{date}', snapshotDate)}

@@ -38,7 +38,8 @@
           "unit": "series",
           "detail_zh": "4,404 行观测 · CPI/PPI/PMI/M1-M2/LPR 已落地",
           "detail_en": "4,404 observation rows · CPI/PPI/PMI/M1-M2/LPR stored",
-          "as_of": "2026-09-22"
+          "as_of": "2026-09-22",
+          "primary": true
         }
       ],
       "representative_codes": [
@@ -123,7 +124,8 @@
           "unit": "series",
           "detail_zh": "9,022,029 行观测 · 265 国家 · 1960–2025",
           "detail_en": "9,022,029 observations · 265 countries · 1960–2025",
-          "as_of": "2026-09-22"
+          "as_of": "2026-09-22",
+          "primary": true
         }
       ],
       "representative_codes": [
@@ -218,7 +220,8 @@
           "unit": "variables",
           "detail_zh": "297 城 · raw/ARIMA/插值三套面板，约 155 万格值",
           "detail_en": "297 cities · raw/ARIMA/interpolated panels, ≈1.55M cells",
-          "as_of": "2026-09-22"
+          "as_of": "2026-09-22",
+          "primary": true
         }
       ],
       "representative_codes": [
@@ -308,7 +311,8 @@
           "unit": "rows",
           "detail_zh": "A 股 OHLCV 行情（4,576 只，2006–2026）· 基金数据 1,327,632 行 · 财报约 322 万行",
           "detail_en": "A-share OHLCV history (4,576 stocks, 2006–2026) · fund data 1,327,632 rows · financial statements ≈3.22M rows",
-          "as_of": "2026-09-22"
+          "as_of": "2026-09-22",
+          "primary": true
         }
       ],
       "representative_codes": [
@@ -420,7 +424,8 @@
           "unit": "indicators",
           "detail_zh": "24,332,692 个指标值 · 805,697 张表 · 120,534,734 个表格单元",
           "detail_en": "24,332,692 indicator values · 805,697 tables · 120,534,734 table cells",
-          "as_of": "2026-09-22"
+          "as_of": "2026-09-22",
+          "primary": true
         }
       ],
       "representative_codes": [
@@ -490,7 +495,8 @@
           "unit": "laws",
           "detail_zh": "法条切片 609,743 条（law_chunks 362,228 + v2 247,515）· 指导案例 278 + 批次通知 15",
           "detail_en": "609,743 law chunks (362,228 + 247,515 v2) · 278 guiding cases + 15 notices",
-          "as_of": "2026-09-22"
+          "as_of": "2026-09-22",
+          "primary": true
         }
       ],
       "representative_codes": [
@@ -627,7 +633,8 @@
           "unit": "rows",
           "detail_zh": "镜像库暂无落地观测，经 MCP 按需拉取",
           "detail_en": "No stored observations in the mirror yet; served on demand via MCP",
-          "as_of": "2026-09-22"
+          "as_of": "2026-09-22",
+          "primary": true
         }
       ],
       "representative_codes": [

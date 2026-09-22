@@ -46,6 +46,7 @@ interface Props {
 
 const { locale, module, localizedPath } = Astro.props;
 const isZh = locale === 'zh';
+const primaryDbStat = module.db_stats?.find((stat) => stat.primary);
 const primary = (zh: string, en: string) => (isZh ? zh : en);
 const secondary = (zh: string, en: string) => (isZh ? en : zh);
 const hasValue = (value: number | null | undefined): value is number => typeof value === 'number' && Number.isFinite(value);
@@ -79,14 +80,17 @@ const formatAsOf = (value: string) => {
   </div>
 
   <div class="module-stats">
-    <div class="module-stat">
-      <strong>{hasValue(module.stats.indicators) ? module.stats.indicators.toLocaleString(locale) : '—'}</strong>
-      <span>{t(locale, 'data.card.indicators')}</span>
-    </div>
-    <div class="module-stat">
-      <strong>{hasValue(module.stats.mapped_indicators) ? module.stats.mapped_indicators.toLocaleString(locale) : '—'}</strong>
-      <span>{t(locale, 'data.card.mappedIndicators')}</span>
-    </div>
+    {primaryDbStat ? (
+      <div class="module-stat">
+        <strong>{primaryDbStat.value.toLocaleString(locale)}</strong>
+        <span>{t(locale, `data.db.${primaryDbStat.unit}`)} · {primaryDbStat.database}</span>
+      </div>
+    ) : (
+      <div class="module-stat">
+        <strong>{hasValue(module.stats.indicators) ? module.stats.indicators!.toLocaleString(locale) : '—'}</strong>
+        <span>{t(locale, 'data.card.indicators')}</span>
+      </div>
+    )}
     {hasValue(module.stats.entities) && (
       <div class="module-stat">
         <strong>{module.stats.entities!.toLocaleString(locale)}</strong>
@@ -106,6 +110,11 @@ const formatAsOf = (value: string) => {
       </div>
     )}
   </div>
+  <p class="module-mcp-line">
+    {t(locale, 'data.card.mcpLine')
+      .replace('{n}', String(module.stats.indicators ?? 0))
+      .replace('{m}', String(module.stats.mapped_indicators ?? 0))}
+  </p>
 
   {(module.db_stats?.length ?? 0) > 0 && (
     <div class="module-dbstats" aria-label={t(locale, 'data.card.dbAssets')}>
