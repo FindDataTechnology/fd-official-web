@@ -41,92 +41,112 @@
   },
   {
     "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/6f2a08732059255b15afb1dc22f067fcbba8be9c",
-    "version": "6f2a087",
+    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/d826d3cc117a182f9034713ed2e910ecdf778ea0",
+    "version": "d826d3c",
+    "date": "2026-09-25",
+    "upcoming": false,
+    "summary": [
+      "docs(openspec): archive redesign-mp-home + revise-mp-history-ux + add-mp-demo-sandbox, sync main specs"
+    ]
+  },
+  {
+    "repo": "fd-craw-private",
+    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/0ccd811d55cfcf7f52983850b1b1ab04a0915f18",
+    "version": "0ccd811",
+    "date": "2026-09-25",
+    "upcoming": false,
+    "summary": [
+      "fix(build): pin cordis-plugin-hmr@1.0.16 in the dsh profile tree too"
+    ]
+  },
+  {
+    "repo": "fd-craw-private",
+    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/3d68a792dc094524ac6bf02eb85dded62b2252bc",
+    "version": "3d68a79",
+    "date": "2026-09-25",
+    "upcoming": false,
+    "summary": [
+      "feat(mp): reviewer demo experience — gateway demo mode + accountless demo sandbox"
+    ]
+  },
+  {
+    "repo": "fd-craw-private",
+    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/bf9cc280d0dd23adfe98ab2ba0aa78233893caae",
+    "version": "bf9cc28",
+    "date": "2026-09-23",
+    "upcoming": false,
+    "summary": [
+      "docs(openspec): sync tool-discovery spec, archive add-tool-discovery-layer"
+    ]
+  },
+  {
+    "repo": "fd-craw-private",
+    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/095316dee2a0edf86a9c26446af2b31ec349316b",
+    "version": "095316d",
+    "date": "2026-09-23",
+    "upcoming": false,
+    "summary": [
+      "docs(openspec): mark add-tool-discovery-layer tasks verified"
+    ]
+  },
+  {
+    "repo": "fd-vertical-packs",
+    "url": "https://github.com/FindDataTechnology/fd-vertical-packs/commit/9af732e6c0855788475aed58811b8424e968a715",
+    "version": "9af732e",
+    "date": "2026-09-23",
+    "upcoming": false,
+    "summary": [
+      "skills: name primary MCP tools by exact callable names"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/f6f43c078e2c43eab5c7f6204aae2b71d50b1b27",
+    "version": "f6f43c0",
     "date": "2026-09-22",
     "upcoming": false,
     "summary": [
-      "fix(chat): stop live turn on session navigation"
-    ]
-  },
-  {
-    "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/1fef3de32cca2bd2dbcb56e928c2df632c494e0d",
-    "version": "1fef3de",
-    "date": "2026-09-21",
-    "upcoming": false,
-    "summary": [
-      "docs(deploy): the session inspector needs the copy form on an older pod"
-    ]
-  },
-  {
-    "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/c19b3a8fbd7e2a1803a21b5fe4e2ecba43155d61",
-    "version": "c19b3a8",
-    "date": "2026-09-21",
-    "upcoming": false,
-    "summary": [
-      "docs(deploy): record the live chat fixes, the build host's OOM hazard, and the session inspector"
-    ]
-  },
-  {
-    "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/a90c2b1a597654f1c0f890cf36f011b181847b29",
-    "version": "a90c2b1",
-    "date": "2026-09-21",
-    "upcoming": false,
-    "summary": [
-      "docs(deploy): the brand also names the built-in agent's picker row"
-    ]
-  },
-  {
-    "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/9f65bffa2fbd0bbc4b850165ca13cb1c650e42de",
-    "version": "9f65bff",
-    "date": "2026-09-21",
-    "upcoming": false,
-    "summary": [
-      "fix(agents): keep the user's own preset across a pack-agent round trip"
+      "fix(data): in-database numbers are the headline, MCP counts the footnote"
     ]
   },
   {
     "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/955ad8df1d43d86a9344cc497370d84282b0a39d",
-    "version": "955ad8d",
-    "date": "2026-09-21",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/7fe2ce6d5c8c94630981c6829355aa288c6bcdea",
+    "version": "7fe2ce6",
+    "date": "2026-09-22",
     "upcoming": false,
     "summary": [
-      "fix(indicators): page the catalog instead of merging capped per-type calls"
+      "chore(deploy): auto-roll official-web to sha-6588be6"
     ]
   },
   {
     "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/0b8793b89e01742f0a40f32bd9d4ad99c1fcfc35",
-    "version": "0b8793b",
-    "date": "2026-09-21",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/6588be6d9c5939fbfbe193d9aa4cf14880ab2d0c",
+    "version": "6588be6",
+    "date": "2026-09-22",
     "upcoming": false,
     "summary": [
-      "chore(deploy): roll fd-open-data-mcp to sha-e763096"
+      "build(docker): pass the /mcp token as a BuildKit secret"
     ]
   },
   {
     "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/20892d0e6e696231d19223273f635f2f0686c982",
-    "version": "20892d0",
-    "date": "2026-09-21",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/5ec14464953311f7d2c8ce9f2f750b6049fc3313",
+    "version": "5ec1446",
+    "date": "2026-09-22",
     "upcoming": false,
     "summary": [
-      "fix(indicators): never ship a silently-truncated catalog"
+      "chore(deploy): roll official-web to sha-14c054c; ArgoCD source to gitee"
     ]
   },
   {
     "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/3dd40f38d904db39bff22a4aa80abd2436dac7fc",
-    "version": "3dd40f3",
-    "date": "2026-09-21",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/14c054c652f992640b82d79709627ea22bbba900",
+    "version": "14c054c",
+    "date": "2026-09-22",
     "upcoming": false,
     "summary": [
-      "docs(ops)+fix(deploy): OPS.md matches reality; dist.prev rotation"
+      "build(docker): multi-stage image — build the Astro site in-image"
     ]
   },
   {
@@ -210,22 +230,6 @@
     ]
   },
   {
-    "repo": "fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
-    "version": "0.5.16",
-    "date": "2026-09-18",
-    "upcoming": false,
-    "summary": [
-      "**`permanent` failure class** — a new `ban_rules` classification, seeded for",
-      "**`fetch/capability.py`** — static, no-I/O resolution of `(source, command)`.",
-      "**Entity-domain agreement** — rules matched on column *name* alone, so every",
-      "**Binding eligibility needs evidence, not just a score** — the dispatch gate",
-      "**`confirm_by_rule` / `verify_functions_by_rule`** — rule-based binding",
-      "**Bounded failover chain** — `FD_CRAWL_CHAIN_MAX` (default 8). Candidates",
-      "**Permanent-path suppression** — a `(concept, function)` whose recent"
-    ]
-  },
-  {
     "repo": "fd-vertical-packs",
     "url": "https://github.com/FindDataTechnology/fd-vertical-packs/commit/abd4cebbc71ae5dcbc343df9c59083f696c4e83b",
     "version": "abd4ceb",
@@ -243,6 +247,22 @@
     "upcoming": false,
     "summary": [
       "vertical pack entry skills + cloud agents catalog"
+    ]
+  },
+  {
+    "repo": "fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
+    "version": "0.5.16",
+    "date": "2026-09-18",
+    "upcoming": false,
+    "summary": [
+      "**`permanent` failure class** — a new `ban_rules` classification, seeded for",
+      "**`fetch/capability.py`** — static, no-I/O resolution of `(source, command)`.",
+      "**Entity-domain agreement** — rules matched on column *name* alone, so every",
+      "**Binding eligibility needs evidence, not just a score** — the dispatch gate",
+      "**`confirm_by_rule` / `verify_functions_by_rule`** — rule-based binding",
+      "**Bounded failover chain** — `FD_CRAWL_CHAIN_MAX` (default 8). Candidates",
+      "**Permanent-path suppression** — a `(concept, function)` whose recent"
     ]
   },
   {
@@ -519,26 +539,6 @@
     "upcoming": false,
     "summary": [
       "fix(server): guard parents[2] IndexError in flat installs"
-    ]
-  },
-  {
-    "repo": "fd-cn-report",
-    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/8f4cd4721ba2fec645239d7c3cb57ff5a525cbd4",
-    "version": "8f4cd47",
-    "date": "2026-08-19",
-    "upcoming": false,
-    "summary": [
-      "feat: http transport + bearer auth + Docker image CI (0.3.4)"
-    ]
-  },
-  {
-    "repo": "fd-polygon",
-    "url": "https://github.com/FindDataTechnology/fd-polygon/commit/853c8ed630091f109f27a1708e3b8f572f3ee979",
-    "version": "853c8ed",
-    "date": "2026-08-16",
-    "upcoming": false,
-    "summary": [
-      "docs: add agent-executable INSTALL.md spec (curl-able)"
     ]
   }
 ]

@@ -142,16 +142,16 @@ const assetsText = dbSet.size
   <div class="data-toolbar" aria-label={t(locale, 'data.group.title')}>
     <span class="data-toolbar-label">{t(locale, 'data.group.title')}</span>
     <div class="data-tabs" role="tablist" aria-label={t(locale, 'data.group.title')}>
-      <button class="data-tab is-active" type="button" data-module-view="all" aria-pressed="true" role="tab" aria-selected="true">{t(locale, 'data.group.all')}</button>
-      <button class="data-tab" type="button" data-module-view="domain" aria-pressed="false" role="tab" aria-selected="false">{t(locale, 'data.group.byDomain')}</button>
-      <button class="data-tab" type="button" data-module-view="database" aria-pressed="false" role="tab" aria-selected="false">{t(locale, 'data.group.byDatabase')}</button>
-      <button class="data-tab" type="button" data-module-view="source" aria-pressed="false" role="tab" aria-selected="false">{t(locale, 'data.group.bySource')}</button>
+      <button class="data-tab is-active" type="button" id="module-tab-all" role="tab" aria-selected="true" aria-controls="module-panel-all" tabindex="0" data-module-view="all">{t(locale, 'data.group.all')}</button>
+      <button class="data-tab" type="button" id="module-tab-domain" role="tab" aria-selected="false" aria-controls="module-panel-domain" tabindex="-1" data-module-view="domain">{t(locale, 'data.group.byDomain')}</button>
+      <button class="data-tab" type="button" id="module-tab-database" role="tab" aria-selected="false" aria-controls="module-panel-database" tabindex="-1" data-module-view="database">{t(locale, 'data.group.byDatabase')}</button>
+      <button class="data-tab" type="button" id="module-tab-source" role="tab" aria-selected="false" aria-controls="module-panel-source" tabindex="-1" data-module-view="source">{t(locale, 'data.group.bySource')}</button>
     </div>
   </div>
 
   {modules.length === 0 && <p class="data-empty">{t(locale, 'data.empty')}</p>}
 
-  <section class="data-view is-active" data-module-view-panel="all" aria-label={t(locale, 'data.group.all')}>
+  <section class="data-view is-active" id="module-panel-all" role="tabpanel" aria-labelledby="module-tab-all" data-module-view-panel="all">
     {allGroups.map((group) => (
       <div class="data-group">
         <h2 class="data-group-title">{group.label}</h2>
@@ -164,7 +164,7 @@ const assetsText = dbSet.size
     ))}
   </section>
 
-  <section class="data-view" data-module-view-panel="domain" hidden aria-label={t(locale, 'data.group.byDomain')}>
+  <section class="data-view" id="module-panel-domain" role="tabpanel" aria-labelledby="module-tab-domain" data-module-view-panel="domain" hidden>
     {domainGroups.map((group) => (
       <div class="data-group">
         <h2 class="data-group-title">{group.label} <span class="data-group-count">{group.items.length}</span></h2>
@@ -177,7 +177,7 @@ const assetsText = dbSet.size
     ))}
   </section>
 
-  <section class="data-view" data-module-view-panel="database" hidden aria-label={t(locale, 'data.group.byDatabase')}>
+  <section class="data-view" id="module-panel-database" role="tabpanel" aria-labelledby="module-tab-database" data-module-view-panel="database" hidden>
     {databaseGroups.map((group) => (
       <div class="data-group">
         <h2 class="data-group-title">{group.label} <span class="data-group-count">{group.items.length}</span></h2>
@@ -190,7 +190,7 @@ const assetsText = dbSet.size
     ))}
   </section>
 
-  <section class="data-view" data-module-view-panel="source" hidden aria-label={t(locale, 'data.group.bySource')}>
+  <section class="data-view" id="module-panel-source" role="tabpanel" aria-labelledby="module-tab-source" data-module-view-panel="source" hidden>
     {sourceGroups.map((group) => (
       <div class="data-group">
         <h2 class="data-group-title">{group.label} <span class="data-group-count">{group.items.length}</span></h2>
@@ -208,20 +208,38 @@ const assetsText = dbSet.size
   const explorer = document.querySelector<HTMLElement>('[data-module-explorer]');
   const tabs = [...document.querySelectorAll<HTMLButtonElement>('[data-module-view]')];
   const panels = [...document.querySelectorAll<HTMLElement>('[data-module-view-panel]')];
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      const view = tab.dataset.moduleView;
-      tabs.forEach((button) => {
-        const active = button === tab;
-        button.classList.toggle('is-active', active);
-        button.setAttribute('aria-pressed', String(active));
-        button.setAttribute('aria-selected', String(active));
-      });
-      panels.forEach((panel) => {
-        const active = panel.dataset.moduleViewPanel === view;
-        panel.hidden = !active;
-        panel.classList.toggle('is-active', active);
-      });
+
+  function activate(tab: HTMLButtonElement): void {
+    const view = tab.dataset.moduleView;
+    tabs.forEach((button) => {
+      const active = button === tab;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-selected', String(active));
+      button.tabIndex = active ? 0 : -1; // roving tabindex
     });
+    panels.forEach((panel) => {
+      const active = panel.dataset.moduleViewPanel === view;
+      panel.hidden = !active;
+      panel.classList.toggle('is-active', active);
+    });
+  }
+
+  tabs.forEach((tab) => tab.addEventListener('click', () => activate(tab)));
+
+  // WAI-ARIA tabs keyboard pattern: arrows (wrapping) + Home/End move focus
+  // and activate; Tab leaves the tablist for the active panel.
+  const tablist = explorer?.querySelector<HTMLElement>('[role="tablist"]');
+  tablist?.addEventListener('keydown', (e) => {
+    const current = tabs.indexOf(document.activeElement as HTMLButtonElement);
+    if (current === -1) return;
+    let next: number;
+    if (e.key === 'ArrowRight') next = (current + 1) % tabs.length;
+    else if (e.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
+    else if (e.key === 'Home') next = 0;
+    else if (e.key === 'End') next = tabs.length - 1;
+    else return;
+    e.preventDefault();
+    tabs[next].focus();
+    activate(tabs[next]);
   });
 </script>

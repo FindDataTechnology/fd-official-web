@@ -11,7 +11,7 @@ import { PRODUCT_LINES } from '../content.config';
 import indicatorData from '../data/indicators.json';
 
 const locale = 'en';
-const title = 'FindData Technology — An ecosystem for text and data';
+const title = 'FindData Technology — Ask in plain language, get real data rows';
 const phases = (await getCollection('roadmap')).sort((a, b) => a.data.order - b.data.order);
 // Stats count ACTIVE (non-deprecated) concepts only: retired duplicates are
 // excluded from discovery and dispatch upstream. Optional counts (tools,
@@ -64,7 +64,7 @@ const fmt = (n: number) => n.toLocaleString(locale);
         PRODUCT_LINES.map((l) => (
           <li class="card">
             <a class="card-main" href={getRelativeLocaleUrl(locale, `products/${l}`)}>
-              <span class="name">{t(locale, `line.${l}`)}</span>
+              <span class="name lines-name">{t(locale, `line.${l}`)}</span>
               <span class="desc">{t(locale, `line.${l}.desc`)}</span>
             </a>
           </li>

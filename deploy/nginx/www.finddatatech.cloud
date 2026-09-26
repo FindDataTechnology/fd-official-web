@@ -32,4 +32,16 @@ server {
         proxy_read_timeout 300s;
         proxy_buffering off;
     }
+
+    # Demo widget API (fd-demo-proxy systemd unit on :8898 → MCP tools/call,
+    # bearer token injected server-side; browser sees no token, same-origin).
+    # Unit must run with MCP_URL=http://127.0.0.1:30899/mcp (k3s NodePort).
+    location /demo-api {
+        limit_req zone=mcp burst=5 nodelay;
+        proxy_pass http://127.0.0.1:8898/query;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header Connection "";
+        proxy_read_timeout 60s;
+    }
 }

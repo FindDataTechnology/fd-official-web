@@ -1,0 +1,93 @@
+---
+// Live MCP query console — restored verbatim from the original /demo
+// playground (commit 70cb489). The browser POSTs {query, date?} to the
+// same-origin /demo-api route (nginx → demo-proxy :8898 /query → MCP :8899);
+// server/demo-proxy.mjs performs the MCP handshake (initialize →
+// notifications/initialized → tools/call ai_search) and injects the bearer
+// token server-side, so the token never reaches the browser.
+import { t } from '../i18n';
+
+interface Props {
+  locale: 'en' | 'zh';
+}
+const { locale } = Astro.props;
+
+const strings = {
+  query: t(locale, 'demo.query'),
+  placeholder: t(locale, 'demo.placeholder'),
+  date: t(locale, 'demo.date'),
+  submit: t(locale, 'demo.submit'),
+  empty: t(locale, 'demo.empty'),
+  running: t(locale, 'demo.running'),
+  errNetwork: t(locale, 'demo.err.network'),
+  errHttp: t(locale, 'demo.err.http'),
+  errRemote: t(locale, 'demo.err.remote'),
+};
+---
+
+<section class="widget" id="demo-widget" data-empty={strings.empty} data-running={strings.running} data-err-network={strings.errNetwork} data-err-http={strings.errHttp} data-err-remote={strings.errRemote}>
+  <form id="demo-form">
+    <label>
+      {strings.query}
+      <input name="query" required placeholder={strings.placeholder} autocomplete="off" />
+    </label>
+    <label>
+      {strings.date}
+      <input name="date" type="date" />
+    </label>
+    <button type="submit">{strings.submit}</button>
+  </form>
+  <pre id="demo-result" aria-live="polite">{strings.empty}</pre>
+</section>
+
+<script>
+  const widget = document.getElementById('demo-widget');
+  const form = document.getElementById('demo-form') as HTMLFormElement | null;
+  const out = document.getElementById('demo-result') as HTMLPreElement | null;
+  const btn = form?.querySelector('button') as HTMLButtonElement | null;
+  const say = (widget?.dataset ?? {}) as Record<string, string>;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!out || !btn || !form) return;
+    const fd = new FormData(form);
+    const payload: Record<string, string> = { query: String(fd.get('query') ?? '') };
+    const date = String(fd.get('date') ?? '');
+    if (date) payload.date = date;
+
+    out.textContent = say.running ?? '…';
+    btn.disabled = true;
+    try {
+      const res = await fetch('/demo-api', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const text = await res.text();
+      if (!res.ok) {
+        // demo-proxy reports failures as JSON {error}; nginx answers HTML pages.
+        let detail = '';
+        try {
+          const parsed = JSON.parse(text) as { error?: string } | null;
+          detail = parsed?.error ?? '';
+        } catch {
+          detail = '';
+        }
+        out.textContent = detail
+          ? `${say.errRemote ?? ''}\n${detail}`
+          : (say.errHttp ?? 'HTTP {status}').replace('{status}', String(res.status));
+        return;
+      }
+      // ai_search answers with JSON rows or plain text; pretty-print what parses.
+      try {
+        out.textContent = JSON.stringify(JSON.parse(text), null, 2);
+      } catch {
+        out.textContent = text || (say.empty ?? '…');
+      }
+    } catch {
+      out.textContent = say.errNetwork ?? '…';
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>

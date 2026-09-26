@@ -9,7 +9,7 @@ import { PRODUCT_LINES } from '../../content.config';
 import indicatorData from '../../data/indicators.json';
 
 const locale = 'zh';
-const title = '寻数科技 FindData Technology — 聚焦文本与数据处理';
+const title = '寻数科技 FindData Technology — 用自然语言提问，拿回真实数据行';
 const phases = (await getCollection('roadmap')).sort((a, b) => a.data.order - b.data.order);
 // 统计只计活跃(非 deprecated)概念:上游已弃用的重复概念不参与发现与分发。
 // 可选计数(工具/实体/观测)仅当导出携带时才渲染。
@@ -61,7 +61,7 @@ const fmt = (n: number) => n.toLocaleString(locale);
         PRODUCT_LINES.map((l) => (
           <li class="card">
             <a class="card-main" href={getRelativeLocaleUrl(locale, `products/${l}`)}>
-              <span class="name">{t(locale, `line.${l}`)}</span>
+              <span class="name lines-name">{t(locale, `line.${l}`)}</span>
               <span class="desc">{t(locale, `line.${l}.desc`)}</span>
             </a>
           </li>

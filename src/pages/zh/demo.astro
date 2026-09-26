@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
+import DemoWidget from '../../components/DemoWidget.astro';
 import TourMockup from '../../components/TourMockup.astro';
 import TourTrial from '../../components/TourTrial.astro';
 import { t } from '../../i18n';
@@ -25,9 +26,13 @@ const features = [
 ---
 
 <Layout locale={locale} title={title} description={t(locale, 'demo.sub')}>
+  <h1 class="page">{t(locale, 'demo.title')}</h1>
+  <p class="page-sub">{t(locale, 'demo.sub')}</p>
+  <DemoWidget locale={locale} />
+
   <section class="tour-hero">
     <div class="tour-copy">
-      <h1>{t(locale, 'demo.hero.title')}</h1>
+      <h2>{t(locale, 'demo.hero.title')}</h2>
       <p class="sub">{t(locale, 'demo.hero.sub')}</p>
       <a class="tour-cta" href={PLATFORM_URL} target="_blank" rel="noopener noreferrer">
         {t(locale, 'demo.cta')}

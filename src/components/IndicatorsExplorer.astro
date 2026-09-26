@@ -226,6 +226,8 @@ const payload = JSON.stringify({
   const resultsEl = document.getElementById('ind-results');
   const detailEl = document.getElementById('ind-detail');
   let selected: Concept | null = null;
+  // Row that opened the current drill-down — focus returns there on close.
+  let activatedRowId: number | null = null;
 
   const matches = (c: Concept, q: string): boolean =>
     [c.code, c.name_en, c.name_zh].some((f) => (f ?? '').toLowerCase().includes(q));
@@ -242,10 +244,21 @@ const payload = JSON.stringify({
     </button>`;
   }
 
+  function rowById(id: number | null): HTMLElement | null {
+    if (id === null) return null;
+    return resultsEl?.querySelector<HTMLElement>(`.ind-row[data-id="${id}"]`) ?? null;
+  }
+
   function renderResults(): void {
     if (!resultsEl) return;
     const q = (input?.value ?? '').trim().toLowerCase();
     const list = q ? displayConcepts.filter((c) => matches(c, q)) : displayConcepts;
+    // The innerHTML rebuild below deletes the focused .ind-row button, which
+    // drops keyboard focus to <body>. If focus is inside the list, hand it
+    // back: same row if it survived the filter, else the first row.
+    const activeEl = document.activeElement as HTMLElement | null;
+    const wasInside = !!activeEl && resultsEl.contains(activeEl);
+    const wasRowId = activeEl?.dataset.id ?? null;
     if (!list.length) {
       resultsEl.innerHTML = `<p class="ind-empty">${escapeHtml(payload.strings.empty)}</p>`;
       return;
@@ -254,6 +267,28 @@ const payload = JSON.stringify({
     const extra = list.length - shown.length;
     resultsEl.innerHTML =
       shown.map(rowHtml).join('') + (extra > 0 ? `<p class="ind-more">+${extra} ${escapeHtml(payload.strings.more)}</p>` : '');
+    if (wasInside) {
+      (rowById(Number(wasRowId)) ?? resultsEl.querySelector<HTMLElement>('.ind-row'))?.focus({ preventScroll: true });
+    }
+  }
+
+  function openDetail(c: Concept): void {
+    selected = c;
+    renderDetail();
+    renderResults();
+    detailEl?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // The re-render destroyed the activated row and its focus — park keyboard
+    // focus on the drill-down's close button.
+    detailEl?.querySelector<HTMLButtonElement>('.close')?.focus({ preventScroll: true });
+  }
+
+  function closeDetail(): void {
+    if (!selected) return;
+    selected = null;
+    renderDetail();
+    renderResults();
+    // Return focus to the row that opened the drill-down (first row as fallback).
+    (rowById(activatedRowId) ?? resultsEl?.querySelector<HTMLElement>('.ind-row'))?.focus();
   }
 
   resultsEl?.addEventListener('click', (e) => {
@@ -261,10 +296,15 @@ const payload = JSON.stringify({
     const id = Number(row?.dataset.id);
     const c = displayConcepts.find((x) => x.id === id);
     if (c) {
-      selected = c;
-      renderDetail();
-      renderResults();
-      detailEl?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      activatedRowId = c.id;
+      openDetail(c);
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && selected) {
+      e.preventDefault();
+      closeDetail();
     }
   });
 
@@ -306,11 +346,7 @@ const payload = JSON.stringify({
       }
       <a class="demo-link" href="${payload.demoHref}">${escapeHtml(payload.strings.tryLive)}</a>
     </div>`;
-    detailEl.querySelector('.close')?.addEventListener('click', () => {
-      selected = null;
-      renderDetail();
-      renderResults();
-    });
+    detailEl.querySelector('.close')?.addEventListener('click', closeDetail);
     const chartHost = document.getElementById('ind-sample-chart');
     if (chartHost && c.sample?.points?.length) lineChart(chartHost, c.sample.points);
   }
