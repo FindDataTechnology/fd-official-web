@@ -43,7 +43,7 @@ spec:
       # version never serves and the previous one keeps serving.
       initContainers:
         - name: migrate-schema
-          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-a0f2dec
+          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-e18d977
           imagePullPolicy: IfNotPresent
           # Same database-URL source as the server container:
           # FD_OPEN_DATA_MCP_DATABASE_URL arrives via the fd-mcp-env Secret.
@@ -63,7 +63,7 @@ spec:
           # observations). Built by the Jenkins fd-open-data-mcp job from
           # Gitee main and pushed to the domestic Harbor. New releases =
           # new sha tags, so IfNotPresent always pulls the referenced digest.
-          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-a0f2dec
+          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-e18d977
           imagePullPolicy: IfNotPresent
           # ENTRYPOINT in the image serves :8300 since commit 5455d38; this
           # deployment's Service/NodePort are pinned to 8899 (gateway upstream
@@ -84,6 +84,14 @@ spec:
             # numpy cache. ef beam: FD_MCP_HNSW_EF_SEARCH (default 200).
             - name: FD_MCP_VECTOR_BACKEND
               value: "pgvector"
+            # registry-transparent-read-and-scope: transparent reads for
+            # registry-only indicators route over MCP HTTP to the business-mcp
+            # federation (zihan mesh). Flag staging: yearbook first (migration
+            # plan) — widen to "1" after the live yearbook verification.
+            - name: FD_MCP_BUSINESS_URL
+              value: "http://100.64.0.4:30803/mcp"
+            - name: FD_MCP_FEDERATED_READ
+              value: "yearbook_catalog"
           envFrom:
             - secretRef:
                 name: fd-mcp-env
