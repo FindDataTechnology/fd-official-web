@@ -40,53 +40,54 @@
     ]
   },
   {
-    "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/d826d3cc117a182f9034713ed2e910ecdf778ea0",
-    "version": "d826d3c",
-    "date": "2026-09-25",
+    "repo": "fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
+    "version": "0.5.30",
+    "date": "2026-09-29",
     "upcoming": false,
     "summary": [
-      "docs(openspec): archive redesign-mp-home + revise-mp-history-ux + add-mp-demo-sandbox, sync main specs"
+      "**Registry table** (`/panel/indicators`): domain / source_db / verified /",
+      "**Concept family tree** (`…/families`): families → member concepts, each",
+      "**Relation browsing** (`…/relations`): cross-source binding list (native",
+      "**Coverage** (`…/coverage`): registered/verified per source database and",
+      "**Interactive relation graph** (`…/graph`): vendored zero-build"
     ]
   },
   {
-    "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/0ccd811d55cfcf7f52983850b1b1ab04a0915f18",
-    "version": "0ccd811",
-    "date": "2026-09-25",
+    "repo": "fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
+    "version": "0.5.29",
+    "date": "2026-09-29",
     "upcoming": false,
     "summary": [
-      "fix(build): pin cordis-plugin-hmr@1.0.16 in the dsh profile tree too"
+      "`semantic_search` / `semantic_search_entities` / `semantic_search_unified`",
+      "Hardcoded DSNs (with a stale password placeholder) removed from",
+      "Dead `.env.example` keys removed (`EMBEDDING_MODEL` → `FD_MCP_EMBEDDING_MODEL`,",
+      "**pgvector + HNSW vector engine** (ADR 0001): alembic 0003 adds",
+      "**Registry corpus in semantic search**: all 57,552 registry entries",
+      "**Transitional matrix backend** (`FD_MCP_VECTOR_BACKEND=matrix`):",
+      "**sqlalchemy pinned <2.1**: 2.1.x (fresh on the build mirror) removes the",
+      "Reference k8s manifest aligned with the live fd-official-web deployment"
     ]
   },
   {
-    "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/3d68a792dc094524ac6bf02eb85dded62b2252bc",
-    "version": "3d68a79",
-    "date": "2026-09-25",
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/a1b438fe7573980cc198f3cd809121b98b2a1b4f",
+    "version": "a1b438f",
+    "date": "2026-09-28",
     "upcoming": false,
     "summary": [
-      "feat(mp): reviewer demo experience — gateway demo mode + accountless demo sandbox"
+      "docs: point README links at FindDataTechnology/fd-cn-gov (predecessor repo being retired)"
     ]
   },
   {
-    "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/bf9cc280d0dd23adfe98ab2ba0aa78233893caae",
-    "version": "bf9cc28",
-    "date": "2026-09-23",
+    "repo": "fd-open-data-protocol",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-protocol/commit/0a1a841da9951864d7c8dfc3318f0324d827646d",
+    "version": "0a1a841",
+    "date": "2026-09-28",
     "upcoming": false,
     "summary": [
-      "docs(openspec): sync tool-discovery spec, archive add-tool-discovery-layer"
-    ]
-  },
-  {
-    "repo": "fd-craw-private",
-    "url": "https://github.com/FindDataTechnology/fd-craw-private/commit/095316dee2a0edf86a9c26446af2b31ec349316b",
-    "version": "095316d",
-    "date": "2026-09-23",
-    "upcoming": false,
-    "summary": [
-      "docs(openspec): mark add-tool-discovery-layer tasks verified"
+      "feat: datasource registry layer (store, CLI, adapter templates, examples, tests)"
     ]
   },
   {
@@ -230,6 +231,22 @@
     ]
   },
   {
+    "repo": "fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
+    "version": "0.5.16",
+    "date": "2026-09-18",
+    "upcoming": false,
+    "summary": [
+      "**`permanent` failure class** — a new `ban_rules` classification, seeded for",
+      "**`fetch/capability.py`** — static, no-I/O resolution of `(source, command)`.",
+      "**Entity-domain agreement** — rules matched on column *name* alone, so every",
+      "**Binding eligibility needs evidence, not just a score** — the dispatch gate",
+      "**`confirm_by_rule` / `verify_functions_by_rule`** — rule-based binding",
+      "**Bounded failover chain** — `FD_CRAWL_CHAIN_MAX` (default 8). Candidates",
+      "**Permanent-path suppression** — a `(concept, function)` whose recent"
+    ]
+  },
+  {
     "repo": "fd-vertical-packs",
     "url": "https://github.com/FindDataTechnology/fd-vertical-packs/commit/abd4cebbc71ae5dcbc343df9c59083f696c4e83b",
     "version": "abd4ceb",
@@ -247,22 +264,6 @@
     "upcoming": false,
     "summary": [
       "vertical pack entry skills + cloud agents catalog"
-    ]
-  },
-  {
-    "repo": "fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
-    "version": "0.5.16",
-    "date": "2026-09-18",
-    "upcoming": false,
-    "summary": [
-      "**`permanent` failure class** — a new `ban_rules` classification, seeded for",
-      "**`fetch/capability.py`** — static, no-I/O resolution of `(source, command)`.",
-      "**Entity-domain agreement** — rules matched on column *name* alone, so every",
-      "**Binding eligibility needs evidence, not just a score** — the dispatch gate",
-      "**`confirm_by_rule` / `verify_functions_by_rule`** — rule-based binding",
-      "**Bounded failover chain** — `FD_CRAWL_CHAIN_MAX` (default 8). Candidates",
-      "**Permanent-path suppression** — a `(concept, function)` whose recent"
     ]
   },
   {
@@ -346,16 +347,6 @@
     ]
   },
   {
-    "repo": "fd-world",
-    "url": "https://github.com/FindDataTechnology/fd-world/commit/ee99a91bcc5250c00fd02afa6351cb4efc9543f3",
-    "version": "ee99a91",
-    "date": "2026-09-17",
-    "upcoming": false,
-    "summary": [
-      "ci: release to PyPI on tag via OIDC trusted publishing"
-    ]
-  },
-  {
     "repo": "fd-open-data-protocol",
     "url": "https://github.com/FindDataTechnology/fd-open-data-protocol/commit/ef7b832834cd182e104ed098b1ee949d46b579dd",
     "version": "ef7b832",
@@ -392,13 +383,13 @@
     ]
   },
   {
-    "repo": "fd-industry-data",
-    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/c3f11f343bb2a176dcb3bf1caafe735343092ad0",
-    "version": "c3f11f3",
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/daa248c989aa1577ad2baecd9e1ce51c40a82981",
+    "version": "daa248c",
     "date": "2026-09-14",
     "upcoming": false,
     "summary": [
-      "chore: archive legacy manifests and spiders, untrack runtime data files"
+      "feat(catalog): add taxonomy classification concepts"
     ]
   },
   {
@@ -412,23 +403,13 @@
     ]
   },
   {
-    "repo": "fd-cn-gov",
-    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/daa248c989aa1577ad2baecd9e1ce51c40a82981",
-    "version": "daa248c",
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/c3f11f343bb2a176dcb3bf1caafe735343092ad0",
+    "version": "c3f11f3",
     "date": "2026-09-14",
     "upcoming": false,
     "summary": [
-      "feat(catalog): add taxonomy classification concepts"
-    ]
-  },
-  {
-    "repo": "fd-industry-data",
-    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/c8c07923e3054b0373b61c5cc2d98cad834a8311",
-    "version": "c8c0792",
-    "date": "2026-09-13",
-    "upcoming": false,
-    "summary": [
-      "register placed manifests with legacy-preserving verification"
+      "chore: archive legacy manifests and spiders, untrack runtime data files"
     ]
   },
   {
@@ -443,32 +424,12 @@
   },
   {
     "repo": "fd-industry-data",
-    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/6384562d0cb928b2df4b0ee86943144e9009707c",
-    "version": "6384562",
-    "date": "2026-09-07",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/c8c07923e3054b0373b61c5cc2d98cad834a8311",
+    "version": "c8c0792",
+    "date": "2026-09-13",
     "upcoming": false,
     "summary": [
-      "allow tracking data .db files (intentional); keep sidecar junk ignored"
-    ]
-  },
-  {
-    "repo": "fd-cn-report",
-    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/ce470120dbd6d0bb62a7debf417a735ba132ad72",
-    "version": "ce47012",
-    "date": "2026-09-07",
-    "upcoming": false,
-    "summary": [
-      "ci: add Gitee Go docker-publish pipeline"
-    ]
-  },
-  {
-    "repo": "fd-open-data-protocol",
-    "url": "https://github.com/FindDataTechnology/fd-open-data-protocol/commit/b1a7a4058296a66dc8b366bf200f354949864480",
-    "version": "b1a7a40",
-    "date": "2026-09-07",
-    "upcoming": false,
-    "summary": [
-      "harden .gitignore: env/secrets/db/credential patterns"
+      "register placed manifests with legacy-preserving verification"
     ]
   },
   {
@@ -492,23 +453,23 @@
     ]
   },
   {
-    "repo": "fd-polygon",
-    "url": "https://github.com/FindDataTechnology/fd-polygon/commit/c2b8f10fc875860bab70bad4a3861796c86baea0",
-    "version": "c2b8f10",
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/6384562d0cb928b2df4b0ee86943144e9009707c",
+    "version": "6384562",
     "date": "2026-09-07",
     "upcoming": false,
     "summary": [
-      "harden .gitignore: env/secrets/db/credential patterns"
+      "allow tracking data .db files (intentional); keep sidecar junk ignored"
     ]
   },
   {
-    "repo": "fd-daas-mcp",
-    "url": "https://github.com/FindDataTechnology/fd-daas-mcp/commit/4a2c5447f92c4098804a4147fffc5dc7c9b6b050",
-    "version": "4a2c544",
-    "date": "2026-08-24",
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/ce470120dbd6d0bb62a7debf417a735ba132ad72",
+    "version": "ce47012",
+    "date": "2026-09-07",
     "upcoming": false,
     "summary": [
-      "Add HTTP transport, Docker image, and zihan k8s deployment"
+      "ci: add Gitee Go docker-publish pipeline"
     ]
   },
   {
@@ -539,6 +500,46 @@
     "upcoming": false,
     "summary": [
       "fix(server): guard parents[2] IndexError in flat installs"
+    ]
+  },
+  {
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/8f4cd4721ba2fec645239d7c3cb57ff5a525cbd4",
+    "version": "8f4cd47",
+    "date": "2026-08-19",
+    "upcoming": false,
+    "summary": [
+      "feat: http transport + bearer auth + Docker image CI (0.3.4)"
+    ]
+  },
+  {
+    "repo": "fd-vaas-skills",
+    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/7184cb920d359cccd53e4258e93dd9576e0ac8c8",
+    "version": "7184cb9",
+    "date": "2026-08-16",
+    "upcoming": false,
+    "summary": [
+      "docs: sync README & install.sh to vendor+adapter architecture"
+    ]
+  },
+  {
+    "repo": "fd-vaas-skills",
+    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/105beab9b567ca7d2b20af0d65964f723b4a6fed",
+    "version": "105beab",
+    "date": "2026-08-16",
+    "upcoming": false,
+    "summary": [
+      "feat(login): fd-vaas-login portal + db-auto-init openspec"
+    ]
+  },
+  {
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/f18dd9aec7cefa1412d9821536a8f5783b7b4dba",
+    "version": "f18dd9a",
+    "date": "2026-08-04",
+    "upcoming": false,
+    "summary": [
+      "Bump version to 0.1.3"
     ]
   }
 ]

@@ -218,6 +218,18 @@ ol.feed ul { margin: 8px 0 0; padding-left: 1.2em; color: var(--muted); font-siz
 ol.feed li li { margin: 2px 0; }
 ol.feed code { font-family: var(--mono); background: #0a0f1e; padding: 1px 5px; border-radius: 4px; font-size: 0.88em; }
 
+/* release notes (/releases) */
+ol.feed.releases-feed { gap: 20px; }
+.release .release-headline { margin: 10px 0 2px; font-size: 1.25rem; }
+.release .release-body { color: var(--muted); font-size: 0.95rem; }
+.release .release-body h2 { color: var(--accent-2); font-size: 1.02rem; margin: 18px 0 6px; }
+.release .release-body h3 { color: var(--text); font-size: 0.96rem; margin: 14px 0 4px; }
+.release .release-body p { margin: 6px 0; max-width: 72ch; }
+.release .release-body ul { margin: 6px 0; padding-left: 1.2em; }
+.release .release-body li { margin: 2px 0; }
+.release .release-body code { font-family: var(--mono); background: #0a0f1e; padding: 1px 5px; border-radius: 4px; font-size: 0.88em; overflow-wrap: anywhere; }
+.release .release-body a { color: var(--accent); }
+
 /* flagship */
 .flagship-tagline { color: var(--accent); font-size: 1.1rem; margin-top: -8px; }
 

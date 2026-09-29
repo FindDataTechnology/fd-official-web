@@ -3,6 +3,11 @@ import Layout from '../components/Layout.astro';
 import { t } from '../i18n';
 // Generated at build time by scripts/fetch-repos.mjs (changelogs + commits).
 import updatesJson from '../data/updates.json';
+// Public-only guard: the committed fallback can go stale — a repo may have
+// turned private (or been deleted) since the last successful fetch. Drop any
+// entry whose repo is absent from the committed public list, so a degraded
+// build can never publish non-public repo activity.
+import reposJson from '../data/repos.json';
 
 interface Entry {
   repo: string;
@@ -14,7 +19,8 @@ interface Entry {
 }
 
 const locale = 'en';
-const entries: Entry[] = updatesJson;
+const publicRepos = new Set(reposJson.repos.map((r: { name: string }) => r.name));
+const entries: Entry[] = updatesJson.filter((e: Entry) => publicRepos.has(e.repo));
 const title = t(locale, 'updates.title') + ' — FindData Technology';
 ---
 

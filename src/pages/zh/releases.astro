@@ -1,0 +1,44 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+import { t } from '../../i18n';
+import { loadReleaseIssues } from '../../lib/releases';
+
+const locale = 'zh';
+// Committed markdown only — no build-time network dependency.
+const issues = await loadReleaseIssues();
+const rendered = await Promise.all(
+  issues.zh.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+const title = t(locale, 'releases.title') + ' — FindData Technology';
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'releases.sub')}>
+  <h1 class="page">{t(locale, 'releases.title')}</h1>
+  <p class="page-sub">{t(locale, 'releases.sub')}</p>
+  {
+    rendered.length ? (
+      <ol class="feed releases-feed">
+        {rendered.map(({ entry, Content }) => (
+          <li class="release">
+            <div class="feed-head">
+              <span class="feed-repo">{entry.data.label}</span>
+              <span class="feed-ver">
+                {entry.data.lines.map((l) => t(locale, `line.${l}` as const)).join(' · ')}
+              </span>
+              <time>
+                {entry.data.period_start} – {entry.data.period_end}
+              </time>
+            </div>
+            <h2 class="release-headline">{entry.data.headline}</h2>
+            <div class="release-body">
+              <Content />
+            </div>
+          </li>
+        ))}
+      </ol>
+    ) : (
+      <p class="page-sub">{t(locale, 'releases.empty')}</p>
+    )
+  }
+</Layout>

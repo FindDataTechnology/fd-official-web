@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-26T12:04:25.406Z",
+  "generated_at": "2026-09-29T08:45:16.392Z",
   "repos": [
     {
       "name": "fd-open-data-mcp",
       "description": "Open-data ontology MCP: a semantic concept layer over multi-datasource financial/economic data (akshare, yfinance, edgar, wbgapi, cn-report, cn-gov).",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-09-21",
+      "updated": "2026-09-29",
       "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
       "hasReadme": true
     },
@@ -15,17 +15,26 @@
       "description": "The open-data datasource protocol: a manifest contract a datasource exposes to be ingested by fd-open-data-mcp.",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-09-16",
+      "updated": "2026-09-28",
       "url": "https://github.com/FindDataTechnology/fd-open-data-protocol",
       "hasReadme": true
     },
     {
-      "name": "fd-craw-private",
-      "description": "Platform - browser-based chat interface built on the DeepSeek Harness (dsh) runtime",
-      "language": "JavaScript",
+      "name": "fd-daas-mcp",
+      "description": null,
+      "language": "Python",
       "stars": 0,
-      "updated": "2026-09-25",
-      "url": "https://github.com/FindDataTechnology/fd-craw-private",
+      "updated": "2026-09-29",
+      "url": "https://github.com/FindDataTechnology/fd-daas-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-cn-gov",
+      "description": "Ministry open-information scrapers + datasource registry",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-09-28",
+      "url": "https://github.com/FindDataTechnology/fd-cn-gov",
       "hasReadme": true
     },
     {
@@ -83,42 +92,6 @@
       "hasReadme": true
     },
     {
-      "name": "fd-world",
-      "description": "CLI for multi-source data access - AKShare, World Bank, CKAN, Chinese Statistics",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-09-17",
-      "url": "https://github.com/FindDataTechnology/fd-world",
-      "hasReadme": true
-    },
-    {
-      "name": "fd-cn-gov",
-      "description": "Ministry open-information scrapers + datasource registry",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-09-14",
-      "url": "https://github.com/FindDataTechnology/fd-cn-gov",
-      "hasReadme": true
-    },
-    {
-      "name": "fd-polygon",
-      "description": "Polygon.io US equities datasource package for fd-open-data-mcp (OHLCV bars via polygon-api-client)",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-09-08",
-      "url": "https://github.com/FindDataTechnology/fd-polygon",
-      "hasReadme": true
-    },
-    {
-      "name": "fd-daas-mcp",
-      "description": "DAAS - Data As a Service: layered data platform (fd-daas-mcp MCP server + fd-open-data-mcp upstream) behind one SQLite file",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-08-24",
-      "url": "https://github.com/FindDataTechnology/fd-daas-mcp",
-      "hasReadme": true
-    },
-    {
       "name": "fd-vaas-skills",
       "description": "VAAS - Video Automation & Distribution System: a natural-language video creation and multi-platform publishing skill chain for Claude Code / Agent runtimes.",
       "language": "Python",
@@ -126,15 +99,6 @@
       "updated": "2026-08-21",
       "url": "https://github.com/FindDataTechnology/fd-vaas-skills",
       "hasReadme": true
-    },
-    {
-      "name": "fd-open-bench",
-      "description": "Open-source benchmark platform for evaluating AI agents — datasets, batch evaluation, leaderboards, and business metrics.",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-08-15",
-      "url": "https://github.com/FindDataTechnology/fd-open-bench",
-      "hasReadme": false
     }
   ]
 }

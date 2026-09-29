@@ -81,4 +81,22 @@ const flagship = defineCollection({
   }),
 });
 
-export const collections = { docs, repos, apps, roadmap, flagship };
+// `releases` — customer-facing release notes, one paired file per issue per
+// locale (`<locale>/<slug>.md`, slug = the issue's period end date YYYY-MM-DD,
+// which sorts naturally). Committed hand-written content, like `apps`: the
+// pages render with no network access. `lines` lists the product lines the
+// issue covers (only lines with progress — see the release-notes spec); the
+// body's `## <line label>` sections carry the narrative.
+const DATE = /^\d{4}-\d{2}-\d{2}$/;
+const releases = defineCollection({
+  loader: glob({ base: './src/content/releases', pattern: '**/*.md' }),
+  schema: z.object({
+    label: z.string(),
+    period_start: z.string().regex(DATE, 'period_start must be YYYY-MM-DD'),
+    period_end: z.string().regex(DATE, 'period_end must be YYYY-MM-DD'),
+    headline: z.string(),
+    lines: z.array(z.enum(PRODUCT_LINES)),
+  }),
+});
+
+export const collections = { docs, repos, apps, roadmap, flagship, releases };
