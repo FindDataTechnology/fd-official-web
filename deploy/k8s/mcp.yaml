@@ -91,7 +91,7 @@ spec:
             - name: FD_MCP_BUSINESS_URL
               value: "http://100.64.0.4:30803/mcp"
             - name: FD_MCP_FEDERATED_READ
-              value: "yearbook_catalog"
+              value: "1"
           envFrom:
             - secretRef:
                 name: fd-mcp-env
