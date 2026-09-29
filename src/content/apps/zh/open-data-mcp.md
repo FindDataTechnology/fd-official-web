@@ -1,13 +1,13 @@
 ---
-name: "开放数据 MCP 与 DAAS"
-tagline: "把 akshare、yfinance、EDGAR 等多个数据库统一进单一语义 schema，AI 智能体按概念与实体查询金融经济数据；DAAS 让整个平台在本地运行。"
+name: "开放数据 MCP"
+tagline: "把 akshare、yfinance、EDGAR 等多个数据库统一进单一语义 schema，AI 智能体按概念与实体查询金融经济数据——百方信源，一个入口。"
 kind: "开源数据平台"
 demoUrl: "https://www.finddatatech.cloud/demo"
-line: data
+line: wire
 order: 10
 ---
 
-fd-open-data-mcp 与 DAAS 构成寻数科技的数据条线。核心是一个开放数据本体 MCP：把多个 Python 数据库统一进单一语义 schema，让 AI 智能体以概念和实体的方式查询金融与经济数据，而不是逐个适配各家数据源的 API。
+fd-open-data-mcp 是「寻数·柏讯」线的核心——让 AI 替你读世界。它是一个开放数据本体 MCP：把多个 Python 数据库统一进单一语义 schema，让 AI 智能体以概念和实体的方式查询金融与经济数据，而不是逐个适配各家数据源的 API。背后是一条爬虫平台，从百方信源持续供给这个本体。
 
 ## 一个语义 schema，多个数据源
 
@@ -16,10 +16,6 @@ akshare、yfinance、EDGAR、World Bank、CNStats 等 Python 数据库被映射�
 ## 开源的 fd-* 包家族
 
 fd-* 系列包全部开源：可从 PyPI 安装，代码在 GitHub 的 FindDataOfficial 组织下。
-
-## DAAS：整个平台，本地运行
-
-DAAS 把数据条线打包成一个本地平台。一条 curl 命令完成安装；所有数据落在单个 SQLite 文件里，由合并后的 fd-daas-mcp 服务器统一对外——161 个 MCP 工具、18 个 Claude Code 技能。它在你自己的机器上运行，数据始终在你手里。
 
 ## 进一步了解
 

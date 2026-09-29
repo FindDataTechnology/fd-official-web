@@ -31,15 +31,17 @@ const repos = defineCollection({
   }),
 });
 
-// The four product lines — one vocabulary shared by the apps schema, the
+// The five product lines — one vocabulary shared by the apps schema, the
 // products catalog tabs, and the homepage card wall (add-product-portal).
-export const PRODUCT_LINES = ['data', 'legal', 'paas', 'token'] as const;
+// Order is the magnitude ladder 一十百千万 (five-product-lines-rebrand); slugs
+// are a public contract and must never be renamed.
+export const PRODUCT_LINES = ['base', 'lex', 'wire', 'facet', 'constellation'] as const;
 
 // `apps` — hand-written product/app pages for deployed apps that are not
 // public GitHub repos (e.g. the legal line, hosted only in private Gitee
 // mirrors). Committed, not fetched: renders with no network access. One file
 // per app per locale, `<locale>/<slug>.md`; locale is the leading id segment
-// (same convention as `docs`). `line` is required and must be one of the four
+// (same convention as `docs`). `line` is required and must be one of the five
 // product lines; slugs must never equal a line name (guarded in the products
 // pages' getStaticPaths — a colliding slug would shadow a line tab page).
 const apps = defineCollection({

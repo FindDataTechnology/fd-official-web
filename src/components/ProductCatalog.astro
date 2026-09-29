@@ -11,6 +11,15 @@ interface Props {
 }
 
 const { locale, line } = Astro.props;
+// Pinyin secondary labels tie the English line names back to the Chinese
+// identity (寻数·壹座 → Yizuo); shown on EN pages only.
+const PINYIN: Record<ProductLine, string> = {
+  base: 'Yizuo',
+  lex: 'Shilü',
+  wire: 'Baixun',
+  facet: 'Qianmian',
+  constellation: 'Wanxing',
+};
 // Hand-written entries, one file per app per locale (<locale>/<slug>.md);
 // the active tab lists only its own line.
 const apps = (await getCollection('apps'))
@@ -24,11 +33,17 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
 <Layout locale={locale} title={title} description={t(locale, 'apps.sub')}>
   <h1 class="page">{t(locale, 'apps.title')}</h1>
   <p class="page-sub">{t(locale, 'apps.sub')}</p>
+  <div class="ladder">
+    <p class="ladder-body">{t(locale, 'apps.ladder.body')}</p>
+    <p class="ladder-brand">{t(locale, 'apps.ladder.brand')}</p>
+  </div>
   <nav class="line-tabs" aria-label={t(locale, 'apps.title')}>
     {
       PRODUCT_LINES.map((l) => (
         <a href={getRelativeLocaleUrl(locale, `products/${l}`)} class={l === line ? 'active' : ''} aria-current={l === line ? 'page' : undefined}>
           {t(locale, `line.${l}` as const)}
+          {locale === 'en' && <span class="tab-pin"> · {PINYIN[l]}</span>}
+          {l === 'constellation' && <span class="tab-tag"> · {t(locale, 'line.constellation.tag')}</span>}
         </a>
       ))
     }
@@ -70,5 +85,29 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
   .line-tabs a.active {
     opacity: 1;
     font-weight: 700;
+  }
+  .tab-pin {
+    opacity: 0.7;
+    font-weight: 400;
+  }
+  .tab-tag {
+    opacity: 0.8;
+    font-weight: 400;
+  }
+  .ladder {
+    margin: 0 0 24px;
+    padding: 14px 18px;
+    border-left: 3px solid currentColor;
+    opacity: 0.9;
+  }
+  .ladder-body {
+    margin: 0 0 6px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .ladder-brand {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 0.5px;
   }
 </style>

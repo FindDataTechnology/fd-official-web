@@ -3,14 +3,18 @@ name: "FindDataRouter"
 tagline: "One gateway entry for multiple LLM providers, with per-user tokens, quota management, and automatic failover across channels."
 kind: "AI API gateway"
 demoUrl: "https://token.finddatatech.cloud"
-line: token
+line: constellation
 order: 10
 ---
 
-FindDataRouter is our AI API gateway. It places multiple model providers
-behind a single entry point, and it is also the model-calling backbone of
-FindData Technology's own product matrix — Platform and LawBench both route
-their model calls through this gateway.
+FindDataRouter is our AI API gateway — and the first star of the Constellation
+line (寻数·萬星). That line's direction: people connected through their own
+agents, agents that gather information on their own and talk to each other.
+Before agents can talk, they need identity and a route to intelligence — this
+gateway is both. It places multiple model providers behind a single entry
+point, and it is also the model-calling backbone of FindData Technology's own
+product matrix — Platform and LawBench both route their model calls through
+this gateway.
 
 ## One entry, many providers
 

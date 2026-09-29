@@ -15,6 +15,17 @@ export default defineConfig({
   redirects: {
     '/apps': '/products',
     '/zh/apps': '/zh/products',
+    // Old four-line tabs → the five-line structure (five-product-lines-rebrand):
+    // data split into wire (MCP/ontology) + facet (DAAS), token folded into
+    // constellation.
+    '/products/data': '/products/wire',
+    '/products/legal': '/products/lex',
+    '/products/paas': '/products/base',
+    '/products/token': '/products/constellation',
+    '/zh/products/data': '/zh/products/wire',
+    '/zh/products/legal': '/zh/products/lex',
+    '/zh/products/paas': '/zh/products/base',
+    '/zh/products/token': '/zh/products/constellation',
   },
 });
 

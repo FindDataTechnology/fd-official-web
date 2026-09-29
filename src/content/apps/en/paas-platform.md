@@ -3,13 +3,15 @@ name: "Platform"
 tagline: "A local-first AI assistant platform built on the DeepSeek Harness runtime, with streaming agent chat, document RAG, and MCP extensibility across web and desktop."
 kind: "AI assistant platform"
 demoUrl: "https://craw.finddatatech.cloud"
-line: paas
+line: base
 order: 10
 ---
 
-Platform (v1.3.0) is an AI assistant built on the DeepSeek Harness (dsh)
-runtime. It ships as a web app and as an Electron desktop client — macOS .dmg
-and Windows .exe — with the same UI on both ends.
+Platform (v1.3.0) is the execution base of the FindData product matrix — the
+Base line (寻数·壹座): every FindData project runs on this AI harness. Built on
+the DeepSeek Harness (dsh) runtime, it ships as a web app and as an Electron
+desktop client — macOS .dmg and Windows .exe — with the same UI on both ends,
+and a private-deployment edition is available.
 
 ## Streaming agent chat
 

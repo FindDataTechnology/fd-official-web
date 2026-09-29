@@ -3,14 +3,16 @@ name: "LawBench — Contract Intelligence"
 tagline: "Draft contracts from a clause library, review them with AI across three dimensions, and evaluate every draft against rubrics."
 kind: "Legal AI platform"
 demoUrl: "http://23.144.68.246:30830"
-line: legal
+line: lex
 order: 10
 ---
 
-LawBench is FindData Technology's contract drafting and review platform. It
-turns contract work into a measurable pipeline: generate a draft from a curated
-clause library, review it with multiple AI models in parallel, and score the
-result against reusable rubrics.
+LawBench is the heart of the Lex line (寻数·识律) — making law legible. It is
+FindData Technology's contract drafting and review platform, backed by the
+line's fine-tuned legal models and the law_db corpus served through the
+business MCP. It turns contract work into a measurable pipeline: generate a
+draft from a curated clause library, review it with multiple AI models in
+parallel, and score the result against reusable rubrics.
 
 ## Contract generation
 
@@ -50,7 +52,7 @@ actual legal basis.
 
 ## Integrates as MCP
 
-An MCP server exposes the platform as 37 tools — contract generation, rubric
+An MCP server exposes the platform as 52 tools — contract generation, rubric
 and prompt management, evaluation runs, clause search, law references — so AI
 agents (Claude, LibreChat, any MCP client) can draft and review contracts
 directly from a chat.

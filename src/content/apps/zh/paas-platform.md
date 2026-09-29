@@ -3,11 +3,11 @@ name: "Platform"
 tagline: "基于 DeepSeek Harness 运行时的本地优先 AI 助手平台：流式智能体对话、文档 RAG、MCP 扩展，网页与桌面双端同一 UI。"
 kind: "AI 助手平台"
 demoUrl: "https://craw.finddatatech.cloud"
-line: paas
+line: base
 order: 10
 ---
 
-Platform（v1.3.0）是构建在 DeepSeek Harness（dsh）运行时之上的 AI 助手，同时提供网页端与 Electron 桌面客户端（macOS .dmg / Windows .exe），双端界面完全一致。
+Platform（v1.3.0）是寻数产品矩阵的执行底座——「寻数·壹座」线：所有寻数项目都跑在这套 AI harness 上。它构建在 DeepSeek Harness（dsh）运行时之上，同时提供网页端与 Electron 桌面客户端（macOS .dmg / Windows .exe），双端界面完全一致，并提供私有化部署版本。
 
 ## 流式智能体对话
 

@@ -2,7 +2,7 @@
 name: "Contract Template Data"
 tagline: "The official Chinese contract-template corpus (SAMR 合同示范文本), crawled daily and served structured — the reference layer for contract drafting and review."
 kind: "Data service"
-line: legal
+line: lex
 order: 20
 ---
 

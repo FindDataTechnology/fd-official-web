@@ -3,11 +3,11 @@ name: "FindDataRouter"
 tagline: "一个入口接入多家模型提供方：按用户发放 token、配额管理、渠道故障自动转移。"
 kind: "AI API 网关"
 demoUrl: "https://token.finddatatech.cloud"
-line: token
+line: constellation
 order: 10
 ---
 
-FindDataRouter 是寻数科技的 AI API 网关。它把多家模型提供方统一在一个入口后面，同时也是寻数科技自有产品矩阵的模型调用底座——Platform 与 LawBench 的模型调用都经由这个网关。
+FindDataRouter 是寻数科技的 AI API 网关，也是「寻数·萬星」线的第一颗星。这条线的方向：人与人经由各自的智能体相连——智能体自主采集信息、彼此深度协作。而在智能体对话之前，先要有身份与通往智能的路由——这个网关两者皆是。它把多家模型提供方统一在一个入口后面，同时也是寻数科技自有产品矩阵的模型调用底座——Platform 与 LawBench 的模型调用都经由这个网关。
 
 ## 多家模型，一个入口
 
