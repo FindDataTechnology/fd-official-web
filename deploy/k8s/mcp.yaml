@@ -34,6 +34,12 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: vm-0-9-ubuntu
+      # tcr-pull: ccr.ccs.tencentyun.com (TCR personal edition) — primary
+      # image channel per openspec tcr-image-pipeline. harbor-auth kept so a
+      # Jenkins/Harbor fallback tag still rolls without manifest surgery.
+      imagePullSecrets:
+        - name: harbor-auth
+        - name: tcr-pull
       # Schema migration stage: alembic upgrade head must complete BEFORE the
       # server starts (initContainers gate the main container). Serialized by
       # a session-level Postgres advisory lock
@@ -43,7 +49,7 @@ spec:
       # version never serves and the previous one keeps serving.
       initContainers:
         - name: migrate-schema
-          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-f38904a
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-8215539
           imagePullPolicy: IfNotPresent
           # Same database-URL source as the server container:
           # FD_OPEN_DATA_MCP_DATABASE_URL arrives via the fd-mcp-env Secret.
@@ -63,7 +69,7 @@ spec:
           # observations). Built by the Jenkins fd-open-data-mcp job from
           # Gitee main and pushed to the domestic Harbor. New releases =
           # new sha tags, so IfNotPresent always pulls the referenced digest.
-          image: harbor.finddatatech.cloud:8080/finddata/fd-open-data-mcp:sha-f38904a
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-8215539
           imagePullPolicy: IfNotPresent
           # ENTRYPOINT in the image serves :8300 since commit 5455d38; this
           # deployment's Service/NodePort are pinned to 8899 (gateway upstream
