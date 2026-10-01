@@ -49,7 +49,7 @@ spec:
       # version never serves and the previous one keeps serving.
       initContainers:
         - name: migrate-schema
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-f640371
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-2d82161
           imagePullPolicy: IfNotPresent
           # Same database-URL source as the server container:
           # FD_OPEN_DATA_MCP_DATABASE_URL arrives via the fd-mcp-env Secret.
@@ -70,7 +70,7 @@ spec:
           # reports/onnx-equivalence.md). Built by GitHub Actions -> hkccr,
           # cheap-3 tcr-relay -> ccr. New releases = new sha tags, so
           # IfNotPresent always pulls the referenced digest.
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-f640371
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-2d82161
           imagePullPolicy: IfNotPresent
           # ENTRYPOINT in the image serves :8300 since commit 5455d38; this
           # deployment's Service/NodePort are pinned to 8899 (gateway upstream
