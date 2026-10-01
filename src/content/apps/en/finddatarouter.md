@@ -2,7 +2,7 @@
 name: "FindDataRouter"
 tagline: "One gateway entry for multiple LLM providers, with per-user tokens, quota management, and automatic failover across channels."
 kind: "AI API gateway"
-demoUrl: "https://token.finddatatech.cloud"
+demoUrl: "https://router.finddatatech.cloud"
 line: constellation
 order: 10
 ---
@@ -33,4 +33,4 @@ The same model can be served by multiple channels. When a channel fails or
 its quota is exhausted, the request automatically escalates to an available
 channel instead of failing outright.
 
-Gateway entry: [token.finddatatech.cloud](https://token.finddatatech.cloud)
+Gateway entry: [router.finddatatech.cloud](https://router.finddatatech.cloud)

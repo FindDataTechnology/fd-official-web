@@ -2,7 +2,7 @@
 name: "FindDataRouter"
 tagline: "一个入口接入多家模型提供方：按用户发放 token、配额管理、渠道故障自动转移。"
 kind: "AI API 网关"
-demoUrl: "https://token.finddatatech.cloud"
+demoUrl: "https://router.finddatatech.cloud"
 line: constellation
 order: 10
 ---
@@ -21,4 +21,4 @@ FindDataRouter 是寻数科技的 AI API 网关，也是「寻数·萬星」线�
 
 同一模型可由多个渠道服务。某个渠道失败或配额耗尽时，请求会自动升级到可用渠道，而不是直接报错。
 
-入口：[token.finddatatech.cloud](https://token.finddatatech.cloud)
+入口：[router.finddatatech.cloud](https://router.finddatatech.cloud)

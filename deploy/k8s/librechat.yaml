@@ -10,7 +10,7 @@
 #     --from-literal=JWT_SECRET="$S" \
 #     --from-literal=JWT_REFRESH_SECRET="$R" \
 #     --from-literal=MEILI_MASTER_KEY="$M" \
-#     --from-literal=NEWAPI_KEY="$K" \   # K = FindDataRouter key (token.finddatatech.cloud)
+#     --from-literal=NEWAPI_KEY="$K" \   # K = FindDataRouter key (router.finddatatech.cloud; legacy token. domain, 2026-10 rename)
 #     --from-literal=MCP_TOKEN="$(grep -E '^MCP_TOKEN=' /opt/fd/finddata/fd-open-data-mcp/.env | cut -d= -f2-)"
 # ponytail: JWT_REFRESH_SECRET is NOT optional in recent LibreChat — generateRefreshToken()
 # throws "secretOrPrivateKey must have a value" at login without it, surfacing as a generic
@@ -34,11 +34,11 @@ data:
       custom:
         # ponytail: historical labels "LiteLLM" then "NewAPI" both pointed at the
         # old Kong gateway on 124.223.42.3 — dead. The gateway is now our own
-        # FindDataRouter (new-api at token.finddatatech.cloud); the secret key
+        # FindDataRouter (sub2api at router.finddatatech.cloud); the secret key
         # name NEWAPI_KEY is kept for continuity with the live librechat-env.
         - name: "FindDataRouter"
           apiKey: "${NEWAPI_KEY}"
-          baseURL: "https://token.finddatatech.cloud/v1"
+          baseURL: "https://router.finddatatech.cloud/v1"
           models:
             default:
               - nvidia/nemotron-3-ultra-550b-a55b:free
