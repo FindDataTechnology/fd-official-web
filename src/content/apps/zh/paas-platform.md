@@ -2,7 +2,7 @@
 name: "Platform"
 tagline: "基于 DeepSeek Harness 运行时的本地优先 AI 助手平台：流式智能体对话、文档 RAG、MCP 扩展，网页与桌面双端同一 UI。"
 kind: "AI 助手平台"
-demoUrl: "https://craw.finddatatech.cloud"
+demoUrl: "https://platform.finddatatech.cloud"
 line: base
 order: 10
 ---
@@ -33,4 +33,4 @@ Platform（v1.3.0）是寻数产品矩阵的执行底座——「寻数·壹座�
 
 ## 在线体验
 
-[打开演示](https://craw.finddatatech.cloud)。
+[打开演示](https://platform.finddatatech.cloud)。

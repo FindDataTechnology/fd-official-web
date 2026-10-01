@@ -2,7 +2,7 @@
 name: "Platform"
 tagline: "A local-first AI assistant platform built on the DeepSeek Harness runtime, with streaming agent chat, document RAG, and MCP extensibility across web and desktop."
 kind: "AI assistant platform"
-demoUrl: "https://craw.finddatatech.cloud"
+demoUrl: "https://platform.finddatatech.cloud"
 line: base
 order: 10
 ---
@@ -43,4 +43,4 @@ interface is Chinese-first, with en/es/fr/ja also available.
 
 ## Try it
 
-[Open the demo](https://craw.finddatatech.cloud).
+[Open the demo](https://platform.finddatatech.cloud).
