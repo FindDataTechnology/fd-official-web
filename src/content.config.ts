@@ -70,6 +70,8 @@ const roadmap = defineCollection({
     goal_zh: z.string(),
     status: z.enum(['in-progress', 'planned', 'done']),
     order: z.number(),
+    items_en: z.array(z.string()).optional(),
+    items_zh: z.array(z.string()).optional(),
   }),
 });
 

@@ -23,6 +23,13 @@ const title = t(locale, 'roadmap.title') + ' — FindData Technology';
           </div>
           <p class="phase-period">{p.data.period_zh}</p>
           <p class="phase-goal">{p.data.goal_zh}</p>
+          {p.data.items_zh && (
+            <ul class="phase-items">
+              {p.data.items_zh.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )}
         </li>
       ))
     }
