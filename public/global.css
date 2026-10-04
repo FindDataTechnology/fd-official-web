@@ -127,12 +127,14 @@ ul.grid .card .card-demo:hover { text-decoration: none; filter: brightness(1.08)
 .repo-head h1 { margin: 0; }
 .repo-head .card-gh { color: var(--muted); display: inline-flex; padding: 4px; border-radius: 6px; }
 .repo-head .card-gh:hover { color: var(--accent); text-decoration: none; }
-.repo-demo-btn {
+/* article.doc a (line ~156) outranks a bare class selector — scope the button
+   to article.doc so its dark text on the accent fill stays readable. */
+article.doc a.repo-demo-btn {
   display: inline-block; margin: 0 0 20px;
   background: var(--accent); color: #06201b; border-radius: 8px;
   padding: 10px 20px; font-weight: 700;
 }
-.repo-demo-btn:hover { text-decoration: none; filter: brightness(1.08); }
+article.doc a.repo-demo-btn:hover { text-decoration: none; filter: brightness(1.08); }
 
 /* docs */
 .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
