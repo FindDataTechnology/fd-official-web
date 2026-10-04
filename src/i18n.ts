@@ -35,6 +35,9 @@ export const ui = {
     'apps.cta': 'Try it live',
     'apps.detail': 'Learn more',
     'apps.empty': 'No entries in this line yet — check back soon.',
+    // wire line only: entry to the Baixun B2B platform (wire.finddatatech.cloud)
+    'apps.wire.entry': 'Enter the Wire Platform',
+    'apps.wire.entry.sub': 'The line’s B2B self-service data platform — browse the indicator catalog, build analyses, and get metered data delivery at wire.finddatatech.cloud.',
     'line.base': 'Base',
     'line.lex': 'Lex',
     'line.wire': 'Wire',
@@ -225,6 +228,8 @@ export const ui = {
     'apps.cta': '在线体验',
     'apps.detail': '了解更多',
     'apps.empty': '该条线暂无产品——敬请期待。',
+    'apps.wire.entry': '进入柏讯平台',
+    'apps.wire.entry.sub': '柏讯线的 B2B 自助数据平台——浏览指标目录、构建分析、按量计费取数：wire.finddatatech.cloud。',
     'line.base': '寻数·壹座',
     'line.lex': '寻数·识律',
     'line.wire': '寻数·柏讯',
