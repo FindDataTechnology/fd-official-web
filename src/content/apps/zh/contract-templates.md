@@ -10,7 +10,9 @@ order: 20
 
 ## 如何采集
 
-专用爬虫（`scraw-law-contracts`）以定时 CronJob 跑在 Scrapyd 采集栈上（配套 Redis 与 PostgreSQL），**每日 02:00** 抓取市场监管总局的合同示范文本库。每次运行将结构化记录写入 SQLite/JSONL，并把采集到的文档归档到对象存储（MinIO）。
+专用爬虫（`scraw-law-contracts`）以定时任务跑在 Kubernetes 采集平台上，镜像由
+GitOps（ArgoCD）分发，**每日 02:00** 抓取市场监管总局的合同示范文本库；结构化记录
+与原始文档由采集管线统一落库、归档。
 
 ## 收录内容
 

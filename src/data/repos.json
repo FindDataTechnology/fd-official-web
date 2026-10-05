@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-05T14:23:14.967Z",
+  "generated_at": "2026-10-05T19:43:09.639Z",
   "repos": [
     {
       "name": "fd-open-data-mcp",
       "description": "Open-data ontology MCP: a semantic concept layer over multi-datasource financial/economic data (akshare, yfinance, edgar, wbgapi, cn-report, cn-gov).",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-10-04",
+      "updated": "2026-10-05",
       "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
       "hasReadme": true
     },
@@ -38,6 +38,15 @@
       "hasReadme": true
     },
     {
+      "name": "scraw-fd-open-data-mcp",
+      "description": "[wire] Unified concept-driven crawler for fd-open-data-mcp — consumes a CrawlPlan, fetches via the shared adapter registry, warms the read cache.",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-10-05",
+      "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp",
+      "hasReadme": true
+    },
+    {
       "name": "fd-official-web",
       "description": "Official website for FindData Technology — open-data ontology MCP for AI agents.",
       "language": "Astro",
@@ -53,15 +62,6 @@
       "stars": 0,
       "updated": "2026-10-04",
       "url": "https://github.com/FindDataTechnology/fd-industry-data",
-      "hasReadme": true
-    },
-    {
-      "name": "scraw-fd-open-data-mcp",
-      "description": "[wire] Unified concept-driven crawler for fd-open-data-mcp — consumes a CrawlPlan, fetches via the shared adapter registry, warms the read cache.",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-10-04",
-      "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp",
       "hasReadme": true
     },
     {

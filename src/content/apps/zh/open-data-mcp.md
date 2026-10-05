@@ -15,7 +15,7 @@ akshare、yfinance、EDGAR、World Bank、CNStats 等 Python 数据库被映射�
 
 ## 开源的 fd-* 包家族
 
-fd-* 系列包全部开源：可从 PyPI 安装，代码在 GitHub 的 FindDataOfficial 组织下。
+fd-* 系列包全部开源：可从 PyPI 安装，代码在 GitHub 的 FindDataTechnology 组织下。
 
 ## 进一步了解
 

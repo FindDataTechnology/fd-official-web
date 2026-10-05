@@ -24,7 +24,7 @@ when a source is unavailable, and refreshes on a schedule.
 ## An open-source fd-* family
 
 The fd-* package family is open source: installable from PyPI, with the code
-on the FindDataOfficial GitHub org.
+on the FindDataTechnology GitHub org.
 
 ## Explore
 

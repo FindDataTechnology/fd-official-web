@@ -16,12 +16,6 @@ fd-open-data-mcp is a **semantic concept layer** over the world's open data. Ins
 
 The server resolves each concept against **every source that carries it**, ranks candidates by data quality, fails over when a source is down, and refreshes cached values on a schedule. One protocol, one MCP, every source.
 
-## By the numbers
-
-- **15 indicator concepts** across finance, macro, and industry domains
-- **45 MCP tools** — catalog, entity identity, semantic layer, entity graph, vector search, fetch, scheduled refresh, crawl policies
-- **Major sources live**: akshare, yfinance, SEC EDGAR, World Bank, and growing Chinese government / industry feeds
-
 ## How it fits
 
 The server speaks MCP over streamable HTTP — plug it into Claude, Cursor, or any MCP client, or try it right now in the [live demo](/demo). It is the reference implementation of the [fd-open-data-protocol](/repos/fd-open-data-protocol), and the data backbone for the rest of the org's projects.

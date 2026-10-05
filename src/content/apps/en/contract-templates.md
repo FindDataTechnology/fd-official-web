@@ -12,10 +12,10 @@ current by an automated crawl pipeline.
 
 ## How it is collected
 
-A dedicated crawler (`scraw-law-contracts`) runs as a scheduled CronJob on a
-Scrapyd crawl stack (with Redis and PostgreSQL), fetching the SAMR contract-
-template library **daily at 02:00**. Each run stores structured records to
-SQLite/JSONL and archives the collected documents to object storage (MinIO).
+A dedicated crawler (`scraw-law-contracts`) runs as a scheduled job on the
+Kubernetes crawl platform, with images rolled out through GitOps (ArgoCD),
+fetching the SAMR contract-template library **daily at 02:00**; structured
+records and archived documents are stored by the crawl pipeline.
 
 ## What is inside
 

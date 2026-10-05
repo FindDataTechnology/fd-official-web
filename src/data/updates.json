@@ -14,23 +14,23 @@
     ]
   },
   {
-    "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/714270934d2c48c6b5b28e8fbe92758853555a4c",
-    "version": "7142709",
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/416737fc09ffe8e2b94ff3d2720e33e76613a1f4",
+    "version": "416737f",
     "date": "2026-10-05",
     "upcoming": false,
     "summary": [
-      "deploy(fd-web): roll sha-dd9f21b（页脚补公安联网备案号）"
+      "build: floor fd-open-data-mcp scripts at 0.5.36/0.5.37 (scripts in sdist + source-aware upserts)"
     ]
   },
   {
-    "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/dd9f21b7617024c7fafd59459d38f7d5813b9195",
-    "version": "dd9f21b",
+    "repo": "fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
+    "version": "0.5.37",
     "date": "2026-10-05",
     "upcoming": false,
     "summary": [
-      "feat(web): 页脚补公安联网备案号（粤公网安备44030002016558号）"
+      "**bulk_ingest scripts: upsert target aligned with the source-aware key**."
     ]
   },
   {
@@ -42,6 +42,56 @@
     "summary": [
       "**Failure diagnosis for runs that die before checking in**: when a",
       "**scripts/ now ships in the sdist** (`recursive-include scripts *.py`):"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/a50695caf1d3801faa316c8aa55fa4c050fa54e3",
+    "version": "a50695c",
+    "date": "2026-10-05",
+    "upcoming": false,
+    "summary": [
+      "chore(deploy): roll official-web to sha-9c8964a（lex 平台入口）"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/9c8964ad3eddf008b9bcf74fa32ef564adff0f2f",
+    "version": "9c8964a",
+    "date": "2026-10-05",
+    "upcoming": false,
+    "summary": [
+      "task 8.3：lex 线平台入口（照 wire 9.2 范式）——/products/lex 增识律平台入口链接（双语），纯外链无运行时依赖"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/714270934d2c48c6b5b28e8fbe92758853555a4c",
+    "version": "7142709",
+    "date": "2026-10-05",
+    "upcoming": false,
+    "summary": [
+      "deploy(fd-web): roll sha-dd9f21b（页脚补公安联网备案号）"
+    ]
+  },
+  {
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/1048785ff7f20241311fa41aa328e1be7262432b",
+    "version": "1048785",
+    "date": "2026-10-04",
+    "upcoming": false,
+    "summary": [
+      "ci: smoke step must override the image ENTRYPOINT (python/cmd runs)"
+    ]
+  },
+  {
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/7fdb29797ef371782ba28f3ef13671aadf46f4d8",
+    "version": "7fdb297",
+    "date": "2026-10-04",
+    "upcoming": false,
+    "summary": [
+      "deps: pin w3lib<2.5, ship fd-odm scripts at /app/scripts, smoke-gate image publish"
     ]
   },
   {
@@ -96,26 +146,6 @@
   },
   {
     "repo": "scraw-fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/1048785ff7f20241311fa41aa328e1be7262432b",
-    "version": "1048785",
-    "date": "2026-10-04",
-    "upcoming": false,
-    "summary": [
-      "ci: smoke step must override the image ENTRYPOINT (python/cmd runs)"
-    ]
-  },
-  {
-    "repo": "scraw-fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/7fdb29797ef371782ba28f3ef13671aadf46f4d8",
-    "version": "7fdb297",
-    "date": "2026-10-04",
-    "upcoming": false,
-    "summary": [
-      "deps: pin w3lib<2.5, ship fd-odm scripts at /app/scripts, smoke-gate image publish"
-    ]
-  },
-  {
-    "repo": "scraw-fd-open-data-mcp",
     "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/f9f8300aac6fc547511fdcd838140c21fcfc8ca7",
     "version": "f9f8300",
     "date": "2026-10-02",
@@ -132,66 +162,6 @@
     "upcoming": false,
     "summary": [
       "fetch_handler: clamp None series start instead of raising"
-    ]
-  },
-  {
-    "repo": "scraw-fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/5d19dda125f2c8ad029f965166f5748ba386494d",
-    "version": "5d19dda",
-    "date": "2026-10-01",
-    "upcoming": false,
-    "summary": [
-      "facade: wire line banner + repo description (five-lines-public-surface 3.x)"
-    ]
-  },
-  {
-    "repo": "fd-cn-report",
-    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/2f91cefb2907bfbf52148673809fce99ede51b8c",
-    "version": "2f91cef",
-    "date": "2026-10-01",
-    "upcoming": false,
-    "summary": [
-      "facade: wire line banner + repo description (five-lines-public-surface 3.x)"
-    ]
-  },
-  {
-    "repo": "platform",
-    "url": "https://github.com/FindDataTechnology/platform/commit/bc2fe68a9a97583ac613d6251835f1201295194b",
-    "version": "bc2fe68",
-    "date": "2026-10-01",
-    "upcoming": false,
-    "summary": [
-      "Platform v1.3.0 — initial open-source release (snapshot of HEAD 68d2ad9)"
-    ]
-  },
-  {
-    "repo": "fd-cn-report",
-    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/f87b37c4d98bc7d7ee8ecb81952119c37819b64c",
-    "version": "f87b37c",
-    "date": "2026-09-30",
-    "upcoming": false,
-    "summary": [
-      "ci: 推送目标切换 hkccr，国内分发走 cheap-3 tcr-relay 回灌 ccr"
-    ]
-  },
-  {
-    "repo": "fd-cn-report",
-    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/776dbf59098a0f549c77e8de9f89735cce80ddf1",
-    "version": "776dbf5",
-    "date": "2026-09-30",
-    "upcoming": false,
-    "summary": [
-      "ci: split oversized layers + upstream-by-default sources + provenance off — fix transpacific TCR push wedge (tcr-image-pipeline)"
-    ]
-  },
-  {
-    "repo": "fd-cn-report",
-    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/e44a4b2bd195c7fc4e3a1fbef06bec82c9ca3e7d",
-    "version": "e44a4b2",
-    "date": "2026-09-30",
-    "upcoming": false,
-    "summary": [
-      "ci: publish image via GitHub Actions → TCR personal (tcr-image-pipeline)"
     ]
   },
   {
@@ -223,32 +193,6 @@
       "**Transitional matrix backend** (`FD_MCP_VECTOR_BACKEND=matrix`):",
       "**sqlalchemy pinned <2.1**: 2.1.x (fresh on the build mirror) removes the",
       "Reference k8s manifest aligned with the live fd-official-web deployment"
-    ]
-  },
-  {
-    "repo": "fd-cn-report",
-    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/a66ba07dee9bdfeaa5bcb33c2b42821a9af2bb5e",
-    "version": "a66ba07",
-    "date": "2026-09-24",
-    "upcoming": false,
-    "summary": [
-      "chore: remove .backup copy and applied one-shot migrations; minio to optional extra"
-    ]
-  },
-  {
-    "repo": "fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
-    "version": "0.5.16",
-    "date": "2026-09-18",
-    "upcoming": false,
-    "summary": [
-      "**`permanent` failure class** — a new `ban_rules` classification, seeded for",
-      "**`fetch/capability.py`** — static, no-I/O resolution of `(source, command)`.",
-      "**Entity-domain agreement** — rules matched on column *name* alone, so every",
-      "**Binding eligibility needs evidence, not just a score** — the dispatch gate",
-      "**`confirm_by_rule` / `verify_functions_by_rule`** — rule-based binding",
-      "**Bounded failover chain** — `FD_CRAWL_CHAIN_MAX` (default 8). Candidates",
-      "**Permanent-path suppression** — a `(concept, function)` whose recent"
     ]
   }
 ]

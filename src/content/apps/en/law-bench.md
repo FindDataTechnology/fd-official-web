@@ -2,7 +2,7 @@
 name: "LawBench — Contract Intelligence"
 tagline: "Draft contracts from a clause library, review them with AI across three dimensions, and evaluate every draft against rubrics."
 kind: "Legal AI platform"
-demoUrl: "http://23.144.68.246:30830"
+demoUrl: "https://lex.finddatatech.cloud"
 line: lex
 order: 10
 ---
@@ -59,4 +59,4 @@ directly from a chat.
 
 ## Try it
 
-The contract review assistant is live: [open the demo](http://23.144.68.246:30830).
+The Lex platform is live: [open 识律](https://lex.finddatatech.cloud).
