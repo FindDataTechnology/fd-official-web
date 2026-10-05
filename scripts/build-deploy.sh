@@ -15,7 +15,7 @@
 #   FD_INDICATORS_MCP_TOKEN   MCP bearer for the indicator export
 #   FD_INDICATORS_MCP_URL     default https://www.finddatatech.cloud/mcp
 #   FD_CALIBERS_MCP_TOKEN     business-mcp service-lane bearer (FDBIZ_INTERNAL_TOKEN)
-#   FD_CALIBERS_MCP_URL       default https://mcp.finddatatech.cloud/fd-find-data-business-mcp
+#   FD_CALIBERS_MCP_URL       default http://106.55.20.23:30803 (business-mcp service lane)
 set -euo pipefail
 
 CLONE_URL="${CLONE_URL:-https://github.com/FindDataTechnology/fd-official-web.git}"
@@ -50,7 +50,7 @@ docker run --rm \
   -e FD_INDICATORS_MCP_TOKEN="${FD_INDICATORS_MCP_TOKEN:-}" \
   -e FD_INDICATORS_MCP_URL="${FD_INDICATORS_MCP_URL:-https://www.finddatatech.cloud/mcp}" \
   -e FD_CALIBERS_MCP_TOKEN="${FD_CALIBERS_MCP_TOKEN:-}" \
-  -e FD_CALIBERS_MCP_URL="${FD_CALIBERS_MCP_URL:-https://mcp.finddatatech.cloud/fd-find-data-business-mcp}" \
+  -e FD_CALIBERS_MCP_URL="${FD_CALIBERS_MCP_URL:-http://106.55.20.23:30803}" \
   -v "$WORK":/app -w /app "$NODE_IMAGE" \
   sh -c 'npm ci --no-audit --no-fund && npm run build'
 
