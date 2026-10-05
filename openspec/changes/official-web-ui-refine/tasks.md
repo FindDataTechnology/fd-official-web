@@ -27,19 +27,19 @@
 
 ## 3. 批次二 · 首页与身份
 
-- [ ] 3.1 首页 hero 改公司定位（中英文案；`src/i18n.ts`、`src/pages/index.astro`、
+- [x] 3.1 首页 hero 改公司定位（中英文案；`src/i18n.ts`、`src/pages/index.astro`、
       `src/pages/zh/index.astro`）
-- [ ] 3.2 hero 下补五线阶梯（线标 + 线名 + 链接各线 tab，按数量级顺序）
-- [ ] 3.3 统计降为一行次要信息；数字仍来自构建期导出
-- [ ] 3.4 五个线标 inline SVG 组件（阶梯字 壹 / 识 / 柏 / 谦 / 萬，官网统一墨色），
+- [x] 3.2 hero 下补五线阶梯（线标 + 线名 + 链接各线 tab，按数量级顺序）
+- [x] 3.3 统计降为一行次要信息；数字仍来自构建期导出
+- [x] 3.4 五个线标组件（用户选 B 朱文线框+简体后以 CSS 印章实现，视觉与对照稿一致，替代 inline SVG 方案）（阶梯字 壹 / 识 / 柏 / 谦 / 萬，官网统一墨色），
       用于首页线卡与线页
-- [ ] 3.5 `/repos` 按线分组：本地线归属表（与 `FEATURED` 同性质），缺归属进「其他」组
-- [ ] 3.6 中英 OG 图（1200×630）产出 + 每页 `og:image` 与卡片元信息声明
-- [ ] 3.7 拉丁显示字体自托管接入（仅标题与 kicker 的拉丁字符），并排对照定选型
+- [x] 3.5 `/repos` 按线分组：本地线归属表（与 `FEATURED` 同性质），缺归属进「其他」组
+- [x] 3.6 中英 OG 图（1200×630）产出 + 每页 `og:image` 与卡片元信息声明
+- [x] 3.7 拉丁显示字体自托管接入（仅标题与 kicker 的拉丁字符），并排对照定选型
 
 ## 4. 规格与文档
 
-- [ ] 4.1 补齐 `apps-showcase` 与 `product-portal` 的 `Purpose` 占位符
+- [x] 4.1 补齐 `apps-showcase` 与 `product-portal` 的 `Purpose` 占位符
       （按 openspec 指引直接更新主规格文件）
 - [x] 4.2 新增站点仓 `CONTEXT.md`（站点域词汇：线标 / 门面 / 公开面在站点的用法）
 - [ ] 4.3 用 impeccable 的 `document` 流程生成站点仓 `DESIGN.md`（从新 token 层提取）
@@ -49,6 +49,6 @@
 - [x] 5.1 `openspec validate official-web-ui-refine --strict` 通过
 - [x] 5.2 批次一：本地全页桌面 / 移动截图核对（对比度、溢出、折行、导航、当前项）
 - [x] 5.3 批次一上线（Jenkins → Harbor → ArgoCD）后中英对照截图归档 `reports/batch-1/`
-- [ ] 5.4 批次二：同上，另加 `og:image` 探针与五线阶梯、线页、`/repos` 分组截图，
+- [x] 5.4 批次二：同上，另加 `og:image` 探针与五线阶梯、线页、`/repos` 分组截图，
       归档 `reports/batch-2/`
-- [ ] 5.5 记录回退锚点：每批上线前后的镜像 tag，便于单批回退
+- [x] 5.5 回退锚点：content-truth=sha-8f7dfc4 → 批次一=sha-081e51d → 批次二=sha-6ced1d2；回退即把 deploy/k8s/fd-web.yaml 改回对应 tag 重推
