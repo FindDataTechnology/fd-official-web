@@ -14,7 +14,7 @@
 #   GITHUB_TOKEN         optional — lifts the anonymous 60/h GitHub API cap
 #   FD_INDICATORS_MCP_TOKEN   MCP bearer for the indicator export
 #   FD_INDICATORS_MCP_URL     default https://www.finddatatech.cloud/mcp
-#   FD_CALIBERS_MCP_TOKEN     gateway bearer for the business-mcp registry_coverage export
+#   FD_CALIBERS_MCP_TOKEN     business-mcp service-lane bearer (FDBIZ_INTERNAL_TOKEN)
 #   FD_CALIBERS_MCP_URL       default https://mcp.finddatatech.cloud/fd-find-data-business-mcp
 set -euo pipefail
 

@@ -27,7 +27,10 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { normalizeCalibers } from './data-module-utils.mjs';
 
 const OUT = new URL('../src/data/calibers.json', import.meta.url);
-const BASE_URL = process.env.FD_CALIBERS_MCP_URL ?? 'https://mcp.finddatatech.cloud/fd-find-data-business-mcp';
+// Gateway path requires a per-user Logto JWT (168h cap) — unusable for the
+// unattended 6h cron. The business-mcp service lane (FDBIZ_INTERNAL_TOKEN,
+// same credential fd-open-data-mcp's federation already uses) is static.
+const BASE_URL = process.env.FD_CALIBERS_MCP_URL ?? 'http://106.55.20.23:30803';
 const MCP_URL = BASE_URL.endsWith('/mcp') ? BASE_URL : `${BASE_URL.replace(/\/$/, '')}/mcp`;
 const TOKEN = process.env.FD_CALIBERS_MCP_TOKEN ?? '';
 
