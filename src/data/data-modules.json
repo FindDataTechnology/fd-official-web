@@ -1,7 +1,9 @@
 {
-  "generated_at": "2026-10-05T19:43:15.022Z",
+  "generated_at": "2026-10-05T19:54:54.170Z",
   "source": "curated+indicators",
   "indicators_as_of": "2026-09-21T16:24:36.872Z",
+  "calibers": null,
+  "calibers_as_of": null,
   "modules": [
     {
       "id": "china-macro-stats",

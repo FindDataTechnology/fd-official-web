@@ -137,7 +137,7 @@ const formatAsOf = (value: string) => {
     <div><dt>{t(locale, 'data.card.asOf')}</dt><dd>{formatAsOf(module.as_of)}</dd></div>
   </dl>
 
-  <div class="module-chips" aria-label={isZh ? '代表指标' : 'Representative indicators'}>
+  <div class="module-chips" aria-label={isZh ? '代表概念' : 'Representative concepts'}>
     {module.representative_codes.map((code) => <code class="module-chip">{code}</code>)}
   </div>
 

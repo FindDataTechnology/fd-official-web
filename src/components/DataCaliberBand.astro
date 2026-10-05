@@ -1,0 +1,52 @@
+---
+import { t } from '../i18n';
+
+interface Calibers {
+  registered_total?: number | null;
+  verified_total?: number | null;
+  servable_total?: number | null;
+  notes?: Record<string, string>;
+}
+
+interface Props {
+  locale: 'en' | 'zh';
+  // Aggregates from the business-mcp registry_coverage export
+  // (src/data/calibers.json via the refresh pipeline); null = authority
+  // unreachable this cycle — the item renders "unknown", never a stale number.
+  calibers?: Calibers | null;
+  // Active-concept count, locally derived from the same build's indicators
+  // export (the caliber the module cards are built on).
+  activeConcepts?: number | null;
+  asOf?: string | null;
+}
+
+const { locale, calibers, activeConcepts, asOf } = Astro.props;
+const isZh = locale === 'zh';
+const format = (value: number | null | undefined) =>
+  typeof value === 'number' && Number.isFinite(value) ? value.toLocaleString(locale) : null;
+const formatAsOf = (value?: string | null) => {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString(isZh ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+};
+
+const items = [
+  { label: t(locale, 'data.calibers.registered'), value: format(calibers?.registered_total) },
+  { label: t(locale, 'data.calibers.servable'), value: format(calibers?.servable_total) },
+  { label: t(locale, 'data.calibers.active'), value: format(activeConcepts) },
+];
+const asOfText = formatAsOf(asOf);
+---
+
+<div class="data-calibers" aria-label={isZh ? '指标口径带：登记指标 / 可服务指标 / 活跃概念' : 'Indicator calibers: registered / servable / active concepts'}>
+  {
+    items.map((item) => (
+      <div class="data-calibers-item">
+        <strong class={`data-calibers-value${item.value ? '' : ' is-unknown'}`}>{item.value ?? t(locale, 'data.card.unknown')}</strong>
+        <span class="data-calibers-label">{item.label}</span>
+      </div>
+    ))
+  }
+  {asOfText && <p class="data-calibers-asof">{t(locale, 'data.calibers.asOf').replace('{date}', asOfText)}</p>}
+</div>

@@ -8,6 +8,25 @@ export function activeConcepts(payload) {
   return (payload?.concepts ?? []).filter((concept) => !concept.deprecated);
 }
 
+// Caliber aggregates from the business-mcp `registry_coverage` tool (see
+// scripts/fetch-calibers.mjs). Strict shape: all three totals must be finite,
+// non-negative numbers — anything else means "authority unreachable" and the
+// page degrades to unknown rather than presenting a partial figure.
+export function normalizeCalibers(raw) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+  const calibers = {};
+  for (const key of ['registered_total', 'verified_total', 'servable_total']) {
+    const v = raw[key];
+    if (typeof v !== 'number' || !Number.isFinite(v) || v < 0) return null;
+    calibers[key] = v;
+  }
+  if (raw.notes && typeof raw.notes === 'object' && !Array.isArray(raw.notes)) {
+    const notes = Object.fromEntries(Object.entries(raw.notes).filter(([, v]) => typeof v === 'string'));
+    if (Object.keys(notes).length) calibers.notes = notes;
+  }
+  return calibers;
+}
+
 function matchesRule(concept, rule = {}) {
   const source = concept.source ?? '—';
   const category = concept.category ?? '—';

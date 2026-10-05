@@ -14,6 +14,8 @@
 #   GITHUB_TOKEN         optional — lifts the anonymous 60/h GitHub API cap
 #   FD_INDICATORS_MCP_TOKEN   MCP bearer for the indicator export
 #   FD_INDICATORS_MCP_URL     default https://www.finddatatech.cloud/mcp
+#   FD_CALIBERS_MCP_TOKEN     gateway bearer for the business-mcp registry_coverage export
+#   FD_CALIBERS_MCP_URL       default https://mcp.finddatatech.cloud/fd-find-data-business-mcp
 set -euo pipefail
 
 CLONE_URL="${CLONE_URL:-https://github.com/FindDataTechnology/fd-official-web.git}"
@@ -47,6 +49,8 @@ docker run --rm \
   -e GITHUB_TOKEN="${GITHUB_TOKEN:-}" \
   -e FD_INDICATORS_MCP_TOKEN="${FD_INDICATORS_MCP_TOKEN:-}" \
   -e FD_INDICATORS_MCP_URL="${FD_INDICATORS_MCP_URL:-https://www.finddatatech.cloud/mcp}" \
+  -e FD_CALIBERS_MCP_TOKEN="${FD_CALIBERS_MCP_TOKEN:-}" \
+  -e FD_CALIBERS_MCP_URL="${FD_CALIBERS_MCP_URL:-https://mcp.finddatatech.cloud/fd-find-data-business-mcp}" \
   -v "$WORK":/app -w /app "$NODE_IMAGE" \
   sh -c 'npm ci --no-audit --no-fund && npm run build'
 

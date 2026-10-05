@@ -1,10 +1,20 @@
 import { access, mkdir, writeFile } from 'node:fs/promises';
-import { readJson, activeConcepts, buildModuleSnapshot, coverageSummary } from './data-module-utils.mjs';
+import { readJson, activeConcepts, buildModuleSnapshot, coverageSummary, normalizeCalibers } from './data-module-utils.mjs';
 
 const ROOT = new URL('../', import.meta.url);
 const CURATED = new URL('src/data/data-modules.curated.json', ROOT);
 const INDICATORS = new URL('src/data/indicators.json', ROOT);
+const CALIBERS = new URL('src/data/calibers.json', ROOT);
 const OUT = new URL('src/data/data-modules.json', ROOT);
+
+// Caliber aggregates (business-mcp registry_coverage, fetched by
+// scripts/fetch-calibers.mjs). null = authority unreachable this cycle — the
+// page degrades to unknown; stale values are never carried forward.
+async function loadCalibers() {
+  const payload = await readJson(CALIBERS).catch(() => null);
+  const calibers = normalizeCalibers(payload?.calibers);
+  return { calibers, calibers_as_of: calibers ? payload.generated_at ?? null : null };
+}
 
 async function fallbackSnapshot(message) {
   const curated = await readJson(CURATED).catch(() => ({ modules: [] }));
@@ -13,6 +23,8 @@ async function fallbackSnapshot(message) {
     source: 'fallback',
     fallback_reason: message,
     indicators_as_of: null,
+    calibers: null,
+    calibers_as_of: null,
     modules: (curated.modules ?? []).map((module) => ({
       ...module,
       indicator_count: 0,
@@ -31,12 +43,15 @@ async function fallbackSnapshot(message) {
 async function main() {
   const curated = await readJson(CURATED);
   const indicators = await readJson(INDICATORS);
+  const { calibers, calibers_as_of } = await loadCalibers();
   const concepts = activeConcepts(indicators);
   const modules = (curated.modules ?? []).map((module) => buildModuleSnapshot(module, concepts));
   const snapshot = {
     generated_at: new Date().toISOString(),
     source: 'curated+indicators',
     indicators_as_of: indicators.generated_at ?? null,
+    calibers,
+    calibers_as_of,
     modules,
     coverage: coverageSummary(modules, concepts),
   };

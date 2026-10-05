@@ -456,6 +456,17 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* data modules explorer */
 .data-explorer { margin-top: 36px; }
+/* three-caliber band (registered / servable / active) — same panel language as .data-summary */
+.data-calibers {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+  border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px;
+  background: var(--panel); margin-bottom: 28px;
+}
+.data-calibers-item { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.data-calibers-value { color: var(--accent); font-family: var(--mono); font-size: 1.45rem; line-height: 1; }
+.data-calibers-value.is-unknown { color: var(--muted); font-size: 1.02rem; font-weight: 400; }
+.data-calibers-label { color: var(--muted); font-size: 0.88rem; }
+.data-calibers-asof { color: var(--muted); font-family: var(--mono); font-size: 0.78rem; margin: 0; text-align: right; }
 .data-summary {
   display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
   border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px;
@@ -531,6 +542,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 @media (max-width: 640px) {
   .data-summary { align-items: flex-start; flex-direction: column; gap: 12px; padding: 16px; }
   .data-summary-asof { text-align: left; }
+  .data-calibers { align-items: flex-start; flex-direction: column; gap: 10px; padding: 16px; }
+  .data-calibers-asof { text-align: left; }
   .data-toolbar { align-items: flex-start; flex-direction: column; gap: 10px; }
   .data-tabs { width: 100%; }
   .data-tab { padding: 10px 16px; }

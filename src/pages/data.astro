@@ -1,5 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
+import DataCaliberBand from '../components/DataCaliberBand.astro';
 import DataModulesExplorer from '../components/DataModulesExplorer.astro';
 import { t } from '../i18n';
 import snapshot from '../data/data-modules.json';
@@ -11,6 +12,12 @@ const title = t(locale, 'data.title') + ' — FindData Technology';
 <Layout locale={locale} title={title} description={t(locale, 'data.sub')}>
   <h1 class="page">{t(locale, 'data.title')}</h1>
   <p class="page-sub">{t(locale, 'data.sub')}</p>
+  <DataCaliberBand
+    locale={locale}
+    calibers={snapshot.calibers}
+    activeConcepts={snapshot.coverage?.total ?? null}
+    asOf={snapshot.calibers_as_of}
+  />
   <DataModulesExplorer
     locale={locale}
     modules={snapshot.modules}
