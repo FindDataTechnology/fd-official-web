@@ -41,8 +41,9 @@
       其余保留原文去前缀）
 - [x] 3.3 站外同类残留清单已列：`fd-vertical-packs` README 的 `craw.finddatatech.cloud`、
       `fd-open-data-protocol/pyproject.toml` 的 `FindDataOfficial`、npm scope 拼写
-- [ ] 3.4 落地 GitHub（维护者执行）：更新 12 条 description，记录执行时间与操作人
-      **（等用户授权；执行人可用 `gh`——已登录 scs001，有 repo scope）**
+- [x] 3.4 落地 GitHub（**用户 2026-10-06 授权，由 ZCode 以 `gh` 执行**，账号 scs001）：
+      12 条 description 全部更新（含 fd-open-data-mcp 保留项核对一致），PATCH 逐一确认，
+      复查 org 全量列表 `[line]` 前缀 0 残留。`/repos` 网格随下次构建+滚动自动同步
 
 ## 4. 验证
 

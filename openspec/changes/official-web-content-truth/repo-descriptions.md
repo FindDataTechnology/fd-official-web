@@ -1,5 +1,9 @@
 # 仓库描述改写稿（任务 3.x 交付物）
 
+> **执行记录**：2026-10-06 用户授权后由 ZCode 以 `gh api -X PATCH`（账号 scs001）逐仓落地，
+> 12/12 成功；复查 org 全量列表，`[wire]/[facet]/[base]/[constellation]` 前缀 0 残留。
+> 官网 `/repos` 网格在下次构建 + 滚动后自动同步（构建期从 GitHub API 拉取）。
+
 - 现状取自 `api.github.com/orgs/FindDataTechnology/repos`（2026-10-06）。
 - 原则：去掉 `[wire]`/`[facet]`/`[base]`/`[constellation]` 内部前缀（线归属改由官网
   `/repos` 页面分组表达，见 `official-web-ui-refine`）；语言统一英文（GitHub description
