@@ -3,6 +3,7 @@ export const ui = {
   en: {
     'nav.home': 'Home',
     'nav.apps': 'Products',
+    'nav.data': 'Data',
     'nav.repos': 'Repos',
     'nav.docs': 'Docs',
     'nav.demo': 'Demo',
@@ -202,7 +203,8 @@ export const ui = {
   zh: {
     'nav.home': '首页',
     'nav.apps': '产品',
-    'nav.repos': '项目',
+    'nav.data': '数据',
+    'nav.repos': '仓库',
     'nav.docs': '文档',
     'nav.demo': '演示',
     'nav.roadmap': '路线图',

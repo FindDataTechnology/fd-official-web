@@ -70,7 +70,7 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
       </a>
     )
   }
-  <ul class="grid">
+  <ul class:list={['grid', { 'grid--feature': apps.length > 0 && apps.length <= 2 }]}>
     {
       apps.map((a) => (
         <li class="card">
@@ -99,13 +99,19 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
     letter-spacing: 1px;
     padding: 6px 14px;
     border-radius: 999px;
-    color: var(--fg-muted, inherit);
-    border: 1px solid currentColor;
-    opacity: 0.75;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    text-decoration: none;
+  }
+  .line-tabs a:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
     text-decoration: none;
   }
   .line-tabs a.active {
-    opacity: 1;
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(56, 225, 200, 0.08);
     font-weight: 700;
   }
   .tab-pin {
@@ -119,8 +125,9 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
   .ladder {
     margin: 0 0 24px;
     padding: 14px 18px;
-    border-left: 3px solid currentColor;
-    opacity: 0.9;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
   }
   .ladder-body {
     margin: 0 0 6px;

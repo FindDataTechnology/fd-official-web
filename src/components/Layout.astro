@@ -13,17 +13,24 @@ const other = locale === 'zh' ? 'en' : 'zh';
 // Current path without the locale prefix, for the language-switch link.
 const path = Astro.url.pathname.replace(/^\/zh(?=\/|$)/, '') || '/';
 
+// Primary navigation is audience-grouped and capped at six entries (ui-refine
+// D5); the sunk surfaces (indicators / roadmap / releases) live in the footer.
 const nav = [
-  { href: getRelativeLocaleUrl(locale, ''), label: t(locale, 'nav.home') },
-  { href: getRelativeLocaleUrl(locale, 'products'), label: t(locale, 'nav.apps') },
-  { href: getRelativeLocaleUrl(locale, 'repos'), label: t(locale, 'nav.repos') },
-  { href: getRelativeLocaleUrl(locale, 'docs'), label: t(locale, 'nav.docs') },
-  { href: getRelativeLocaleUrl(locale, 'indicators'), label: t(locale, 'nav.indicators') },
-  { href: getRelativeLocaleUrl(locale, 'data'), label: t(locale, 'nav.dataModules') },
-  { href: getRelativeLocaleUrl(locale, 'roadmap'), label: t(locale, 'nav.roadmap') },
-  { href: getRelativeLocaleUrl(locale, 'releases'), label: t(locale, 'nav.releases') },
-  { href: getRelativeLocaleUrl(locale, 'updates'), label: t(locale, 'nav.updates') },
-  { href: getRelativeLocaleUrl(locale, 'demo'), label: t(locale, 'nav.demo') },
+  { href: getRelativeLocaleUrl(locale, 'products'), key: 'nav.apps' },
+  { href: getRelativeLocaleUrl(locale, 'data'), key: 'nav.data' },
+  { href: getRelativeLocaleUrl(locale, 'repos'), key: 'nav.repos' },
+  { href: getRelativeLocaleUrl(locale, 'docs'), key: 'nav.docs' },
+  { href: getRelativeLocaleUrl(locale, 'updates'), key: 'nav.updates' },
+  { href: getRelativeLocaleUrl(locale, 'demo'), key: 'nav.demo' },
+];
+const isActive = (href: string) => {
+  if (href === '' || href === '/') return path === '/';
+  return path === href || path.startsWith(`${href.replace(/\/$/, '')}/`);
+};
+const sunk = [
+  { href: getRelativeLocaleUrl(locale, 'indicators'), key: 'nav.indicators' },
+  { href: getRelativeLocaleUrl(locale, 'roadmap'), key: 'nav.roadmap' },
+  { href: getRelativeLocaleUrl(locale, 'releases'), key: 'nav.releases' },
 ];
 // ponytail: inline SVG, one path reused for both footer GitHub links
 const ghPath =
@@ -50,7 +57,9 @@ const ghPath =
         <div class="nav-links">
           {
             nav.map((n) => (
-              <a href={n.href}>{n.label}</a>
+              <a href={n.href} class={isActive(n.href) ? 'active' : undefined} aria-current={isActive(n.href) ? 'page' : undefined}>
+                {t(locale, n.key)}
+              </a>
             ))
           }
         </div>
@@ -61,6 +70,13 @@ const ghPath =
     <main><slot /></main>
 
     <footer class="site">
+      <div class="inner sunk">
+        {
+          sunk.map((s) => (
+            <a href={s.href}>{t(locale, s.key)}</a>
+          ))
+        }
+      </div>
       <div class="inner">
         <span class="org">
           © {new Date().getFullYear()} <a href="https://github.com/FindDataTechnology">{t(locale, 'footer.org')}</a>

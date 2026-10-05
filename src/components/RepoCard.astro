@@ -34,8 +34,10 @@ const external = !repo.hasReadme && repo.name !== 'fd-open-data-mcp';
 
 <li class:list={['card', { featured }]}>
   <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
-    <span class="name">{repo.name}</span>
-    <span class="desc">{repo.description?.trim() || t(locale, 'repos.noDesc')}</span>
-    <span class="meta">{[repo.language, repo.stars ? `★ ${repo.stars}` : '', repo.updated].filter(Boolean).join(' · ')}</span>
+    <span class="card-main">
+      <span class="name">{repo.name}</span>
+      <span class="desc">{repo.description?.trim() || t(locale, 'repos.noDesc')}</span>
+      <span class="meta">{[repo.language, repo.stars ? `★ ${repo.stars}` : '', repo.updated].filter(Boolean).join(' · ')}</span>
+    </span>
   </a>
 </li>
