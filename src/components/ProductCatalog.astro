@@ -59,6 +59,17 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
       </a>
     )
   }
+  {
+    // lex line only: entry to the Shilü legal platform (lex-platform-v1).
+    // Pure external link — the site renders identically whether or not the
+    // target is reachable (no runtime dependency).
+    line === 'lex' && (
+      <a class="demo-cta" href="https://lex.finddatatech.cloud" target="_blank" rel="noopener noreferrer">
+        <span class="demo-cta-label">▶ {t(locale, 'apps.lex.entry')}</span>
+        <span class="demo-cta-sub">{t(locale, 'apps.lex.entry.sub')}</span>
+      </a>
+    )
+  }
   <ul class="grid">
     {
       apps.map((a) => (

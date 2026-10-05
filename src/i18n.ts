@@ -38,6 +38,9 @@ export const ui = {
     // wire line only: entry to the Baixun B2B platform (wire.finddatatech.cloud)
     'apps.wire.entry': 'Enter the Wire Platform',
     'apps.wire.entry.sub': 'The line’s B2B self-service data platform — browse the indicator catalog, build analyses, and get metered data delivery at wire.finddatatech.cloud.',
+    // lex line only: entry to the Shilü legal platform (lex.finddatatech.cloud)
+    'apps.lex.entry': 'Enter the Lex Platform',
+    'apps.lex.entry.sub': 'The legal vertical — statute & case retrieval, contract intelligence, and a fully privatizable stack, all at lex.finddatatech.cloud.',
     'line.base': 'Base',
     'line.lex': 'Lex',
     'line.wire': 'Wire',
@@ -230,6 +233,8 @@ export const ui = {
     'apps.empty': '该条线暂无产品——敬请期待。',
     'apps.wire.entry': '进入柏讯平台',
     'apps.wire.entry.sub': '柏讯线的 B2B 自助数据平台——浏览指标目录、构建分析、按量计费取数：wire.finddatatech.cloud。',
+    'apps.lex.entry': '进入识律平台',
+    'apps.lex.entry.sub': '识律线的法律垂直平台——法条与类案检索、合同智能、全栈可私有化交付：lex.finddatatech.cloud。',
     'line.base': '寻数·壹座',
     'line.lex': '寻数·识律',
     'line.wire': '寻数·柏讯',
