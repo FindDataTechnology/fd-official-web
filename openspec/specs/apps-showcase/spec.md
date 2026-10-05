@@ -1,7 +1,7 @@
 # apps-showcase Specification
 
 ## Purpose
-TBD - created by archiving change add-apps-showcase. Update Purpose after archive.
+Hand-curated bilingual product/app pages for the five product lines — independent of the GitHub fetch pipeline, line-classified at build time, deep-linkable per line.
 
 ## Requirements
 

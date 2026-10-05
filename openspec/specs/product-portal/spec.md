@@ -1,7 +1,7 @@
 # product-portal Specification
 
 ## Purpose
-TBD - created by archiving change add-product-portal. Update Purpose after archive.
+The homepage as the company front door: positioning hero, five-line card wall, and the research/services footnote — the surfaces above the per-line catalogs.
 
 ## Requirements
 

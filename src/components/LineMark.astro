@@ -1,0 +1,39 @@
+---
+// 朱文线框线标 (ui-refine D4 / ADR-0003): a ladder character in a thin ink
+// frame. The official site serializes the five lines in one ink; each line's
+// own product site keeps its personal seal. Simplified 识/谦 per user call.
+interface Props {
+  char: string;
+  name: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+const { char, name, size = 'md' } = Astro.props;
+---
+
+<span class:list={['linemark', size]} role="img" aria-label={name}>
+  <span class="char">{char}</span>
+</span>
+
+<style>
+  .linemark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 12px;
+    background: transparent;
+  }
+  .char {
+    font-family: 'Songti SC', 'STSong', 'Noto Serif SC', 'SimSun', serif;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+  }
+  .sm { width: 30px; height: 30px; border-radius: 6px; }
+  .sm .char { font-size: 17px; }
+  .md { width: 44px; height: 44px; }
+  .md .char { font-size: 25px; }
+  .lg { width: 56px; height: 56px; }
+  .lg .char { font-size: 32px; }
+</style>

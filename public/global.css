@@ -28,6 +28,26 @@
   --fs-mono: 0.85rem;
   /* CJK headings need more air than the Latin default */
   --lh-display: 1.25;
+  /* Latin display voice (headings/kicker only); CJK falls to system PingFang */
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+/* display voice applies to the Latin layer of headings site-wide */
+.hero h1, h1.page, article.doc h1,
+.lines-strip h2, .roadmap-strip h2, .research h2,
+.tour-copy h2, .trial-copy h2, .tour-features h2 {
+  font-family: var(--font-display);
+}
+
+/* Space Grotesk — latin subset, self-hosted 22KB (ui-refine D2). Display
+   voice for Latin in headings; CJK glyphs fall through to the system stack. */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  src: url('/fonts/space-grotesk-latin.woff2') format('woff2');
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 * { box-sizing: border-box; }
@@ -82,7 +102,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 48px 20px 72px; }
   color: var(--accent); font-family: var(--mono); font-size: var(--fs-label);
   letter-spacing: 1px; text-transform: uppercase;
 }
-.hero h1 { font-size: var(--fs-display); line-height: var(--lh-display); margin: 18px 0 16px; letter-spacing: -0.02em; }
+.hero h1 { font-size: var(--fs-display); line-height: var(--lh-display); margin: 18px 0 16px; letter-spacing: -0.02em; text-wrap: balance; }
 .hero p.sub { color: var(--muted); max-width: 680px; margin: 0 auto; font-size: 1.08rem; }
 .hero .cta { margin-top: 30px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 .hero .cta a {
@@ -92,6 +112,10 @@ main { max-width: 1080px; margin: 0 auto; padding: 48px 20px 72px; }
 .hero .cta .primary:hover { text-decoration: none; filter: brightness(1.08); }
 .hero .cta .secondary { border: 1px solid var(--border); color: var(--text); }
 .hero .cta .secondary:hover { text-decoration: none; border-color: var(--accent); }
+
+/* build-sourced figures, demoted to a secondary mono line (ui-refine 3.3) */
+.statline { margin: 36px 0 0; color: var(--muted); font-family: var(--mono); font-size: var(--fs-mono); }
+.statline b { color: var(--accent); font-weight: 600; }
 
 .stats { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-top: 44px; }
 .stats .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px 26px; min-width: 150px; }
@@ -136,6 +160,11 @@ ul.grid .card .card-demo {
   padding: 6px 14px; font-weight: 700; font-size: 0.85rem;
 }
 ul.grid .card .card-demo:hover { text-decoration: none; filter: brightness(1.08); }
+
+/* /repos line grouping (ui-refine D7) */
+.repo-group { margin-top: 44px; }
+.repo-group-head { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; font-size: 1.05rem; }
+.repo-group-head .count { color: var(--muted); font-family: var(--mono); font-size: 0.78rem; }
 
 /* page-level demo CTA strip (repos + docs index) */
 .demo-cta {

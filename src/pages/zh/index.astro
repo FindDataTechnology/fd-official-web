@@ -1,66 +1,54 @@
 ---
 import Layout from '../../components/Layout.astro';
+import LineMark from '../../components/LineMark.astro';
 import { t } from '../../i18n';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getCollection } from 'astro:content';
-import { PRODUCT_LINES } from '../../content.config';
-// 首页统计数字构建时从 /indicators 同源的指标导出中派生,两个页面永远一致;
-// 每次构建重新导出(scripts/fetch-indicators.mjs),提交的快照作离线回退。
+import { PRODUCT_LINES, LADDER_CHARS } from '../../content.config';
+// 首页数字与 /indicators、/repos 同源（content-integrity：不手写）。
 import indicatorData from '../../data/indicators.json';
+import reposJson from '../../data/repos.json';
 
 const locale = 'zh';
-const title = '寻数科技 FindData Technology — 用自然语言提问，拿回真实数据行';
+const title = '寻数科技 FindData Technology — ' + t(locale, 'hero.title');
 const phases = (await getCollection('roadmap')).sort((a, b) => a.data.order - b.data.order);
-// 统计只计活跃(非 deprecated)概念:上游已弃用的重复概念不参与发现与分发。
-// 可选计数(工具/实体/观测)仅当导出携带时才渲染。
-const raw = indicatorData as {
-  concepts?: Array<{ source?: string | null; deprecated?: boolean | null }>;
-  active_concepts?: number | null;
-  tools_count?: number | null;
-  entities_count?: number | null;
-  observations_count?: number | null;
-};
-const concepts = raw.concepts ?? [];
-const active = concepts.filter((c) => !c.deprecated);
-const statIndicators = raw.active_concepts ?? active.length;
-const statSources = new Set(active.map((c) => c.source || '—')).size;
+const raw = indicatorData as { active_concepts?: number | null; tools_count?: number | null };
+const statConcepts = raw.active_concepts ?? null;
 const statTools = raw.tools_count ?? null;
-const statEntities = raw.entities_count ?? null;
-const statObservations = raw.observations_count ?? null;
+const statRepos = (reposJson as { repos: unknown[] }).repos.length;
 const fmt = (n: number) => n.toLocaleString(locale);
+const lineHref = (l: string) => getRelativeLocaleUrl(locale, `products/${l}`);
 ---
 
 <Layout locale={locale} title={title} description={t(locale, 'hero.sub')}>
   <section class="hero">
-    <span class="tagline">{t(locale, 'tagline')}</span>
     <h1>{t(locale, 'hero.title')}</h1>
     <p class="sub">{t(locale, 'hero.sub')}</p>
     <div class="cta">
-      <a class="primary" href={getRelativeLocaleUrl(locale, 'demo')}>{t(locale, 'cta.demo')}</a>
-      <a class="secondary" href={getRelativeLocaleUrl(locale, 'docs')}>{t(locale, 'cta.docs')}</a>
+      <a class="primary" href={getRelativeLocaleUrl(locale, 'products')}>{t(locale, 'cta.products')}</a>
+      <a class="secondary" href={getRelativeLocaleUrl(locale, 'demo')}>{t(locale, 'cta.demo')}</a>
     </div>
-    <div class="stats">
-      <div class="stat"><b>{fmt(statIndicators)}</b><span>{t(locale, 'stat.concepts')}</span></div>
-      <div class="stat"><b>{fmt(statSources)}</b><span>{t(locale, 'stat.sources')}</span></div>
-      {statTools != null && (
-        <div class="stat"><b>{fmt(statTools)}</b><span>{t(locale, 'stat.tools')}</span></div>
-      )}
-      {statEntities != null && (
-        <div class="stat"><b>{fmt(statEntities)}</b><span>{t(locale, 'stat.entities')}</span></div>
-      )}
-      {statObservations != null && (
-        <div class="stat"><b>{fmt(statObservations)}</b><span>{t(locale, 'stat.observations')}</span></div>
-      )}
-    </div>
+    <p class="statline">
+      {
+        [
+          statConcepts != null && `${fmt(statConcepts)} ${t(locale, 'stat.concepts')}`,
+          statTools != null && `${fmt(statTools)} ${t(locale, 'stat.tools')}`,
+          `${fmt(statRepos)} ${t(locale, 'stat.repos')}`,
+        ]
+          .filter(Boolean)
+          .join(' · ')
+      }
+    </p>
   </section>
   <section class="lines-strip">
     <h2><a href={getRelativeLocaleUrl(locale, 'products')}>{t(locale, 'home.lines.title')}</a></h2>
     <p class="sub">{t(locale, 'home.lines.sub')}</p>
     <ul class="grid">
       {
-        PRODUCT_LINES.map((l) => (
+        PRODUCT_LINES.map((l, i) => (
           <li class="card">
-            <a class="card-main" href={getRelativeLocaleUrl(locale, `products/${l}`)}>
+            <a class="card-main" href={lineHref(l)}>
+              <LineMark char={LADDER_CHARS[i]} name={t(locale, `line.${l}`)} size="md" />
               <span class="name lines-name">{t(locale, `line.${l}`)}</span>
               <span class="desc">{t(locale, `line.${l}.desc`)}</span>
             </a>

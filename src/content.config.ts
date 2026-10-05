@@ -37,6 +37,12 @@ const repos = defineCollection({
 // are a public contract and must never be renamed.
 export const PRODUCT_LINES = ['base', 'lex', 'wire', 'facet', 'constellation'] as const;
 
+// The ladder characters behind the line marks (ui-refine D4 / ADR-0003):
+// 壹 and 萬 write their numbers openly in formal script, 识/柏/谦 hide theirs
+// in plain speech — 识/谦 in simplified forms matching the line names.
+// Same order as PRODUCT_LINES; consumed by the LineMark component.
+export const LADDER_CHARS = ['壹', '识', '柏', '谦', '萬'] as const;
+
 // `apps` — hand-written product/app pages for deployed apps that are not
 // public GitHub repos (e.g. the legal line, hosted only in private Gitee
 // mirrors). Committed, not fetched: renders with no network access. One file
