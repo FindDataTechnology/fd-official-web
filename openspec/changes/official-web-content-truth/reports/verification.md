@@ -53,6 +53,27 @@ $ node scripts/check-content-integrity.mjs          # 修复后现树
   在旗舰页与两版首页均为 0 命中。
 - `openspec validate official-web-content-truth --strict`：valid。
 
+## 上线与线上核验（任务 4.4）
+
+时间：2026-10-06 04:04–04:36（本地时区 UTC+8 对应 UTC 10-05 20:04–20:36）
+
+- 镜像：GitHub Actions（TCR 标准通道）构建 `sha-8f7dfc4`。首次运行因托管 runner
+  15 分钟未接单被取消，重跑后成功（6m13s）。
+- Roll：`ea26014` 把 `deploy/k8s/fd-web.yaml` 钉到 `sha-8f7dfc4`，gitee+github 双推。
+- ArgoCD：app `fd-web` `SYNC=Synced OP=Succeeded`（20:11:26），chengsi（VM-0-9-ubuntu）
+  上 `official-web` 部署 `READY=2/2 UPD=2`，旧 RS 全部缩 0。
+- Pod 路径哨兵（NodePort 30442 直接探针）**6/6 全绿**：
+  law-bench→lex 入口 ×2 ✓；旗舰页 EN `452 indicator concepts · 53 MCP tools` ✓；
+  旗舰页 ZH `452 个指标概念 · 53 个 MCP 工具` ✓；`FindDataOfficial` 0 命中 ✓；
+  `Scrapyd` 0 命中 ✓；首页「两篇论文」0 命中 ✓。
+- **EdgeOne 边缘缓存滞后**：公网无参 URL 在滚动后 40+ 分钟仍返回旧对象
+  （`eo-cache-status: HIT`，age 一路涨到 1592s+，缓存对象取自 20:13——当时新 pod
+  尚未 Ready）。带查询串请求（缓存键不同）即时返回新内容，证明源站经公网已出新版。
+  截图证据以带参 URL 摄取；无参旧对象随边缘 TTL 自然过期。
+- 截图：`reports/after/zh-law-bench-lex-entry.png`、`reports/after/en-flagship-452-53.png`
+  （公网带参 URL，1440×900）；改前 HTML 证据在 `reports/before/`（线上旧页原样抓取：
+  旗舰页 15/45、产品页 FindDataOfficial、law-bench 死 IP）。
+
 ## 遗留给用户裁决
 
 - 蝉蜕（roadmap 第一阶段）四条交付物已全部改写为「已上线」，但阶段状态仍是 in-progress、

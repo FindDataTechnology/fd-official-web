@@ -50,6 +50,7 @@
 - [x] 4.2 `npm run build` 通过（102 页，含 content:check 前置门）；`npm run content:check` 通过
 - [x] 4.3 本地核对：旗舰页数字 == 首页统计（452/53，双语）；构建产物 grep 旧数字 0 残留；
       content-integrity 全绿即全站无 `FindDataOfficial`；`law-bench` 新入口探针 200
-- [ ] 4.4 上线（Jenkins 构建 → ArgoCD 滚动）后，中英对照截图与探针结果归档到
-      `reports/`
+- [x] 4.4 上线（镜像 sha-8f7dfc4 → roll `ea26014` → ArgoCD 滚动 2/2 Ready）后，探针与
+      双语截图归档 `reports/`（pod 路径 6/6 哨兵全绿；公网带参 URL 已出新内容，
+      无参旧对象等 EdgeOne 边缘缓存自然过期——见 verification.md 部署节）
 - [x] 4.5 「站点之外同类残留」与「npm scope 重新发布」已登记在 `repo-descriptions.md`

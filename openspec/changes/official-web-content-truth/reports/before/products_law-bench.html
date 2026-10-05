@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v7.2.0"><title>LawBench — Contract Intelligence — FindData Technology</title><meta name="description" content="Draft contracts from a clause library, review them with AI across three dimensions, and evaluate every draft against rubrics."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/global.css"></head><body><header class="site"><nav><a class="brand" href="/">Find<em>Data</em></a><div class="nav-links"><a href="/">Home</a><a href="/products/">Products</a><a href="/repos/">Repos</a><a href="/docs/">Docs</a><a href="/indicators/">Indicators</a><a href="/data/">Data Modules</a><a href="/roadmap/">Roadmap</a><a href="/releases/">Releases</a><a href="/updates/">Updates</a><a href="/demo/">Demo</a></div><a class="lang" href="/zh/products/law-bench/">中文</a></nav></header><main><a class="doc-back" href="/products/">← All products</a><article class="doc"><h1>LawBench — Contract Intelligence</h1><p class="flagship-tagline">Draft contracts from a clause library, review them with AI across three dimensions, and evaluate every draft against rubrics.</p><p class="repo-meta"><span>Legal AI platform · </span><a href="/products/lex/">Lex</a></p><a class="repo-demo-btn" href="http://23.144.68.246:30830" target="_blank" rel="noopener noreferrer">▶ Try it live</a><p>LawBench is the heart of the Lex line (寻数·识律) — making law legible. It is
+FindData Technology’s contract drafting and review platform, backed by the
+line’s fine-tuned legal models and the law_db corpus served through the
+business MCP. It turns contract work into a measurable pipeline: generate a
+draft from a curated clause library, review it with multiple AI models in
+parallel, and score the result against reusable rubrics.</p>
+<h2 id="contract-generation">Contract generation</h2>
+<p>Drafts are assembled — not hallucinated — from a clause library grounded in
+Chinese contract taxonomy: the 19 typical named contracts of the Civil Code
+(买卖、租赁、服务 and more) plus the practical “China Contract Classification”
+system of 5,000+ template contracts across up to six taxonomy levels. Pick a
+contract type, a stance (which side you represent), and scenario tags, and
+LawBench assembles a complete draft with the right clauses attached.</p>
+<h2 id="triple-ai-review">Triple AI review</h2>
+<p>Every draft can go through a three-reviewer pipeline (LangGraph-orchestrated,
+three models in parallel):</p>
+<table>
+<thead>
+<tr>
+<th>Reviewer</th>
+<th>Dimension</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal</td>
+<td>accuracy and compliance of the clauses</td>
+</tr>
+<tr>
+<td>Commercial</td>
+<td>fairness of the deal terms for your stance</td>
+</tr>
+<tr>
+<td>Completeness</td>
+<td>missing clauses, undefined terms, gaps</td>
+</tr>
+</tbody>
+</table>
+<p>Each reviewer returns structured findings, so revisions target specific
+clauses rather than vague feedback.</p>
+<h2 id="evaluation-not-vibes">Evaluation, not vibes</h2>
+<p>Reviews are graded. Rubrics (with per-criterion scoring), DeepEval metrics, and
+side-by-side prompt comparisons make drafting quality measurable and
+regression-testable — including a “harbor” of read-only reference rubrics.</p>
+<h2 id="clause-rag--law-references">Clause RAG &amp; law references</h2>
+<p>A retrieval index over the clause library powers clause search and assembly,
+and per-contract-type surveys of applicable laws and regulations (with an
+aggregated, deduplicated law-reference index) keep drafts anchored to the
+actual legal basis.</p>
+<h2 id="integrates-as-mcp">Integrates as MCP</h2>
+<p>An MCP server exposes the platform as 52 tools — contract generation, rubric
+and prompt management, evaluation runs, clause search, law references — so AI
+agents (Claude, LibreChat, any MCP client) can draft and review contracts
+directly from a chat.</p>
+<h2 id="try-it">Try it</h2>
+<p>The contract review assistant is live: <a href="http://23.144.68.246:30830">open the demo</a>.</p>
+</article></main><footer class="site"><div class="inner"><span class="org">© 2026 <a href="https://github.com/FindDataTechnology">FindDataTechnology</a><a class="gh" href="https://github.com/FindDataTechnology" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg></a></span><span>Infrastructure and tools for text and data in the AI era.</span><a class="gh" href="https://github.com/FindDataTechnology/fd-official-web" target="_blank" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>View source</a><a class="icp" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备2026118740号-1</a><a class="mps" href="https://beian.mps.gov.cn/#/query/webSearch?code=44030002016558" target="_blank" rel="noopener noreferrer">粤公网安备44030002016558号</a></div></footer></body></html>
