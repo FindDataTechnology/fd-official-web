@@ -27,6 +27,11 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { normalizeCalibers } from './data-module-utils.mjs';
 
 const OUT = new URL('../src/data/calibers.json', import.meta.url);
+// Client-fetch copy: shipped verbatim into dist (public/) so the caliber band
+// can hydrate at runtime. On the image-build channel (GitHub Actions) this is
+// a null snapshot — the chengsi nginx overrides this exact URL with the cron
+// channel's live file, which CAN reach the business-mcp service lane.
+const PUBLIC_OUT = new URL('../public/data/calibers.json', import.meta.url);
 // Gateway path requires a per-user Logto JWT (168h cap) — unusable for the
 // unattended 6h cron. The business-mcp service lane (FDBIZ_INTERNAL_TOKEN,
 // same credential fd-open-data-mcp's federation already uses) is static.
@@ -35,11 +40,11 @@ const MCP_URL = BASE_URL.endsWith('/mcp') ? BASE_URL : `${BASE_URL.replace(/\/$/
 const TOKEN = process.env.FD_CALIBERS_MCP_TOKEN ?? '';
 
 async function writeSnapshot(source, calibers, error) {
+  const body = `${JSON.stringify({ generated_at: new Date().toISOString(), source, calibers, ...(error ? { error } : {}) }, null, 2)}\n`;
   await mkdir(new URL('./', OUT), { recursive: true });
-  await writeFile(
-    OUT,
-    `${JSON.stringify({ generated_at: new Date().toISOString(), source, calibers, ...(error ? { error } : {}) }, null, 2)}\n`,
-  );
+  await writeFile(OUT, body);
+  await mkdir(new URL('./', PUBLIC_OUT), { recursive: true });
+  await writeFile(PUBLIC_OUT, body);
 }
 
 async function mcpRequest(sessionId, body) {

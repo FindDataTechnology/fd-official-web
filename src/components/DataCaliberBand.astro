@@ -32,21 +32,60 @@ const formatAsOf = (value?: string | null) => {
 };
 
 const items = [
-  { label: t(locale, 'data.calibers.registered'), value: format(calibers?.registered_total) },
-  { label: t(locale, 'data.calibers.servable'), value: format(calibers?.servable_total) },
-  { label: t(locale, 'data.calibers.active'), value: format(activeConcepts) },
+  { key: 'registered', label: t(locale, 'data.calibers.registered'), value: format(calibers?.registered_total) },
+  { key: 'servable', label: t(locale, 'data.calibers.servable'), value: format(calibers?.servable_total) },
+  { key: 'active', label: t(locale, 'data.calibers.active'), value: format(activeConcepts) },
 ];
 const asOfText = formatAsOf(asOf);
 ---
 
-<div class="data-calibers" aria-label={isZh ? '指标口径带：登记指标 / 可服务指标 / 活跃概念' : 'Indicator calibers: registered / servable / active concepts'}>
+<div class="data-calibers" id="data-calibers" aria-label={isZh ? '指标口径带：登记指标 / 可服务指标 / 活跃概念' : 'Indicator calibers: registered / servable / active concepts'}>
   {
     items.map((item) => (
       <div class="data-calibers-item">
-        <strong class={`data-calibers-value${item.value ? '' : ' is-unknown'}`}>{item.value ?? t(locale, 'data.card.unknown')}</strong>
+        <strong class={`data-calibers-value${item.value ? '' : ' is-unknown'}`} data-caliber-value={item.key}>{item.value ?? t(locale, 'data.card.unknown')}</strong>
         <span class="data-calibers-label">{item.label}</span>
       </div>
     ))
   }
-  {asOfText && <p class="data-calibers-asof">{t(locale, 'data.calibers.asOf').replace('{date}', asOfText)}</p>}
+  {asOfText && <p class="data-calibers-asof" data-caliber-asof>{t(locale, 'data.calibers.asOf').replace('{date}', asOfText)}</p>}
 </div>
+
+<script>
+  // Runtime hydration for the registered/servable calibers: the build-time
+  // snapshot can be null on channels whose build environment cannot reach the
+  // business-mcp service lane (the container image is built on GitHub
+  // Actions). The chengsi nginx overrides this exact URL with the cron
+  // channel's live file (which CAN reach it), so hydrate whenever the fetched
+  // snapshot carries real numbers — otherwise keep the honest build-time
+  // render. The active-concepts count is build-local and never hydrated.
+  const root = document.getElementById('data-calibers');
+  if (root) {
+    fetch('/data/calibers.json?v=' + Date.now())
+      .then((r) => (r.ok ? r.json() : null))
+      .then((snap) => {
+        const cal = snap && snap.calibers;
+        if (!cal) return;
+        const fmt = (n) => (typeof n === 'number' && Number.isFinite(n) ? n.toLocaleString() : null);
+        for (const key of ['registered', 'servable'] as const) {
+          const el = root.querySelector(`[data-caliber-value="${key}"]`);
+          const value = fmt(key === 'registered' ? cal.registered_total : cal.servable_total);
+          if (el && value) {
+            el.textContent = value;
+            el.classList.remove('is-unknown');
+          }
+        }
+        if (snap.generated_at) {
+          const asof = root.querySelector('[data-caliber-asof]');
+          const date = new Date(snap.generated_at);
+          if (asof && !Number.isNaN(date.getTime())) {
+            asof.textContent = asof.textContent!.replace(
+              /[\d][\d/,.-]*/,
+              date.toLocaleDateString(document.documentElement.lang === 'zh' ? 'zh-CN' : 'en-US'),
+            );
+          }
+        }
+      })
+      .catch(() => {});
+  }
+</script>
