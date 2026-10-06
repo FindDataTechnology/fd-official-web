@@ -1,0 +1,39 @@
+---
+// 阳文实底公司父印「寻」(official-web-brand-mission): mint rounded square,
+// deep-teal 寻 in Songti. Parent of the five line seals (壹识柏谦萬) — the
+// company mark anchors; the line seals serialize under it (ADR-0003 logic).
+interface Props {
+  size?: 'xs' | 'sm' | 'md' | 'lg';
+  class?: string;
+}
+const { size = 'md', class: className = '' } = Astro.props;
+---
+
+<span class:list={['brandmark', size, className]} role="img" aria-label="寻数 FindData">
+  <span class="char">寻</span>
+</span>
+
+<style>
+  .brandmark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    background: var(--accent);
+    border-radius: 6px;
+  }
+  .char {
+    font-family: 'Songti SC', 'STSong', 'Noto Serif SC', 'SimSun', serif;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent-ink, #06201b);
+  }
+  .xs { width: 22px; height: 22px; border-radius: 5px; }
+  .xs .char { font-size: 0.875rem; }
+  .sm { width: 28px; height: 28px; border-radius: 6px; }
+  .sm .char { font-size: 1.05rem; }
+  .md { width: 32px; height: 32px; border-radius: 7px; }
+  .md .char { font-size: 1.2rem; }
+  .lg { width: 48px; height: 48px; border-radius: 10px; }
+  .lg .char { font-size: 1.75rem; }
+</style>
