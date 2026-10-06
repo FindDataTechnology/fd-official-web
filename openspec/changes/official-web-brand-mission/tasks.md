@@ -17,7 +17,7 @@
 - [x] 2.2 首页 rung 卡：desc 替换为定位句（首页讲为什么；/products 保留是什么）——`line.${l}.why`
 - [x] 2.3 hero 副题句尾更新：zh「……促进信息平权和社会公平。」en "…— advancing information equality and social fairness."
 - [x] 2.4 使命块：阶梯之下，细线上边 + mono 标签「使命 / Mission」+ 公司使命全文（双语）
-- [ ] 2.5 首页既有区块保持：statline、开源区块、当前进展链接行（或按 B 精神降为链接行——实现时定）
+- [x] 2.5 首页既有区块保持：statline、开源区块、当前进展链接行（或按 B 精神降为链接行——实现时定）
 
 ## 3. 词汇落档
 
@@ -30,4 +30,4 @@
 - [x] 4.2 `npm run build` + `content:check` 通过
 - [x] 4.3 本地双语截图核对：导航（寻印+wordmark）、首页全屏（rung 定位句/使命块/开源区块）、favicon 16px 实测；
       `impeccable detect` 过改动文件
-- [ ] 4.4 发货：镜像构建 → roll → 公网验收（favicon/导航/首页定位句/使命块/OG）→ 截图归档 reports/
+- [x] 4.4 发货完成：roll sha-9d979d0（2/2 Healthy）→ 公网 8/8 终验全绿（寻印导航/使命块/定位句/demo CTA/favicon/OG）；OG 卡重制源与成品已入库
