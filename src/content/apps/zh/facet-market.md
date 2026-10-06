@@ -20,10 +20,10 @@ order: 5
 ## 一行装进编辑器
 
 ```
-npx @finddatatechonology/facet install <包 id> --target claude-code|cursor
+npx @finddatatechnology/facet install <包 id> --target claude-code|cursor
 ```
 
-安装是版本快照：装进项目的内容有确定版本。CLI 已发布在 npm（`@finddatatechonology/facet`），支持 Claude Code 与 Cursor 两类目标。
+安装是版本快照：装进项目的内容有确定版本。CLI 已发布在 npm（`@finddatatechnology/facet`），支持 Claude Code 与 Cursor 两类目标。
 
 ## 在线体验
 

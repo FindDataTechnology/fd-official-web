@@ -20,10 +20,10 @@ Beyond skill packs, the market lists MCP services: standardized access points fo
 ## One command into your editor
 
 ```
-npx @finddatatechonology/facet install <pack id> --target claude-code|cursor
+npx @finddatatechnology/facet install <pack id> --target claude-code|cursor
 ```
 
-An install is a version snapshot: what lands in your project has a definite version. The CLI is published on npm as `@finddatatechonology/facet`, targeting Claude Code and Cursor.
+An install is a version snapshot: what lands in your project has a definite version. The CLI is published on npm as `@finddatatechnology/facet`, targeting Claude Code and Cursor.
 
 ## Try it
 
