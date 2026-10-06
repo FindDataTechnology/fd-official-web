@@ -81,4 +81,15 @@ const lineHref = (l: string) => getRelativeLocaleUrl(locale, `products/${l}`);
       }
     </ol>
   </section>
+  <section class="opensource">
+    <h2>{t(locale, 'oss.title')}</h2>
+    <p class="oss-addr">
+      <a href="https://github.com/FindDataTechnology" target="_blank" rel="noopener noreferrer">{t(locale, 'oss.addr')}</a>
+      <span class="oss-count">{fmt(statRepos)} {t(locale, 'stat.repos')}</span>
+    </p>
+    <div class="oss-links">
+      <a class="button button-secondary" href={getRelativeLocaleUrl(locale, 'repos')}>{t(locale, 'oss.catalog')}</a>
+      <a class="button button-secondary" href="https://github.com/FindDataTechnology" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+    </div>
+  </section>
 </Layout>

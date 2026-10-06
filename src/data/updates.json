@@ -15,22 +15,72 @@
   },
   {
     "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/279bc6281a633739555aff1288537a78bb1f7ffb",
-    "version": "279bc62",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/ba9f7cd8393a3a2d3f289fa095fd1b83dc571e88",
+    "version": "ba9f7cd",
     "date": "2026-10-06",
     "upcoming": false,
     "summary": [
-      "polish(demo+docs): /demo 消除双主标题（tour 段降到 title 级 + 三个章节加细线分隔，页面只剩 h1 一个一级标题，主任务=查询台更突出）；/docs 阅读面收口（p measure 72ch、h2 节奏与锚点 scroll-margin、列表 6px、表头底色弱化）；浏览器下划线偏移 3px（最后一块未主题化的浏览器表面）"
+      "openspec: official-web-ia-lean 提案落盘——导航收敛三项（产品/动态/演示），数据/仓库/文档沉没（页脚+所属页入口，URL 全保留）；首页新增开源组织区块（GitHub 地址+仓库数+双入口）；product-portal ADDED + site-shell 导航 MODIFIED"
     ]
   },
   {
     "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/d23b76a2f5af7bc657fd3c20e0285270c434fb7a",
-    "version": "d23b76a",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/549fe4c4b4dadddd59e440420a9049b04dad6b92",
+    "version": "549fe4c",
     "date": "2026-10-06",
     "upcoming": false,
     "summary": [
-      "polish(catalog+repos): 阶梯语言延伸到导航与分组——产品目录五个 tab 各带本线朱文印章（LineMark 新增 xs 尺寸）；/repos 分组头右侧加水印数字（一十百千万随级）；全站与落地页同族"
+      "mcp pod -> odm sha-f6c2629（联邦登记/触发/质量列）"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/fd6bf84d5a92f6052c42dd4b171721e9f6bfb9f2",
+    "version": "fd6bf84",
+    "date": "2026-10-06",
+    "upcoming": false,
+    "summary": [
+      "fix(404): 容器 nginx 加 error_page 404 /404.html——404.astro 此前构建了但从未被服务（未知路径返回 nginx 裸 404，Astro 默认页同源）"
+    ]
+  },
+  {
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/9bbf17a260030397370dc561fa88b4acdffabc93",
+    "version": "9bbf17a",
+    "date": "2026-10-06",
+    "upcoming": false,
+    "summary": [
+      "xinru dispatcher 镜像切 ccr sha-90246b8（GitHub Actions 构建）"
+    ]
+  },
+  {
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/90246b857b500247502280526cb6a12ecc609e47",
+    "version": "90246b8",
+    "date": "2026-10-06",
+    "upcoming": false,
+    "summary": [
+      "feat(federation): xinru-master 站点 + observer 允许清单化 + dispatcher k8s 分支（legal-line-federation 1.2/1.3/2.4/3.1-3.3）"
+    ]
+  },
+  {
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/a77261b238b797d05ee4655baf7e939739ddbfcb",
+    "version": "a77261b",
+    "date": "2026-10-06",
+    "upcoming": false,
+    "summary": [
+      "health: tickets 2026-10-06"
+    ]
+  },
+  {
+    "repo": "fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
+    "version": "0.5.38",
+    "date": "2026-10-06",
+    "upcoming": false,
+    "summary": [
+      "**`list_registry_entries` MCP tool: full-registry enumeration channel.** Pages"
     ]
   },
   {
@@ -84,26 +134,6 @@
     ]
   },
   {
-    "repo": "fd-industry-data",
-    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/a77261b238b797d05ee4655baf7e939739ddbfcb",
-    "version": "a77261b",
-    "date": "2026-10-06",
-    "upcoming": false,
-    "summary": [
-      "health: tickets 2026-10-06"
-    ]
-  },
-  {
-    "repo": "fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
-    "version": "0.5.38",
-    "date": "2026-10-06",
-    "upcoming": false,
-    "summary": [
-      "**`list_registry_entries` MCP tool: full-registry enumeration channel.** Pages"
-    ]
-  },
-  {
     "repo": "fd-daas-mcp",
     "url": "https://github.com/FindDataTechnology/fd-daas-mcp",
     "version": "0.2.0",
@@ -138,6 +168,16 @@
     ]
   },
   {
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/416737fc09ffe8e2b94ff3d2720e33e76613a1f4",
+    "version": "416737f",
+    "date": "2026-10-05",
+    "upcoming": false,
+    "summary": [
+      "build: floor fd-open-data-mcp scripts at 0.5.36/0.5.37 (scripts in sdist + source-aware upserts)"
+    ]
+  },
+  {
     "repo": "fd-industry-data",
     "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/343f5360f156eae843f8bb284852e86385b4df66",
     "version": "343f536",
@@ -158,23 +198,53 @@
     ]
   },
   {
-    "repo": "fd-industry-data",
-    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/006e3844282443f25b74367b9eaea26f3aed77b2",
-    "version": "006e384",
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/1048785ff7f20241311fa41aa328e1be7262432b",
+    "version": "1048785",
     "date": "2026-10-04",
     "upcoming": false,
     "summary": [
-      "health: 工单收口 —— nmc-weather 人工 merge PR #4（ccd4f3a）+ 合并后复核 verdict=ok → closed；drill-gen 演练单闭环"
+      "ci: smoke step must override the image ENTRYPOINT (python/cmd runs)"
     ]
   },
   {
-    "repo": "fd-industry-data",
-    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/ccd4f3a535bab9c2dd923bb962f8996a6190bf8c",
-    "version": "ccd4f3a",
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/7fdb29797ef371782ba28f3ef13671aadf46f4d8",
+    "version": "7fdb297",
     "date": "2026-10-04",
     "upcoming": false,
     "summary": [
-      "Merge pull request #4 from FindDataTechnology/gen/nmc-weather"
+      "deps: pin w3lib<2.5, ship fd-odm scripts at /app/scripts, smoke-gate image publish"
+    ]
+  },
+  {
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/f9f8300aac6fc547511fdcd838140c21fcfc8ca7",
+    "version": "f9f8300",
+    "date": "2026-10-02",
+    "upcoming": false,
+    "summary": [
+      "k8s: reconciler -> ccr sha-291af8c (start=None clamp release)"
+    ]
+  },
+  {
+    "repo": "scraw-fd-open-data-mcp",
+    "url": "https://github.com/FindDataTechnology/scraw-fd-open-data-mcp/commit/291af8cec5e037028711dc2cd9a3cd7f620818e4",
+    "version": "291af8c",
+    "date": "2026-10-02",
+    "upcoming": false,
+    "summary": [
+      "fetch_handler: clamp None series start instead of raising"
+    ]
+  },
+  {
+    "repo": "fd-open-data-protocol",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-protocol/commit/e8fca047bf2333faee6a771690dd9f7f8d7d59fe",
+    "version": "e8fca04",
+    "date": "2026-10-02",
+    "upcoming": false,
+    "summary": [
+      "release 0.3.1 — restore an installable fd-open-data-protocol"
     ]
   },
   {
@@ -208,6 +278,96 @@
     ]
   },
   {
+    "repo": "law-bench",
+    "url": "https://github.com/FindDataTechnology/law-bench/commit/44bd267bc41a3a7e2692e994cdbfb210be07c95e",
+    "version": "44bd267",
+    "date": "2026-10-01",
+    "upcoming": false,
+    "summary": [
+      "docs: repo renamed to law-bench"
+    ]
+  },
+  {
+    "repo": "law-bench",
+    "url": "https://github.com/FindDataTechnology/law-bench/commit/4c3e70bdb8bc7faf4a7cc5b9358b2a02f49852cc",
+    "version": "4c3e70b",
+    "date": "2026-10-01",
+    "upcoming": false,
+    "summary": [
+      "docs: self-link the open-source release"
+    ]
+  },
+  {
+    "repo": "law-bench",
+    "url": "https://github.com/FindDataTechnology/law-bench/commit/e70f8a2407ebd2507db46c179ec95f0398f7d81f",
+    "version": "e70f8a2",
+    "date": "2026-10-01",
+    "upcoming": false,
+    "summary": [
+      "law-bench: initial open-source release"
+    ]
+  },
+  {
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/2f91cefb2907bfbf52148673809fce99ede51b8c",
+    "version": "2f91cef",
+    "date": "2026-10-01",
+    "upcoming": false,
+    "summary": [
+      "facade: wire line banner + repo description (five-lines-public-surface 3.x)"
+    ]
+  },
+  {
+    "repo": "fd-open-data-protocol",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-protocol/commit/01c7f77f8e3ba46c3dc3785e6b13955bdd2c99e3",
+    "version": "01c7f77",
+    "date": "2026-10-01",
+    "upcoming": false,
+    "summary": [
+      "facade: wire line banner + repo description (five-lines-public-surface 3.x)"
+    ]
+  },
+  {
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/a69a3d45e45a4d5cf1478634033806ed3844316a",
+    "version": "a69a3d4",
+    "date": "2026-10-01",
+    "upcoming": false,
+    "summary": [
+      "facade: wire line banner + repo description (five-lines-public-surface 3.x)"
+    ]
+  },
+  {
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/f87b37c4d98bc7d7ee8ecb81952119c37819b64c",
+    "version": "f87b37c",
+    "date": "2026-09-30",
+    "upcoming": false,
+    "summary": [
+      "ci: 推送目标切换 hkccr，国内分发走 cheap-3 tcr-relay 回灌 ccr"
+    ]
+  },
+  {
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/776dbf59098a0f549c77e8de9f89735cce80ddf1",
+    "version": "776dbf5",
+    "date": "2026-09-30",
+    "upcoming": false,
+    "summary": [
+      "ci: split oversized layers + upstream-by-default sources + provenance off — fix transpacific TCR push wedge (tcr-image-pipeline)"
+    ]
+  },
+  {
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/e44a4b2bd195c7fc4e3a1fbef06bec82c9ca3e7d",
+    "version": "e44a4b2",
+    "date": "2026-09-30",
+    "upcoming": false,
+    "summary": [
+      "ci: publish image via GitHub Actions → TCR personal (tcr-image-pipeline)"
+    ]
+  },
+  {
     "repo": "fd-open-data-mcp",
     "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
     "version": "0.5.30",
@@ -219,6 +379,36 @@
       "**Relation browsing** (`…/relations`): cross-source binding list (native",
       "**Coverage** (`…/coverage`): registered/verified per source database and",
       "**Interactive relation graph** (`…/graph`): vendored zero-build"
+    ]
+  },
+  {
+    "repo": "fd-open-data-protocol",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-protocol/commit/0a1a841da9951864d7c8dfc3318f0324d827646d",
+    "version": "0a1a841",
+    "date": "2026-09-28",
+    "upcoming": false,
+    "summary": [
+      "feat: datasource registry layer (store, CLI, adapter templates, examples, tests)"
+    ]
+  },
+  {
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/a1b438fe7573980cc198f3cd809121b98b2a1b4f",
+    "version": "a1b438f",
+    "date": "2026-09-28",
+    "upcoming": false,
+    "summary": [
+      "docs: point README links at FindDataTechnology/fd-cn-gov (predecessor repo being retired)"
+    ]
+  },
+  {
+    "repo": "fd-cn-report",
+    "url": "https://github.com/FindDataTechnology/fd-cn-report/commit/a66ba07dee9bdfeaa5bcb33c2b42821a9af2bb5e",
+    "version": "a66ba07",
+    "date": "2026-09-24",
+    "upcoming": false,
+    "summary": [
+      "chore: remove .backup copy and applied one-shot migrations; minio to optional extra"
     ]
   },
   {
@@ -262,6 +452,56 @@
     ]
   },
   {
+    "repo": "fd-open-data-protocol",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-protocol/commit/ef7b832834cd182e104ed098b1ee949d46b579dd",
+    "version": "ef7b832",
+    "date": "2026-09-16",
+    "upcoming": false,
+    "summary": [
+      "ci: release to PyPI on tag via OIDC trusted publishing"
+    ]
+  },
+  {
+    "repo": "fd-open-data-protocol",
+    "url": "https://github.com/FindDataTechnology/fd-open-data-protocol/commit/ebbe87d790d62637df94c2e09d59b809865515d1",
+    "version": "ebbe87d",
+    "date": "2026-09-15",
+    "upcoming": false,
+    "summary": [
+      "feat: versioned semantic vocabulary core"
+    ]
+  },
+  {
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/daa248c989aa1577ad2baecd9e1ce51c40a82981",
+    "version": "daa248c",
+    "date": "2026-09-14",
+    "upcoming": false,
+    "summary": [
+      "feat(catalog): add taxonomy classification concepts"
+    ]
+  },
+  {
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/e6f2bf38d4c4bb06ce6cefce884febbc4e943905",
+    "version": "e6f2bf3",
+    "date": "2026-09-07",
+    "upcoming": false,
+    "summary": [
+      "allow tracking data .db files (intentional); keep sidecar junk ignored"
+    ]
+  },
+  {
+    "repo": "fd-cn-gov",
+    "url": "https://github.com/FindDataTechnology/fd-cn-gov/commit/1868b21f5a82f7dde4257d06f1e97311b20f42ed",
+    "version": "1868b21",
+    "date": "2026-09-07",
+    "upcoming": false,
+    "summary": [
+      "harden .gitignore: env/secrets/db/credential patterns"
+    ]
+  },
+  {
     "repo": "fd-vaas-skills",
     "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/f555d3d46b2b6a734dcab6c64023f58f28cfe88b",
     "version": "f555d3d",
@@ -269,16 +509,6 @@
     "upcoming": false,
     "summary": [
       "fix(ppt-master): fetch script broke on first run (fullwidth-paren var parse)"
-    ]
-  },
-  {
-    "repo": "fd-vaas-skills",
-    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/64b5cd1032e189826f35e2a58901eff9ccb2da68",
-    "version": "64b5cd1",
-    "date": "2026-08-20",
-    "upcoming": false,
-    "summary": [
-      "refactor(ppt-master): thin-shell + on-demand fetch (drop 12k vendored files)"
     ]
   }
 ]

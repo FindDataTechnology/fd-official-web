@@ -28,5 +28,9 @@ const fmt = (n: number) => n.toLocaleString(locale);
       )
     }
     <Content />
+    <p class="repo-meta">
+      {locale === 'zh' ? '技术文档：' : 'Technical docs: '}
+      [Quickstart](/docs/quickstart) · [Protocol](/docs/protocol) · [Datasource](/docs/datasource)
+    </p>
   </article>
 </Layout>

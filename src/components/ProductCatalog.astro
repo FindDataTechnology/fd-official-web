@@ -62,6 +62,16 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
     )
   }
   {
+    // wire line only: entry to the open data catalog (/data) — the line's
+    // data surfaces stay discoverable after leaving the header (ia-lean).
+    line === 'wire' && (
+      <a class="demo-cta" href={getRelativeLocaleUrl(locale, 'data')}>
+        <span class="demo-cta-label">▶ {t(locale, 'data.entry')}</span>
+        <span class="demo-cta-sub">{t(locale, 'data.sub')}</span>
+      </a>
+    )
+  }
+  {
     // lex line only: entry to the Shilü legal platform (lex-platform-v1).
     // Pure external link — the site renders identically whether or not the
     // target is reachable (no runtime dependency).

@@ -17,9 +17,6 @@ const path = Astro.url.pathname.replace(/^\/zh(?=\/|$)/, '') || '/';
 // D5); the sunk surfaces (indicators / roadmap / releases) live in the footer.
 const nav = [
   { href: getRelativeLocaleUrl(locale, 'products'), key: 'nav.apps' },
-  { href: getRelativeLocaleUrl(locale, 'data'), key: 'nav.data' },
-  { href: getRelativeLocaleUrl(locale, 'repos'), key: 'nav.repos' },
-  { href: getRelativeLocaleUrl(locale, 'docs'), key: 'nav.docs' },
   { href: getRelativeLocaleUrl(locale, 'updates'), key: 'nav.updates' },
   { href: getRelativeLocaleUrl(locale, 'demo'), key: 'nav.demo' },
 ];
@@ -28,7 +25,10 @@ const isActive = (href: string) => {
   return path === href || path.startsWith(`${href.replace(/\/$/, '')}/`);
 };
 const sunk = [
+  { href: getRelativeLocaleUrl(locale, 'data'), key: 'nav.data' },
   { href: getRelativeLocaleUrl(locale, 'indicators'), key: 'nav.indicators' },
+  { href: getRelativeLocaleUrl(locale, 'repos'), key: 'nav.repos' },
+  { href: getRelativeLocaleUrl(locale, 'docs'), key: 'nav.docs' },
   { href: getRelativeLocaleUrl(locale, 'roadmap'), key: 'nav.roadmap' },
   { href: getRelativeLocaleUrl(locale, 'releases'), key: 'nav.releases' },
 ];
