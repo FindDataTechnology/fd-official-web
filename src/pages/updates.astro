@@ -1,5 +1,7 @@
 ---
 import Layout from '../components/Layout.astro';
+import LineMark from '../components/LineMark.astro';
+import { PRODUCT_LINES, LADDER_CHARS, REPO_LINES } from '../content.config';
 import { t } from '../i18n';
 // Generated at build time by scripts/fetch-repos.mjs (changelogs + commits).
 import updatesJson from '../data/updates.json';
@@ -33,6 +35,13 @@ const title = t(locale, 'updates.title') + ' — FindData Technology';
         {entries.map((e) => (
           <li class={e.upcoming ? 'upcoming' : ''}>
             <div class="feed-head">
+              {REPO_LINES[e.repo] && (
+                <LineMark
+                  char={LADDER_CHARS[PRODUCT_LINES.indexOf(REPO_LINES[e.repo] as (typeof PRODUCT_LINES)[number])]}
+                  name={t(locale, `line.${REPO_LINES[e.repo]}` as const)}
+                  size="xs"
+                />
+              )}
               <a class="feed-repo" href={e.url} target="_blank" rel="noopener noreferrer">{e.repo}</a>
               <span class="feed-ver">{e.upcoming ? t(locale, 'updates.upcoming') : e.version}</span>
               {e.date && <time>{e.date}</time>}

@@ -24,6 +24,11 @@ const INTERNAL_COMMIT_PREFIXES = [
   'chore(cleanup):',
   'chore(deps):',
   'chore(release):',
+  // deploy plumbing: image rolls and tag bumps are internal (2026-10-06:
+  // three "roll official-web to sha-…" entries sat at the top of the public
+  // feed, saying nothing a visitor can use)
+  'chore(deploy):',
+  'deploy(',
 ];
 const EXCLUDED_REPOS = [];
 

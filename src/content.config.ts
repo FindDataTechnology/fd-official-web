@@ -115,3 +115,20 @@ const releases = defineCollection({
 });
 
 export const collections = { docs, repos, apps, roadmap, flagship, releases };
+
+// Repo → product line (brand judgment, one source for /repos and /updates).
+// A repo absent here renders in the "other" group / without a line mark —
+// never dropped.
+export const REPO_LINES: Record<string, string> = {
+  platform: 'base',
+  'law-bench': 'lex',
+  'fd-open-data-mcp': 'wire',
+  'fd-open-data-protocol': 'wire',
+  'fd-cn-report': 'wire',
+  'fd-industry-data': 'wire',
+  'fd-cn-gov': 'wire',
+  'scraw-fd-open-data-mcp': 'wire',
+  'fd-daas-mcp': 'facet',
+  'fd-vaas-skills': 'facet',
+  'fd-vertical-packs': 'constellation',
+};
