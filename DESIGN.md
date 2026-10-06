@@ -21,6 +21,39 @@ typography:
     fontWeight: 700
     lineHeight: 1.25
     letterSpacing: "-0.02em"
+  display-sm:
+    fontFamily: "Space Grotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif"
+    fontSize: "clamp(1.7rem, 4vw, 2.2rem)"
+    fontWeight: 700
+    lineHeight: 1.25
+  figure-lg:
+    fontFamily: "ui-monospace, 'SF Mono', Menlo, Consolas, monospace"
+    fontSize: "1.7rem"
+    fontWeight: 600
+    lineHeight: 1.1
+  subtitle:
+    fontFamily: "Space Grotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif"
+    fontSize: "1.3rem"
+    fontWeight: 700
+    lineHeight: 1.3
+  subhead:
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif"
+    fontSize: "1.15rem"
+    fontWeight: 700
+    lineHeight: 1.35
+  lead:
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif"
+    fontSize: "1.05rem"
+    fontWeight: 400
+    lineHeight: 1.6
+  micro:
+    fontFamily: "ui-monospace, 'SF Mono', Menlo, Consolas, monospace"
+    fontSize: "0.78rem"
+    fontWeight: 400
+  nano:
+    fontFamily: "ui-monospace, 'SF Mono', Menlo, Consolas, monospace"
+    fontSize: "0.68rem"
+    fontWeight: 400
   headline:
     fontFamily: "Space Grotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif"
     fontSize: "2rem"
@@ -194,12 +227,25 @@ voice; the system sans keeps Chinese clean and neutral underneath it; mono carri
 every readout. The three never trade places.
 
 ### Hierarchy
-- **Display** (700, clamp(2.2rem–3.4rem), 1.25): homepage hero only, `text-wrap: balance`.
-- **Headline** (700, 2rem, 1.3): page titles (`h1.page`).
-- **Title** (700, 1.45rem, 1.3): section headings (strips, docs `h2`). Near-white.
-- **Body** (400, 1rem, 1.6): prose; measure capped ~68–72ch on marketing surfaces.
-- **Label** (400, 0.95rem, letter-spacing 1px, uppercase): the mono tagline voice; used sparingly.
-- **Mono** (400, 0.85rem): figures, metadata rows, stat lines, file ids.
+The declared ramp — every `font-size` in the codebase is one of these steps:
+
+- **display** (700, clamp(2.2–3.4rem), 1.25): homepage hero only, `text-wrap: balance`.
+- **display-sm** (700, clamp(1.7–2.2rem), 1.25): secondary heroes (`/demo` tour).
+- **headline** (700, 2rem, 1.3): page titles (`h1.page`).
+- **figure-lg** (600, 1.7rem, 1.1): the one big number in a readout (hero stats, chart holes).
+- **title** (700, 1.45rem, 1.3): section headings (strips, docs `h2`). Near-white.
+- **subtitle** (700, 1.3rem, 1.3): in-page headlines (release headlines, doc `h2`).
+- **subhead** (700, 1.15rem, 1.35): card and phase names.
+- **lead** (400, 1.05rem, 1.6): lead paragraphs and module descriptions.
+- **body** (400, 1rem, 1.6): prose; measure capped ~68–72ch on marketing surfaces.
+- **label** (400, 0.95rem, letter-spacing 1px, uppercase): the mono tagline voice; used sparingly.
+- **mono** (400, 0.85rem): figures, metadata rows, stat lines, file ids.
+- **micro** (400, 0.78rem): chips, badges, legend, dense meta rows.
+- **nano** (400, 0.68rem): the smallest captions (chart ticks, inline tags).
+
+### Named Rules
+**The Declared-Step Rule.** A new `font-size` is added to this list or it does not ship —
+near-duplicate sizes (0.9 vs 0.92 vs 0.95) are drift, not nuance.
 
 ### Named Rules
 **The Latin-Only Display Rule.** Space Grotesk applies to headings and kickers; body

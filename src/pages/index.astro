@@ -4,7 +4,7 @@ import LineMark from '../components/LineMark.astro';
 import { t } from '../i18n';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getCollection } from 'astro:content';
-import { PRODUCT_LINES, LADDER_CHARS } from '../content.config';
+import { PRODUCT_LINES, LADDER_CHARS, LADDER_NUMERALS } from '../content.config';
 // Homepage figures come from the same build-time exports the /indicators and
 // /repos pages serve (content-integrity: no hand-written numbers).
 import indicatorData from '../data/indicators.json';
@@ -44,12 +44,16 @@ const lineHref = (l: string) => getRelativeLocaleUrl(locale, `products/${l}`);
   <section class="lines-strip">
     <h2><a href={getRelativeLocaleUrl(locale, 'products')}>{t(locale, 'home.lines.title')}</a></h2>
     <p class="sub">{t(locale, 'home.lines.sub')}</p>
-    <ul class="grid">
+    <p class="ladder-rail-label">{t(locale, 'apps.ladder.brand')}</p>
+    <ul class="grid ladder-rail">
       {
         PRODUCT_LINES.map((l, i) => (
           <li class="card">
             <a class="card-main" href={lineHref(l)}>
-              <LineMark char={LADDER_CHARS[i]} name={t(locale, `line.${l}`)} size="md" />
+              <span class="rung-top">
+                <LineMark char={LADDER_CHARS[i]} name={t(locale, `line.${l}`)} size="md" />
+                <span class="rung-numeral" aria-hidden="true">{LADDER_NUMERALS[i]}</span>
+              </span>
               <span class="name lines-name">{t(locale, `line.${l}`)}</span>
               <span class="desc">{t(locale, `line.${l}.desc`)}</span>
             </a>

@@ -43,6 +43,11 @@ export const PRODUCT_LINES = ['base', 'lex', 'wire', 'facet', 'constellation'] a
 // Same order as PRODUCT_LINES; consumed by the LineMark component.
 export const LADDER_CHARS = ['壹', '识', '柏', '谦', '萬'] as const;
 
+// The plain numerals behind the ladder (一十百千万): rendered as low-contrast
+// watermarks on the homepage rungs, so the scale reads at a glance without
+// competing with the seal marks. Same order as PRODUCT_LINES.
+export const LADDER_NUMERALS = ['一', '十', '百', '千', '万'] as const;
+
 // `apps` — hand-written product/app pages for deployed apps that are not
 // public GitHub repos (e.g. the legal line, hosted only in private Gitee
 // mirrors). Committed, not fetched: renders with no network access. One file
