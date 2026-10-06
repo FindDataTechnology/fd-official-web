@@ -1,0 +1,98 @@
+---
+// Branded 404 in the console world: a dashed empty line-mark frame — the seal
+// for a rung that doesn't exist. Bilingual inline (static 404 serves both
+// locales from one file; Layout carries the EN chrome).
+import Layout from '../components/Layout.astro';
+---
+
+<Layout locale="en" title="页面不存在 · Page not found — FindData Technology" description="This signal has no source.">
+  <section class="lost">
+    <span class="lost-frame" aria-hidden="true">?</span>
+    <p class="lost-code" aria-hidden="true">404</p>
+    <h1 class="lost-title">页面不存在 · Page not found</h1>
+    <p class="lost-sub">
+      你要找的信号不在这个频率上。<br />
+      The signal you're looking for isn't on this frequency.
+    </p>
+    <nav class="lost-links" aria-label="Recover">
+      <a href="/">首页 Home</a>
+      <a href="/products/">产品 Products</a>
+      <a href="/zh/products/">产品（中文）</a>
+      <a href="/demo/">Demo</a>
+    </nav>
+  </section>
+</Layout>
+
+<style>
+  .lost {
+    min-height: 62vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 4px;
+    padding: 48px 20px;
+  }
+  /* an empty seal frame: the mark for a rung that doesn't exist */
+  .lost-frame {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 88px;
+    border: 1.5px dashed var(--border-strong);
+    border-radius: 16px;
+    font-family: 'Songti SC', 'STSong', 'Noto Serif SC', 'SimSun', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--border-strong);
+    opacity: 0.75;
+  }
+  .lost-code {
+    margin: 18px 0 0;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: var(--figure-lg, 1.7rem);
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .lost-title {
+    margin: 6px 0 4px;
+    font-family: var(--font-display);
+    font-size: var(--fs-h2, 1.45rem);
+    line-height: 1.3;
+    color: var(--text);
+    text-wrap: balance;
+  }
+  .lost-sub {
+    margin: 0;
+    color: var(--muted);
+    font-size: var(--fs-label, 0.95rem);
+    line-height: 1.6;
+  }
+  .lost-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 22px;
+  }
+  .lost-links a {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 16px;
+    color: var(--text);
+    font-size: var(--fs-label, 0.95rem);
+  }
+  .lost-links a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .lost-links a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
