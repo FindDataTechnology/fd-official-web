@@ -42,7 +42,7 @@
 - [x] 4.1 补齐 `apps-showcase` 与 `product-portal` 的 `Purpose` 占位符
       （按 openspec 指引直接更新主规格文件）
 - [x] 4.2 新增站点仓 `CONTEXT.md`（站点域词汇：线标 / 门面 / 公开面在站点的用法）
-- [ ] 4.3 用 impeccable 的 `document` 流程生成站点仓 `DESIGN.md`（从新 token 层提取）
+- [x] 4.3 站点仓 `DESIGN.md` + `.impeccable/design.json` 已由 impeccable document 流程生成（扫描模式；沿用既有 North Star「The Agent's Console」，固化两批全部 token 与规则）
 
 ## 5. 验证与上线
 
