@@ -12,9 +12,11 @@ items_en:
   - "Shipped: Cloud Data Federation (commercial edition) moved behind login — container-image delivery only"
   - "Shipped (10-01): product domains platform.finddatatech.cloud and router.finddatatech.cloud live, old domains redirecting"
   - "Shipped (10-01): FindDataRouter brought under managed (GitOps) deployment"
+  - "In progress: the independent 柏讯 (Wire) and 识律 (Lex) platforms — B2B onboarding, delivery packages, private deployment"
 items_zh:
   - "已上线（09-29）：公开仓库门面按五条产品线重建——壹座至萬星"
   - "已上线：云端数据联邦（商业版）转入登录门控，一律镜像交付"
   - "已上线（10-01）：产品域名 platform.finddatatech.cloud 与 router.finddatatech.cloud 生效，旧域名重定向过渡"
   - "已上线（10-01）：FindDataRouter 部署纳入 GitOps 托管"
+  - "进行中：柏讯与识律的独立平台建设——B2B 开通、交付包与私有化部署"
 ---
