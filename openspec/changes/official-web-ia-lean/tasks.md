@@ -13,7 +13,7 @@
 
 - [x] 2.1 `src/components/ProductCatalog.astro`：wire 线页加「数据板块」入口区块（线标 + 简介 + 入口钮，
       复用 demo-cta 先例；仅 line === 'wire' 时渲染）
-- [ ] 2.2 open-data-mcp 详情页（`src/pages/fd-open-data-mcp.astro`）加文档入口（3 篇文档列表或入口行）
+- [x] 2.2 open-data-mcp 详情页（`src/pages/fd-open-data-mcp.astro`）加文档入口（3 篇文档列表或入口行）
 - [x] 2.3 旗舰页同时确认 /data 入口可见（与 2.1 互为双保险，spec 场景要求线页与详情页双可达）
 
 ## 3. 首页「开源」区块
@@ -38,9 +38,9 @@
 
 ## 6. 验证与发货
 
-- [ ] 6.1 `openspec validate official-web-ia-lean --strict` 通过
-- [ ] 6.2 `npm run build` 通过；`npm run content:check` 通过
-- [ ] 6.3 本地双语截图核对：首页三屏（hero/阶梯/开源区块）、导航 390px、wire 线页、旗舰页、/demo、
+- [x] 6.1 `openspec validate official-web-ia-lean --strict` 通过
+- [x] 6.2 `npm run build` 通过；`npm run content:check` 通过
+- [x] 6.3 本地双语截图核对：首页三屏（hero/阶梯/开源区块）、导航 390px、wire 线页、旗舰页、/demo、
       /docs、/updates、/repos（URL 全保留回归）
-- [ ] 6.4 `impeccable detect --json` 过一遍改动文件
+- [x] 6.4 `impeccable detect --json` 过一遍改动文件
 - [ ] 6.5 发货：镜像构建 → roll → 公网验收（导航三项、页脚入口、开源区块、404 回归）→ 截图归档 reports/
