@@ -3,7 +3,8 @@ import { getCollection, render } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Layout from '../../components/Layout.astro';
 import { t } from '../../i18n';
-import { PRODUCT_LINES } from '../../content.config';
+import LineMark from '../../components/LineMark.astro';
+import { PRODUCT_LINES, LADDER_CHARS } from '../../content.config';
 
 export async function getStaticPaths() {
   const apps = (await getCollection('apps')).filter((a) => a.id.startsWith('en/'));
@@ -29,9 +30,10 @@ const title = `${app.data.name} — FindData Technology`;
   <article class="doc">
     <h1>{app.data.name}</h1>
     <p class="flagship-tagline">{app.data.tagline}</p>
-    <p class="repo-meta">
-      {app.data.kind && <span>{app.data.kind} · </span>}
+    <p class="repo-meta app-identity">
+      <LineMark char={LADDER_CHARS[PRODUCT_LINES.indexOf(app.data.line)]} name={t(locale, `line.${app.data.line}` as const)} size="xs" />
       <a href={getRelativeLocaleUrl(locale, `products/${app.data.line}`)}>{t(locale, `line.${app.data.line}` as const)}</a>
+      {app.data.kind && <span>· {app.data.kind}</span>}
     </p>
     {app.data.demoUrl && (
       <a class="repo-demo-btn" href={app.data.demoUrl} target="_blank" rel="noopener noreferrer">▶ {t(locale, 'apps.cta')}</a>

@@ -1,6 +1,8 @@
 ---
 import { render } from 'astro:content';
 import Layout from '../components/Layout.astro';
+import LineMark from '../components/LineMark.astro';
+import { PRODUCT_LINES, LADDER_CHARS } from '../content.config';
 import { t } from '../i18n';
 import { loadReleaseIssues } from '../lib/releases';
 
@@ -23,8 +25,13 @@ const title = t(locale, 'releases.title') + ' — FindData Technology';
           <li class="release">
             <div class="feed-head">
               <span class="feed-repo">{entry.data.label}</span>
-              <span class="feed-ver">
-                {entry.data.lines.map((l) => t(locale, `line.${l}` as const)).join(' · ')}
+              <span class="feed-lines">
+                {entry.data.lines.map((l) => (
+                  <span class="feed-line-tag">
+                    <LineMark char={LADDER_CHARS[PRODUCT_LINES.indexOf(l)]} name={t(locale, `line.${l}` as const)} size="xs" />
+                    <span>{t(locale, `line.${l}` as const)}</span>
+                  </span>
+                ))}
               </span>
               <time>
                 {entry.data.period_start} – {entry.data.period_end}
