@@ -201,6 +201,7 @@ ul.grid .card .card-demo:hover { text-decoration: none; filter: brightness(1.08)
 .repo-group { margin-top: 44px; }
 .repo-group-head { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; font-size: 1.05rem; }
 .repo-group-head .count { color: var(--muted); font-family: var(--mono); font-size: 0.78rem; }
+.repo-group-head .group-numeral { margin-left: auto; font-size: 1.45rem; margin-top: 0; }
 
 /* page-level demo CTA strip (repos + docs index) */
 .demo-cta {
