@@ -43,4 +43,4 @@
 - [x] 6.3 本地双语截图核对：首页三屏（hero/阶梯/开源区块）、导航 390px、wire 线页、旗舰页、/demo、
       /docs、/updates、/repos（URL 全保留回归）
 - [x] 6.4 `impeccable detect --json` 过一遍改动文件
-- [ ] 6.5 发货：镜像构建 → roll → 公网验收（导航三项、页脚入口、开源区块、404 回归）→ 截图归档 reports/
+- [x] 6.5 发货完成：roll sha-d6eebdf（2/2 Healthy，Synced），公网全验——导航三项/页脚六入口/开源区块/wire 线页 /data 入口/旗舰页 /data+docs 入口/demo 新 CTA/使命句双语/404 回归；截图归档 reports/（中途发现 5777ca9 的 roll 因 sed 静默失败从未发生，d6eebdf 一次补齐）
