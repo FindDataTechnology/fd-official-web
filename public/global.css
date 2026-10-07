@@ -79,6 +79,14 @@ header.site nav {
 
 header.site .brand {
   font-weight: 700; color: var(--text); letter-spacing: 0.2px;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+header.site .brand-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 6px;
+  background: var(--accent); color: var(--accent-ink, #06201b);
+  font-family: 'Songti SC', 'STSong', 'Noto Serif SC', 'SimSun', serif;
+  font-weight: 700; font-size: 0.95rem; line-height: 1;
 }
 header.site .brand em { color: var(--accent); font-style: normal; }
 
@@ -160,6 +168,35 @@ ul.grid .card .card-demo {
   padding: 6px 14px; font-weight: 700; font-size: 0.85rem;
 }
 ul.grid .card .card-demo:hover { text-decoration: none; filter: brightness(1.08); }
+
+/* ── homepage mission block (brand-mission) ────────────────────────── */
+.mission {
+  max-width: 1080px; margin: 64px auto 0;
+  border-top: 1px solid var(--border); padding-top: 22px;
+}
+.mission-label {
+  margin: 0 0 8px; color: var(--muted);
+  font-family: var(--mono); font-size: var(--fs-label);
+  letter-spacing: 0.05em;
+}
+.mission-body {
+  margin: 0; color: var(--text); font-size: 1.15rem; line-height: 1.7;
+  max-width: 68ch;
+}
+
+/* ── homepage open-source strip (ia-lean) ──────────────────────────── */
+.opensource {
+  max-width: 1080px; margin: 76px auto 0;
+  border-top: 1px solid var(--border); padding-top: 22px;
+}
+.opensource h2 { font-size: var(--fs-h2); margin: 0 0 10px; }
+.opensource .oss-addr {
+  margin: 0 0 14px; font-family: var(--mono); font-size: var(--fs-mono);
+  color: var(--text); display: flex; gap: 14px; flex-wrap: wrap; align-items: baseline;
+}
+.opensource .oss-addr a { color: var(--accent); }
+.opensource .oss-count { color: var(--muted); }
+.opensource .oss-links { display: flex; gap: 10px; flex-wrap: wrap; }
 
 /* ── homepage ladder rail (ui-refine polish pass) ─────────────────────
    The five lines as a magnitude ladder: seal mark + numeral watermark per
