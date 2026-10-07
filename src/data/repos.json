@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T18:31:48.893Z",
+  "generated_at": "2026-10-07T12:28:28.519Z",
   "repos": [
     {
       "name": "fd-open-data-mcp",
@@ -38,21 +38,21 @@
       "hasReadme": true
     },
     {
-      "name": "fd-official-web",
-      "description": "Official website of FindData Technology (寻数科技) — the public facade of the five product lines: products, open-source repos, docs, and a live MCP demo.",
-      "language": "Astro",
-      "stars": 0,
-      "updated": "2026-10-06",
-      "url": "https://github.com/FindDataTechnology/fd-official-web",
-      "hasReadme": true
-    },
-    {
       "name": "fd-industry-data",
       "description": "Industry data spiders with remote browser support.",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-10-06",
+      "updated": "2026-10-07",
       "url": "https://github.com/FindDataTechnology/fd-industry-data",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-official-web",
+      "description": "Official website of FindData Technology (寻数科技) — the public facade of the five product lines: products, open-source repos, docs, and a live MCP demo.",
+      "language": "Astro",
+      "stars": 0,
+      "updated": "2026-10-07",
+      "url": "https://github.com/FindDataTechnology/fd-official-web",
       "hasReadme": true
     },
     {
