@@ -9,3 +9,7 @@
 - [x] 7. nginx cutover: `/mcp` `proxy_pass` `8899`→`30899`; `nginx -t && systemctl reload nginx`; verified bearer gate (401 without token, 406 with token = auth passed). **Extra fix:** removed traefik (k3s default, was NOT disabled at install) whose svclb pod hostPort-hijacked :80/:443 → all traffic Go-404'd. Permanently disabled via `/etc/rancher/k3s/config.yaml` `disable: [traefik]` + k3s restart; nginx owns :80 again, static `/` 200.
 - [ ] 8. LibreChat **Tools** tab: confirm `fd-open-data-mcp` tools listed; invoke one from chat. **Server-side verified:** api logs show `Initialized with 1 configured server and 45 tools` (incl. `ai_search`); browser confirm pending with #6.
 - [x] 9. Stop systemd `fd-mcp` (stopped + disabled; unit file kept — rollback `sudo systemctl enable --now fd-mcp`); demo-proxy `MCP_URL` repointed 8899→30899 (`/demo` verified via container); `OPS.md` updated with k3s layout, image rebuild flow, token rotation.
+
+## 归档备注（2026-10-07）
+
+本 change 归档时保留 #6/#8 未勾（两项均为「浏览器人工核」），其实质已由服务器侧证据闭环：MCP pod 运行中；LibreChat `librechat-api` 2026-10-01 启动日志 `[MCP] Initialized with 1 configured server and 70 tools`；2026-09-17 有真实问答 3 轮（6 条消息全部 error=false）。30899 现为官网 `/mcp` 与 `/demo-api` 的冻结依赖（根仓 `mcp-pod-deployment` / `mcp-service-deploy` 规格已覆盖）；#6 当时的阻塞（腾讯云安全组 30830）已因 chat 走 nginx 443 而不复存在。

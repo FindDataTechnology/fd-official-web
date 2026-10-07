@@ -115,18 +115,21 @@ information rather than as the hero's primary message.
 
 ### Requirement: Navigation grouping and current location
 
-The header navigation SHALL present at most six top-level entries, grouped by
-audience rather than listing every surface; the remaining surfaces SHALL stay
-reachable from grouped footer links and from the pages that own them. The
-navigation SHALL indicate the current location. On narrow viewports the
-navigation SHALL remain fully readable, with no horizontal scrolling and no
-clipped labels. The Chinese label for the repositories surface SHALL be 仓库,
-matching the workspace vocabulary (仓库 = code carrier, 产品 = capability unit).
+The header navigation SHALL present exactly three top-level entries —
+Products (产品), Updates (动态), and Demo (演示) — the visitor's primary
+journey. All other surfaces (数据板块, 仓库, 文档, 数据指标, 路线图, 发布)
+SHALL stay reachable from grouped footer links and from the pages that own
+them, with every URL preserved. The navigation SHALL indicate the current
+location. On narrow viewports the navigation SHALL remain fully readable,
+with no horizontal scrolling and no clipped labels. The Chinese label for
+the repositories surface SHALL be 仓库 wherever it appears (footer or page
+entries), matching the workspace vocabulary (仓库 = code carrier, 产品 =
+capability unit).
 
 #### Scenario: Header stays scannable
 
 - **WHEN** a visitor views any page
-- **THEN** the header shows at most six top-level entries plus the language switcher
+- **THEN** the header shows exactly three top-level entries plus the language switcher
 
 #### Scenario: Current location indicated
 
@@ -145,8 +148,8 @@ matching the workspace vocabulary (仓库 = code carrier, 产品 = capability un
 
 #### Scenario: Chinese repositories label
 
-- **WHEN** a visitor reads the Chinese navigation
-- **THEN** the repositories entry is labelled 仓库
+- **WHEN** a visitor reads any Chinese navigation or footer entry for the repositories surface
+- **THEN** it is labelled 仓库
 
 ### Requirement: Zero-JavaScript and accessibility floor
 
@@ -192,3 +195,19 @@ locale, so that a shared link renders a card instead of an empty preview.
 
 - **WHEN** a Chinese page is shared
 - **THEN** its card uses the Chinese asset, and an English page uses the English asset
+
+### Requirement: Line-attributed entry to the data catalog
+
+The wire line page and the open-data-mcp app detail page SHALL each carry a
+reachable entry to the data catalog (`/data`), presented with the wire line
+mark, so the data surfaces remain discoverable after leaving the header.
+
+#### Scenario: Data catalog reachable from the wire line
+
+- **WHEN** a visitor browses the wire line page
+- **THEN** an entry to the data catalog is visible, carrying the wire line mark
+
+#### Scenario: Data catalog reachable from the flagship
+
+- **WHEN** a visitor reads the open-data-mcp app detail page
+- **THEN** an entry to the data catalog is visible

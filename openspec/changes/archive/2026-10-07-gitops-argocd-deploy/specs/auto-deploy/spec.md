@@ -17,6 +17,10 @@ A GitHub Actions workflow (`build-image.yml`) SHALL build the site (fetch repos/
 - **WHEN** the build, push, or manifest bump fails
 - **THEN** the workflow run fails visibly in the Actions tab, the manifest tag is unchanged, and the live site remains on the last good Deployment
 
+#### Scenario: No foreign-runner pushes
+- **WHEN** the pipeline runs
+- **THEN** no GitHub-hosted runner pushes to a domestic Harbor or CN server
+
 ### Requirement: Server requires no build tooling
 The container image SHALL contain only pre-built static files; the workflow MUST NOT require Node.js, npm, or GitHub API access on the server or its cluster. Server-side operations for a deploy SHALL be none (ArgoCD operates purely through the Kubernetes API).
 
@@ -41,3 +45,11 @@ GitHub SHALL hold no credential capable of SSH-ing into or writing files on any 
 #### Scenario: Old deploy key revoked
 - **WHEN** the GitOps pipeline has served production through one full scheduled cycle
 - **THEN** the server's `authorized_keys` no longer contains the `fd-official-web-deploy` public key
+
+#### Scenario: No secrets in repo
+- **WHEN** the repository is inspected (including workflow/job definitions)
+- **THEN** no private keys, tokens, or passwords are present in committed files
+
+#### Scenario: Build tokens are injected by the environment
+- **WHEN** the build runs
+- **THEN** `GITHUB_TOKEN` and the MCP export token come from the pipeline environment, not from any committed file
