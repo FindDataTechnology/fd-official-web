@@ -4,28 +4,25 @@ Ops notes for the FindDataTechnology official site (this repo → `/opt/fd/web` 
 
 ## Deploy
 
-**Domestic build + static deploy (since 2026-09-21).** `scripts/build-deploy.sh` runs on the build box (cheap-1, `103.236.89.212`): it clones/pulls `main`, builds the site **inside a `node:22-alpine` container** (the box has no host Node; docker.io is unreachable so the script falls back to the `dockerproxy.net` mirror), then rsyncs `dist/` to the web box's static root `/opt/fd/web/dist`, which nginx serves directly. A failed build never touches the live site, and the previous release is kept at `/opt/fd/web/dist.prev`.
+**TCR 镜像 + ArgoCD 拉取式 GitOps**（2026-09-22 起为线上模型；镜像通道 2026-10-01 切 TCR）。
+发版 = 在 `deploy/k8s/fd-web.yaml` 把镜像 tag 升到目标 sha（一条 bump commit，如 `chore(deploy): roll official-web to sha-xxxxxxx`）。链路：push `main` → GitHub Actions `.github/workflows/image.yml`（push / 手动 dispatch）在镜像内构建 Astro 站（多阶段 `Dockerfile`；指标导出经 BuildKit secret `fd_indicators_token`，缺失时退回仓库内快照）→ 推 `hkccr.ccs.tencentyun.com/fd-web/official-web:sha-<sha>`（腾讯云 TCR 个人版）→ 集群从 `ccr.ccs.tencentyun.com` 拉取（国内分发经 cheap-3 tcr-relay 回灌，见 commit 1ab5fc1）。chengsi 上的 ArgoCD app `fd-web`（source = gitee `main`，path `deploy/k8s`，`directory.include` 仅 `fd-web.yaml`；auto-sync + prune + selfHeal）轮询到 bump 后滚动 `official-web` Deployment（2 副本，固定 `vm-0-9-ubuntu` 节点，NodePort **30442**）；宿主 nginx `location /` 反代该 NodePort。
 
-Scheduled: `/etc/cron.d/fd-web-deploy` on the build box, every 6 hours (minute 17), self-updating the script from `main` before each run. Logs: `/var/log/fd-web-deploy.log`.
+**回滚：** revert 该 tag bump 提交（ArgoCD 自动回到上一版）；或宿主 nginx `location /` 临时切回静态根（`.bak-static-20260922` 备份配置；`/opt/fd/web/dist*` 停留在 2026-09-22 的版本）。
 
-**Why not the GitHub Actions image build:** disabled by policy since 2026-09-10 (`.github/workflows/build-image.yml` is a refusal stub) — foreign-hosted runners must not push to domestic endpoints. The `fd-web` ArgoCD app still tracks `deploy/k8s/` from GitHub and keeps the in-cluster `official-web` Deployment alive on NodePort 30442, but nginx no longer routes `/` to it.
+**历史路径（均已退役）：** ① GitHub-secrets SSH + rsync（`deploy.yml`）：2026-08-29 删除；`DEPLOY_SSH_KEY`/`DEPLOY_HOST`/`DEPLOY_USER` 已从 GitHub secrets 清除，服务器旧部署公钥已撤销（旧私钥登录被拒），Mac 侧换 `fd-deploy`（`~/.ssh/fd_deploy_new`）。② cheap-1 国内构建 + rsync 静态目录（`scripts/build-deploy.sh` + `/etc/cron.d/fd-web-deploy` 每 6h）：2026-09-21 上线、09-22 切回 pod 路径，cron 已全注释停跑；其构建环境在构建箱 `/opt/fd/fd-web-build.env`（chmod 600，含 `FD_INDICATORS_MCP_TOKEN`/`GITHUB_TOKEN`/`FD_WEB_DEPLOY_PASS`）。GitHub secrets 现为 `TCR_USERNAME`/`TCR_PASSWORD`。手动发布 = dispatch `image` workflow + 本地 bump tag（`/fd-site-deploy` 同路径），或直接触发 ArgoCD sync。
 
-**Rollback:** re-run an older checkout (`git -C /opt/fd/build/fd-official-web reset --hard <sha>` then the script), or restore `dist.prev` on the web box (`rm -rf dist && mv dist.prev dist`), or flip nginx `location /` back to `proxy_pass http://127.0.0.1:30442` + `systemctl reload nginx` (the pod path, which serves whatever image tag `deploy/k8s/fd-web.yaml` pins).
-
-**Build env** (`/opt/fd/fd-web-build.env` on the build box, chmod 600 — never commit): `FD_INDICATORS_MCP_TOKEN` (bearer for the `/mcp` catalog export), optional `GITHUB_TOKEN` (a full build makes ~50 GitHub API calls — anonymous builds fit under the 60/h cap, a token makes feed coverage robust), `FD_WEB_DEPLOY_PASS` (rsync user on the web box).
-
-**ArgoCD UI:** `ssh -L 18443:127.0.0.1:30443 -p 40925 root@103.236.89.174` → http://127.0.0.1:18443 (admin; password in local password manager).
+**ArgoCD UI（chengsi）：** `ssh -L 18443:127.0.0.1:30443 ubuntu@124.220.7.175` → http://127.0.0.1:18443（`argocd-server` NodePort 30443；admin 口令在本地密码库）。
 
 
 ## Layout on the server
 
 ```
 /opt/fd/
-  web/dist           static site — nginx root (deploy target)
-  web/dist.prev      previous release (rollback target)
+  web/dist           static site — 2026-09-22 起退役为回滚副本（线上由 pod 经 nginx 提供）
+  web/dist.prev      更早一版（回滚目标）
   web/.env           secrets: MCP_TOKEN, MCP_URL, EDGAR_IDENTITY, ... (chmod 600, never commit)
-  web/server/demo-proxy.mjs   RETIRED 2026-09-21 (playground replaced by the Platform
-                     product tour); unit stopped + disabled, nginx /demo-api removed
+  web/server/demo-proxy.mjs   ACTIVE（Platform tour 演示的 /demo-api 后端：systemd 运行中，
+                     MCP_URL 指向 127.0.0.1:30899）
   finddata/          fd-open-data-mcp + fd-open-data-protocol checkouts
                      — hostPath-mounted RW into the MCP container (same paths as bare metal)
 ```
@@ -43,13 +40,13 @@ k3s (single-node, v1.36.3) runs the MCP + LibreChat. traefik is disabled via
 
 | Namespace | Workload | Exposure |
 |-----------|----------|----------|
-| `mcp` | `fd-open-data-mcp` Deployment (image `finddata/fd-open-data-mcp:torch`, 52 tools) | NodePort **30899** → 8899 |
+| `mcp` | `fd-open-data-mcp` Deployment（镜像 `ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:<sha>`，TCR——以 `deploy/k8s/mcp.yaml` 为准；Harbor tag 为回退） | NodePort **30899** → 8899 |
 | `librechat` | `librechat-api` + `-mongo` + `-meili` (slim, RAG off, LiteLLM backend) | NodePort **30830** |
 
 Manifests live in this repo: `deploy/k8s/mcp.yaml`, `deploy/k8s/librechat.yaml`.
 Secrets are k8s Secrets made from the on-box .env files (`fd-mcp-env`, `librechat-env`) — never in git.
 
-nginx config: `/etc/nginx/sites-available/fd` (IP-on-:80 fallback, default_server) + `www.finddatatech.cloud` + `chat.finddatatech.cloud` (TLS, managed by certbot). Repo copies: `deploy/nginx/`. Routes: `www` `/` → static root `/opt/fd/web/dist` · `www`+`fd` `/mcp` → **30899** (bearer check + `limit_req`) · `chat` `/` → **30830** (WebSocket/SSE, long timeouts). (`/demo-api` removed 2026-09-21 with the playground.)
+nginx config: `/etc/nginx/sites-available/fd` (IP-on-:80 fallback, default_server) + `www.finddatatech.cloud` + `chat.finddatatech.cloud` (TLS, managed by certbot). Repo copies: `deploy/nginx/`. Routes: `www` `/` → **30442**（pod） · `www`+`fd` `/mcp` → **30899** (bearer check + `limit_req`) · `www` `/demo-api` → **8898**（fd-demo-proxy → MCP） · `chat` `/` → **30830** (WebSocket/SSE, long timeouts).
 
 ## Images — Harbor registry on china-cheap-2
 
@@ -59,7 +56,7 @@ Private Harbor (v2.12) runs on **china-cheap-2** (`103.236.89.174`, SSH port `20
 - On cheap-2 itself: `harbor-endpoint.service` (socat watchdog) forwards `127.0.0.1:5000` → harbor nginx container (docker host-ports are broken on that box — internal k3s iptables — don't expose Harbor directly).
 - Harbor admin password: see the operator's local `finddata/.harbor-creds` (never commit).
 - cheap-2 egress is heavily firewalled (no docker.io CDNs, no pypi.org, no github) — **never build there**; use it only as storage.
-- The site is **no longer an image** (since 2026-09-21 it deploys as static files — see Deploy above); this registry backs the **mcp + librechat** images.
+- **2026-10-07 复核：** 官网已回到镜像形态（TCR，见 Deploy）；mcp 镜像亦切 TCR（Harbor 作回退 tag），librechat 基础镜像引用 `harbor.finddatatech.cloud:8080`（以 `deploy/k8s/*.yaml` 为准）。
 
 ### Image sources
 
@@ -71,13 +68,15 @@ Private Harbor (v2.12) runs on **china-cheap-2** (`103.236.89.174`, SSH port `20
 
 `/etc/rancher/k3s/registries.yaml` maps **`harbor.fd`** → `http://127.0.0.1:5000`. Harbor projects `finddata`/`cache` are **public-pull** (containerd 2.x ignores registries.yaml auth and k3s didn't pass imagePullSecrets to it either — the `harbor-auth` secrets in mcp/librechat are harmless future-proofing; push still needs admin). Manifests: `harbor.fd/finddata/fd-open-data-mcp:torch`, `harbor.fd/cache/mongo:7`, etc. `imagePullPolicy: IfNotPresent` — after pushing a new digest under the same tag, `ctr -n k8s.io images rm harbor.fd/finddata/fd-open-data-mcp:torch` then rollout-restart, or containerd reuses the cached tag.
 
+**2026-10-07 复核：** mcp / 官网镜像已切 `ccr.ccs.tencentyun.com`（TCR）；本节的 `harbor.fd` 映射为 Harbor 形态记录，仍适用于 Harbor 回退 tag。
+
 ⚠️ The pull path shares the box's ~3 Mbps uplink — cold pulls of the full set take hours. Keep Harbor as the durable copy.
 
 ## Services
 
 | Unit / command | What |
 |------|------|
-| `fd-demo-proxy` (systemd) | **STOPPED + DISABLED** 2026-09-21 (playground retired with the Platform tour). Re-enable only if a server-side proxied query surface returns |
+| `fd-demo-proxy` (systemd) | **ACTIVE**（Platform tour 演示的 `/demo-api` 后端；MCP_URL 指向 30899） |
 | `fd-mcp` (systemd) | **STOPPED + DISABLED** (superseded by the k3s pod). Rollback: `sudo systemctl enable --now fd-mcp` + point `MCP_URL`/nginx back to 8899 |
 | `sudo k3s kubectl ...` | all container ops |
 
@@ -104,7 +103,7 @@ systemctl restart fd-demo-proxy
 
 ## Domain cutover (finddatatech.cloud) — LIVE
 
-`www.finddatatech.cloud` (static site) and `chat.finddatatech.cloud` (LibreChat) are live over public HTTPS. ICP 备案 approved; Tencent security group opens 443, 30830 closed.
+`www.finddatatech.cloud`（官网）and `chat.finddatatech.cloud` (LibreChat) are live over public HTTPS. ICP 备案 approved; Tencent security group opens 443, 30830 closed.
 
 **In place (server side):**
 - A records: `www.finddatatech.cloud`, `chat.finddatatech.cloud`, apex `finddatatech.cloud` → `124.220.7.175`.
