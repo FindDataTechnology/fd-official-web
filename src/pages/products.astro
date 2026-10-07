@@ -1,8 +1,9 @@
 ---
-import ProductCatalog from '../components/ProductCatalog.astro';
+import BaseLanding from '../components/BaseLanding.astro';
 
-// /products defaults to the first line (base); each line's tab page lives at
+// /products defaults to the first line (base) — which is the dedicated base
+// landing since add-platform-product-page; each line's tab page lives at
 // /products/<line> (see products/[line].astro).
 ---
 
-<ProductCatalog locale="en" line="base" />
+<BaseLanding locale="en" />

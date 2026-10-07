@@ -1,0 +1,80 @@
+---
+// The five-line tab navigation, shared by the products catalog and the base
+// line's landing (extracted from ProductCatalog when the base line got its
+// own landing — one owner of the tab markup).
+import { PRODUCT_LINES, LADDER_CHARS, type ProductLine } from '../content.config';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { t } from '../i18n';
+import LineMark from './LineMark.astro';
+
+interface Props {
+  locale: string;
+  line: ProductLine;
+}
+
+const { locale, line } = Astro.props;
+// Pinyin secondary labels tie the English line names back to the Chinese
+// identity (寻数·壹座 → Yizuo); shown on EN pages only.
+const PINYIN: Record<ProductLine, string> = {
+  base: 'Yizuo',
+  lex: 'Shilü',
+  wire: 'Baixun',
+  facet: 'Qianmian',
+  constellation: 'Wanxing',
+};
+---
+
+<nav class="line-tabs" aria-label={t(locale, 'apps.title')}>
+  {
+    PRODUCT_LINES.map((l) => (
+      <a href={getRelativeLocaleUrl(locale, `products/${l}`)} class={l === line ? 'active' : ''} aria-current={l === line ? 'page' : undefined}>
+        <LineMark char={LADDER_CHARS[PRODUCT_LINES.indexOf(l)]} name={t(locale, `line.${l}` as const)} size="xs" />
+        <span>{t(locale, `line.${l}` as const)}</span>
+        {locale === 'en' && <span class="tab-pin"> · {PINYIN[l]}</span>}
+        {l === 'constellation' && <span class="tab-tag"> · {t(locale, 'line.constellation.tag')}</span>}
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .line-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0 24px;
+  }
+  .line-tabs a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    padding: 5px 14px 5px 8px;
+    border-radius: 999px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    text-decoration: none;
+  }
+  .line-tabs a.active { padding-left: 8px; }
+  .line-tabs a:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
+    text-decoration: none;
+  }
+  .line-tabs a.active {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(56, 225, 200, 0.08);
+    font-weight: 700;
+  }
+  .tab-pin {
+    opacity: 0.7;
+    font-weight: 400;
+  }
+  .tab-tag {
+    opacity: 0.8;
+    font-weight: 400;
+  }
+</style>

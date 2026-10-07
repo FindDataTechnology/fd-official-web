@@ -1,0 +1,403 @@
+---
+// Base line product landing (add-platform-product-page): /products/base
+// renders this instead of the generic catalog (design D1). Seven sections in
+// order — dual-track hero → value → tour → platform matrix → quickstart →
+// download band → closing — with the five-line tabs between hero and value.
+// Cloud CTA is contact-to-activate: the hosted cloud is invite-only, so no
+// signup link (design D6, same contact block as the 谦面/萬星 intro pages).
+import Layout from './Layout.astro';
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { t } from '../i18n';
+import { LADDER_CHARS, PRODUCT_LINES } from '../content.config';
+import LineMark from './LineMark.astro';
+import LineTabs from './LineTabs.astro';
+import TourMockup from './TourMockup.astro';
+import DownloadBand from './DownloadBand.astro';
+
+interface Props {
+  locale: 'en' | 'zh';
+}
+const { locale } = Astro.props;
+
+const CONTACT_EMAIL = '1253774197@qq.com';
+const REPO_URL = 'https://github.com/FindDataTechnology/platform';
+const ORG_URL = 'https://github.com/FindDataTechnology';
+const README_QUICKSTART = `${REPO_URL}#quick-start`;
+const demoHref = getRelativeLocaleUrl(locale, 'demo');
+
+// D7: the public README's three commands — README is the contract.
+const commands = [`git clone ${REPO_URL}.git`, 'npm install', 'npm start'];
+
+// The closing section keeps the base line's app entries reachable (spec:
+// "Line app entries stay reachable") via their detail pages.
+const baseApps = (await getCollection('apps'))
+  .filter((a) => a.id.startsWith(`${locale}/`) && a.data.line === 'base')
+  .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100));
+const slugOf = (a) => a.id.split('/')[1];
+
+const values = [
+  { icon: 'M5.5 4.5L2 8l3.5 3.5 M10.5 4.5L14 8l-3.5 3.5', key: 'opensource' },
+  { icon: 'M2 3.5h8.5v6H2v-6z M11.5 8H14v4.5h-2.5v-4.5z M6 9.5v2 M4.5 11.5h3', key: 'platforms' },
+  { icon: 'M4.5 7V5a2 2 0 014 0v2 M3.5 7h6v5h-6V7z', key: 'localfirst' },
+];
+const surfaces = [
+  { icon: 'M8 2a6 6 0 100 12A6 6 0 008 2z M2 8h12 M8 2c-3.5 3.5-3.5 8.5 0 12 3.5-3.5 3.5-8.5 0-12z', key: 'web' },
+  { icon: 'M3 2.5h10a1 1 0 011 1v7a1 1 0 01-1 1H8l-3 2.5V11.5H3a1 1 0 01-1-1v-7a1 1 0 011-1z', key: 'miniapp' },
+  { icon: 'M2.5 11.5h11 M4 11.5V4a1 1 0 011-1h6a1 1 0 011 1v7.5', key: 'macos' },
+  { icon: 'M2.5 2.5h5v5h-5v-5z M8.5 2.5h5v5h-5v-5z M2.5 8.5h5v5h-5v-5z M8.5 8.5h5v5h-5v-5z', key: 'windows' },
+];
+
+const title = t(locale, 'line.base') + ' — FindData Technology';
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'line.base.desc')}>
+  {/* ── 1 · dual-track hero ─────────────────────────────────────── */}
+  <section class="bl-hero">
+    <p class="bl-kicker">
+      <LineMark char={LADDER_CHARS[PRODUCT_LINES.indexOf('base')]} name={t(locale, 'line.base')} size="sm" />
+      {t(locale, 'line.base.landing.kicker')}
+    </p>
+    <h1>{t(locale, 'line.base.landing.hero.title')}</h1>
+    <p class="bl-sub">{t(locale, 'line.base.landing.hero.sub')}</p>
+
+    <div class="bl-tracks">
+      <div class="bl-track">
+        <h2>{t(locale, 'line.base.landing.cloud.title')}</h2>
+        <p>{t(locale, 'line.base.landing.cloud.body')}</p>
+        <a class="bl-cta" href={`mailto:${CONTACT_EMAIL}`}>{t(locale, 'line.base.landing.cloud.cta')}</a>
+        <p class="bl-note">{t(locale, 'line.base.landing.cloud.note')}</p>
+      </div>
+      <div class="bl-track">
+        <h2>{t(locale, 'line.base.landing.local.title')}</h2>
+        <p>{t(locale, 'line.base.landing.local.body')}</p>
+        <div class="bl-cmds">
+          {
+            commands.map((c) => (
+              <div class="bl-cmd">
+                <code>{c}</code>
+                <button class="copy-btn" type="button" data-copy={c} aria-label={`${t(locale, 'demo.copy')} ${c}`}>
+                  {t(locale, 'demo.copy')}
+                </button>
+              </div>
+            ))
+          }
+        </div>
+        <a class="bl-cta ghost" href="#download">{t(locale, 'line.base.landing.local.download')}</a>
+      </div>
+    </div>
+  </section>
+
+  <LineTabs locale={locale} line="base" />
+
+  {/* ── 2 · value proposition ───────────────────────────────────── */}
+  <section class="bl-value">
+    <h2>{t(locale, 'line.base.landing.value.title')}</h2>
+    <div class="bl-value-grid">
+      {
+        values.map((v) => (
+          <div class="bl-value-card">
+            <svg viewBox="0 0 16 16" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+              <path d={v.icon} />
+            </svg>
+            <h3>{t(locale, `line.base.landing.value.${v.key}.title` as const)}</h3>
+            <p>{t(locale, `line.base.landing.value.${v.key}.body` as const)}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* ── 3 · product tour ────────────────────────────────────────── */}
+  <section class="bl-tour">
+    <div class="bl-tour-copy">
+      <h2>{t(locale, 'line.base.landing.tour.title')}</h2>
+      <p>{t(locale, 'line.base.landing.tour.body')}</p>
+      <a class="bl-cta" href={demoHref}>{t(locale, 'line.base.landing.tour.cta')}</a>
+    </div>
+    <TourMockup locale={locale} />
+  </section>
+
+  {/* ── 4 · platform matrix ─────────────────────────────────────── */}
+  <section class="bl-matrix">
+    <h2>{t(locale, 'line.base.landing.matrix.title')}</h2>
+    <p class="bl-sub">{t(locale, 'line.base.landing.matrix.sub')}</p>
+    <div class="bl-matrix-grid">
+      {
+        surfaces.map((s) => (
+          <div class="bl-surface">
+            <svg viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+              <path d={s.icon} />
+            </svg>
+            <h3>{t(locale, `line.base.landing.matrix.${s.key}` as const)}</h3>
+            <p>{t(locale, `line.base.landing.matrix.${s.key}.desc` as const)}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* ── 5 · self-host quickstart ────────────────────────────────── */}
+  <section class="bl-quickstart">
+    <h2>{t(locale, 'line.base.landing.quickstart.title')}</h2>
+    <p class="bl-sub">{t(locale, 'line.base.landing.quickstart.body')}</p>
+    <div class="bl-cmds wide">
+      {
+        commands.map((c) => (
+          <div class="bl-cmd">
+            <code>{c}</code>
+            <button class="copy-btn" type="button" data-copy={c} aria-label={`${t(locale, 'demo.copy')} ${c}`}>
+              {t(locale, 'demo.copy')}
+            </button>
+          </div>
+        ))
+      }
+    </div>
+    <p class="bl-readme">
+      <a href={README_QUICKSTART} target="_blank" rel="noopener noreferrer">{t(locale, 'line.base.landing.quickstart.readme')} ↗</a>
+    </p>
+  </section>
+
+  {/* ── 6 · download band ───────────────────────────────────────── */}
+  <DownloadBand locale={locale} />
+
+  {/* ── 7 · closing ─────────────────────────────────────────────── */}
+  <section class="bl-closing">
+    <h2>{t(locale, 'line.base.landing.closing.title')}</h2>
+    <p class="bl-sub">{t(locale, 'line.base.landing.closing.body')}</p>
+    <div class="bl-closing-links">
+      <a href={getRelativeLocaleUrl(locale, 'releases')}>{t(locale, 'line.base.landing.closing.releases')}</a>
+      <a href={getRelativeLocaleUrl(locale, 'roadmap')}>{t(locale, 'line.base.landing.closing.roadmap')}</a>
+      <a href={ORG_URL} target="_blank" rel="noopener noreferrer">{t(locale, 'line.base.landing.closing.github')} ↗</a>
+    </div>
+    {
+      baseApps.length > 0 && (
+        <div class="bl-more">
+          <span class="bl-more-label">{t(locale, 'line.base.landing.closing.more')}</span>
+          <ul>
+            {baseApps.map((a) => (
+              <li>
+                <a href={getRelativeLocaleUrl(locale, `products/${slugOf(a)}`)}>{a.data.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </section>
+</Layout>
+
+<script>
+  // Copyable commands (same behavior as the demo tour's trial fields);
+  // scoped to the landing so it never double-binds another component's
+  // buttons.
+  const btns = document.querySelectorAll<HTMLButtonElement>('.bl-hero .copy-btn, .bl-quickstart .copy-btn');
+  const original = new WeakMap<HTMLButtonElement, string>();
+  btns.forEach((btn) => {
+    original.set(btn, btn.textContent ?? '');
+    btn.addEventListener('click', async () => {
+      const value = btn.dataset.copy ?? '';
+      try {
+        await navigator.clipboard.writeText(value);
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = value;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+      }
+      btn.classList.add('ok');
+      btn.textContent = btn.closest('[lang="zh"]') ? '已复制' : 'Copied';
+      setTimeout(() => {
+        btn.classList.remove('ok');
+        btn.textContent = original.get(btn) ?? '';
+      }, 1600);
+    });
+  });
+</script>
+
+<style is:inline>
+  /*
+   * is:inline on purpose: the /products/[line] route module imports both
+   * views (D1 branch), and a processed style block this size would be
+   * externalized by Astro and linked from every catalog page too. Inline
+   * styles emit only where BaseLanding renders; every selector below is
+   * uniquely bl-* namespaced, so scoping is not needed.
+   */
+  .bl-hero h1,
+  .bl-value h2,
+  .bl-tour-copy h2,
+  .bl-matrix h2,
+  .bl-quickstart h2,
+  .bl-closing h2 {
+    font-family: var(--font-display);
+  }
+  .bl-hero { padding: 26px 0 8px; }
+  .bl-kicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: var(--fs-label);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .bl-hero h1 {
+    font-size: var(--fs-display);
+    line-height: var(--lh-display);
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .bl-sub { color: var(--muted); max-width: 680px; margin: 0; font-size: 1.05rem; }
+
+  .bl-tracks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 30px;
+  }
+  .bl-track {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .bl-track h2 { margin: 0; font-size: 1.2rem; }
+  .bl-track p { margin: 0; color: var(--muted); font-size: 0.95rem; max-width: 52ch; }
+  .bl-note { font-size: 0.8rem; font-family: var(--mono); }
+
+  .bl-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    background: var(--accent);
+    color: #06201b;
+    border-radius: 10px;
+    padding: 11px 20px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .bl-cta:hover { text-decoration: none; filter: brightness(1.07); }
+  .bl-cta.ghost { background: none; color: var(--text); border: 1px solid var(--border); }
+  .bl-cta.ghost:hover { border-color: var(--accent); }
+
+  .bl-cmds {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 4px 0 8px;
+  }
+  .bl-cmds.wide { max-width: 620px; }
+  .bl-cmd {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+    background: var(--readout-void);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 12px;
+  }
+  .bl-cmd code {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--text);
+    overflow-wrap: anywhere;
+  }
+
+  /* ── value ────────────────────────────────────────────────────── */
+  .bl-value { margin-top: 56px; border-top: 1px solid var(--border); padding-top: 34px; }
+  .bl-value h2, .bl-matrix h2, .bl-quickstart h2, .bl-closing h2 { font-size: var(--fs-h2); margin: 0 0 6px; }
+  .bl-value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .bl-value-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .bl-value-card svg { color: var(--accent-2); }
+  .bl-value-card h3 { margin: 10px 0 6px; font-size: 1.05rem; }
+  .bl-value-card p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+
+  /* ── tour ─────────────────────────────────────────────────────── */
+  .bl-tour {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 44px;
+    align-items: center;
+    margin-top: 56px;
+    border-top: 1px solid var(--border);
+    padding-top: 34px;
+  }
+  .bl-tour-copy h2 { font-size: var(--fs-h2); line-height: 1.25; margin: 0 0 10px; }
+  .bl-tour-copy p { color: var(--muted); font-size: var(--fs-label); max-width: 52ch; margin: 0; }
+
+  /* ── matrix ───────────────────────────────────────────────────── */
+  .bl-matrix { margin-top: 56px; border-top: 1px solid var(--border); padding-top: 34px; }
+  .bl-matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .bl-surface {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    background: var(--bg-soft);
+  }
+  .bl-surface svg { color: var(--accent); }
+  .bl-surface h3 { margin: 10px 0 4px; font-size: 1rem; }
+  .bl-surface p { margin: 0; color: var(--muted); font-size: 0.85rem; }
+
+  /* ── quickstart ───────────────────────────────────────────────── */
+  .bl-quickstart { margin-top: 56px; border-top: 1px solid var(--border); padding-top: 34px; }
+  .bl-readme { margin: 14px 0 0; font-size: 0.95rem; }
+
+  /* ── closing ──────────────────────────────────────────────────── */
+  .bl-closing { margin-top: 56px; border-top: 1px solid var(--border); padding-top: 34px; }
+  .bl-closing-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+  .bl-closing-links a {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    color: var(--text);
+    font-size: 0.92rem;
+  }
+  .bl-closing-links a:hover { text-decoration: none; border-color: var(--accent); color: var(--accent); }
+  .bl-more { margin-top: 26px; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .bl-more-label {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+  .bl-more ul { list-style: none; display: flex; gap: 12px; margin: 0; padding: 0; flex-wrap: wrap; }
+  .bl-more a { font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .bl-tracks { grid-template-columns: 1fr; }
+    .bl-tour { grid-template-columns: 1fr; gap: 30px; }
+    .bl-value-grid { grid-template-columns: 1fr; }
+    .bl-matrix-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .bl-matrix-grid { grid-template-columns: 1fr; }
+  }
+</style>

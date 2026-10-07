@@ -1,7 +1,8 @@
 ---
-import ProductCatalog from '../../components/ProductCatalog.astro';
+import BaseLanding from '../../components/BaseLanding.astro';
 
-// /zh/products 默认展示第一条产品线（壹座）；各线 tab 页在 /zh/products/<line>。
+// /zh/products 默认展示第一条产品线（壹座）——自 add-platform-product-page 起
+// 即壹座专属产品页；各线 tab 页在 /zh/products/<line>。
 ---
 
-<ProductCatalog locale="zh" line="base" />
+<BaseLanding locale="zh" />
