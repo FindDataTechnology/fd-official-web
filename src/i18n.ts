@@ -72,8 +72,8 @@ export const ui = {
     'line.base.landing.cloud.title': 'Hosted cloud',
     'line.base.landing.cloud.body':
       'Base Online runs on managed infrastructure — full agent streaming and document RAG, no setup.',
-    'line.base.landing.cloud.cta': 'Contact us to activate',
-    'line.base.landing.cloud.note': 'Invite-based activation — no self-service signup yet.',
+    'line.base.landing.cloud.cta': 'Sign in to Base Online',
+    'line.base.landing.cloud.note': 'Open self-service signup — your account works right away.',
     'line.base.landing.local.title': 'Self-host locally',
     'line.base.landing.local.body':
       'One repo, three commands, all data in local SQLite — keys and tokens never leave your server.',
@@ -339,11 +339,11 @@ export const ui = {
     'line.base.landing.kicker': '壹座线 · 开源平台',
     'line.base.landing.hero.title': '一个执行底座，全平台可用',
     'line.base.landing.hero.sub':
-      '壹座是寻数生态的开源、本地优先 AI 助手平台——云端联系开通即用，本地三行命令自部署，也可下载桌面客户端。',
+      '壹座是寻数生态的开源、本地优先 AI 助手平台——云端登录即用，本地三行命令自部署，也可下载桌面客户端。',
     'line.base.landing.cloud.title': '云端托管',
     'line.base.landing.cloud.body': '壹座线上版跑在托管基础设施上——完整智能体流式执行、文档 RAG，开箱即用。',
-    'line.base.landing.cloud.cta': '联系开通',
-    'line.base.landing.cloud.note': '邀请制开通——暂无自助注册。',
+    'line.base.landing.cloud.cta': '进入云端版',
+    'line.base.landing.cloud.note': '开放自助注册——登录即用。',
     'line.base.landing.local.title': '本地自部署',
     'line.base.landing.local.body': '一个仓库、三行命令，所有数据都在本地 SQLite——密钥与令牌不离开你的服务器。',
     'line.base.landing.local.download': '下载桌面客户端',

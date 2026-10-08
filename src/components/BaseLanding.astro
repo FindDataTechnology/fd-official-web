@@ -3,8 +3,10 @@
 // renders this instead of the generic catalog (design D1). Seven sections in
 // order — dual-track hero → value → tour → platform matrix → quickstart →
 // download band → closing — with the five-line tabs between hero and value.
-// Cloud CTA is contact-to-activate: the hosted cloud is invite-only, so no
-// signup link (design D6, same contact block as the 谦面/萬星 intro pages).
+// Cloud CTA points straight at the hosted login page: self-service signup is
+// OPEN on the Logto tenant (verified on the live sign-in card, 2026-10-08 —
+// the earlier invite-only assumption from the explore round is obsolete).
+// The contact email stays for the closing section.
 import Layout from './Layout.astro';
 import { getCollection } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
@@ -21,6 +23,7 @@ interface Props {
 const { locale } = Astro.props;
 
 const CONTACT_EMAIL = '1253774197@qq.com';
+const CLOUD_URL = 'https://platform.finddatatech.cloud/login';
 const REPO_URL = 'https://github.com/FindDataTechnology/platform';
 const ORG_URL = 'https://github.com/FindDataTechnology';
 const README_QUICKSTART = `${REPO_URL}#quick-start`;
@@ -65,7 +68,7 @@ const title = t(locale, 'line.base') + ' — FindData Technology';
       <div class="bl-track">
         <h2>{t(locale, 'line.base.landing.cloud.title')}</h2>
         <p>{t(locale, 'line.base.landing.cloud.body')}</p>
-        <a class="bl-cta" href={`mailto:${CONTACT_EMAIL}`}>{t(locale, 'line.base.landing.cloud.cta')}</a>
+        <a class="bl-cta" href={CLOUD_URL}>{t(locale, 'line.base.landing.cloud.cta')}</a>
         <p class="bl-note">{t(locale, 'line.base.landing.cloud.note')}</p>
       </div>
       <div class="bl-track">
