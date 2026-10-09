@@ -2,10 +2,10 @@
 
 ## 1. 文案与入口
 
-- [ ] 1.1 重写 wire 平台入口 CTA 文案（`src/i18n.ts` EN/ZH `wire` 相关键）：覆盖我的数据/上传物化/产物/自助注册，不携带手写量级数字；`npm run build` 过 content:check
-- [ ] 1.2 `ProductCatalog.astro` wire 入口块加「查看定价 / See pricing」次级 CTA，指向 `https://wire.finddatatech.cloud/#/pricing`，描边样式不新增薄荷强调；本地构建后人工核对两语言渲染
-- [ ] 1.3 校准两张 wire 卡（`src/content/apps/{en,zh}/open-data-mcp.md`、`cloud-federation.md`）：tagline/正文与新服务口径对齐、双语对等、能力可验证；`npm run build` 通过（含 line 校验与 slug 无冲突）
-- [ ] 1.4 处置 `line.wire.desc` 无消费遗留键：grep 确认零引用后删除 EN/ZH 两处；i18n 相关测试通过
+- [x] 1.1 重写 wire 平台入口 CTA 文案（`src/i18n.ts` EN/ZH `wire` 相关键）：覆盖我的数据/上传物化/产物/自助注册，不携带手写量级数字；`npm run build` 过 content:check
+- [x] 1.2 `ProductCatalog.astro` wire 入口块加「查看定价 / See pricing」次级 CTA，指向 `https://wire.finddatatech.cloud/#/pricing`，描边样式不新增薄荷强调；本地构建后人工核对两语言渲染
+- [x] 1.3 校准两张 wire 卡（`src/content/apps/{en,zh}/open-data-mcp.md`、`cloud-federation.md`）：tagline/正文与新服务口径对齐、双语对等、能力可验证；`npm run build` 通过（含 line 校验与 slug 无冲突）
+- [x] 1.4 处置 `line.wire.desc` 无消费遗留键：grep 确认零引用后删除 EN/ZH 两处；i18n 相关测试通过
 
 ## 2. 发布与验收
 

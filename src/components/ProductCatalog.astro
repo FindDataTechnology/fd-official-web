@@ -33,12 +33,20 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
   {
     // wire line only: entry to the Baixun B2B platform (wire-platform-v1).
     // Pure external link — the site renders identically whether or not the
-    // target is reachable (no runtime dependency).
+    // target is reachable (no runtime dependency). The pricing CTA is a
+    // secondary outline button in the same group (One Signal rule: no extra
+    // mint emphasis); the platform's pricing page is the single source of
+    // pricing numbers, so none are carried here.
     line === 'wire' && (
-      <a class="demo-cta" href="https://wire.finddatatech.cloud" target="_blank" rel="noopener noreferrer">
-        <span class="demo-cta-label">▶ {t(locale, 'apps.wire.entry')}</span>
-        <span class="demo-cta-sub">{t(locale, 'apps.wire.entry.sub')}</span>
-      </a>
+      <div class="wire-entry">
+        <a class="demo-cta" href="https://wire.finddatatech.cloud" target="_blank" rel="noopener noreferrer">
+          <span class="demo-cta-label">▶ {t(locale, 'apps.wire.entry')}</span>
+          <span class="demo-cta-sub">{t(locale, 'apps.wire.entry.sub')}</span>
+        </a>
+        <a class="button button-secondary" href="https://wire.finddatatech.cloud/#/pricing" target="_blank" rel="noopener noreferrer">
+          {t(locale, 'apps.wire.entry.pricing')}
+        </a>
+      </div>
     )
   }
   {
@@ -79,6 +87,17 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
 </Layout>
 
 <style>
+  /* wire platform entry group: primary demo-cta strip + pricing outline
+     button directly beneath (same visual group, no extra mint emphasis). */
+  .wire-entry {
+    margin-bottom: 28px;
+  }
+  .wire-entry .demo-cta {
+    margin-bottom: 0;
+  }
+  .wire-entry .button-secondary {
+    margin-top: 10px;
+  }
   .ladder {
     margin: 0 0 24px;
     padding: 14px 18px;

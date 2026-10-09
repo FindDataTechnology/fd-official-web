@@ -6,7 +6,7 @@ line: wire
 order: 20
 ---
 
-Cloud Data Federation is FindData's hosted data service for paying users. It
+Cloud Data Federation is FindData's hosted data service. It
 reuses the open core's catalog, cache, and dispatch — but every response is
 served through a single login-gated MCP endpoint at
 [mcp.finddatatech.cloud](https://mcp.finddatatech.cloud), with unified
@@ -38,6 +38,6 @@ queryable through a coverage tool rather than claimed in prose.
 
 ## Access
 
-Login-gated; tokens are issued per customer through the gateway. Delivery is
-by container image only — the source code is not public. Reach out for
-access.
+Login-gated; tokens are issued per customer through the gateway. Self-serve
+signup is open on the [Wire platform](https://wire.finddatatech.cloud).
+Delivery is by container image only — the source code is not public.
