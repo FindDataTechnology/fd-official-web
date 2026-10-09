@@ -9,7 +9,7 @@
 
 ## 2. 发布与验收
 
-- [ ] 2.1 发布顺序确认：fd-wire 主 change（定价四卡/登录）已滚生产后再发布本 change；push main → GHA 镜像 success
-- [ ] 2.2 bump `deploy/k8s/fd-web.yaml` 镜像 tag 双推（gitee+github），ArgoCD 滚动完成
-- [ ] 2.3 验收：带 `?v=<sha>` 打开 `/products/wire` 与 `/zh/products/wire`——新文案、定价 CTA 可达平台定价页、全站无 wire 价格数字（EN/ZH 各查一遍）；截图存 `reports/`
-- [ ] 2.4 `openspec validate wire-tab-refresh --strict` 通过
+- [x] 2.1 发布顺序确认：fd-wire 主 change（定价四卡/登录）已滚生产后再发布本 change；push main → GHA 镜像 success
+- [x] 2.2 bump `deploy/k8s/fd-web.yaml` 镜像 tag 双推（gitee+github），ArgoCD 滚动完成
+- [x] 2.3 验收：带 `?v=<sha>` 打开 `/products/wire` 与 `/zh/products/wire`——新文案、定价 CTA 可达平台定价页、全站无 wire 价格数字（EN/ZH 各查一遍）；截图存 `reports/`
+- [x] 2.4 `openspec validate wire-tab-refresh --strict` 通过
