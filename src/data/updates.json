@@ -1,204 +1,172 @@
 [
   {
-    "repo": "fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
-    "version": "Unreleased",
-    "date": null,
-    "upcoming": true,
-    "summary": [
-      "**0006_control_plane_adoption**: guarded `CREATE ... IF NOT EXISTS` for",
-      "**0003** gains a guarded `registry_entries` create before its",
-      "Models aligned to production truth: NOT NULLs, deployed constraint/index",
-      "`alembic/env.py` exemption narrowed to the two no-model registry tables;",
-      "CI no longer bootstraps registry_entries: the chain itself satisfies the"
-    ]
-  },
-  {
-    "repo": "fd-industry-data",
-    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/95632df9a76e0bed542859d78a6a9d2d329a0fa0",
-    "version": "95632df",
-    "date": "2026-10-07",
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/34923817395338d7d368b940d8b2c08b40cd7a21",
+    "version": "3492381",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "k8s: cronjob 模板注入 fd-industry-source-keys（Wave B keyed 源 envFrom，optional 不影响存量源）"
-    ]
-  },
-  {
-    "repo": "fd-industry-data",
-    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/b6fba47b48677610d0d6ab649e11dacaeb567bc8",
-    "version": "b6fba47",
-    "date": "2026-10-07",
-    "upcoming": false,
-    "summary": [
-      "batch2-waveB: 11 张生成单出单（kosis 阻塞标记 / entsoe 待 token；其余 9 源凭据已验）"
-    ]
-  },
-  {
-    "repo": "fd-industry-data",
-    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/df6d4523b6e4c0d0142535f58881ac721b043abd",
-    "version": "df6d452",
-    "date": "2026-10-07",
-    "upcoming": false,
-    "summary": [
-      "health: 批次二 31 张生成单收口——兜底直建留痕 + 人审合并（PR #5-#35）+ terminal=closed"
-    ]
-  },
-  {
-    "repo": "fd-industry-data",
-    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/b345e5c7ef28e1779a4610e306f37135e4ee3c5d",
-    "version": "b345e5c",
-    "date": "2026-10-07",
-    "upcoming": false,
-    "summary": [
-      "light: Wave A 批量点亮（31 源错峰排期，分钟与既有零交集；ecb=monthly；wfp 冻结注记）"
-    ]
-  },
-  {
-    "repo": "fd-industry-data",
-    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/6842d0bcb8d3d90f835bd8fe707c1aeaa90eced4",
-    "version": "6842d0b",
-    "date": "2026-10-07",
-    "upcoming": false,
-    "summary": [
-      "merge: gen/wfp-food-price 批次二点亮合入（PR #5，内容对账一致补祖链）"
+      "products: 云端 CTA 直指登录页——自助注册开放（add-login-hero 拓扑发现）"
     ]
   },
   {
     "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/99d1a5ccf7067b67d985855ba16aff00056613bd",
-    "version": "99d1a5c",
-    "date": "2026-10-07",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/c3b1231889753b4dfae0591db48e47d89fc97cd5",
+    "version": "c3b1231",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "docs(context): 站点词条补「父印/品牌标」（brand-mission 3.2 收尾）"
+      "chore(data): desktop-releases v1.3.1 (release-sync)"
     ]
   },
   {
-    "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/679d80eeed61891738efc5a7c45a8be3c5db4df2",
-    "version": "679d80e",
-    "date": "2026-10-07",
+    "repo": "fd-mcp-registry",
+    "url": "https://github.com/FindDataTechnology/fd-mcp-registry/commit/fa1cd505eb0313e6c7f7f61688611ff9d74fa5a2",
+    "version": "fa1cd50",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "docs(ops): 校准 OPS.md 部署章节——线上模型=TCR 镜像+ArgoCD→pod(30442)；静态 rsync 与 SSH 部署列为已退役；demo-proxy 复活；mcp 镜像切 TCR；ArgoCD UI 指向 chengsi"
+      "fix(auth): patch-key validate returns RESOLVED groups, not the raw snapshot"
     ]
   },
   {
-    "repo": "fd-official-web",
-    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/caf1e8ffc4c79b8f92f2e20f8131cce7d50cf7c0",
-    "version": "caf1e8f",
-    "date": "2026-10-06",
+    "repo": "fd-mcp-registry",
+    "url": "https://github.com/FindDataTechnology/fd-mcp-registry/commit/2cc4adf1ef49e850d57c24ff7181fd5672583e83",
+    "version": "2cc4adf",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "brand-mission: 公网验收 8/8 全绿归档（寻印导航/使命块/五线定位句/demo CTA/favicon/OG）+ OG 卡定稿（父印寻 + 五线印）入库"
+      "fix(auth): tier gate fires on /validate too — paid-tier 402 beats scope 403"
+    ]
+  },
+  {
+    "repo": "fd-mcp-registry",
+    "url": "https://github.com/FindDataTechnology/fd-mcp-registry/commit/8c4465c83a30f423afbbcb9fce938a6192c9bda6",
+    "version": "8c4465c",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "fix(oauth): collapse duplicate WWW-Authenticate on MCP 401s to one header"
+    ]
+  },
+  {
+    "repo": "fd-mcp-registry",
+    "url": "https://github.com/FindDataTechnology/fd-mcp-registry/commit/e4760a627d53ddcfab8cfd7a66777267fcb45d15",
+    "version": "e4760a6",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "fix(auth): patch keys with empty group snapshots take the community fallback"
     ]
   },
   {
     "repo": "platform",
-    "url": "https://github.com/FindDataTechnology/platform/commit/866b341352ef43611b7c366fec1bf53a016f28c0",
-    "version": "866b341",
-    "date": "2026-10-06",
+    "url": "https://github.com/FindDataTechnology/platform/commit/50b52f1b5cdb3a05753af1639d0927503bc25c3b",
+    "version": "50b52f1",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "Platform v1.3.0 — initial open-source release (snapshot of HEAD 3de4a42)"
+      "ci(win-smoke): Phase B runs from resources/app (asar:false layout — app code lands there, confirmed on the mac bundle), copies bundled node alongside"
     ]
   },
   {
-    "repo": "fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
-    "version": "0.5.38",
-    "date": "2026-10-06",
+    "repo": "platform",
+    "url": "https://github.com/FindDataTechnology/platform/commit/184a6a771a45766d24c0a5ff136e651f907ce2bc",
+    "version": "184a6a7",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "**`list_registry_entries` MCP tool: full-registry enumeration channel.** Pages"
+      "ci(win-smoke): Phase B extracts app.asar (node cannot read inside asar) and runs the extracted server.js with the packaged node + resources"
     ]
   },
   {
-    "repo": "fd-daas-mcp",
-    "url": "https://github.com/FindDataTechnology/fd-daas-mcp",
-    "version": "0.2.0",
-    "date": "2026-10-06",
+    "repo": "platform",
+    "url": "https://github.com/FindDataTechnology/platform/commit/66627529a8a6e4fa00df0c156c743a968da81bdd",
+    "version": "6662752",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "**Tool-surface manifest**: the repo now carries a first-class manifest describing its MCP surface — per-group `commercial|internal` classification across the 9 tool groups, the 13-product-skill list, and a hosting-form declaration (shared vs per-deployment).",
-      "**selfcheck assertions**: `selfcheck` now asserts manifest↔registry consistency and commercial-set closure, so the documented surface cannot silently drift from the registered one.",
-      "**Version discipline**: this changelog, plus synchronized version fields — root `daas` and nested `fd-daas-mcp` `pyproject.toml`, both `uv.lock` files, and the package `__version__` — so builds and image tags are traceable to a version.",
-      "**README / QUICKSTART calibration**: overstated numbers corrected to a re-verifiable basis. Tool count is now stated as **160+ (runtime count is authoritative — run `selfcheck`; latest verified run: 161 tools, `failed=0`)** instead of a bare \"161\". Skills count corrected from \"18 skills\" to **13 product skills (32 skill directories in-repo: 13 product + 5 openspec-workflow + 14 local-dev)** — docs now advertise only the product surface. Aligned across `README.md`, `README.zh-CN.md`, and `QUICKSTART.md`; `install.sh` output carries no counts and needed no change."
+      "ci(win-smoke): two-phase smoke — app spawns bundled backend (A) + packaged server.js direct /api/ready probe with streamed stderr (B); first run diagnosed: 503-then-refused = backend crash loop, ring-buffer-only logs hid the cause"
     ]
   },
   {
-    "repo": "fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
-    "version": "0.5.37",
-    "date": "2026-10-05",
+    "repo": "platform",
+    "url": "https://github.com/FindDataTechnology/platform/commit/9eaf955278dbfcd41c8062debcd3c23b85922129",
+    "version": "9eaf955",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "**bulk_ingest scripts: upsert target aligned with the source-aware key**."
+      "ci: win-install-smoke — real NSIS silent install + /api/ready probe on windows-latest (add-desktop-release 4.2 beta-promotion evidence)"
     ]
   },
   {
-    "repo": "fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
-    "version": "0.5.36",
-    "date": "2026-10-05",
+    "repo": "platform",
+    "url": "https://github.com/FindDataTechnology/platform/commit/9f41c5aea3cf178c42ad0fe7a33b8e3aa96b4632",
+    "version": "9f41c5a",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "**Failure diagnosis for runs that die before checking in**: when a",
-      "**scripts/ now ships in the sdist** (`recursive-include scripts *.py`):"
+      "feat(gateway): anonymous /api/config + /api/auth/me + pre-login SPA shell (add-login-hero 6.2)"
     ]
   },
   {
-    "repo": "fd-vaas-skills",
-    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/837ec822eec9be189f09812dcd87525e35da2d33",
-    "version": "837ec82",
-    "date": "2026-10-01",
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/09d9eed6674fd057777e9e3cebdae5035562619a",
+    "version": "09d9eed",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "facade: facet line banner (five-lines-public-surface 3.3)"
+      "light: socrata-ny/socrata-chicago/elexon-bmrs 点亮（批次二 Wave C，经 fx01 出口错峰）"
     ]
   },
   {
-    "repo": "fd-vaas-skills",
-    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/4b2d6daef52cb2229ed56bec842caf3ef4d30146",
-    "version": "4b2d6da",
-    "date": "2026-10-01",
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/6f33983910e5908396c0ef765b904824c4c6b815",
+    "version": "6f33983",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "facade: facet line banner (five-lines-public-surface 3.3)"
+      "merge: gen/elexon-bmrs 批次二 Wave C 合入（fx01 出口组）"
     ]
   },
   {
-    "repo": "fd-open-data-mcp",
-    "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
-    "version": "0.5.30",
-    "date": "2026-09-29",
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/99f52602d9cf863cabd5351597c7b85bbafbefaa",
+    "version": "99f5260",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "**Registry table** (`/panel/indicators`): domain / source_db / verified /",
-      "**Concept family tree** (`…/families`): families → member concepts, each",
-      "**Relation browsing** (`…/relations`): cross-source binding list (native",
-      "**Coverage** (`…/coverage`): registered/verified per source database and",
-      "**Interactive relation graph** (`…/graph`): vendored zero-build"
+      "merge: gen/socrata-chicago 批次二 Wave C 合入（fx01 出口组）"
     ]
   },
   {
-    "repo": "fd-vaas-skills",
-    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/f555d3d46b2b6a734dcab6c64023f58f28cfe88b",
-    "version": "f555d3d",
-    "date": "2026-08-20",
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/2b16760658cfb940a18bda656d344ca37ed9f584",
+    "version": "2b16760",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "fix(ppt-master): fetch script broke on first run (fullwidth-paren var parse)"
+      "merge: gen/socrata-ny 批次二 Wave C 合入（fx01 出口组）"
     ]
   },
   {
-    "repo": "fd-vaas-skills",
-    "url": "https://github.com/FindDataTechnology/fd-vaas-skills/commit/64b5cd1032e189826f35e2a58901eff9ccb2da68",
-    "version": "64b5cd1",
-    "date": "2026-08-20",
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/eeaeb3b495595357a65f49c1d6943f08a00fd370",
+    "version": "eeaeb3b",
+    "date": "2026-10-08",
     "upcoming": false,
     "summary": [
-      "refactor(ppt-master): thin-shell + on-demand fetch (drop 12k vendored files)"
+      "gen(elexon-bmrs): 批次二 Wave C 直建（BMRS 日度温度 TEMP，经 fx01 出口）"
+    ]
+  },
+  {
+    "repo": "fd-mcp-registry",
+    "url": "https://github.com/FindDataTechnology/fd-mcp-registry/commit/5f816cd67865025bfe19cd91bebfe5620f48776a",
+    "version": "5f816cd",
+    "date": "2026-10-07",
+    "upcoming": false,
+    "summary": [
+      "fd-registry: independent lineage of mcp-gateway-registry (from upstream 1.32.0)"
     ]
   }
 ]

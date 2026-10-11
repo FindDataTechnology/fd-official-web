@@ -13,7 +13,7 @@
 
 ## 3. 发布与验收（主会话统一处理）
 
-- [ ] 3.1 入口核验留痕：2026-10-11 curl `https://wire.finddatatech.cloud` 与 `/#/pricing` 均返回 200（content-integrity「可达入口」）
-- [ ] 3.2 push main → GHA 镜像 success；bump `deploy/k8s/fd-web.yaml` 双推，ArgoCD 滚动完成
-- [ ] 3.3 验收：带 `?v=<sha>` 打开 `/products/wire`、`/zh/products/wire`、`/products/wire-platform`、`/zh/products/wire-platform`——新卡线内居首、详情双语可达、两页均无价格/额度数字；截图存 `reports/`
-- [ ] 3.4 `openspec archive wire-platform-showcase`（先 `--strict` 复验）
+- [x] 3.1 入口核验留痕：2026-10-11 curl `https://wire.finddatatech.cloud` 与 `/#/pricing` 均返回 200（content-integrity「可达入口」）
+- [x] 3.2 push 528c81a → GHA 47s success；manifest sha-528c81a 双推，ArgoCD（tencent 集群 fd-web ns）自动滚动完成
+- [x] 3.3 验收（curl -L 实测 2026-10-11）：四页全通（wire tab 双语 + wire-platform 双语详情 title 实锤）；zh tab 卡序=柏讯平台→开放数据 MCP→云端数据联邦（线内居首）；价格/额度数字扫描零命中。
+- [x] 3.4 `openspec archive wire-platform-showcase`（先 `--strict` 复验）

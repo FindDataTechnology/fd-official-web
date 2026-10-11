@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-07T12:28:28.519Z",
+  "generated_at": "2026-10-08T09:34:55.648Z",
   "repos": [
     {
       "name": "fd-open-data-mcp",
       "description": "Open-data ontology MCP: a semantic concept layer over multi-datasource financial/economic data (akshare, yfinance, edgar, wbgapi, cn-report, cn-gov).",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-10-06",
+      "updated": "2026-10-08",
       "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
       "hasReadme": true
     },
@@ -24,7 +24,7 @@
       "description": "Local-first AI assistant platform on the DeepSeek Harness (dsh) runtime — streaming agent chat, document RAG, and MCP extensibility across web and desktop.",
       "language": "JavaScript",
       "stars": 1,
-      "updated": "2026-10-06",
+      "updated": "2026-10-08",
       "url": "https://github.com/FindDataTechnology/platform",
       "hasReadme": true
     },
@@ -38,21 +38,30 @@
       "hasReadme": true
     },
     {
-      "name": "fd-industry-data",
-      "description": "Industry data spiders with remote browser support.",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-10-07",
-      "url": "https://github.com/FindDataTechnology/fd-industry-data",
-      "hasReadme": true
-    },
-    {
       "name": "fd-official-web",
       "description": "Official website of FindData Technology (寻数科技) — the public facade of the five product lines: products, open-source repos, docs, and a live MCP demo.",
       "language": "Astro",
       "stars": 0,
-      "updated": "2026-10-07",
+      "updated": "2026-10-08",
       "url": "https://github.com/FindDataTechnology/fd-official-web",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-mcp-registry",
+      "description": "FindData's independent lineage of mcp-gateway-registry (from upstream 1.32.0): per-user long-lived keys, fail-closed quota preflight, community tier call grants, console i18n",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-10-08",
+      "url": "https://github.com/FindDataTechnology/fd-mcp-registry",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-industry-data",
+      "description": "Industry data spiders with remote browser support.",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-10-08",
+      "url": "https://github.com/FindDataTechnology/fd-industry-data",
       "hasReadme": true
     },
     {
