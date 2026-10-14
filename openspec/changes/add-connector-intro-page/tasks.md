@@ -23,6 +23,12 @@
 - [x] 6. 构建产物数据文件（`src/data/*.json` 由 fetch 脚本再生成）还原 HEAD，
   change 保持内容纯净（`git checkout HEAD --` 五文件，status 仅余 change
   自身文件 + 未入库截图目录）
-- [ ] 7. 部署验收：commit + roll（fd-web.yaml sha → GHA image → relay 回灌 →
+- [x] 7. 部署验收：commit + roll（fd-web.yaml sha → GHA image → relay 回灌 →
   ArgoCD `fd-web` 同步，配方见 OPS.md 更正后的镜像 roll 路径）；线上四条新
   路径全 200；详情页文案/kind/demoUrl 线上 HTML 逐项在；萬星线页卡片位次复核
+  （证据：内容 591574b / bump 7e31b4a；镜像 run 38633318891 绿；
+  ArgoCD fd-web（tencent 集群 ns fd-web）gen=90 rolled out；
+  线上 `/zh/products/wanxing-connector/`+`/products/…` 200、`/apps/…` 双语
+  301→meta-refresh 到详情页；zh 8 项/en 7 项内容键全在（含 kind「Agent
+  连接网关」/tagline/demoUrl）；萬星线页卡片字节序 Router 6441 < 连接器
+  6876 < 技能包 7329；connector 域 200）
