@@ -9,9 +9,9 @@
 
 ## 2. 发布侧机检
 
-- [ ] 2.1 实现发布生命周期钩子：加载规则清单，命中内部标识即阻止发布并提示类别；验证：含内部节点坐标的草稿发布被拦、移除后可过
-- [ ] 2.2 构建脚本从 finddata `docs/xingyan/scripts/internal-identifiers.txt` 生成打包副本（两处头部注释互指）；验证：改原件重新生成，副本同步
-- [ ] 2.3 空清单 fail-closed（清单缺失/为空时钩子拒绝放行发布）；验证：清空清单后发布一律被拦
+- [x] 2.1 发布守卫=document service 中间件（`strapi.documents.use()`，5.58 无 beforePublish、db 级钩子会丢已发布内容、bulk/定时发布/程序化旁路全覆盖，依据 @strapi/core 源码+实测）；验证：三类型脏草稿 publish 全 400（报文含分类/slug/字段下标）、改净 200、bulk 400、unpublish 不拦
+- [x] 2.2 `npm run rules:sync`（`FD_RULES_SRC` 可覆盖）从 finddata 事实源生成副本，42 条逐字节一致；验证：源加临时规则→sync→运行中服务即时拦截（免重启）→源还原副本还原（sha1 一致）
+- [x] 2.3 空清单 fail-closed：副本清空/删除 → 发布一律 400（报文区分缺失/为空）；重 sync 后放行；主会话复核实测 tsc 0 + sync 幂等
 
 ## 3. 既有内容迁移
 
