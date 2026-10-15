@@ -69,7 +69,7 @@
 
 - **EdgeOne 对 HTML 缓存长于源站 300s**：feed JSON 按 TTL 刷新，但删除后的详情页公网仍 200（源站已 404）。需在 EdgeOne 控制台调 HTML 缓存规则或 purge（用户侧）。
 - **仓内快照推送待凭据**：deploy key 被仓库设置禁用；当前快照落节点本地档案仓（git 历史），夜间 pg_dump 之外第二份内容灾备。若需推回官方仓：开 deploy key 或发细粒度 PAT（建议后者，contents:write 仅限本仓）。
-- **cms.finddatatech.cloud 未解析**（DNSPod 无 API token）：研究员后台暂不可达；CI 拉取走 tailnet 不受影响。用户侧加 A 记录 `cms → 103.236.89.212` + nginx vhost + certbot（配方已备）。
+- **cms.finddatatech.cloud 未解析**（DNSPod 无 API token）：研究员后台暂不可达；CI 拉取走 tailnet 不受影响。用户侧仅需加 A 记录 `cms → 103.236.89.212`；其余随 DNS 一并配——**cms 进雷池**（cheap-1 的 80/443 由 safeline-tengine 容器持有、宿主 nginx inactive；雷池现管 ~20 个域名，mcp 即此模式。初稿"宿主 nginx vhost 绕开雷池"为拓扑误判，用户纠正后修订）：mgt 建站回源 `http://100.64.0.11:1337`、证书雷池统一签、观察模式 + `/admin`/`/content-manager/*`/`/api/*` JSON POST 降检（pack 误杀在案教训），一周日志后再议拦截。
 - 发布触发器为「运行中即丢」（flock 占用时的触发不排队）：正在构建期间的发布若晚于该构建的 fetch 步，最迟由 6h 定时兜底。研究员体感为「偶发延迟至多 6h」，可后续加单深度队列。
 - 管理员凭据在 `/opt/fd-strapi/.admin-credentials`（600）；只读 token `.read-token`（600）已注入构建 env。
 - 并发事实：切换期间 release-sync 自动流推了 c45c955/837b333（desktop-releases v1.3.12/13），管线正确构建了最新主线——两流共存无冲突。
