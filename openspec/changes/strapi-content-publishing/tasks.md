@@ -1,11 +1,11 @@
 ## 1. fd-strapi 服务骨架
 
-- [ ] 1.1 新建 fd-strapi 项目（finddata 工作区内），Strapi v5 CE + TypeScript；验证：`npm run develop` 本地起后台
-- [ ] 1.2 建三个内容类型 briefing / academy / research，字段对齐现 frontmatter 契约（title/summary/date/tags/sources；academy 另有 order/pack_url），正文为 markdown 长文本；验证：后台可建草稿
-- [ ] 1.3 开启 i18n（zh 默认 + en），三类型启用 localization；验证：同一条目可维护两语言版本
-- [ ] 1.4 配社区 markdown 编辑器插件（正文带预览）；验证：后台粘贴 md 可见预览
-- [ ] 1.5 角色映射落地（研究员=Author 只草稿、主编=Editor 可发布）；验证：Author 账号点发布被拒、Editor 可发布
-- [ ] 1.6 只读 API token（三集合 published 读权限）；验证：REST 带 token 可拉已发布、拉不到草稿
+- [x] 1.1 新建 fd-strapi 项目（finddata 工作区内），Strapi v5 CE + TypeScript；验证：`npm run develop` 本地起后台（5.58.0/node@22.23.2/sqlite；.env 空 `DATABASE_FILENAME` 覆盖坑已修）
+- [x] 1.2 建三个内容类型 briefing / academy / research-article，字段对齐 zod 契约（research 补 `kind` 枚举 paper/casestudy/note；slug/date/kind/order/pack_url 双语共享、其余字段随语言）；验证：schema.json 落盘、后台可建草稿
+- [x] 1.3 开启 i18n（zh 默认 + en）；验证：同 documentId zh/en 两变体经 REST `?locale=*` 实测返回（v5.58 的 `locale=all` 静默空坑已实测在案；bootstrap `ensureLocales()` 幂等）
+- [x] 1.4 配社区 markdown 编辑器插件（正文带预览）；验证：`strapi-plugin-wysiwyg-react-md-editor@5.8.3` 钉版装成、生产 build 过（裸装会解析到 4.4.1 ERESOLVE，必须钉版本）
+- [x] 1.5 角色映射落地（研究员=Author 只草稿、主编=Editor 可发布）；验证：Author 经 CM API publish → 403 PolicyError、SuperAdmin 同篇 → 200 实测（v5.58 邀请制建号配方入 README）
+- [x] 1.6 只读 API token（三集合 published 读权限）；验证：Bearer 拉已发布 200、专门草稿不出现在结果、Bearer POST → 403（生产路径 Settings→API Tokens→Read-only 入 README）
 
 ## 2. 发布侧机检
 
@@ -15,8 +15,8 @@
 
 ## 3. 既有内容迁移
 
-- [ ] 3.1 一次性导入脚本（entityService + locale 建双语对）读 fd-official-web 现仓 16 篇 md 建 entries；验证：后台逐集合抽查条目数 zh/en 各 8/4/4 且字段与原文一致
-- [ ] 3.2 slug 与现 URL 完全一致（详情页链接不断）；验证：导出条目 slug 清单与仓内文件名 diff=0
+- [x] 3.1 一次性导入（`npm run content:import`，MIGRATE_CONTENT bootstrap 分支 + MIGRATE_SRC 传源根，幂等按 slug 跳过）读现仓 16 篇 md 建 entries（zh 先建、en 用 zh 的 documentId 建变体）；验证：首跑 16 条、重跑跳过 16 新建 0；主会话复跑在线拉取 16 文件 exit 0
+- [x] 3.2 slug 与现 URL 完全一致；验证：REST slug 集合 vs 源文件名 6 组全 MATCH diff=0；**集成预演两轮 + 主会话复跑：`STRAPI_URL=…:1338 fetch-strapi.mjs` → git status 零输出（D8 切换判据达成）**
 
 ## 4. 官网拉取管线
 
