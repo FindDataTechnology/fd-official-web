@@ -1,6 +1,6 @@
 ---
 name: "FindDataRouter"
-tagline: "One gateway entry for multiple LLM providers — chat plus speech, rerank and search lanes, on one key and one ledger."
+tagline: "One gateway entry for multiple LLM providers — chat plus speech, rerank, search and video generation, on one key and one ledger."
 kind: "AI API gateway"
 demoUrl: "https://router.finddatatech.cloud"
 line: constellation
@@ -35,12 +35,12 @@ The same model can be served by multiple channels. When a channel fails or
 its quota is exhausted, the request automatically escalates to an available
 channel instead of failing outright.
 
-## Model lanes: three capabilities beyond chat
+## Model lanes: capabilities beyond chat
 
 Beyond the chat subscription pool, the gateway offers three non-chat model
-capabilities — **speech, rerank and search**. They share the same API key, the
-same balance and spending windows, and the same usage panel as chat: changing
-lanes does not change your identity.
+capabilities — **speech, rerank and search** — plus **video generation**.
+They share the same API key, the same balance and spending windows, and the
+same usage panel as chat: changing capabilities does not change your identity.
 
 - **Speech** (`/v1/audio/transcriptions`, `/v1/audio/speech`): transcription and
   synthesis in the OpenAI audio wire format, metered by audio duration and by
@@ -50,6 +50,10 @@ lanes does not change your identity.
 - **Search** (`/v1/search`): a unified envelope — one engine selector fronts
   multiple search providers, so switching engines requires no caller change,
   metered per call.
+- **Video generation** (`/v1/contents/generations/tasks`): an asynchronous task
+  protocol — create a task and receive its ID, poll the same path for status,
+  then fetch the result once done; the same key and balance as chat, metered by
+  generation usage, and failed tasks are not billed.
 
 Upstream providers are pluggable: when the provider behind a model name
 changes, the wire format and response semantics stay the same.
