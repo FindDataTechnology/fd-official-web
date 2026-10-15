@@ -1,0 +1,164 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "documentId": "doc-2026-10-15-declarative-data-quality",
+      "slug": "2026-10-15-declarative-data-quality",
+      "locale": "en",
+      "date": "2026-10-15",
+      "title": "Data Quality by Declarative Rules, Not Spot Checks",
+      "summary": "We turned data quality into executable declarative rules rather than a document of good intentions: declarative rules, an injection defense, and checks that really run in production. Only together do they make \"trustworthy, traceable, auditable\" something you can prove.",
+      "tags": [
+        "product",
+        "methodology"
+      ],
+      "sources": [
+        "Xingyan research archive · data quality rule design records",
+        "Archived acceptance report · production quality checks"
+      ],
+      "body": "## Spot checks cannot prove quality\n\nA spot check is always limited to a sample: the batch you looked at being clean says nothing about the next batch, and nothing about the rows nobody happened to open. Quality has to be proven by rules, not felt through sampling.\n\nThat is the standard we set for ourselves: when someone asks how we know the data is clean, the answer should be a rule and its result, not an assurance.\n\n## Why we did not build our own validation library\n\nThe rule syntax follows the style of the public project SodaCL, and execution reuses the public validation library pandera.\n\nWe did evaluate building a validation library of our own, and decided against it: maintaining one in-house costs too much. Data quality rules do not need a self-built execution engine to work — the public option was enough.\n\n## Three design decisions\n\n### Declarative rules\n\nData rules are written like a checklist. Rules are expressed declaratively, rather than scattered across one-off scripts.\n\nA checklist that is written down can be reviewed by the people who own the data; logic buried in a one-off script cannot.\n\n### An injection defense\n\nRule sources go through a closed enumeration: a rule can only come from a list defined in advance, never from a free-form string — which prevents content injection.\n\nRules are data too, and they deserve the same constraint as the data they check.\n\n### Real evaluation in production\n\nThree classes of checks run for real in the production environment. A quality rule that takes no part in real evaluation is only a document.\n\n## One package, not three tools\n\nQuality rules, data snapshots and sensitivity tiers are not three isolated tools but one package.\n\nTogether they answer a single question: can this data product prove that it is trustworthy, traceable and auditable? If it cannot prove it, it is only a claim.\n\n## What it means for customers\n\nTo a customer, a verifiable data contract is worth more than a verbal promise that \"the data is clean\".\n\nA rule can be read by the business side and executed by a machine — that is the difference between a contract and a promise.",
+      "publishedAt": "2026-10-15T08:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "documentId": "doc-2026-10-15-finetuning-explained",
+      "slug": "2026-10-15-finetuning-explained",
+      "locale": "en",
+      "date": "2026-10-15",
+      "title": "What Fine-Tuning Actually Solves: A Legal Contract Case",
+      "summary": "Domain fine-tuning changes format, conventions and output stability — not what the model knows. We tested that boundary on legal contract drafting and review, and confirmed that private deployment is practical.",
+      "tags": [
+        "research",
+        "methodology"
+      ],
+      "sources": [
+        "Xingyan research archive · legal model evaluation records",
+        "Xingyan research archive · model quantization and deployment records"
+      ],
+      "body": "## The requirement was never \"it can chat\"\n\nIn legal contract work the requirement is concrete: draft contracts in the customer's own clause formats and conventions, and judge an existing contract against the customer's own review checklist.\n\nA base model falls short on both counts. The drafted clauses do not read like the language of this field, and on the review side the structured output could not be parsed reliably, leaving the downstream steps with nothing to consume.\n\nBoth are problems of format, convention and output stability rather than missing knowledge — and telling the two apart is what decides whether the answer is fine-tuning or retrieval.\n\n## The approach: LoRA adaptation, not a full retrain\n\nWe applied lightweight domain adaptation to a 27B-class open-source base model: LoRA with r=16 and alpha=32, covering 7 projection layers, at roughly 80 million trainable parameters.\n\nLoRA keeps the trained part small: a modest set of weights attached to the base model, rather than a rewritten model. In practice that means no full retrain — a single multi-GPU machine is enough, which keeps both compute cost and time within reach. For a customer, this is the line between affordable and not.\n\n## Drafting quality: read the mean with the median and the sample size\n\nDrafting quality is measured with chrF, a text-similarity metric: the mean rose from 19.5 to 51.0, with a median of 42.9 across 55 validation samples.\n\nThose numbers should be read together with the sample size: 3 of the 55 samples are highly similar to training samples, and we identified them separately.\n\n## Review judgment: a qualitative conclusion only\n\nFor contract review judgment (the judge model), our conclusion stays qualitative: it moved from barely usable to reliably usable, and the parsing failures in its structured output were eliminated. The full evaluation methodology will be published alongside the research write-up.\n\n## Deployment: 4-bit quantization, from about 54GB to about 18.5GB of VRAM\n\nThe same adapter loads onto a 4-bit quantized base with no observed degradation, and VRAM use falls from about 54GB to about 18.5GB.\n\nThe implication for customers is direct: the model can run on the customer's own compute, data never leaves their environment, and private deployment becomes viable.\n\n## The boundary: fine-tuning does not fix missing knowledge\n\nFine-tuning addresses format, conventions, domain language and output stability. It does not address missing knowledge — statutes and cases the model has never seen cannot be fine-tuned into existence, and that is a job for retrieval.\n\nOne ordering rule cannot be reversed: build the evaluation set first, then fine-tune. Without an evaluation set, you cannot tell whether a fine-tuning run made the model better or worse, and every later claim about improvement loses its footing.",
+      "publishedAt": "2026-10-15T08:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "documentId": "doc-2026-10-15-human-ai-collaboration-discipline",
+      "slug": "2026-10-15-human-ai-collaboration-discipline",
+      "locale": "en",
+      "date": "2026-10-15",
+      "title": "When Organizations Struggle with AI, the Model Is Usually Not the Bottleneck",
+      "summary": "The real bottleneck is a missing discipline of collaboration. Treat AI as a colleague rather than a tool — a colleague needs a spec, a review gate and a boundary. Four disciplines, plus one example that already runs.",
+      "tags": [
+        "methodology",
+        "industry"
+      ],
+      "sources": [
+        "Xingyan research archive · delivery acceptance records",
+        "Xingyan research archive · data collection self-healing loop records"
+      ],
+      "body": "## Treat AI as a colleague, not a tool\n\nThe conclusion: what goes missing is the discipline of collaboration, not model capability.\n\nA colleague needs a manual — that is, a specification; needs to be assessed — that is, an acceptance gate; and needs a boundary — that is, the final say. Treat AI as a tool and you will have none of the three.\n\n## 1. Write the spec before the work\n\nBefore any piece of work starts, write it down as an acceptance-testable specification and scenarios: under what conditions, what result.\n\nAI produces against the specification; acceptance checks against the scenarios. The specification comes first and the output after — reverse that order and acceptance is left with nothing but opinion.\n\nA specification is also what makes delegation safe: without one, nobody can say whether what came back is what was asked for.\n\n## 2. AI may draft; humans keep the final say\n\nThis holds for content and for code alike. Drafting is generation and final approval is accountability; the two cannot be merged.\n\nFinal approval is not a formality: in our most recent delivery acceptance, the human review step caught two defects that would have affected real use. Neither was cosmetic — both would have hit customers in practice.\n\nA signature that never changes anything is not a review gate; a review gate is one that has caught something.\n\n## 3. Where a machine-checkable criterion exists, do not rely on impressions\n\nBaselines, fingerprints, gate scripts — they exist for one purpose: to make \"how much better\" verifiable instead of a matter of impression.\n\nWhere a criterion can be checked by a machine, the disagreement about whether work improved disappears.\n\n## 4. Let AI do AI work, and people do people work\n\nRepetitive generation, retrieval and inspection go to AI; judgment, trade-offs and decisions we answer to the customer for stay with people.\n\nThe dividing line is accountability: whoever carries the consequence should hold the decision. Split the work the other way and the organization ends up with speed it cannot account for.\n\n## One example\n\nOur data collection fleet already runs a self-healing loop: it detects a failure, diagnoses it, repairs it, and verifies the regression — people step in only at the acceptance stage.\n\nIn that loop AI does the repetitive detection and repair while people hold the acceptance gate, which is exactly what the second discipline looks like.\n\nTreat AI as a colleague rather than a tool: these four disciplines are what that looks like in practice.",
+      "publishedAt": "2026-10-15T08:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "documentId": "doc-2026-10-15-why-we-built-our-own-eval",
+      "slug": "2026-10-15-why-we-built-our-own-eval",
+      "locale": "en",
+      "date": "2026-10-15",
+      "title": "Why We Built Our Own Evaluation Instead of Borrowing a Public Benchmark",
+      "summary": "The evaluation layer is not academic decoration — it is part of the product. Without a baseline there is no \"how much better\". Here is how we built our own, and two lessons from the day it went live.",
+      "tags": [
+        "methodology",
+        "research"
+      ],
+      "sources": [
+        "Xingyan research archive · retrieval evaluation baseline records",
+        "Archived acceptance report · evaluation layer launch defect fixes"
+      ],
+      "body": "## The evaluation layer is part of the product\n\nThe conclusion first: the evaluation layer is not academic decoration, it is part of the product. Without a baseline, \"how much better\" has no answer, and every improvement stays at the level of \"it feels better\".\n\n## Public legal benchmarks: borrow the methodology, not the code\n\nWe scouted public legal benchmarks. They score contract generation quality, which is not structurally the same task as our retrieval work — the same question set does not test the same capability.\n\nSo we carried over zero code and borrowed only the methodology.\n\n## Three parts of our own runner\n\n- **A dataset contract**: every query states why it is in the set, together with its annotation strength — strong or medium.\n- **A pure-function scorer**: no large model takes part in the scoring process, so scoring does not depend on a model and the same input always yields the same result.\n- **Two fingerprints**: a dataset content fingerprint plus a configuration fingerprint. Results with different fingerprints are not comparable — a rule that rules out misleading numbers by mechanism rather than by discipline.\n\n## Baselines across three domains\n\nThe metric is MRR@10, reported with sample size and annotation strength:\n\n- Government retrieval: 12 items, strong annotation\n- Paper retrieval: 14 items, medium annotation\n- Script retrieval: 15 items, strong annotation\n\nSample size and annotation strength travel with every number. A baseline reported without them cannot be read, and cannot be trusted.\n\n## Two lessons\n\n**Lesson one: a perfect score is not proof of superior quality.** A perfect score on a small corpus with tight queries says the pipeline is healthy, not that the system is superior; and numbers from different domains cannot be compared across domains.\n\n**Lesson two: the evaluation layer caught a real defect on the day it went live.** Results that each of two retrieval paths could find on their own were lost after fusion ranking. After the fix, MRR on the same benchmark rose from 0.70 to 1.00 (12 strong-annotated items), and a separate class of numbered queries went from 2/4 to 4/4.\n\n## What this means for customers\n\nYour AI project needs a baseline of its own as well — and one that is established before optimization begins.\n\nPut the baseline in place first, and every later change has something to be compared against.",
+      "publishedAt": "2026-10-15T08:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "documentId": "doc-2026-10-15-declarative-data-quality",
+      "slug": "2026-10-15-declarative-data-quality",
+      "locale": "zh",
+      "date": "2026-10-15",
+      "title": "数据质量不靠抽查，靠声明式规则",
+      "summary": "我们把数据质量做成可执行的声明式规则，而不是文档里的规范：规则声明化、注入防线、上线即真求值。三者相加，才谈得上「可信、可追溯、可审计」。",
+      "tags": [
+        "产品",
+        "方法论"
+      ],
+      "sources": [
+        "星研研究档案·数据质量规则设计记录",
+        "已归档验收报告·生产环境质量检查"
+      ],
+      "body": "## 抽查证明不了质量\n\n抽查的样本永远是有限的：这一批抽到的数据是干净的，推不出下一批也干净。质量要靠规则去证明，而不是靠抽样去感觉。\n\n## 为什么不自研检查库\n\n规则语法形借鉴公开项目 SodaCL 的风格，执行体复用公开校验库 pandera。\n\n我们也评估过自研一套检查库，最终没有这么做：自研的维护成本太高。数据质量规则并不需要一个自研的执行引擎才能落地——现成的公开实现已经够用。\n\n## 三件设计\n\n### 规则声明化\n\n像写检查清单一样写数据规则。规则以声明的方式写出来，而不是散落在一次性的脚本里。\n\n### 注入防线\n\n规则的来源走封闭枚举：规则只能来自预先定好的那份清单，而不是任何一段自由文本——以此防止内容注入。\n\n### 上线即真求值\n\n三类检查在生产环境真实跑起来。质量规则不参与真实运行的求值，它就只是文档。\n\n## 一套组合拳\n\n质量规则 + 数据快照 + 敏感度分级，不是三个孤立的工具，而是一套东西。\n\n它们合起来要回答的是同一个问题：这份数据产品能不能证明自己「可信、可追溯、可审计」。证明不了，就只是一个说法。\n\n## 对客户的意味\n\n对客户而言，可验证的数据契约比「数据很干净」的口头承诺值钱。\n\n规则既可以被业务方读到，也可以被机器执行——这就是「契约」与「承诺」的区别。",
+      "publishedAt": "2026-10-15T08:00:00.000Z"
+    },
+    {
+      "id": 6,
+      "documentId": "doc-2026-10-15-finetuning-explained",
+      "slug": "2026-10-15-finetuning-explained",
+      "locale": "zh",
+      "date": "2026-10-15",
+      "title": "微调到底解决什么问题：从法律合同的起草与审查说起",
+      "summary": "领域微调改变的是格式、口径与输出稳定性，不是模型的知识储备。我们在一套法律合同场景里验证了这条边界，也验证了私有化部署的可行性。",
+      "tags": [
+        "研究",
+        "方法论"
+      ],
+      "sources": [
+        "星研研究档案·法律模型评测记录",
+        "星研研究档案·模型量化与部署记录"
+      ],
+      "body": "## 客户要的不是「能聊天」\n\n在法律合同场景，需求是两件很具体的事：按客户自己的条款格式与口径起草合同，以及按客户的审查清单判断一份合同的问题在哪里。\n\n底座模型在这两件事上都不达标。起草出来的条款不像这个领域的写法；审查判断侧的结构化输出无法稳定解析，后续流程接不上。\n\n这两类问题都属于格式、口径与输出稳定性，而不是知识缺失——分清这一点，才知道该用微调还是用检索去解决。\n\n## 做法：LoRA 领域适配，不必重训全模型\n\n我们在一个 27B 级开源底座上做轻量领域适配：LoRA，r=16、alpha=32，覆盖 7 个投影层，可训练参数约 8000 万。\n\n这意味着不需要重训整个模型——单机多卡即可完成，算力与时间成本都在可接受范围内。对客户而言，这是「做不做得起」的分界线。\n\n## 起草质量：均值请连着中位数与样本量一起看\n\n起草质量以 chrF（一种文本相似度指标）衡量：均值从 19.5 提升到 51.0，中位数 42.9，验证样本 55 条。\n\n解读这组数字时，请把样本量一起读：55 条中有 3 条与训练样本高度相似，我们已将其单独识别出来。\n\n## 审查判断：只给定性结论\n\n合同审查判断一侧（判官模型），我们的结论是定性的：从几乎不可用提升到稳定可用，结构化输出的解析失败问题被彻底解决。完整评测口径将随研究稿发布。\n\n## 部署：4 比特量化把显存从约 54GB 降到约 18.5GB\n\n同一份适配器可以直接挂在 4 比特量化的底座上，我们未观察到效果下降；显存占用从约 54GB 降至约 18.5GB。\n\n这对客户的意义很直接：模型可以部署在客户自有算力上，数据不出域，私有化因此可行。\n\n## 边界：微调不解决知识缺失\n\n微调解决的是格式、口径、领域语言与输出稳定性。它不解决知识缺失——模型没见过的法规与判例，微调也变不出来，这类问题要用检索解决。\n\n还有一条顺序不能颠倒：先有评测集，再微调。没有评测集，你无法判断一次微调到底让模型变好了还是变坏了。",
+      "publishedAt": "2026-10-15T08:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "documentId": "doc-2026-10-15-human-ai-collaboration-discipline",
+      "slug": "2026-10-15-human-ai-collaboration-discipline",
+      "locale": "zh",
+      "date": "2026-10-15",
+      "title": "组织用不好 AI，瓶颈通常不是模型",
+      "summary": "真正的瓶颈是协作纪律的缺位。把 AI 当同事而不是工具：同事需要说明书、需要考核、需要边界。下面是四条纪律，以及一个已经跑起来的例子。",
+      "tags": [
+        "方法论",
+        "行业"
+      ],
+      "sources": [
+        "星研研究档案·交付验收记录",
+        "星研研究档案·数据采集自愈闭环记录"
+      ],
+      "body": "## 把 AI 当同事，而不是工具\n\n结论是：瓶颈是协作纪律的缺位，而不是模型能力不足。\n\n同事需要说明书——也就是规格；需要考核——也就是验收门；需要边界——也就是终审权。把 AI 当工具用，这三样就都不会有。\n\n## 一、先立规格，再动手\n\n每项工作开工前，先写成可验收的规格与场景：什么条件、什么结果。\n\nAI 按规格产出，验收按场景核对。规格在前、产出在后——顺序反了，验收就只剩下主观判断。\n\n## 二、起草权可以交给 AI，终审权必须留在人\n\n内容与代码皆如此。起草是生成，终审是负责，这两件事不能合并。\n\n终审不是形式：最近一次交付验收中，人审环节抓出了两个会影响真实使用的缺陷。这两个缺陷都不是观感问题，而是真会影响客户使用的问题。\n\n## 三、能用机器判据的地方不用感觉\n\n基准线、指纹、门禁脚本，作用只有一个：让「改进了多少」可验证，而不是靠印象判断。\n\n## 四、AI 干 AI 的活，人干人的活\n\n重复性生成、检索、巡检交给 AI；判断、取舍、对客户负责的决策留在人。\n\n这条划分的依据是责任：后果由谁承担，决定权就该在谁手里。\n\n## 一个例子\n\n我们的数据采集舰队已经形成自愈闭环：发现失败、自动诊断、自动修复、回归验证，人只在验收环节介入。\n\n这个闭环里，AI 做重复的检测与修复，人守住验收那一关——正是上面第二条纪律的样子。\n\n把 AI 当同事而不是工具，这四条纪律就是具体的落法。",
+      "publishedAt": "2026-10-15T08:00:00.000Z"
+    },
+    {
+      "id": 8,
+      "documentId": "doc-2026-10-15-why-we-built-our-own-eval",
+      "slug": "2026-10-15-why-we-built-our-own-eval",
+      "locale": "zh",
+      "date": "2026-10-15",
+      "title": "为什么我们自建评测，而不是套用公开基准",
+      "summary": "评测层不是学术装饰，而是产品的一部分——没有基准线，就没有「改进了多少」。下面是我们自建评测口径的做法，以及上线当天得到的两条教训。",
+      "tags": [
+        "方法论",
+        "研究"
+      ],
+      "sources": [
+        "星研研究档案·检索评测基线记录",
+        "已归档验收报告·评测层上线缺陷修复"
+      ],
+      "body": "## 评测层是产品的一部分\n\n结论先说：评测层不是学术装饰，它就是产品的一部分。没有基准线，「改进了多少」无从谈起，所有优化只能停留在「感觉更好了」。\n\n## 公开法律基准：只借方法论，不搬代码\n\n我们侦察过公开的法律基准。它评的是合同生成质量，与我们的检索任务不同构——同一套题目考的不是同一种能力。\n\n因此我们零代码搬运，只借它的方法论。\n\n## 自建跑分器的三件东西\n\n- **数据集契约**：每条查询都要写明「为什么是它」，以及标注强度。\n- **纯函数打分器**：评测过程零大模型参与，打分不依赖模型，同一份输入得到同一份结果。\n- **双指纹**：数据集内容指纹 + 配置指纹。指纹不同的两次结果不可比——这条规则从机制上杜绝了诱导性数字。\n\n## 三域基线\n\n指标口径为 MRR@10，样本量与标注强度一并给出：\n\n- 政务检索：12 条，强标注\n- 论文检索：14 条，中等标注\n- 剧本检索：15 条，强标注\n\n## 两条教训\n\n**教训一：满分不等于质量优越。** 小语料加紧查询的条件下拿到满分，说明的是管线健康度，不是系统优越；跨域的数字也不可横向对比。\n\n**教训二：评测层上线当天就抓出真实缺陷。** 两路检索各自都能找到的结果，融合排序后反而丢失了。修复后，同一基准的 MRR 从 0.70 提升到 1.00（12 条强标注）；另一类按编号查询从 2/4 修复到 4/4。\n\n## 给客户的启示\n\n你们的 AI 项目同样需要一条自己的基准线，而且要先于优化建立。基准线先立起来，之后的每一次改动才有可比的参照。",
+      "publishedAt": "2026-10-15T08:00:00.000Z"
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 100,
+      "pageCount": 1,
+      "total": 8
+    }
+  }
+}
