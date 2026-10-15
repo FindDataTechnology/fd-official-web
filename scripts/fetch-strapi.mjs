@@ -173,7 +173,8 @@ async function fetchCollection(base, token, api) {
   let page = 1;
   let pageCount = 1;
   do {
-    const url = `${base}/api/${api}?locale=all&pagination[pageSize]=${PAGE_SIZE}&pagination[page]=${page}`;
+    // v5.58 实测：locale=all 返回 200 + 空 data（静默）；取全部 locale 必须 locale=*
+    const url = `${base}/api/${api}?locale=*&pagination[pageSize]=${PAGE_SIZE}&pagination[page]=${page}`;
     const payload = await fetchPage(url, token);
     if (!payload || !Array.isArray(payload.data)) {
       throw new Error(`${api} 第 ${page} 页应答畸形：data 不是数组`);
