@@ -15,8 +15,11 @@ const path = Astro.url.pathname.replace(/^\/zh(?=\/|$)/, '') || '/';
 
 // Primary navigation is audience-grouped and capped at six entries (ui-refine
 // D5); the sunk surfaces (indicators / roadmap / releases) live in the footer.
+// Xingyan (星研) sits directly after Products — a research line parallel to the
+// five, not a sixth product tab (xingyan-research-line).
 const nav = [
   { href: getRelativeLocaleUrl(locale, 'products'), key: 'nav.apps' },
+  { href: getRelativeLocaleUrl(locale, 'research'), key: 'nav.research' },
   { href: getRelativeLocaleUrl(locale, 'updates'), key: 'nav.updates' },
   { href: getRelativeLocaleUrl(locale, 'demo'), key: 'nav.demo' },
 ];

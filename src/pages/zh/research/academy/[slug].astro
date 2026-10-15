@@ -1,0 +1,33 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../../../components/Layout.astro';
+import XingyanEntry from '../../../../components/XingyanEntry.astro';
+import { t } from '../../../../i18n';
+import { loadXingyanSurface, slugOf, type XingyanLocale } from '../../../../lib/xingyan';
+
+// 学院课程页——/zh/research/academy/<slug>。网页课程为 canonical 源；配套谦面
+// 市场 pack 由 frontmatter 的 pack_url 指路，未上架时明示「准备中」。
+export async function getStaticPaths() {
+  const { courses } = await loadXingyanSurface();
+  return courses.zh.map((entry) => ({ params: { slug: slugOf(entry) }, props: { entry } }));
+}
+
+const locale: XingyanLocale = 'zh';
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const title = `${entry.data.title} — FindData Technology`;
+---
+
+<Layout locale={locale} title={title} description={entry.data.summary}>
+  <XingyanEntry
+    locale={locale}
+    backHref="/zh/research#academy"
+    backLabel={t(locale, 'research.back')}
+    title={entry.data.title}
+    summary={entry.data.summary}
+    sourceMaterial={entry.data.source_material}
+    packUrl={entry.data.pack_url}
+  >
+    <Content />
+  </XingyanEntry>
+</Layout>

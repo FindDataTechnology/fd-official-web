@@ -114,7 +114,67 @@ const releases = defineCollection({
   }),
 });
 
-export const collections = { docs, repos, apps, roadmap, flagship, releases };
+// ── Xingyan (星研) research line — xingyan-research-line ─────────────────────
+// Three paired collections behind /research (学院 / 内参 / 研究). Same
+// convention as `releases`: committed hand-written markdown, one file per
+// entry per locale (`<locale>/<slug>.md`), twins enforced at load time by
+// lib/xingyan.ts (a single-locale entry fails the build naming the slug).
+// The five product lines above are untouched: Xingyan is a parallel research
+// surface, not a sixth line tab.
+
+// `briefings` — 内参: event-driven single entries (no issue numbers, no
+// calendar promise). `sources` carries the traceable references behind the
+// entry's claims (briefing-feed spec: every assertion must be traceable).
+const briefings = defineCollection({
+  loader: glob({ base: './src/content/briefings', pattern: '**/*.md' }),
+  schema: z.object({
+    date: z.string().regex(DATE, 'date must be YYYY-MM-DD'),
+    title: z.string(),
+    summary: z.string(),
+    tags: z.array(z.string()),
+    sources: z.array(z.string()).optional().default([]),
+  }),
+});
+
+// `academy` — 学院: free web courses, each paired with a Facet-market pack
+// (`pack_url`; empty string = pack not published yet). Canonical source is the
+// web course (academy spec: single source, two carriers).
+const academy = defineCollection({
+  loader: glob({ base: './src/content/academy', pattern: '**/*.md' }),
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    order: z.number().optional().default(10),
+    source_material: z.string(),
+    pack_url: z.string().optional().default(''),
+  }),
+});
+
+// `research` — 研究: long-form pieces, `kind` distinguishes papers, case
+// studies and notes. Served under /research/articles/<slug>.
+const research = defineCollection({
+  loader: glob({ base: './src/content/research', pattern: '**/*.md' }),
+  schema: z.object({
+    date: z.string().regex(DATE, 'date must be YYYY-MM-DD'),
+    title: z.string(),
+    summary: z.string(),
+    kind: z.enum(['paper', 'casestudy', 'note']),
+    tags: z.array(z.string()),
+    sources: z.array(z.string()).optional().default([]),
+  }),
+});
+
+export const collections = {
+  docs,
+  repos,
+  apps,
+  roadmap,
+  flagship,
+  releases,
+  briefings,
+  academy,
+  research,
+};
 
 // Repo → product line (brand judgment, one source for /repos and /updates).
 // A repo absent here renders in the "other" group / without a line mark —

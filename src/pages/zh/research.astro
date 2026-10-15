@@ -1,0 +1,17 @@
+---
+import Layout from '../../components/Layout.astro';
+import XingyanResearch from '../../components/XingyanResearch.astro';
+import { t } from '../../i18n';
+import type { XingyanLocale } from '../../lib/xingyan';
+
+// 寻数·星研——研究与教育线门面：单页三栏（学院 / 内参 / 研究）。与五线平级，
+// 不是第六个产品线 tab（xingyan-research-line）。
+const locale: XingyanLocale = 'zh';
+const title = t(locale, 'research.title') + ' — FindData Technology';
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'research.sub')}>
+  <h1 class="page">{t(locale, 'research.title')}</h1>
+  <p class="page-sub">{t(locale, 'research.sub')}</p>
+  <XingyanResearch locale={locale} />
+</Layout>

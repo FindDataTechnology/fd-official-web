@@ -1,0 +1,35 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../../components/Layout.astro';
+import XingyanEntry from '../../../components/XingyanEntry.astro';
+import { t } from '../../../i18n';
+import { loadXingyanSurface, slugOf, type XingyanLocale } from '../../../lib/xingyan';
+
+// 研究 piece — /research/articles/<slug>. URL says `articles`; the collection is
+// `research` (paper / case study / note).
+export async function getStaticPaths() {
+  const { articles } = await loadXingyanSurface();
+  return articles.en.map((entry) => ({ params: { slug: slugOf(entry) }, props: { entry } }));
+}
+
+const locale: XingyanLocale = 'en';
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const title = `${entry.data.title} — FindData Technology`;
+---
+
+<Layout locale={locale} title={title} description={entry.data.summary}>
+  <XingyanEntry
+    locale={locale}
+    backHref="/research#articles"
+    backLabel={t(locale, 'research.back')}
+    title={entry.data.title}
+    summary={entry.data.summary}
+    date={entry.data.date}
+    kind={entry.data.kind}
+    tags={entry.data.tags}
+    sources={entry.data.sources}
+  >
+    <Content />
+  </XingyanEntry>
+</Layout>

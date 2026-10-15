@@ -1,0 +1,34 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../../../components/Layout.astro';
+import XingyanEntry from '../../../../components/XingyanEntry.astro';
+import { t } from '../../../../i18n';
+import { loadXingyanSurface, slugOf, type XingyanLocale } from '../../../../lib/xingyan';
+
+// 内参详情页——/zh/research/briefings/<slug>。加载即跑双语 twins 门：缺 en 侧
+// 对应条目时构建直接失败并指名 slug（lib/xingyan.ts）。
+export async function getStaticPaths() {
+  const { briefings } = await loadXingyanSurface();
+  return briefings.zh.map((entry) => ({ params: { slug: slugOf(entry) }, props: { entry } }));
+}
+
+const locale: XingyanLocale = 'zh';
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const title = `${entry.data.title} — FindData Technology`;
+---
+
+<Layout locale={locale} title={title} description={entry.data.summary}>
+  <XingyanEntry
+    locale={locale}
+    backHref="/zh/research#briefings"
+    backLabel={t(locale, 'research.back')}
+    title={entry.data.title}
+    summary={entry.data.summary}
+    date={entry.data.date}
+    tags={entry.data.tags}
+    sources={entry.data.sources}
+  >
+    <Content />
+  </XingyanEntry>
+</Layout>

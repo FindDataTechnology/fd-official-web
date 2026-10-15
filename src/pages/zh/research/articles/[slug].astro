@@ -1,0 +1,35 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../../../components/Layout.astro';
+import XingyanEntry from '../../../../components/XingyanEntry.astro';
+import { t } from '../../../../i18n';
+import { loadXingyanSurface, slugOf, type XingyanLocale } from '../../../../lib/xingyan';
+
+// 研究长文页——/zh/research/articles/<slug>。URL 用 articles，集合名为 research
+// （论文 / 案例研究 / 札记三种 kind）。
+export async function getStaticPaths() {
+  const { articles } = await loadXingyanSurface();
+  return articles.zh.map((entry) => ({ params: { slug: slugOf(entry) }, props: { entry } }));
+}
+
+const locale: XingyanLocale = 'zh';
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const title = `${entry.data.title} — FindData Technology`;
+---
+
+<Layout locale={locale} title={title} description={entry.data.summary}>
+  <XingyanEntry
+    locale={locale}
+    backHref="/zh/research#articles"
+    backLabel={t(locale, 'research.back')}
+    title={entry.data.title}
+    summary={entry.data.summary}
+    date={entry.data.date}
+    kind={entry.data.kind}
+    tags={entry.data.tags}
+    sources={entry.data.sources}
+  >
+    <Content />
+  </XingyanEntry>
+</Layout>

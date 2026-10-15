@@ -1,0 +1,173 @@
+---
+// Detail body for the Xingyan (星研) research line — one component for all
+// three carriers (briefing 内参 / course 学院 / article 研究). The prose itself
+// rides on the site's existing `article.doc` type styles; only the Xingyan
+// furniture (meta row, tags, sources, pack band) is styled here.
+// `packUrl` present ⇒ an academy course: the web course is canonical, the
+// matching Facet-market pack is linked (academy spec: 载体互指).
+import { t, type UiKey } from '../i18n';
+import type { XingyanLocale } from '../lib/xingyan';
+
+interface Props {
+  locale: XingyanLocale;
+  backHref: string;
+  backLabel: string;
+  title: string;
+  summary?: string;
+  date?: string;
+  kind?: 'paper' | 'casestudy' | 'note';
+  tags?: readonly string[];
+  sources?: readonly string[];
+  packUrl?: string;
+}
+const {
+  locale,
+  backHref,
+  backLabel,
+  title,
+  summary,
+  date,
+  kind,
+  tags = [],
+  sources = [],
+  packUrl,
+} = Astro.props;
+const kindLabel = kind ? t(locale, `research.kind.${kind}` as UiKey) : null;
+---
+
+<a class="doc-back" href={backHref}>← {backLabel}</a>
+<article class="doc xy-entry">
+  <h1>{title}</h1>
+  {
+    (date || kindLabel) && (
+      <p class="xy-meta-row">
+        {date && <time datetime={date}>{date}</time>}
+        {date && kindLabel && ' · '}
+        {kindLabel}
+      </p>
+    )
+  }
+  {summary && <p class="xy-lead">{summary}</p>}
+  {
+    tags.length > 0 && (
+      <ul class="xy-tags">
+        {tags.map((tag) => (
+          <li>{tag}</li>
+        ))}
+      </ul>
+    )
+  }
+  <slot />
+  {
+    sources.length > 0 && (
+      <section class="xy-sources">
+        <h2>{t(locale, 'research.sources.title')}</h2>
+        <ul>
+          {sources.map((source) => (
+            <li>{source}</li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</article>
+{
+  packUrl !== undefined &&
+    (packUrl ? (
+      <a class="xy-pack" href={packUrl} target="_blank" rel="noopener noreferrer">
+        <span class="xy-pack-label">{t(locale, 'research.pack.cta')}</span>
+        <span class="xy-pack-sub">{t(locale, 'research.pack.sub')}</span>
+      </a>
+    ) : (
+      <p class="xy-pack xy-pack-pending">{t(locale, 'research.pack.pending')}</p>
+    ))
+}
+
+<style>
+  .xy-entry h1 {
+    margin: 0 0 6px;
+  }
+  .xy-meta-row {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    margin: 0 0 12px;
+  }
+  .xy-lead {
+    color: var(--text);
+    font-size: 1.05rem;
+    margin: 0 0 8px;
+  }
+  .xy-tags {
+    list-style: none;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 10px 0 0;
+    padding: 0;
+  }
+  .xy-tags li {
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 1px 9px;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    line-height: 1.4;
+  }
+  .xy-sources {
+    margin-top: 32px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+  .xy-sources h2 {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    margin: 0 0 8px;
+  }
+  .xy-sources ul {
+    margin: 0;
+    padding-left: 1.2em;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .xy-sources li {
+    margin: 6px 0;
+    overflow-wrap: anywhere;
+  }
+  /* pack band — the same instrument-panel voice as .demo-cta on /repos */
+  .xy-pack {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 640px;
+    margin-top: 32px;
+    padding: 14px 20px;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(56, 225, 200, 0.12), rgba(106, 166, 255, 0.08));
+    color: var(--text);
+  }
+  a.xy-pack:hover {
+    text-decoration: none;
+    filter: brightness(1.05);
+  }
+  .xy-pack-label {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .xy-pack-sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .xy-pack-pending {
+    border-style: dashed;
+    border-color: var(--border);
+    background: none;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+</style>

@@ -1,0 +1,206 @@
+---
+// The Xingyan (星研) research line's landing surface: one page, three columns —
+// 学院 academy courses, 内参 briefings, 研究 research pieces. Each column links
+// into its own detail route and renders a dignified empty state while its
+// collection is still being written (xingyan-research-line). The five product
+// lines' surfaces are untouched: this is a parallel research surface, not a
+// sixth line tab.
+import { t, type UiKey } from '../i18n';
+import { loadXingyanSurface, slugOf, type XingyanLocale } from '../lib/xingyan';
+
+interface Props {
+  locale: XingyanLocale;
+}
+const { locale } = Astro.props;
+// Loading also runs the bilingual twins gate — a single-locale entry fails the
+// build here, naming the slug (lib/xingyan.ts).
+const { courses, briefings, articles } = await loadXingyanSurface();
+const base = locale === 'zh' ? '/zh' : '';
+const courseList = courses[locale];
+const briefingList = briefings[locale];
+const articleList = articles[locale];
+const kindLabel = (kind: string) => t(locale, `research.kind.${kind}` as UiKey);
+---
+
+<div class="xy-columns">
+  <section class="xy-col" id="academy">
+    <h2>{t(locale, 'research.academy.title')}</h2>
+    <p class="xy-col-sub">{t(locale, 'research.academy.sub')}</p>
+    {
+      courseList.length ? (
+        <ul class="xy-items">
+          {courseList.map((course) => (
+            <li class="xy-item">
+              <a class="xy-item-title" href={`${base}/research/academy/${slugOf(course)}`}>
+                {course.data.title}
+              </a>
+              <p class="xy-sum">{course.data.summary}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="xy-empty">{t(locale, 'research.academy.empty')}</p>
+      )
+    }
+  </section>
+
+  <section class="xy-col" id="briefings">
+    <h2>{t(locale, 'research.briefings.title')}</h2>
+    <p class="xy-col-sub">{t(locale, 'research.briefings.sub')}</p>
+    {
+      briefingList.length ? (
+        <ul class="xy-items">
+          {briefingList.map((briefing) => (
+            <li class="xy-item">
+              <p class="xy-meta">
+                <time datetime={briefing.data.date}>{briefing.data.date}</time>
+                {briefing.data.tags.map((tag) => (
+                  <span class="xy-tag">{tag}</span>
+                ))}
+              </p>
+              <a class="xy-item-title" href={`${base}/research/briefings/${slugOf(briefing)}`}>
+                {briefing.data.title}
+              </a>
+              <p class="xy-sum">{briefing.data.summary}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="xy-empty">{t(locale, 'research.briefings.empty')}</p>
+      )
+    }
+  </section>
+
+  <section class="xy-col" id="articles">
+    <h2>{t(locale, 'research.articles.title')}</h2>
+    <p class="xy-col-sub">{t(locale, 'research.articles.sub')}</p>
+    {
+      articleList.length ? (
+        <ul class="xy-items">
+          {articleList.map((article) => (
+            <li class="xy-item">
+              <p class="xy-meta">
+                <time datetime={article.data.date}>{article.data.date}</time>
+                <span class="xy-tag">{kindLabel(article.data.kind)}</span>
+                {article.data.tags.map((tag) => (
+                  <span class="xy-tag">{tag}</span>
+                ))}
+              </p>
+              <a class="xy-item-title" href={`${base}/research/articles/${slugOf(article)}`}>
+                {article.data.title}
+              </a>
+              <p class="xy-sum">{article.data.summary}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="xy-empty">{t(locale, 'research.articles.empty')}</p>
+      )
+    }
+  </section>
+</div>
+
+<p class="xy-feedline">
+  <a href="/briefings.json">{t(locale, 'research.feed')}</a>
+</p>
+
+<style>
+  /* Three console panels side by side; tonal stepping + hairlines only, per
+     DESIGN's flat-by-doctrine elevation. On narrow screens the columns stack. */
+  .xy-columns {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: start;
+  }
+  .xy-col {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    min-width: 0;
+  }
+  .xy-col h2 {
+    font-size: 1.15rem;
+    margin: 0 0 6px;
+  }
+  .xy-col-sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0 0 16px;
+  }
+  .xy-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .xy-item {
+    min-width: 0;
+  }
+  .xy-item + .xy-item {
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+  .xy-item-title {
+    display: block;
+    color: var(--text);
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.35;
+  }
+  .xy-item-title:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .xy-sum {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 4px 0 0;
+    overflow-wrap: anywhere;
+  }
+  .xy-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 0 6px;
+  }
+  .xy-meta time {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+  }
+  .xy-tag {
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 1px 9px;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    line-height: 1.4;
+  }
+  .xy-empty {
+    color: var(--muted);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  .xy-feedline {
+    margin: 28px 0 0;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+  }
+  .xy-feedline a {
+    color: var(--accent-2);
+  }
+  @media (max-width: 900px) {
+    .xy-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

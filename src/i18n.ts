@@ -3,6 +3,9 @@ export const ui = {
   en: {
     'nav.home': 'Home',
     'nav.apps': 'Products',
+    // Xingyan (星研) — the research line's placeholder Latin name is the pinyin
+    // until an English brand name is settled (xingyan-research-line D7).
+    'nav.research': 'Xingyan',
     'nav.data': 'Data',
     'nav.repos': 'Repos',
     'nav.docs': 'Docs',
@@ -269,6 +272,41 @@ export const ui = {
     'data.calibers.servable': 'Servable indicators',
     'data.calibers.active': 'Active concepts',
     'data.calibers.asOf': 'Calibers as of {date}',
+    // Xingyan (星研) research line (xingyan-research-line): one page, three
+    // columns — Academy / Briefings / Research. The five product lines are the
+    // stars; Xingyan is the observatory above them. The Latin name stays the
+    // pinyin placeholder until an English brand name is settled.
+    'research.title': 'Xingyan',
+    'research.sub':
+      'Xingyan is the research and education line — the observatory above the five product lines. It observes how the ecosystem is actually used, publishes field notes from the work, and teaches the methods that hold up in production. Below the myriad stars, Xingyan charts the course.',
+    'research.academy.title': 'Academy',
+    'research.academy.sub':
+      'Free web courses, no signup — each one also ships as a pack in the Facet market.',
+    'research.academy.empty':
+      'The first courses are being written — check back soon.',
+    'research.briefings.title': 'Briefings',
+    'research.briefings.sub':
+      'Field notes from the work — published when there is something to say, not on a schedule.',
+    'research.briefings.empty':
+      'No briefings yet — the stream starts with the next research result or milestone.',
+    'research.articles.title': 'Research',
+    'research.articles.sub':
+      'Long-form write-ups: papers, case studies, and notes from the workbench.',
+    'research.articles.empty':
+      'No long-form pieces yet — the first paper is being prepared.',
+    'research.kind.paper': 'Paper',
+    'research.kind.casestudy': 'Case study',
+    'research.kind.note': 'Note',
+    'research.from': 'Built from',
+    'research.sourceMaterial.title': 'Source material',
+    'research.sources.title': 'Sources',
+    'research.back': 'All of Xingyan',
+    'research.pack.cta': 'Get the course pack',
+    'research.pack.sub':
+      'Install it from the Facet market to follow along on your own machine.',
+    'research.pack.pending':
+      'The matching market pack is being prepared — the web course stands on its own.',
+    'research.feed': 'Machine-readable feed · /briefings.json',
     'footer.org': 'FindDataTechnology',
     'footer.line': 'Infrastructure and tools for text and data in the AI era.',
     'footer.viewSource': 'View source',
@@ -276,6 +314,7 @@ export const ui = {
   zh: {
     'nav.home': '首页',
     'nav.apps': '产品',
+    'nav.research': '星研',
     'nav.data': '数据',
     'nav.repos': '仓库',
     'nav.docs': '文档',
@@ -528,6 +567,31 @@ export const ui = {
     'data.calibers.servable': '可服务指标',
     'data.calibers.active': '活跃概念',
     'data.calibers.asOf': '口径数据截至 {date}',
+    // 寻数·星研（xingyan-research-line）：单页三栏——学院 / 内参 / 研究。
+    // 五线是星，星研是天文台；品牌句延续「萬星之下，星研指路」。
+    'research.title': '寻数·星研',
+    'research.sub':
+      '寻数·星研是研究与教育线——五条产品线之上的天文台：观测生态在真实业务中如何运转，发布来自作业一线的内参，把经得起生产检验的方法教给人。萬星之下，星研指路。',
+    'research.academy.title': '学院',
+    'research.academy.sub': '免费网页课程，无需注册——每门课程同步在谦面市场提供 pack。',
+    'research.academy.empty': '首批课程正在编写中——敬请期待。',
+    'research.briefings.title': '内参',
+    'research.briefings.sub': '来自作业一线的记录——有事则发，不定期，无期号。',
+    'research.briefings.empty': '暂无内参——下一项研究产出或里程碑完成后即会发布。',
+    'research.articles.title': '研究',
+    'research.articles.sub': '长文与成果：论文、案例研究与工作台札记。',
+    'research.articles.empty': '暂无长文——首批研究成果正在整理中。',
+    'research.kind.paper': '论文',
+    'research.kind.casestudy': '案例研究',
+    'research.kind.note': '札记',
+    'research.from': '底稿',
+    'research.sourceMaterial.title': '底稿来源',
+    'research.sources.title': '来源',
+    'research.back': '星研首页',
+    'research.pack.cta': '获取课程 pack',
+    'research.pack.sub': '在谦面市场安装，即可在本地跟着做。',
+    'research.pack.pending': '配套市场 pack 正在准备中——网页课程本身即可完整学习。',
+    'research.feed': '机器可读 feed · /briefings.json',
     'footer.org': 'FindDataTechnology',
     'footer.line': '服务 AI 时代的文本与数据基础设施与工具。',
     'footer.viewSource': '查看源码',
