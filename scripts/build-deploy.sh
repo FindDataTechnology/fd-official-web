@@ -16,6 +16,10 @@
 #   FD_INDICATORS_MCP_URL     default https://www.finddatatech.cloud/mcp
 #   FD_CALIBERS_MCP_TOKEN     business-mcp service-lane bearer (FDBIZ_INTERNAL_TOKEN)
 #   FD_CALIBERS_MCP_URL       default http://100.64.0.4:30803 (business-mcp service lane)
+#   STRAPI_URL                Strapi base for editorial content pull (empty = skip,
+#                             falls back to committed snapshots). The CMS runs on
+#                             this box; default is the loopback origin.
+#   STRAPI_READ_TOKEN         Strapi read-only API token (Bearer)
 set -euo pipefail
 
 CLONE_URL="${CLONE_URL:-https://github.com/FindDataTechnology/fd-official-web.git}"
@@ -51,6 +55,8 @@ docker run --rm \
   -e FD_INDICATORS_MCP_URL="${FD_INDICATORS_MCP_URL:-https://www.finddatatech.cloud/mcp}" \
   -e FD_CALIBERS_MCP_TOKEN="${FD_CALIBERS_MCP_TOKEN:-}" \
   -e FD_CALIBERS_MCP_URL="${FD_CALIBERS_MCP_URL:-http://100.64.0.4:30803}" \
+  -e STRAPI_URL="${STRAPI_URL:-}" \
+  -e STRAPI_READ_TOKEN="${STRAPI_READ_TOKEN:-}" \
   -v "$WORK":/app -w /app "$NODE_IMAGE" \
   sh -c 'npm ci --no-audit --no-fund && npm run build'
 
