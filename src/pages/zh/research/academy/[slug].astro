@@ -27,6 +27,8 @@ const title = `${entry.data.title} — FindData Technology`;
     summary={entry.data.summary}
     sourceMaterial={entry.data.source_material}
     packUrl={entry.data.pack_url}
+    tier={entry.data.level === 'use' || entry.data.level === 'build' ? entry.data.level : undefined}
+    updated={entry.data.updated}
   >
     <Content />
   </XingyanEntry>

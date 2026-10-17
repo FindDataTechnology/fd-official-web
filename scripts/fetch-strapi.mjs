@@ -77,7 +77,8 @@ const OPTIONAL_FIELDS = {
 //              ": " etc.); committed style.
 //   academy:   title / summary / source_material always double-quoted,
 //              pack_url '' (empty) or double-quoted, order bare; level bare
-//              (use|build) / track double-quoted / updated bare YYYY-MM-DD —
+//              (use|build) / track double-quoted / updated double-quoted
+//              YYYY-MM-DD (unquoted rides the YAML timestamp schema → Date) —
 //              each emitted only when present (yizuo-course-system 读者分层).
 //   research:  title / summary always double-quoted; source items quoted when
 //              they carry ASCII parens (the committed en sources annotate the
@@ -131,7 +132,10 @@ function toMarkdown(kind, e) {
     // 课程 front-matter 与既有提交字节一致（fixture 契约不被扰动）。
     if (e.level != null && e.level !== '') fm.push(`level: ${e.level}`);
     if (e.track != null && e.track !== '') fm.push(`track: ${dq(e.track)}`);
-    if (e.updated != null && e.updated !== '') fm.push(`updated: ${e.updated}`);
+    // updated 必须带引号：裸 YYYY-MM-DD 会踩 YAML timestamp core schema，
+    // 到 zod 手里已是 Date 对象，academy schema 直接拒收（research 的 date
+    // 带引号同理）。
+    if (e.updated != null && e.updated !== '') fm.push(`updated: ${dq(e.updated)}`);
     fm.push(`source_material: ${dq(e.source_material)}`);
     fm.push(`pack_url: ${e.pack_url ? dq(e.pack_url) : "''"}`);
   } else {

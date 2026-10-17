@@ -19,6 +19,10 @@ interface Props {
   tags?: readonly string[];
   sources?: readonly string[];
   packUrl?: string;
+  /** Academy only — declared reader tier; renders the meta badge (yizuo-course-system). */
+  tier?: 'use' | 'build';
+  /** Academy only — course freshness date shown next to the tier badge. */
+  updated?: string;
 }
 const {
   locale,
@@ -31,8 +35,11 @@ const {
   tags = [],
   sources = [],
   packUrl,
+  tier,
+  updated,
 } = Astro.props;
 const kindLabel = kind ? t(locale, `research.kind.${kind}` as UiKey) : null;
+const tierLabel = tier ? t(locale, `research.course.tier.${tier}` as UiKey) : null;
 ---
 
 <a class="doc-back" href={backHref}>← {backLabel}</a>
@@ -44,6 +51,20 @@ const kindLabel = kind ? t(locale, `research.kind.${kind}` as UiKey) : null;
         {date && <time datetime={date}>{date}</time>}
         {date && kindLabel && ' · '}
         {kindLabel}
+      </p>
+    )
+  }
+  {
+    tierLabel && (
+      <p class="xy-meta-row xy-tier-row">
+        <span class="xy-tier-badge" data-tier={tier}>{tierLabel}</span>
+        {updated && (
+          <>
+            {' · '}
+            {t(locale, 'research.course.updated')}{' '}
+            <time datetime={updated}>{updated}</time>
+          </>
+        )}
       </p>
     )
   }
@@ -92,6 +113,20 @@ const kindLabel = kind ? t(locale, `research.kind.${kind}` as UiKey) : null;
     font-family: var(--mono);
     font-size: 0.78rem;
     margin: 0 0 12px;
+  }
+  .xy-tier-row {
+    margin-top: -6px;
+  }
+  .xy-tier-badge {
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 1px 10px;
+    font-size: 0.72rem;
+  }
+  .xy-tier-badge[data-tier='build'] {
+    color: var(--text);
+    border-color: var(--border);
   }
   .xy-lead {
     color: var(--text);

@@ -6,7 +6,7 @@
 // lines' surfaces are untouched: this is a parallel research surface, not a
 // sixth line tab.
 import { t, type UiKey } from '../i18n';
-import { loadXingyanSurface, slugOf, type XingyanLocale } from '../lib/xingyan';
+import { loadXingyanSurface, slugOf, splitByTier, type CourseTier, type XingyanLocale } from '../lib/xingyan';
 
 interface Props {
   locale: XingyanLocale;
@@ -20,6 +20,12 @@ const courseList = courses[locale];
 const briefingList = briefings[locale];
 const articleList = articles[locale];
 const kindLabel = (kind: string) => t(locale, `research.kind.${kind}` as UiKey);
+// Reader-tier groups (yizuo-course-system): use 分组不列 build 课程。Undeclared
+// 存量课程落尾组，不冒充 use。组序固定 use → build → undeclared；空组不渲染。
+const TIER_ORDER: CourseTier[] = ['use', 'build', 'undeclared'];
+const courseGroups = TIER_ORDER.map((tier) => ({ tier, list: splitByTier(courseList)[tier] })).filter(
+  (g) => g.list.length > 0,
+);
 ---
 
 <div class="xy-columns">
@@ -27,17 +33,28 @@ const kindLabel = (kind: string) => t(locale, `research.kind.${kind}` as UiKey);
     <h2>{t(locale, 'research.academy.title')}</h2>
     <p class="xy-col-sub">{t(locale, 'research.academy.sub')}</p>
     {
-      courseList.length ? (
-        <ul class="xy-items">
-          {courseList.map((course) => (
-            <li class="xy-item">
-              <a class="xy-item-title" href={`${base}/research/academy/${slugOf(course)}`}>
-                {course.data.title}
-              </a>
-              <p class="xy-sum">{course.data.summary}</p>
-            </li>
-          ))}
-        </ul>
+      courseGroups.length ? (
+        courseGroups.map((group) => (
+          <div class="xy-tier">
+            <h3 class="xy-tier-title">{t(locale, `research.academy.tier.${group.tier}` as UiKey)}</h3>
+            <p class="xy-tier-sub">{t(locale, `research.academy.tier.${group.tier}.sub` as UiKey)}</p>
+            <ul class="xy-items">
+              {group.list.map((course) => (
+                <li class="xy-item">
+                  <a class="xy-item-title" href={`${base}/research/academy/${slugOf(course)}`}>
+                    {course.data.title}
+                  </a>
+                  {course.data.updated && (
+                    <span class="xy-item-updated">
+                      {t(locale, 'research.course.updated')} <time datetime={course.data.updated}>{course.data.updated}</time>
+                    </span>
+                  )}
+                  <p class="xy-sum">{course.data.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
       ) : (
         <p class="xy-empty">{t(locale, 'research.academy.empty')}</p>
       )
@@ -153,6 +170,30 @@ const kindLabel = (kind: string) => t(locale, `research.kind.${kind}` as UiKey);
   .xy-item-title:hover {
     color: var(--accent);
     text-decoration: none;
+  }
+  /* Reader-tier groups inside the academy column (yizuo-course-system). */
+  .xy-tier + .xy-tier {
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+    padding-top: 14px;
+  }
+  .xy-tier-title {
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 2px;
+  }
+  .xy-tier-sub {
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin: 0 0 10px;
+  }
+  .xy-item-updated {
+    display: block;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    margin-top: 3px;
   }
   .xy-sum {
     color: var(--muted);

@@ -35,6 +35,20 @@ const newestFirst = <T extends { id: string; data: { date: string } }>(a: T, b: 
 const courseOrder = (a: CourseEntry, b: CourseEntry) =>
   a.data.order - b.data.order || slugOf(a).localeCompare(slugOf(b));
 
+// Academy courses by declared reader tier (yizuo-course-system). `use` is the
+// default teaching path; `build` courses are the advanced tier and MUST NOT
+// appear inside the use group (spec: use 分组不列 build 课程). Undeclared
+// courses (存量未回填 level) form their own tail group — they are neither use
+// nor build and must not leak into either.
+export type CourseTier = 'use' | 'build' | 'undeclared';
+export const tierOf = (course: CourseEntry): CourseTier =>
+  course.data.level === 'use' || course.data.level === 'build' ? course.data.level : 'undeclared';
+export function splitByTier(list: CourseEntry[]): Record<CourseTier, CourseEntry[]> {
+  const groups: Record<CourseTier, CourseEntry[]> = { use: [], build: [], undeclared: [] };
+  for (const course of list) groups[tierOf(course)].push(course);
+  return groups;
+}
+
 // Load all three collections, enforce the bilingual twins gate on each, return
 // them sorted per locale. An empty collection is legal — the surface renders
 // its empty state (a line whose first entries are still being written).
