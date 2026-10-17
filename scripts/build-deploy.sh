@@ -41,22 +41,13 @@ DEPLOY_USER="${FD_WEB_DEPLOY_USER:-ubuntu}"
 DEPLOY_PATH="${FD_WEB_DEPLOY_PATH:-/opt/fd/web/dist}"
 
 echo "== $(date -u +%FT%TZ) build start =="
-# 2026-10-17: gitee SSH primary (github TLS from the build box is flaky and a
-# failed fetch here kills the whole run under set -e); github stays as fallback.
+# The outer bootstrap (fd-web-deploy.sh) owns source sync: it fetches from gitee
+# with a deploy key and resets the checkout before calling us. Re-syncing here
+# would drag HEAD back to the stale github mirror (real incident 2026-10-17:
+# origin/main was 9 commits behind gitee/main, so every deploy rebuilt old code).
+# Only clone when the checkout is missing entirely.
 if [ ! -d "$WORK/.git" ]; then
   git clone "$CLONE_URL" "$WORK"
-else
-  if ! git -C "$WORK" fetch -q gitee main 2>/dev/null; then
-    git -C "$WORK" remote add gitee git@gitee.com:FindDataTechnology/fd-official-web.git 2>/dev/null || true
-    if ! GIT_SSH_COMMAND="ssh -i /root/.ssh/jenkins-gitee-deploy -o StrictHostKeyChecking=no" git -C "$WORK" fetch -q gitee main; then
-      git -C "$WORK" fetch origin main
-    fi
-  fi
-  if git rev-parse --verify -q gitee/main >/dev/null; then
-    git -C "$WORK" reset --hard gitee/main
-  else
-    git -C "$WORK" reset --hard origin/main
-  fi
 fi
 echo "building $(git -C "$WORK" rev-parse --short=8 HEAD) @ origin/main"
 
