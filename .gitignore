@@ -44,3 +44,6 @@ id_ed25519*
 
 # impeccable local review artifacts
 .impeccable/
+
+# browser-acceptance screenshots (local evidence, never shipped)
+gui-test-screenshots/
