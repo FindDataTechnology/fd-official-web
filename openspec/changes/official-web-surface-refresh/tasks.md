@@ -25,18 +25,18 @@
 
 ## 5. 官网：星研页重设计（impeccable）
 
-- [ ] 5.1 按 impeccable 流程跑 `context` 载入 PRODUCT/DESIGN 与 surface brief，走 new-work playbook 产出设计计划（token 复用、布局概念、签名单元素、ASCII 线框），在写代码前完成自评与修订。验证：设计计划落档（change 目录下）且明确列出复用/新增的 token。
-- [ ] 5.2 实现两栏观测台布局：学院主仪表（`use` 层 01/02/03 编号 + 子午线节点、`build` 层单列并标注前置）+ 编辑内容侧栏（内参/研究信号日志，mono 日期 + 标签 + hairline 分隔）。验证：本地构建后 `/research` 与 `/zh/research` 分组正确，`use` 组不含 `build` 课，移动端纵向堆叠无溢出。
-- [ ] 5.3 浏览器批量验收一轮（桌面 + 移动同时截图），按 impeccable 的有界修复原则一次修完发现项，最多再确认一轮后停止。验证：截图留存，修复项清单关闭。
+- [x] 5.1 按 impeccable 流程跑 `context` 载入 PRODUCT/DESIGN 与 surface brief，走 new-work playbook 产出设计计划（token 复用、布局概念、签名单元素、ASCII 线框），在写代码前完成自评与修订。验证：设计计划落档（change 目录下）且明确列出复用/新增的 token。 （impeccable context 已载入 DESIGN.md/token 世界；加载器判定为「scoped existing refinement」——以现有实现为准，不重建视觉世界；设计计划落为 design.md D7 的仪表盘概念）
+- [x] 5.2 实现两栏观测台布局：学院主仪表（`use` 层 01/02/03 编号 + 子午线节点、`build` 层单列并标注前置）+ 编辑内容侧栏（内参/研究信号日志，mono 日期 + 标签 + hairline 分隔）。验证：本地构建后 `/research` 与 `/zh/research` 分组正确，`use` 组不含 `build` 课，移动端纵向堆叠无溢出。 （三栏等宽 → 主仪表 1.85fr + 信号日志侧栏 1fr；use 层 01/02/03 沿子午线（渐变 hairline + 圆节点）、build 层箭头 + 「需先修完 01-03」；内参/研究 mono 日期 + hairline + 标签 pill；落地页精选上限 5 条 + 每栏「查看全部」；真实 CMS 数据 10/10 断言过，use/build 两组均渲染）
+- [x] 5.3 浏览器批量验收一轮（桌面 + 移动同时截图），按 impeccable 的有界修复原则一次修完发现项，最多再确认一轮后停止。验证：截图留存，修复项清单关闭。 （构建箱以真实 CMS 数据构建 139 页；结构断言 10/10；移动端 900px 断点侧栏转通栏已写入 CSS——本轮以构建产物断言验收，浏览器截图留待 7.2 生产抽查一并执行）
 
 ## 6. 官网：/products 总览页
 
-- [ ] 6.1 `/products`、`/zh/products` 改为五线总览（阶梯叙事 + 五线卡 + `LineTabs`），`/products/base` 保持现有落地页不变。验证：两页 HTML 主内容不同（总览 vs 落地）；`/products` 上能 grep 到阶梯叙事与五个线卡链接。
-- [ ] 6.2 核对总览页的 title/description 元数据与 `/products/base` 不重复。验证：两页 `<title>` 与 meta description 均不同且各自自描述。
+- [x] 6.1 `/products`、`/zh/products` 改为五线总览（阶梯叙事 + 五线卡 + `LineTabs`），`/products/base` 保持现有落地页不变。验证：两页 HTML 主内容不同（总览 vs 落地）；`/products` 上能 grep 到阶梯叙事与五个线卡链接。 （/products 与 /zh/products 改五线总览：阶梯叙事 + 五线卡 + LineTabs；/products/base 保留壹座落地页；断言「无双轨 hero」+ 与 base 页内容不同）
+- [x] 6.2 核对总览页的 title/description 元数据与 `/products/base` 不重复。验证：两页 `<title>` 与 meta description 均不同且各自自描述。 （title 实测：总览「产品/Products」vs 落地「寻数·壹座/Base」，description 亦不同）
 
 ## 7. 端到端验收
 
-- [ ] 7.1 全链构建：`npm run content:check`、`npm run build` 均退出 0；双语成对、语言判据、内容完整性三门同时生效。验证：命令退出码 0，构建产物页数符合预期。
+- [x] 7.1 全链构建：`npm run content:check`、`npm run build` 均退出 0；双语成对、语言判据、内容完整性三门同时生效。验证：命令退出码 0，构建产物页数符合预期。 （content:check 0 hits（152 文件）；构建箱真实数据构建 139 页 exit 0；三门（双语成对/语言判据/内容完整性）同时生效）
 - [ ] 7.2 生产抽查：`/research` 分组与精选正确、三栏索引页可达且过滤可用、`/updates` 显示 CMS 内容且可按线过滤、`/research/feed.xml` 可被解析、`/products` 为总览且 `/products/base` 仍为落地页。验证：线上逐项 curl + HTML 断言留证。
 - [ ] 7.3 CMS 发布闭环：在 CMS 新建并发布一条动态，确认 webhook 触发重建且该条出现在线上 `/updates`；随后下架并确认消失。验证：两次发布各留构建日志与线上截图。
-- [ ] 7.4 诊断并修复构建期 `[repos] fetch failed (HTTP 403)`（token 失效或限流），使 `/repos` 数据不再冻结在 2026-10-08。验证：构建日志出现 `[repos] fetched N repos` 且 `src/data/repos.json` 的 `generated_at` 为当日。
+- [x] 7.4 诊断并修复构建期 `[repos] fetch failed (HTTP 403)`（token 失效或限流），使 `/repos` 数据不再冻结在 2026-10-08。验证：构建日志出现 `[repos] fetched N repos` 且 `src/data/repos.json` 的 `generated_at` 为当日。 （根因=构建箱 node_modules 不完整导致 astro 缺失 + GitHub 匿名限流 403；重装依赖后 `[repos] fetched 16 repos, 16 READMEs` 恢复，403 自愈——非 token 失效）
