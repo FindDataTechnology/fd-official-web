@@ -6,21 +6,21 @@
 
 ## 2. CMS：update 内容类型
 
-- [ ] 2.1 在 fd-strapi 新增 `update` 内容类型：`slug`（uid，非本地化）、`date`（date，非本地化）、`line`（枚举 base/lex/wire/facet/constellation/xingyan，非本地化）、`kind`（枚举 release/feature/fix/note，非本地化）、`title_zh`/`title_en`（string 必填）、`summary_zh`/`summary_en`（text 必填）、`version`（string 可选）、`url`（string 可选）。验证：本地 schema 合法、重建后后台可新建该类型条目。
-- [ ] 2.2 重建 fd-strapi 镜像并滚动发布到 cheap-1，确认既有三种内容类型读写不受影响。验证：`GET /api/updates?locale=*` 返回 200 且 `courses/briefings/research-articles` 三接口仍 200；官网拉取链仍拉到 8 个文件。
-- [ ] 2.3 把现有 17 条原始 commit 记录整理为双语动态种子内容并在 CMS 发布（合并同源条目、改写为访客可读标题与摘要，内部流水不进 feed）。验证：CMS 中已发布条目数 ≥5 且每条四个语言字段齐全；`/updates` 构建后无 `ci(`/`chore(` 原文。
+- [x] 2.1 在 fd-strapi 新增 `update` 内容类型：`slug`（uid，非本地化）、`date`（date，非本地化）、`line`（枚举 base/lex/wire/facet/constellation/xingyan，非本地化）、`kind`（枚举 release/feature/fix/note，非本地化）、`title_zh`/`title_en`（string 必填）、`summary_zh`/`summary_en`（text 必填）、`version`（string 可选）、`url`（string 可选）。验证：本地 schema 合法、重建后后台可新建该类型条目。 （`src/api/update/` 四件套：schema + routes/controllers/services；`pluginOptions.i18n.localized=false`——单条目双语字段不走 locale 配对）
+- [x] 2.2 重建 fd-strapi 镜像并滚动发布到 cheap-1，确认既有三种内容类型读写不受影响。验证：`GET /api/updates?locale=*` 返回 200 且 `courses/briefings/research-articles` 三接口仍 200；官网拉取链仍拉到 8 个文件。 （出片 sha-8032497（源 7164c3e）经 testaction003 构建 5m6s → relay 回灌 ccr → cheap-1 滚动；`/api/updates?locale=*` 200；courses/briefings/research-articles 三接口仍 200）
+- [x] 2.3 把现有 17 条原始 commit 记录整理为双语动态种子内容并在 CMS 发布（合并同源条目、改写为访客可读标题与摘要，内部流水不进 feed）。验证：CMS 中已发布条目数 ≥5 且每条四个语言字段齐全；`/updates` 构建后无 `ci(`/`chore(` 原文。 （6 条双语种子：自助注册/桌面 v1.3.1/MCP 鉴权加固/独立分支/行业源批次二/官网登录入口；原始 commit 的 `ci(`/`chore(` 全部改写为访客可读标题）
 
 ## 3. 官网：updates 页与管道退役
 
-- [ ] 3.1 `src/content.config.ts` 新增 `updates` 集合 schema（zod：四个语言字段必填、`line`/`kind` 枚举、`date` 正则），`fetch-strapi.mjs` 注册表新增该集合（`twin: 'fields'`）。验证：`npm run strapi:fetch` 后 `src/content/updates/` 出现文件且 zod 校验通过。
-- [ ] 3.2 重做 `/updates`、`/zh/updates`：日志栅格（日期左栏 + 竖细线）、月份分隔、产品线过滤条（客户端即时过滤 + URL 参数镜像）、按线标显示 `LineMark`。验证：本地构建后页面含月份分隔与线过滤控件；`?line=base` 打开时预置过滤；禁用 JS 时全量列表仍可见。
-- [ ] 3.3 从 `scripts/fetch-repos.mjs` 移除 updates 抓取逻辑并删除 `src/data/updates.json`（在 3.2 验证通过后执行）。验证：构建日志不再出现 `[updates]` 行；`grep -r updates.json src/ scripts/` 无引用；构建仍通过。
+- [x] 3.1 `src/content.config.ts` 新增 `updates` 集合 schema（zod：四个语言字段必填、`line`/`kind` 枚举、`date` 正则），`fetch-strapi.mjs` 注册表新增该集合（`twin: 'fields'`）。验证：`npm run strapi:fetch` 后 `src/content/updates/` 出现文件且 zod 校验通过。 （zod 四语言字段必填 + line/kind 枚举 + date 正则；注册表 `twin:'fields'` 行；在线拉取实测 26 文件含 updates 6 条）
+- [x] 3.2 重做 `/updates`、`/zh/updates`：日志栅格（日期左栏 + 竖细线）、月份分隔、产品线过滤条（客户端即时过滤 + URL 参数镜像）、按线标显示 `LineMark`。验证：本地构建后页面含月份分隔与线过滤控件；`?line=base` 打开时预置过滤；禁用 JS 时全量列表仍可见。 （日志栅格 62px 日期栏 + 月份分隔 + 线过滤条；`?line=base` 预置过滤；无 JS 时全量列表仍可见——过滤只 hidden 行）
+- [x] 3.3 从 `scripts/fetch-repos.mjs` 移除 updates 抓取逻辑并删除 `src/data/updates.json`（在 3.2 验证通过后执行）。验证：构建日志不再出现 `[updates]` 行；`grep -r updates.json src/ scripts/` 无引用；构建仍通过。 （fetch-repos.mjs 移除 parseChangelog/fetchUpdates/内部前缀表/两个上限常量与写盘块；`src/data/updates.json` 已删；全仓 grep 无残留引用）
 
 ## 4. 官网：星研内容架构（索引页 + RSS）
 
-- [ ] 4.1 新增三栏索引页 `/research/academy`、`/research/briefings`、`/research/articles` 与 `/zh` 对应（只渲染元数据，不内联正文）。验证：构建后四个新路由 200，页面不含条目正文（抽一条正文首句 grep 不到）。
-- [ ] 4.2 索引页接入分类过滤：学院按 `level`、内参按 `tags`、研究按 `kind`+`tags`，过滤状态镜像到 URL 参数。验证：带参打开预置过滤；点击过滤项后列表变化；URL 反映当前值。
-- [ ] 4.3 新增 `/research/feed.xml`（三栏合并 RSS：标题、日期、详情页绝对 URL），`/briefings.json` 契约不变。验证：feed 通过 XML 解析器校验；条目链接为绝对 URL；`/briefings.json` 响应结构与改动前一致。
+- [x] 4.1 新增三栏索引页 `/research/academy`、`/research/briefings`、`/research/articles` 与 `/zh` 对应（只渲染元数据，不内联正文）。验证：构建后四个新路由 200，页面不含条目正文（抽一条正文首句 grep 不到）。 （六个索引页：academy/briefings/articles × zh/en；只渲染元数据，正文首句 grep 不到）
+- [x] 4.2 索引页接入分类过滤：学院按 `level`、内参按 `tags`、研究按 `kind`+`tags`，过滤状态镜像到 URL 参数。验证：带参打开预置过滤；点击过滤项后列表变化；URL 反映当前值。 （学院按 level 分组、内参按 tags、研究按 kind+tags；过滤镜像到 ?tag=/?kind=；URL 预置生效）
+- [x] 4.3 新增 `/research/feed.xml`（三栏合并 RSS：标题、日期、详情页绝对 URL），`/briefings.json` 契约不变。验证：feed 通过 XML 解析器校验；条目链接为绝对 URL；`/briefings.json` 响应结构与改动前一致。 （`/research/feed.xml` XML 解析通过、6 条、绝对 URL；`/briefings.json` 未改动）
 - [ ] 4.4 落地页改为「精选 + 查看全部」：课程全量（按层分组）、内参与研究各取最新 5 条，每栏给出指向索引页的入口。验证：构造超过 5 条的内参 fixture 后落地页仍只渲染 5 条且出现「查看全部」。
 
 ## 5. 官网：星研页重设计（impeccable）
