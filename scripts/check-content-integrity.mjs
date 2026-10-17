@@ -39,9 +39,10 @@ const USE_RULES = [
   // Console deep-links — any console-rooted URL path, optionally with host,
   // at line start or after a spacer / opening quote / backtick.
   { id: 'url-path', pattern: /(?:^|[\s(`>「『【（])\/(?:settings|admin|console|workbench|facet|platform|wanxing)\/[^\s)》」】]*/ },
-  // Technical identifiers. Names listed verbatim (no \b so longer names win
-  // over shorter prefixes); token-like ids (MCP/A2A) use word boundaries.
-  { id: 'tech-identifier', pattern: /(?:\b(?:MCP|A2A)\b|Logto|dsh|finddatatech\.cloud|sk-[A-Za-z0-9_-]{4,})/ },
+  // Technical identifiers. Short names (dsh, Logto) need word boundaries —
+  // bare `dsh` matched inside "spreadsheets" (real false positive on the
+  // 2026-10-17 production build); token-like ids (MCP/A2A) likewise.
+  { id: 'tech-identifier', pattern: /(?:\b(?:MCP|A2A|dsh|Logto)\b|finddatatech\.cloud|sk-[A-Za-z0-9_-]{4,})/ },
   // Error/status codes — keyword-anchored so a plain count ("上传 500 条记录")
   // stays clean: the number must sit next to an error word, or be an
   // E-constant / server-error phrase.
