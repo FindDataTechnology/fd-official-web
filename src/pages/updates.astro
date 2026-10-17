@@ -1,38 +1,29 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../components/Layout.astro';
 import LineMark from '../components/LineMark.astro';
-import { PRODUCT_LINES, LADDER_CHARS } from '../content.config';
-import { t, type UiKey } from '../i18n';
+import { PRODUCT_LINES, LADDER_CHARS, REPO_LINES } from '../content.config';
+import { t } from '../i18n';
+// Generated at build time by scripts/fetch-repos.mjs (changelogs + commits).
+import updatesJson from '../data/updates.json';
+// Public-only guard: the committed fallback can go stale — a repo may have
+// turned private (or been deleted) since the last successful fetch. Drop any
+// entry whose repo is absent from the committed public list, so a degraded
+// build can never publish non-public repo activity.
+import reposJson from '../data/repos.json';
 
-// 项目动态（official-web-surface-refresh）——CMS 编辑发布的条目，单条目双语
-// 字段，一条一个日期事实。布局是日志栅格：日期左栏 + 月份分隔 + 线过滤。
-const locale = 'en';
-const entries = (await getCollection('updates')).sort(
-  (a, b) => b.data.date.localeCompare(a.data.date) || a.id.localeCompare(b.id),
-);
-const title = t(locale, 'updates.title') + ' — FindData Technology';
-
-// Month buckets: the separator is the log's only structural break.
-const months = [];
-for (const entry of entries) {
-  const key = entry.data.date.slice(0, 7);
-  const bucket = months.find((m) => m.key === key);
-  if (bucket) bucket.entries.push(entry);
-  else months.push({ key, entries: [entry] });
+interface Entry {
+  repo: string;
+  url: string;
+  version: string;
+  date: string | null;
+  upcoming: boolean;
+  summary: string[];
 }
-const monthLabel = (key: string) => {
-  const [y, m] = key.split('-');
-  return `${y}-${m}`;
-};
 
-// Line filter values present in the data, in ladder order (xingyan last).
-const lines = [...PRODUCT_LINES, 'xingyan' as const].filter((l) =>
-  entries.some((e) => e.data.line === l),
-);
-const lineLabel = (l: string) =>
-  l === 'xingyan' ? t(locale, 'updates.line.xingyan') : t(locale, `line.${l}` as UiKey);
-const lineIndex = (l: string) => PRODUCT_LINES.indexOf(l as (typeof PRODUCT_LINES)[number]);
+const locale = 'en';
+const publicRepos = new Set(reposJson.repos.map((r: { name: string }) => r.name));
+const entries: Entry[] = updatesJson.filter((e: Entry) => publicRepos.has(e.repo));
+const title = t(locale, 'updates.title') + ' — FindData Technology';
 ---
 
 <Layout locale={locale} title={title} description={t(locale, 'updates.sub')}>
@@ -40,232 +31,31 @@ const lineIndex = (l: string) => PRODUCT_LINES.indexOf(l as (typeof PRODUCT_LINE
   <p class="page-sub">{t(locale, 'updates.sub')}</p>
   {
     entries.length ? (
-      <>
-        <nav class="log-filter" aria-label={t(locale, 'updates.filter')}>
-          <button type="button" class="log-chip active" data-line="all">
-            {t(locale, 'updates.all')}
-          </button>
-          {lines.map((l) => (
-            <button type="button" class="log-chip" data-line={l}>
-              {lineIndex(l) >= 0 && (
-                <LineMark char={LADDER_CHARS[lineIndex(l)]} name={lineLabel(l)} size="xs" />
+      <ol class="feed">
+        {entries.map((e) => (
+          <li class={e.upcoming ? 'upcoming' : ''}>
+            <div class="feed-head">
+              {REPO_LINES[e.repo] && (
+                <LineMark
+                  char={LADDER_CHARS[PRODUCT_LINES.indexOf(REPO_LINES[e.repo] as (typeof PRODUCT_LINES)[number])]}
+                  name={t(locale, `line.${REPO_LINES[e.repo]}` as const)}
+                  size="xs"
+                />
               )}
-              {lineLabel(l)}
-            </button>
-          ))}
-        </nav>
-        <div class="log" id="update-log">
-          {months.map((month) => (
-            <section class="log-month" data-month={month.key}>
-              <h2 class="log-month-title">{monthLabel(month.key)}</h2>
-              <ol class="log-entries">
-                {month.entries.map((e) => (
-                  <li class="log-entry" data-line={e.data.line}>
-                    <time class="log-date" datetime={e.data.date}>
-                      {e.data.date.slice(5)}
-                    </time>
-                    <div class="log-body">
-                      <p class="log-head">
-                        <span class="log-line">
-                          {lineIndex(e.data.line) >= 0 && (
-                            <LineMark
-                              char={LADDER_CHARS[lineIndex(e.data.line)]}
-                              name={lineLabel(e.data.line)}
-                              size="xs"
-                            />
-                          )}
-                          {lineLabel(e.data.line)}
-                        </span>
-                        <span class="log-kind">
-                          {t(locale, `updates.kind.${e.data.kind}` as UiKey)}
-                        </span>
-                        {e.data.version && <span class="log-ver">{e.data.version}</span>}
-                      </p>
-                      <p class="log-title">
-                        {e.data.url ? (
-                          <a href={e.data.url} target="_blank" rel="noopener noreferrer">
-                            {e.data.title_en}
-                          </a>
-                        ) : (
-                          e.data.title_en
-                        )}
-                      </p>
-                      <p class="log-sum">{e.data.summary_en}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          ))}
-        </div>
-        <p class="log-empty" hidden>
-          {t(locale, 'updates.empty')}
-        </p>
-      </>
+              <a class="feed-repo" href={e.url} target="_blank" rel="noopener noreferrer">{e.repo}</a>
+              <span class="feed-ver">{e.upcoming ? t(locale, 'updates.upcoming') : e.version}</span>
+              {e.date && <time>{e.date}</time>}
+            </div>
+            <ul>
+              {e.summary.map((s) => (
+                <li set:html={s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/`([^`]+)`/g, '<code>$1</code>')} />
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
     ) : (
       <p class="page-sub">{t(locale, 'updates.empty')}</p>
     )
   }
 </Layout>
-
-<script>
-  // Progressive enhancement: the full log renders server-side; filtering only
-  // hides rows and mirrors the choice into ?line= so the view is shareable.
-  const chips = document.querySelectorAll<HTMLButtonElement>('.log-chip');
-  const rows = document.querySelectorAll<HTMLElement>('.log-entry');
-  const monthBlocks = document.querySelectorAll<HTMLElement>('.log-month');
-  const empty = document.querySelector<HTMLElement>('.log-empty');
-
-  const apply = (line: string) => {
-    let visible = 0;
-    rows.forEach((row) => {
-      const match = line === 'all' || row.dataset.line === line;
-      row.hidden = !match;
-      if (match) visible++;
-    });
-    // A month with no visible rows would leave a dangling separator.
-    monthBlocks.forEach((month) => {
-      const any = [...month.querySelectorAll<HTMLElement>('.log-entry')].some((r) => !r.hidden);
-      month.hidden = !any;
-    });
-    if (empty) empty.hidden = visible > 0;
-    chips.forEach((chip) => chip.classList.toggle('active', chip.dataset.line === line));
-  };
-
-  const initial = new URLSearchParams(location.search).get('line') ?? 'all';
-  apply(initial);
-
-  chips.forEach((chip) =>
-    chip.addEventListener('click', () => {
-      const line = chip.dataset.line ?? 'all';
-      const url = new URL(location.href);
-      if (line === 'all') url.searchParams.delete('line');
-      else url.searchParams.set('line', line);
-      history.replaceState(null, '', url);
-      apply(line);
-    }),
-  );
-</script>
-
-<style>
-  .log-filter {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin: 18px 0 22px;
-  }
-  .log-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--muted);
-    cursor: pointer;
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    padding: 4px 12px;
-  }
-  .log-chip:hover {
-    border-color: var(--border-strong);
-    color: var(--text);
-  }
-  .log-chip.active {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-  .log-month + .log-month {
-    margin-top: 34px;
-  }
-  .log-month-title {
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    margin: 0 0 10px;
-  }
-  .log-entries {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  /* The log grid is this page's signature: date rail + hairline rule. */
-  .log-entry {
-    display: grid;
-    grid-template-columns: 62px 1px 1fr;
-    gap: 0 16px;
-    padding: 12px 0;
-  }
-  .log-entry + .log-entry {
-    border-top: 1px solid var(--border);
-  }
-  .log-date {
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.82rem;
-    padding-top: 1px;
-  }
-  .log-body {
-    grid-column: 3;
-    min-width: 0;
-  }
-  .log-head {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin: 0 0 4px;
-  }
-  .log-line {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.74rem;
-  }
-  .log-kind,
-  .log-ver {
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    padding: 0 8px;
-  }
-  .log-ver {
-    color: var(--accent);
-    border-color: var(--accent);
-  }
-  .log-title {
-    font-size: 1.02rem;
-    font-weight: 700;
-    margin: 0 0 3px;
-  }
-  .log-title a {
-    color: var(--text);
-  }
-  .log-title a:hover {
-    color: var(--accent);
-    text-decoration: none;
-  }
-  .log-sum {
-    color: var(--muted);
-    font-size: 0.93rem;
-    margin: 0;
-    max-width: 78ch;
-  }
-  .log-empty {
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.85rem;
-  }
-  @media (max-width: 620px) {
-    .log-entry {
-      grid-template-columns: 52px 1px 1fr;
-      gap: 0 12px;
-    }
-  }
-</style>

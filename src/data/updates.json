@@ -1,0 +1,172 @@
+[
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/34923817395338d7d368b940d8b2c08b40cd7a21",
+    "version": "3492381",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "products: 云端 CTA 直指登录页——自助注册开放（add-login-hero 拓扑发现）"
+    ]
+  },
+  {
+    "repo": "fd-official-web",
+    "url": "https://github.com/FindDataTechnology/fd-official-web/commit/c3b1231889753b4dfae0591db48e47d89fc97cd5",
+    "version": "c3b1231",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "chore(data): desktop-releases v1.3.1 (release-sync)"
+    ]
+  },
+  {
+    "repo": "fd-mcp-registry",
+    "url": "https://github.com/FindDataTechnology/fd-mcp-registry/commit/fa1cd505eb0313e6c7f7f61688611ff9d74fa5a2",
+    "version": "fa1cd50",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "fix(auth): patch-key validate returns RESOLVED groups, not the raw snapshot"
+    ]
+  },
+  {
+    "repo": "fd-mcp-registry",
+    "url": "https://github.com/FindDataTechnology/fd-mcp-registry/commit/2cc4adf1ef49e850d57c24ff7181fd5672583e83",
+    "version": "2cc4adf",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "fix(auth): tier gate fires on /validate too — paid-tier 402 beats scope 403"
+    ]
+  },
+  {
+    "repo": "fd-mcp-registry",
+    "url": "https://github.com/FindDataTechnology/fd-mcp-registry/commit/8c4465c83a30f423afbbcb9fce938a6192c9bda6",
+    "version": "8c4465c",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "fix(oauth): collapse duplicate WWW-Authenticate on MCP 401s to one header"
+    ]
+  },
+  {
+    "repo": "fd-mcp-registry",
+    "url": "https://github.com/FindDataTechnology/fd-mcp-registry/commit/e4760a627d53ddcfab8cfd7a66777267fcb45d15",
+    "version": "e4760a6",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "fix(auth): patch keys with empty group snapshots take the community fallback"
+    ]
+  },
+  {
+    "repo": "platform",
+    "url": "https://github.com/FindDataTechnology/platform/commit/50b52f1b5cdb3a05753af1639d0927503bc25c3b",
+    "version": "50b52f1",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "ci(win-smoke): Phase B runs from resources/app (asar:false layout — app code lands there, confirmed on the mac bundle), copies bundled node alongside"
+    ]
+  },
+  {
+    "repo": "platform",
+    "url": "https://github.com/FindDataTechnology/platform/commit/184a6a771a45766d24c0a5ff136e651f907ce2bc",
+    "version": "184a6a7",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "ci(win-smoke): Phase B extracts app.asar (node cannot read inside asar) and runs the extracted server.js with the packaged node + resources"
+    ]
+  },
+  {
+    "repo": "platform",
+    "url": "https://github.com/FindDataTechnology/platform/commit/66627529a8a6e4fa00df0c156c743a968da81bdd",
+    "version": "6662752",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "ci(win-smoke): two-phase smoke — app spawns bundled backend (A) + packaged server.js direct /api/ready probe with streamed stderr (B); first run diagnosed: 503-then-refused = backend crash loop, ring-buffer-only logs hid the cause"
+    ]
+  },
+  {
+    "repo": "platform",
+    "url": "https://github.com/FindDataTechnology/platform/commit/9eaf955278dbfcd41c8062debcd3c23b85922129",
+    "version": "9eaf955",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "ci: win-install-smoke — real NSIS silent install + /api/ready probe on windows-latest (add-desktop-release 4.2 beta-promotion evidence)"
+    ]
+  },
+  {
+    "repo": "platform",
+    "url": "https://github.com/FindDataTechnology/platform/commit/9f41c5aea3cf178c42ad0fe7a33b8e3aa96b4632",
+    "version": "9f41c5a",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "feat(gateway): anonymous /api/config + /api/auth/me + pre-login SPA shell (add-login-hero 6.2)"
+    ]
+  },
+  {
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/09d9eed6674fd057777e9e3cebdae5035562619a",
+    "version": "09d9eed",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "light: socrata-ny/socrata-chicago/elexon-bmrs 点亮（批次二 Wave C，经 fx01 出口错峰）"
+    ]
+  },
+  {
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/6f33983910e5908396c0ef765b904824c4c6b815",
+    "version": "6f33983",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "merge: gen/elexon-bmrs 批次二 Wave C 合入（fx01 出口组）"
+    ]
+  },
+  {
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/99f52602d9cf863cabd5351597c7b85bbafbefaa",
+    "version": "99f5260",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "merge: gen/socrata-chicago 批次二 Wave C 合入（fx01 出口组）"
+    ]
+  },
+  {
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/2b16760658cfb940a18bda656d344ca37ed9f584",
+    "version": "2b16760",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "merge: gen/socrata-ny 批次二 Wave C 合入（fx01 出口组）"
+    ]
+  },
+  {
+    "repo": "fd-industry-data",
+    "url": "https://github.com/FindDataTechnology/fd-industry-data/commit/eeaeb3b495595357a65f49c1d6943f08a00fd370",
+    "version": "eeaeb3b",
+    "date": "2026-10-08",
+    "upcoming": false,
+    "summary": [
+      "gen(elexon-bmrs): 批次二 Wave C 直建（BMRS 日度温度 TEMP，经 fx01 出口）"
+    ]
+  },
+  {
+    "repo": "fd-mcp-registry",
+    "url": "https://github.com/FindDataTechnology/fd-mcp-registry/commit/5f816cd67865025bfe19cd91bebfe5620f48776a",
+    "version": "5f816cd",
+    "date": "2026-10-07",
+    "upcoming": false,
+    "summary": [
+      "fd-registry: independent lineage of mcp-gateway-registry (from upstream 1.32.0)"
+    ]
+  }
+]

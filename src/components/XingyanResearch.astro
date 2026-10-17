@@ -1,11 +1,10 @@
 ---
-// The Xingyan (星研) research line's landing surface — an observatory panel, not
-// three equal cards (official-web-surface-refresh D7). The academy is the main
-// gauge: it is the only content with real order and prerequisites, so it gets
-// the numbered path and the meridian line. Briefings and research share the
-// signal-log rail — mono dates, hairline rules, no card borders. Landing shows
-// a curated slice per column and links out to each column's index, so the page
-// stays the same size as the collections grow (D1).
+// The Xingyan (星研) research line's landing surface: one page, three columns —
+// 学院 academy courses, 内参 briefings, 研究 research pieces. Each column links
+// into its own detail route and renders a dignified empty state while its
+// collection is still being written (xingyan-research-line). The five product
+// lines' surfaces are untouched: this is a parallel research surface, not a
+// sixth line tab.
 import { t, type UiKey } from '../i18n';
 import { loadXingyanSurface, slugOf, splitByTier, type CourseTier, type XingyanLocale } from '../lib/xingyan';
 
@@ -21,508 +20,228 @@ const courseList = courses[locale];
 const briefingList = briefings[locale];
 const articleList = articles[locale];
 const kindLabel = (kind: string) => t(locale, `research.kind.${kind}` as UiKey);
-
-// Reader-tier groups (yizuo-course-system): use 分组不列 build 课程。
+// Reader-tier groups (yizuo-course-system): use 分组不列 build 课程。Undeclared
+// 存量课程落尾组，不冒充 use。组序固定 use → build → undeclared；空组不渲染。
 const TIER_ORDER: CourseTier[] = ['use', 'build', 'undeclared'];
-const tiers = splitByTier(courseList);
-const useTier = tiers.use;
-const buildTier = tiers.build;
-const otherTier = tiers.undeclared;
-
-// The curated cap (D1): feeds show the newest N, the rest lives on the index.
-const FEED_CAP = 5;
-const briefingsShown = briefingList.slice(0, FEED_CAP);
-const articlesShown = articleList.slice(0, FEED_CAP);
-
-const readout = [
-  `${courseList.length} ${t(locale, 'research.academy.title')}`,
-  `${briefingList.length} ${t(locale, 'research.briefings.title')}`,
-  `${articleList.length} ${t(locale, 'research.articles.title')}`,
-].join(' · ');
+const courseGroups = TIER_ORDER.map((tier) => ({ tier, list: splitByTier(courseList)[tier] })).filter(
+  (g) => g.list.length > 0,
+);
 ---
 
-<div class="xy-panel">
-  <!-- Readout strip: the panel's instrument header. -->
-  <p class="xy-readout">
-    <span class="xy-readout-label">OBSERVATORY</span>
-    <span class="xy-readout-counts">{readout}</span>
-  </p>
+<div class="xy-columns">
+  <section class="xy-col" id="academy">
+    <h2>{t(locale, 'research.academy.title')}</h2>
+    <p class="xy-col-sub">{t(locale, 'research.academy.sub')}</p>
+    {
+      courseGroups.length ? (
+        courseGroups.map((group) => (
+          <div class="xy-tier">
+            <h3 class="xy-tier-title">{t(locale, `research.academy.tier.${group.tier}` as UiKey)}</h3>
+            <p class="xy-tier-sub">{t(locale, `research.academy.tier.${group.tier}.sub` as UiKey)}</p>
+            <ul class="xy-items">
+              {group.list.map((course) => (
+                <li class="xy-item">
+                  <a class="xy-item-title" href={`${base}/research/academy/${slugOf(course)}`}>
+                    {course.data.title}
+                  </a>
+                  {course.data.updated && (
+                    <span class="xy-item-updated">
+                      {t(locale, 'research.course.updated')} <time datetime={course.data.updated}>{course.data.updated}</time>
+                    </span>
+                  )}
+                  <p class="xy-sum">{course.data.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      ) : (
+        <p class="xy-empty">{t(locale, 'research.academy.empty')}</p>
+      )
+    }
+  </section>
 
-  <div class="xy-grid">
-    <!-- Main gauge: the academy path. -->
-    <section class="xy-main" id="academy">
-      <header class="xy-main-head">
-        <h2>{t(locale, 'research.academy.title')}</h2>
-        <p class="xy-sub">{t(locale, 'research.academy.sub')}</p>
-      </header>
-
-      {
-        courseList.length ? (
-          <>
-            {useTier.length > 0 && (
-              <div class="xy-tier" data-tier="use">
-                <h3 class="xy-tier-title">
-                  {t(locale, 'research.academy.tier.use')}
-                  <span class="xy-tier-note">{t(locale, 'research.academy.tier.use.sub')}</span>
-                </h3>
-                <ol class="xy-path">
-                  {useTier.map((course, i) => (
-                    <li class="xy-node">
-                      <span class="xy-node-mark" aria-hidden="true">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      <div class="xy-node-body">
-                        <a class="xy-node-title" href={`${base}/research/academy/${slugOf(course)}`}>
-                          {course.data.title}
-                        </a>
-                        {course.data.updated && (
-                          <span class="xy-node-meta">
-                            {t(locale, 'research.course.updated')}{' '}
-                            <time datetime={course.data.updated}>{course.data.updated}</time>
-                          </span>
-                        )}
-                        <p class="xy-node-sum">{course.data.summary}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
-
-            {buildTier.length > 0 && (
-              <div class="xy-tier" data-tier="build">
-                <h3 class="xy-tier-title">
-                  {t(locale, 'research.academy.tier.build')}
-                  <span class="xy-tier-note">{t(locale, 'research.academy.tier.build.sub')}</span>
-                </h3>
-                <ul class="xy-advanced">
-                  {buildTier.map((course) => (
-                    <li class="xy-adv-item">
-                      <span class="xy-adv-arrow" aria-hidden="true">-&gt;</span>
-                      <div class="xy-node-body">
-                        <a class="xy-node-title" href={`${base}/research/academy/${slugOf(course)}`}>
-                          {course.data.title}
-                        </a>
-                        {useTier.length > 0 && (
-                          <span class="xy-adv-req">
-                            {t(locale, 'research.requires')} 01–{String(useTier.length).padStart(2, '0')}
-                          </span>
-                        )}
-                        <p class="xy-node-sum">{course.data.summary}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {otherTier.length > 0 && (
-              <div class="xy-tier" data-tier="undeclared">
-                <h3 class="xy-tier-title">{t(locale, 'research.academy.tier.undeclared')}</h3>
-                <ul class="xy-advanced">
-                  {otherTier.map((course) => (
-                    <li class="xy-adv-item">
-                      <span class="xy-adv-arrow" aria-hidden="true">-&gt;</span>
-                      <div class="xy-node-body">
-                        <a class="xy-node-title" href={`${base}/research/academy/${slugOf(course)}`}>
-                          {course.data.title}
-                        </a>
-                        <p class="xy-node-sum">{course.data.summary}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            <a class="xy-viewall" href={`${base}/research/academy`}>
-              {t(locale, 'research.viewAll')} <span aria-hidden="true">-&gt;</span>
-            </a>
-          </>
-        ) : (
-          <p class="xy-empty">{t(locale, 'research.academy.empty')}</p>
-        )
-      }
-    </section>
-
-    <!-- Signal log rail: briefings then research, one continuous stream. -->
-    <aside class="xy-rail">
-      <section class="xy-rail-block" id="briefings">
-        <header class="xy-rail-head">
-          <h2>{t(locale, 'research.briefings.title')}</h2>
-          <p class="xy-sub">{t(locale, 'research.briefings.sub')}</p>
-        </header>
-        {
-          briefingsShown.length ? (
-            <>
-              <ol class="xy-log">
-                {briefingsShown.map((briefing) => (
-                  <li class="xy-log-item">
-                    <time class="xy-log-date" datetime={briefing.data.date}>
-                      {briefing.data.date.slice(5)}
-                    </time>
-                    <div class="xy-log-body">
-                      <a class="xy-log-title" href={`${base}/research/briefings/${slugOf(briefing)}`}>
-                        {briefing.data.title}
-                      </a>
-                      <p class="xy-log-tags">
-                        {briefing.data.tags.map((tag) => (
-                          <span class="xy-tag">{tag}</span>
-                        ))}
-                      </p>
-                    </div>
-                  </li>
+  <section class="xy-col" id="briefings">
+    <h2>{t(locale, 'research.briefings.title')}</h2>
+    <p class="xy-col-sub">{t(locale, 'research.briefings.sub')}</p>
+    {
+      briefingList.length ? (
+        <ul class="xy-items">
+          {briefingList.map((briefing) => (
+            <li class="xy-item">
+              <p class="xy-meta">
+                <time datetime={briefing.data.date}>{briefing.data.date}</time>
+                {briefing.data.tags.map((tag) => (
+                  <span class="xy-tag">{tag}</span>
                 ))}
-              </ol>
-              <a class="xy-viewall small" href={`${base}/research/briefings`}>
-                {t(locale, 'research.viewAll')} <span aria-hidden="true">-&gt;</span>
+              </p>
+              <a class="xy-item-title" href={`${base}/research/briefings/${slugOf(briefing)}`}>
+                {briefing.data.title}
               </a>
-            </>
-          ) : (
-            <p class="xy-empty">{t(locale, 'research.briefings.empty')}</p>
-          )
-        }
-      </section>
+              <p class="xy-sum">{briefing.data.summary}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="xy-empty">{t(locale, 'research.briefings.empty')}</p>
+      )
+    }
+  </section>
 
-      <section class="xy-rail-block" id="articles">
-        <header class="xy-rail-head">
-          <h2>{t(locale, 'research.articles.title')}</h2>
-          <p class="xy-sub">{t(locale, 'research.articles.sub')}</p>
-        </header>
-        {
-          articlesShown.length ? (
-            <>
-              <ol class="xy-log">
-                {articlesShown.map((article) => (
-                  <li class="xy-log-item">
-                    <time class="xy-log-date" datetime={article.data.date}>
-                      {article.data.date.slice(5)}
-                    </time>
-                    <div class="xy-log-body">
-                      <a class="xy-log-title" href={`${base}/research/articles/${slugOf(article)}`}>
-                        {article.data.title}
-                      </a>
-                      <p class="xy-log-tags">
-                        <span class="xy-tag kind">{kindLabel(article.data.kind)}</span>
-                        {article.data.tags.slice(0, 2).map((tag) => (
-                          <span class="xy-tag">{tag}</span>
-                        ))}
-                      </p>
-                    </div>
-                  </li>
+  <section class="xy-col" id="articles">
+    <h2>{t(locale, 'research.articles.title')}</h2>
+    <p class="xy-col-sub">{t(locale, 'research.articles.sub')}</p>
+    {
+      articleList.length ? (
+        <ul class="xy-items">
+          {articleList.map((article) => (
+            <li class="xy-item">
+              <p class="xy-meta">
+                <time datetime={article.data.date}>{article.data.date}</time>
+                <span class="xy-tag">{kindLabel(article.data.kind)}</span>
+                {article.data.tags.map((tag) => (
+                  <span class="xy-tag">{tag}</span>
                 ))}
-              </ol>
-              <a class="xy-viewall small" href={`${base}/research/articles`}>
-                {t(locale, 'research.viewAll')} <span aria-hidden="true">-&gt;</span>
+              </p>
+              <a class="xy-item-title" href={`${base}/research/articles/${slugOf(article)}`}>
+                {article.data.title}
               </a>
-            </>
-          ) : (
-            <p class="xy-empty">{t(locale, 'research.articles.empty')}</p>
-          )
-        }
-      </section>
-    </aside>
-  </div>
-
-  <p class="xy-feedline">
-    <a href="/briefings.json">{t(locale, 'research.feed')}</a>
-    <a href="/research/feed.xml">RSS</a>
-  </p>
+              <p class="xy-sum">{article.data.summary}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="xy-empty">{t(locale, 'research.articles.empty')}</p>
+      )
+    }
+  </section>
 </div>
 
-<style>
-  /* Observatory panel: one bordered instrument containing a main gauge and a
-     log rail. Flat by doctrine — tonal steps and hairlines, no shadows. */
-  .xy-panel {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px 24px 18px;
-  }
-  .xy-readout {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    flex-wrap: wrap;
-    border-bottom: 1px solid var(--border);
-    margin: 0 0 20px;
-    padding-bottom: 12px;
-  }
-  .xy-readout-label {
-    color: var(--accent);
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.16em;
-  }
-  .xy-readout-counts {
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.74rem;
-  }
+<p class="xy-feedline">
+  <a href="/briefings.json">{t(locale, 'research.feed')}</a>
+</p>
 
-  /* Main gauge + rail. The academy is heavier by design, not by accident. */
-  .xy-grid {
+<style>
+  /* Three console panels side by side; tonal stepping + hairlines only, per
+     DESIGN's flat-by-doctrine elevation. On narrow screens the columns stack. */
+  .xy-columns {
     display: grid;
-    grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
-    gap: 28px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
     align-items: start;
   }
-  .xy-main {
+  .xy-col {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
     min-width: 0;
   }
-  .xy-rail {
-    border-left: 1px solid var(--border);
-    min-width: 0;
-    padding-left: 24px;
+  .xy-col h2 {
+    font-size: 1.15rem;
+    margin: 0 0 6px;
   }
-  .xy-main-head h2,
-  .xy-rail-head h2 {
-    font-size: 1.12rem;
-    margin: 0 0 4px;
-  }
-  .xy-sub {
+  .xy-col-sub {
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     margin: 0 0 16px;
   }
-
-  /* ── the path: numbered nodes on a meridian line ─────────────────────── */
-  .xy-tier + .xy-tier {
-    border-top: 1px solid var(--border);
-    margin-top: 22px;
-    padding-top: 18px;
-  }
-  .xy-tier-title {
-    font-size: 0.95rem;
-    margin: 0 0 14px;
-  }
-  .xy-tier-note {
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    font-weight: 400;
-    margin-left: 10px;
-  }
-  .xy-path {
+  .xy-items {
     list-style: none;
     margin: 0;
     padding: 0;
-    position: relative;
-  }
-  /* The meridian: one hairline threading the node marks. This is the page's
-     single signature element. */
-  .xy-path::before {
-    content: '';
-    position: absolute;
-    left: 15px;
-    top: 10px;
-    bottom: 10px;
-    width: 1px;
-    background: linear-gradient(var(--accent), var(--border));
-    opacity: 0.55;
-  }
-  .xy-node {
     display: grid;
-    grid-template-columns: 32px 1fr;
     gap: 14px;
-    padding: 0 0 18px;
-    position: relative;
   }
-  .xy-node:last-child {
-    padding-bottom: 0;
-  }
-  .xy-node-mark {
-    align-items: center;
-    background: var(--readout-void);
-    border: 1px solid var(--border-strong);
-    border-radius: 50%;
-    color: var(--accent);
-    display: inline-flex;
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    height: 31px;
-    justify-content: center;
-    position: relative;
-    width: 31px;
-    z-index: 1;
-  }
-  .xy-node-body {
+  .xy-item {
     min-width: 0;
-    padding-top: 4px;
   }
-  .xy-node-title {
+  .xy-item + .xy-item {
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+  .xy-item-title {
+    display: block;
     color: var(--text);
-    font-size: 1.02rem;
     font-weight: 700;
+    font-size: 1.05rem;
     line-height: 1.35;
   }
-  .xy-node-title:hover {
+  .xy-item-title:hover {
     color: var(--accent);
     text-decoration: none;
   }
-  .xy-node-meta {
+  /* Reader-tier groups inside the academy column (yizuo-course-system). */
+  .xy-tier + .xy-tier {
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+    padding-top: 14px;
+  }
+  .xy-tier-title {
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 2px;
+  }
+  .xy-tier-sub {
     color: var(--muted);
+    font-size: 0.82rem;
+    margin: 0 0 10px;
+  }
+  .xy-item-updated {
     display: block;
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    margin-top: 2px;
-  }
-  .xy-node-sum {
-    color: var(--muted);
-    font-size: 0.92rem;
-    margin: 5px 0 0;
-    overflow-wrap: anywhere;
-  }
-
-  /* Advanced tier: no numbering (order is not the information), an arrow and
-     an explicit prerequisite instead. */
-  .xy-advanced {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .xy-adv-item {
-    display: grid;
-    grid-template-columns: 32px 1fr;
-    gap: 14px;
-    padding-bottom: 14px;
-  }
-  .xy-adv-item:last-child {
-    padding-bottom: 0;
-  }
-  .xy-adv-arrow {
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.9rem;
-    padding-top: 6px;
-    text-align: center;
-  }
-  .xy-adv-req {
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--muted);
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    margin-top: 3px;
-    padding: 0 8px;
-  }
-
-  /* ── signal log: mono dates, hairlines, no card borders ──────────────── */
-  .xy-rail-block + .xy-rail-block {
-    border-top: 1px solid var(--border);
-    margin-top: 22px;
-    padding-top: 18px;
-  }
-  .xy-rail-head h2 {
-    font-size: 0.98rem;
-  }
-  .xy-rail-head .xy-sub {
-    font-size: 0.84rem;
-    margin-bottom: 12px;
-  }
-  .xy-log {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .xy-log-item {
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    gap: 12px;
-    padding: 9px 0;
-  }
-  .xy-log-item + .xy-log-item {
-    border-top: 1px solid var(--border);
-  }
-  .xy-log-date {
     color: var(--muted);
     font-family: var(--mono);
     font-size: 0.72rem;
-    padding-top: 2px;
+    margin-top: 3px;
   }
-  .xy-log-body {
-    min-width: 0;
-  }
-  .xy-log-title {
-    color: var(--text);
-    font-size: 0.94rem;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-  .xy-log-title:hover {
-    color: var(--accent);
-    text-decoration: none;
-  }
-  .xy-log-tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin: 5px 0 0;
-  }
-  .xy-tag {
-    border: 1px solid var(--border);
-    border-radius: 999px;
+  .xy-sum {
     color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.66rem;
-    line-height: 1.5;
-    padding: 0 8px;
+    font-size: 0.95rem;
+    margin: 4px 0 0;
+    overflow-wrap: anywhere;
   }
-  .xy-tag.kind {
-    border-color: var(--border-strong);
-    color: var(--text);
+  .xy-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 0 6px;
   }
-
-  .xy-viewall {
-    color: var(--accent-2);
-    display: inline-block;
+  .xy-meta time {
+    color: var(--muted);
     font-family: var(--mono);
     font-size: 0.78rem;
-    margin-top: 16px;
   }
-  .xy-viewall.small {
-    font-size: 0.74rem;
-    margin-top: 10px;
-  }
-  .xy-viewall:hover {
-    text-decoration: underline;
+  .xy-tag {
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 1px 9px;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    line-height: 1.4;
   }
   .xy-empty {
+    color: var(--muted);
     border: 1px dashed var(--border);
     border-radius: 10px;
-    color: var(--muted);
-    font-size: 0.9rem;
+    padding: 16px;
     margin: 0;
-    padding: 14px;
+    font-size: 0.95rem;
   }
   .xy-feedline {
-    border-top: 1px solid var(--border);
+    margin: 28px 0 0;
     color: var(--muted);
-    display: flex;
     font-family: var(--mono);
-    font-size: 0.74rem;
-    gap: 16px;
-    margin: 20px 0 0;
-    padding-top: 12px;
+    font-size: 0.78rem;
   }
   .xy-feedline a {
     color: var(--accent-2);
   }
-
   @media (max-width: 900px) {
-    .xy-panel {
-      padding: 16px 16px 14px;
-    }
-    .xy-grid {
+    .xy-columns {
       grid-template-columns: 1fr;
-      gap: 22px;
-    }
-    .xy-rail {
-      border-left: 0;
-      border-top: 1px solid var(--border);
-      padding-left: 0;
-      padding-top: 18px;
     }
   }
 </style>
