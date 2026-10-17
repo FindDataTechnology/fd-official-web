@@ -10,7 +10,7 @@ const locale = 'zh';
 const courses = await getCollection('academy');
 const split = splitByLocale(courses);
 checkLocaleTwins('academy', 'course', split, (e) => e.id.split('/')[1] ?? e.id);
-const list = split.en.sort(
+const list = split.zh.sort(
   (a, b) => (a.data.order ?? 10) - (b.data.order ?? 10) || a.id.localeCompare(b.id),
 );
 

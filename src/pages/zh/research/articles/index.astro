@@ -9,7 +9,7 @@ const locale = 'zh';
 const entries = await getCollection('research');
 const split = splitByLocale(entries);
 checkLocaleTwins('research', 'research piece', split, (e) => e.id.split('/')[1] ?? e.id);
-const list = split.en.sort(
+const list = split.zh.sort(
   (a, b) => b.data.date.localeCompare(a.data.date) || a.id.localeCompare(b.id),
 );
 // Tags present in the data, alphabetical so the filter row is stable.
