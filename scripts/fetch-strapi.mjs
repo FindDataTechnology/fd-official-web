@@ -58,6 +58,17 @@ const STRING_FIELDS = {
   research: ['documentId', 'slug', 'locale', 'title', 'body', 'date', 'summary', 'kind'],
 };
 
+// Optional non-string fields per kind (yizuo-course-system): academy 的
+// `level`（枚举 use|build，读者分层）、`track`（轨，预留）、`updated`
+// （YYYY-MM-DD，课程更新时间）。CMS 侧均可空——拉取后缺省序列化跳过
+// （front-matter 不出该行），zod 侧全部 optional；`updated` 缺失由 3.5 的
+// 构建期告警提示，不阻断。
+const OPTIONAL_FIELDS = {
+  briefings: [],
+  academy: ['level', 'track', 'updated'],
+  research: [],
+};
+
 // ── frontmatter serialization ────────────────────────────────────────────────
 // Hand-rolled on purpose (no new dependencies — the field set is closed), and
 // frozen against the committed files: per-collection quoting profiles that
@@ -65,7 +76,9 @@ const STRING_FIELDS = {
 //   briefings: minimal quoting — plain unless YAML forces quotes (values with
 //              ": " etc.); committed style.
 //   academy:   title / summary / source_material always double-quoted,
-//              pack_url '' (empty) or double-quoted, order bare.
+//              pack_url '' (empty) or double-quoted, order bare; level bare
+//              (use|build) / track double-quoted / updated bare YYYY-MM-DD —
+//              each emitted only when present (yizuo-course-system 读者分层).
 //   research:  title / summary always double-quoted; source items quoted when
 //              they carry ASCII parens (the committed en sources annotate the
 //              Chinese original in parens; zh sources are bare), else plain.
@@ -114,6 +127,11 @@ function toMarkdown(kind, e) {
     fm.push(`title: ${dq(e.title)}`);
     fm.push(`summary: ${dq(e.summary)}`);
     if (e.order != null) fm.push(`order: ${e.order}`);
+    // 读者分层三字段（yizuo-course-system）：非空才出行——存量未回填的
+    // 课程 front-matter 与既有提交字节一致（fixture 契约不被扰动）。
+    if (e.level != null && e.level !== '') fm.push(`level: ${e.level}`);
+    if (e.track != null && e.track !== '') fm.push(`track: ${dq(e.track)}`);
+    if (e.updated != null && e.updated !== '') fm.push(`updated: ${e.updated}`);
     fm.push(`source_material: ${dq(e.source_material)}`);
     fm.push(`pack_url: ${e.pack_url ? dq(e.pack_url) : "''"}`);
   } else {

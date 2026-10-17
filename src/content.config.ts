@@ -139,12 +139,20 @@ const briefings = defineCollection({
 // `academy` — 学院: free web courses, each paired with a Facet-market pack
 // (`pack_url`; empty string = pack not published yet). Canonical source is the
 // web course (academy spec: single source, two carriers).
+// 读者分层（yizuo-course-system）: `level` 标记课程受众——`use`（无技术能力
+// 的普通用户）或 `build`（自建工作流的重度用户）；缺省 = 存量未回填（构建期
+// 对 use 层正文跑语言判据，缺 level 不跑、只随 3.5 告警 updated 缺失）。
+// `track` 预留轨分组（本 change 只加字段不启用）；`updated` 是课程自身更新
+// 时间（长期项目的可信度信号，缺失告警不阻断）。
 const academy = defineCollection({
   loader: glob({ base: './src/content/academy', pattern: '**/*.md' }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
     order: z.number().optional().default(10),
+    level: z.enum(['use', 'build']).optional(),
+    track: z.string().optional().default(''),
+    updated: z.string().regex(DATE, 'updated must be YYYY-MM-DD').optional(),
     source_material: z.string(),
     pack_url: z.string().optional().default(''),
   }),
