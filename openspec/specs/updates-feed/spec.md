@@ -5,54 +5,68 @@ Build-time aggregated, reverse-chronological feed of project updates across the 
 
 ## Requirements
 
-### Requirement: Aggregated updates page
-The site SHALL provide a bilingual updates page (`/updates`, `/zh/updates`) showing a reverse-chronological feed of project updates across the org's public repos, generated at build time. Each feed entry MUST show: repo name, date, version or commit identifier, and the change summary. Entries MUST be excluded from the public feed when their repo is on a maintained exclusion list or their commit summary matches a maintained internal-only prefix list (e.g. `chore(openspec):`, `chore(cleanup):`).
+### Requirement: Editorial updates page
+
+The site SHALL provide a bilingual updates page (`/updates`, `/zh/updates`) showing a reverse-chronological feed of editorial project updates authored in the CMS. Each feed entry MUST show: the product line it belongs to, a human-written title, its date, and its summary; it MAY show a version or a link to the underlying change. Entries SHALL be grouped by month and filterable by product line, and the filter state SHALL be expressible in the URL so a filtered view can be shared. The page MUST render only published entries.
 
 #### Scenario: Visitor views updates feed
-- **WHEN** a visitor navigates to `/updates`
-- **THEN** they see entries from multiple org repos ordered newest-first, each with repo, date, and summary
 
-#### Scenario: Internal-only commits are filtered
-- **WHEN** a repo's recent commits include messages matching an internal-only prefix (e.g. `chore(openspec): archive …`)
-- **THEN** those commits do not appear in the public feed, while that repo's other commits still do
+- **WHEN** a visitor navigates to `/updates` or `/zh/updates`
+- **THEN** they see entries ordered newest-first, each carrying a product line, a title, a date, and a summary, with month separators between months
 
-#### Scenario: Excluded repo is filtered entirely
-- **WHEN** a repo is on the exclusion list
-- **THEN** no entries from that repo appear in the public feed
+#### Scenario: Internal-only material is never published
 
-### Requirement: CHANGELOG-first sourcing with commits fallback
-The build-time fetch script SHALL parse each repo's `CHANGELOG.md` (Keep-a-Changelog format: `## [version] - date` sections) when the file exists, and SHALL fall back to that repo's recent commits when no changelog exists. The `[Unreleased]` section of a changelog SHOULD be surfaced as "upcoming" entries where present. All GitHub API calls SHALL carry the build token when configured so coverage spans every repo rather than stopping at the anonymous rate limit.
+- **WHEN** an entry describing internal-only work (deploy plumbing, infrastructure rollovers, or unreleased plans) exists as a draft or is not published in the CMS
+- **THEN** it does not appear in the public feed, while other published entries still do
 
-#### Scenario: Repo with changelog
-- **WHEN** a repo contains a `CHANGELOG.md` with version sections
-- **THEN** the feed contains one entry per version section with its date and bullet content
+#### Scenario: Filter by product line
 
-#### Scenario: Repo without changelog
-- **WHEN** a repo has no `CHANGELOG.md`
-- **THEN** the feed contains entries derived from that repo's recent commits (message + date)
+- **WHEN** a visitor selects a product line filter on the updates page
+- **THEN** only entries for that line remain listed, and the selection is reflected in the URL
 
-#### Scenario: Feed covers all repos under one build
-- **WHEN** the build runs with a configured `GITHUB_TOKEN`
-- **THEN** every included repo contributes entries; commit fallback does not silently stop after the first few repos
+#### Scenario: Unpublished entry disappears
 
-#### Scenario: Fetch failure degrades gracefully
-- **WHEN** the GitHub API is unreachable at build time
-- **THEN** the build still succeeds using the most recently cached data, and the updates page renders from that cache without being overwritten with fewer entries
+- **WHEN** an entry is unpublished or deleted in the CMS and the site rebuilds
+- **THEN** that entry no longer appears on the updates page
 
-### Requirement: Zero site-side maintenance
-Adding a new update to the feed MUST require only editing the relevant repo's `CHANGELOG.md` (or pushing commits); the site MUST pick it up on the next build without site-repo changes.
+### Requirement: CMS-authored sourcing with build-time snapshot fallback
 
-#### Scenario: New changelog entry appears automatically
-- **WHEN** a maintainer adds a version section to a repo's CHANGELOG.md and the site rebuilds
-- **THEN** the new entry appears on `/updates` with no changes to fd-official-web
+The updates feed SHALL be authored in the CMS: each entry is created, translated, and published there, and publishing SHALL trigger a site rebuild through the existing publish webhook. The build SHALL pull published entries into the site repository as content files, and those pulled files SHALL be committed as an offline snapshot so a build without CMS access still renders the last-good feed. The build MUST NOT derive updates from repository commit messages or `CHANGELOG.md` files.
 
-### Requirement: Public-only offline fallback
-The committed fallback feed (`src/data/updates.json`) MUST NOT contain entries from any repo that is not on the committed public repo list (`src/data/repos.json`). When the fallback contains entries for repos absent from the public list, those entries SHALL be dropped at render time, and the fallback SHALL be regenerated clean on the next successful fetch. A degraded build MUST never publish activity from a non-public repo.
+#### Scenario: Publishing an entry reaches the site
 
-#### Scenario: Stale fallback contains a now-private repo
-- **WHEN** the committed fallback still holds entries for a repo that has since become private (absent from the committed public repo list)
-- **THEN** those entries are excluded from the rendered feed, and the other entries render normally
+- **WHEN** an editor publishes an updates entry in the CMS
+- **THEN** a rebuild is triggered and the entry appears on the updates page after it completes
 
-#### Scenario: Clean fallback after a successful build
-- **WHEN** a build fetches the GitHub API successfully
-- **THEN** the regenerated fallback contains entries only for repos on the public list, so the next degraded build serves only public-repo activity
+#### Scenario: Build without CMS access degrades gracefully
+
+- **WHEN** the CMS is unreachable during a build
+- **THEN** the build succeeds using the committed snapshot and the updates page renders the last-good entries rather than an empty page
+
+#### Scenario: No commit-derived entries
+
+- **WHEN** the built updates page is inspected
+- **THEN** no entry originates from a repository commit message or changelog file
+
+### Requirement: Zero site-side maintenance under CMS authorship
+
+Adding or editing an update MUST require only editing and publishing the entry in the CMS; the site MUST pick it up on the next rebuild without any change to the site repository.
+
+#### Scenario: New entry appears without site-repo changes
+
+- **WHEN** an editor publishes a new updates entry and the site rebuilds
+- **THEN** the entry appears on `/updates` with no commit to fd-official-web
+
+### Requirement: Published-only snapshot fallback
+
+The committed offline snapshot MUST contain only entries that were published in the CMS when the snapshot was written. When the snapshot is stale relative to the CMS, the next successful pull SHALL rewrite it to match the currently published set. A degraded build MUST never publish content that was not published in the CMS.
+
+#### Scenario: Unpublished content never leaks through the snapshot
+
+- **WHEN** a build runs without CMS access and the committed snapshot is used
+- **THEN** only entries that were published when the snapshot was written are rendered
+
+#### Scenario: Snapshot regenerates on the next successful pull
+
+- **WHEN** a build succeeds against the CMS after the snapshot went stale
+- **THEN** the committed snapshot is rewritten to match the currently published set

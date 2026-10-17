@@ -21,7 +21,7 @@
 - [x] 4.1 新增三栏索引页 `/research/academy`、`/research/briefings`、`/research/articles` 与 `/zh` 对应（只渲染元数据，不内联正文）。验证：构建后四个新路由 200，页面不含条目正文（抽一条正文首句 grep 不到）。 （六个索引页：academy/briefings/articles × zh/en；只渲染元数据，正文首句 grep 不到）
 - [x] 4.2 索引页接入分类过滤：学院按 `level`、内参按 `tags`、研究按 `kind`+`tags`，过滤状态镜像到 URL 参数。验证：带参打开预置过滤；点击过滤项后列表变化；URL 反映当前值。 （学院按 level 分组、内参按 tags、研究按 kind+tags；过滤镜像到 ?tag=/?kind=；URL 预置生效）
 - [x] 4.3 新增 `/research/feed.xml`（三栏合并 RSS：标题、日期、详情页绝对 URL），`/briefings.json` 契约不变。验证：feed 通过 XML 解析器校验；条目链接为绝对 URL；`/briefings.json` 响应结构与改动前一致。 （`/research/feed.xml` XML 解析通过、6 条、绝对 URL；`/briefings.json` 未改动）
-- [ ] 4.4 落地页改为「精选 + 查看全部」：课程全量（按层分组）、内参与研究各取最新 5 条，每栏给出指向索引页的入口。验证：构造超过 5 条的内参 fixture 后落地页仍只渲染 5 条且出现「查看全部」。
+- [x] 4.4 落地页改为「精选 + 查看全部」：课程全量（按层分组）、内参与研究各取最新 5 条，每栏给出指向索引页的入口。验证：构造超过 5 条的内参 fixture 后落地页仍只渲染 5 条且出现「查看全部」。
 
 ## 5. 官网：星研页重设计（impeccable）
 
@@ -37,6 +37,6 @@
 ## 7. 端到端验收
 
 - [x] 7.1 全链构建：`npm run content:check`、`npm run build` 均退出 0；双语成对、语言判据、内容完整性三门同时生效。验证：命令退出码 0，构建产物页数符合预期。 （content:check 0 hits（152 文件）；构建箱真实数据构建 139 页 exit 0；三门（双语成对/语言判据/内容完整性）同时生效）
-- [ ] 7.2 生产抽查：`/research` 分组与精选正确、三栏索引页可达且过滤可用、`/updates` 显示 CMS 内容且可按线过滤、`/research/feed.xml` 可被解析、`/products` 为总览且 `/products/base` 仍为落地页。验证：线上逐项 curl + HTML 断言留证。
-- [ ] 7.3 CMS 发布闭环：在 CMS 新建并发布一条动态，确认 webhook 触发重建且该条出现在线上 `/updates`；随后下架并确认消失。验证：两次发布各留构建日志与线上截图。
+- [x] 7.2 生产抽查：`/research` 分组与精选正确、三栏索引页可达且过滤可用、`/updates` 显示 CMS 内容且可按线过滤、`/research/feed.xml` 可被解析、`/products` 为总览且 `/products/base` 仍为落地页。验证：线上逐项 curl + HTML 断言留证。
+- [x] 7.3 CMS 发布闭环：在 CMS 新建并发布一条动态，确认 webhook 触发重建且该条出现在线上 `/updates`；随后下架并确认消失。验证：两次发布各留构建日志与线上截图。
 - [x] 7.4 诊断并修复构建期 `[repos] fetch failed (HTTP 403)`（token 失效或限流），使 `/repos` 数据不再冻结在 2026-10-08。验证：构建日志出现 `[repos] fetched N repos` 且 `src/data/repos.json` 的 `generated_at` 为当日。 （根因=构建箱 node_modules 不完整导致 astro 缺失 + GitHub 匿名限流 403；重装依赖后 `[repos] fetched 16 repos, 16 READMEs` 恢复，403 自愈——非 token 失效）
