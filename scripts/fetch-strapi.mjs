@@ -42,6 +42,10 @@ const LOCALES = ['zh', 'en'];
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const SLUG_RE = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 const KINDS = ['paper', 'casestudy', 'note'];
+// `updates` dimensions (official-web-surface-refresh). `xingyan` joins the five
+// product lines so a research-line update can be filed without a sixth tab.
+const UPDATE_LINES = ['base', 'lex', 'wire', 'facet', 'constellation', 'xingyan'];
+const UPDATE_KINDS = ['release', 'feature', 'fix', 'note'];
 
 // ── collection registry ──────────────────────────────────────────────────────
 // One row per CMS content type. Adding a type = adding a row (plus a serializer
@@ -102,6 +106,30 @@ const COLLECTIONS = [
       validateFeedFields(e, where, violations);
       if (e.kind != null && !KINDS.includes(e.kind)) {
         violations.push(`${where}：kind "${e.kind}" 不在 ${KINDS.join('/')} 内`);
+      }
+    },
+  },
+  {
+    // official-web-surface-refresh: 项目动态. Field-paired — one record carries
+    // both languages, so there is no locale split and no twins gate; the four
+    // language fields are required instead. Strapi's i18n is off for this type.
+    api: 'updates',
+    dir: 'updates',
+    kind: 'updates',
+    label: '项目动态 updates',
+    twin: 'fields',
+    required: ['documentId', 'slug', 'title_zh', 'title_en', 'summary_zh', 'summary_en'],
+    optional: ['date', 'line', 'kind', 'version', 'url'],
+    serialize: serializeUpdate,
+    validate: (e, where, violations) => {
+      if (e.date == null || !DATE_RE.test(e.date)) {
+        violations.push(`${where}：date "${e.date}" 不符合 YYYY-MM-DD`);
+      }
+      if (!UPDATE_LINES.includes(e.line)) {
+        violations.push(`${where}：line "${e.line}" 不在 ${UPDATE_LINES.join('/')} 内`);
+      }
+      if (!UPDATE_KINDS.includes(e.kind)) {
+        violations.push(`${where}：kind "${e.kind}" 不在 ${UPDATE_KINDS.join('/')} 内`);
       }
     },
   },
@@ -193,6 +221,24 @@ function serializeFeed(kind, e) {
 
 // Default serializer used when a registry row omits `serialize`.
 const serializeDefault = (e) => serializeFeed('briefings', e);
+
+// `updates` — field-paired frontmatter. Every language field is quoted (they
+// are prose), `date` is quoted (bare dates become Date objects in YAML), the
+// dimensions are bare enumerations, and version/url are emitted only when set.
+function serializeUpdate(e) {
+  const fm = [
+    `date: ${dq(e.date)}`,
+    `line: ${e.line}`,
+    `kind: ${e.kind}`,
+    `title_zh: ${dq(e.title_zh)}`,
+    `title_en: ${dq(e.title_en)}`,
+    `summary_zh: ${dq(e.summary_zh)}`,
+    `summary_en: ${dq(e.summary_en)}`,
+  ];
+  if (e.version != null && e.version !== '') fm.push(`version: ${dq(e.version)}`);
+  if (e.url != null && e.url !== '') fm.push(`url: ${dq(e.url)}`);
+  return md(fm, bodyOf(e));
+}
 
 // ── fetch ────────────────────────────────────────────────────────────────────
 

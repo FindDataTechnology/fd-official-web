@@ -172,6 +172,26 @@ const research = defineCollection({
   }),
 });
 
+// `updates` — 项目动态: editorial project updates authored in the CMS
+// (official-web-surface-refresh). Field-paired, not locale-paired: one record
+// carries both languages, so a single file sits at src/content/updates/<slug>.md
+// and there is no twins gate — the four language fields are required instead.
+// `line` drives the page filter; `kind` is the entry label.
+const updates = defineCollection({
+  loader: glob({ base: './src/content/updates', pattern: '*.md' }),
+  schema: z.object({
+    date: z.string().regex(DATE, 'date must be YYYY-MM-DD'),
+    line: z.enum([...PRODUCT_LINES, 'xingyan']),
+    kind: z.enum(['release', 'feature', 'fix', 'note']),
+    title_zh: z.string(),
+    title_en: z.string(),
+    summary_zh: z.string(),
+    summary_en: z.string(),
+    version: z.string().optional().default(''),
+    url: z.string().optional().default(''),
+  }),
+});
+
 export const collections = {
   docs,
   repos,
@@ -182,6 +202,7 @@ export const collections = {
   briefings,
   academy,
   research,
+  updates,
 };
 
 // Repo → product line (brand judgment, one source for /repos and /updates).
