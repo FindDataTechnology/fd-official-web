@@ -1,0 +1,194 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../components/Layout.astro';
+import { t, type UiKey } from '../../../i18n';
+import { splitByLocale, checkLocaleTwins } from '../../../lib/twins';
+
+// 研究索引页（official-web-surface-refresh）——元数据 + 体裁/标签过滤，正文在详情页。
+const locale = 'en';
+const entries = await getCollection('research');
+const split = splitByLocale(entries);
+checkLocaleTwins('research', 'research piece', split, (e) => e.id.split('/')[1] ?? e.id);
+const list = split.en.sort(
+  (a, b) => b.data.date.localeCompare(a.data.date) || a.id.localeCompare(b.id),
+);
+// Tags present in the data, alphabetical so the filter row is stable.
+const kinds = [...new Set(list.map((e) => e.data.kind))];
+const tags = [...new Set(list.flatMap((e) => e.data.tags))].sort();
+const title = `${t(locale, 'research.articles.title')} — FindData Technology`;
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'research.articles.sub')}>
+  <a class="doc-back" href="/research#articles">← {t(locale, 'research.back')}</a>
+  <h1 class="page">{t(locale, 'research.articles.title')}</h1>
+  <p class="page-sub">{t(locale, 'research.articles.sub')}</p>
+  {
+    list.length ? (
+      <>
+        <nav class="idx-filter" aria-label={t(locale, 'updates.filter')}>
+          <button type="button" class="idx-chip active" data-tag="all">
+            {t(locale, 'updates.all')}
+          </button>
+          {kinds.map((kind) => (
+            <button type="button" class="idx-chip idx-chip-kind" data-kind={kind}>
+              {t(locale, `research.kind.${kind}` as UiKey)}
+            </button>
+          ))}
+          {tags.map((tag) => (
+            <button type="button" class="idx-chip" data-tag={tag}>
+              {tag}
+            </button>
+          ))}
+        </nav>
+        <ol class="idx-list" id="article-index">
+          {list.map((e) => (
+            <li class="idx-item" data-kind={e.data.kind} data-tags={e.data.tags.join('|')}>
+              <p class="idx-meta">
+                <time datetime={e.data.date}>{e.data.date}</time>
+                <span class="idx-tag">{t(locale, `research.kind.${e.data.kind}` as UiKey)}</span>
+                {e.data.tags.map((tag) => (
+                  <span class="idx-tag">{tag}</span>
+                ))}
+              </p>
+              <a class="idx-title" href={`/research/articles/${e.id.split('/')[1]}`}>
+                {e.data.title}
+              </a>
+              <p class="idx-sum">{e.data.summary}</p>
+            </li>
+          ))}
+        </ol>
+        <p class="idx-empty" hidden>
+          {t(locale, 'research.articles.empty')}
+        </p>
+      </>
+    ) : (
+      <p class="page-sub">{t(locale, 'research.articles.empty')}</p>
+    )
+  }
+</Layout>
+
+<script>
+  // Progressive enhancement only: everything renders server-side; filtering
+  // hides rows and mirrors the choice into ?tag= for sharing.
+  const chips = document.querySelectorAll<HTMLButtonElement>('.idx-chip');
+  const rows = document.querySelectorAll<HTMLElement>('.idx-item');
+  const empty = document.querySelector<HTMLElement>('.idx-empty');
+  // One active facet at a time: a kind chip or a tag chip, or "all".
+  const apply = (facet: 'kind' | 'tag' | 'all', value: string) => {
+    let visible = 0;
+    rows.forEach((row) => {
+      const match =
+        facet === 'all' ||
+        (facet === 'kind' ? row.dataset.kind === value : (row.dataset.tags ?? '').split('|').includes(value));
+      row.hidden = !match;
+      if (match) visible++;
+    });
+    if (empty) empty.hidden = visible > 0;
+    chips.forEach((chip) =>
+      chip.classList.toggle(
+        'active',
+        facet !== 'all' && ((chip.dataset.kind === value) || (chip.dataset.tag === value)),
+      ),
+    );
+  };
+  const params = new URLSearchParams(location.search);
+  const initKind = params.get('kind');
+  const initTag = params.get('tag');
+  if (initKind) apply('kind', initKind);
+  else if (initTag) apply('tag', initTag);
+  else apply('all', '');
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      const url = new URL(location.href);
+      url.searchParams.delete('kind');
+      url.searchParams.delete('tag');
+      if (chip.dataset.kind) {
+        url.searchParams.set('kind', chip.dataset.kind);
+        apply('kind', chip.dataset.kind);
+      } else if (chip.dataset.tag) {
+        url.searchParams.set('tag', chip.dataset.tag);
+        apply('tag', chip.dataset.tag);
+      } else {
+        apply('all', '');
+      }
+      history.replaceState(null, '', url);
+    }),
+  );
+</script>
+
+<style>
+  .idx-filter {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 18px 0 22px;
+  }
+  .idx-chip {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    padding: 3px 11px;
+  }
+  .idx-chip:hover {
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+  .idx-chip.active {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .idx-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 78ch;
+  }
+  .idx-item + .idx-item {
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+    padding-top: 16px;
+  }
+  .idx-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 0 5px;
+  }
+  .idx-meta time {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.76rem;
+  }
+  .idx-tag {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    padding: 0 8px;
+  }
+  .idx-title {
+    color: var(--text);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .idx-title:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .idx-sum {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin: 4px 0 0;
+  }
+  .idx-empty {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+  }
+</style>

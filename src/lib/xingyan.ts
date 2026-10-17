@@ -10,6 +10,11 @@ import { checkLocaleTwins, splitByLocale, type LocaleSplit } from './twins';
 
 export type XingyanLocale = 'en' | 'zh';
 
+// The paired CMS collections this module owns. `updates` is deliberately absent:
+// it is a field-paired collection (both languages on one record) with its own
+// loader, not a locale-paired one.
+export type XingyanCollection = 'briefings' | 'academy' | 'research';
+
 export type BriefingEntry = CollectionEntry<'briefings'>;
 export type CourseEntry = CollectionEntry<'academy'>;
 export type ArticleEntry = CollectionEntry<'research'>;
@@ -49,32 +54,34 @@ export function splitByTier(list: CourseEntry[]): Record<CourseTier, CourseEntry
   return groups;
 }
 
+// Load one paired collection: split by locale, enforce the twins gate, sort
+// each side with the collection's own comparator. The three Xingyan
+// collections have different data shapes (courses order by `order`, feeds by
+// `date`), so what is shared is the mechanism — one implementation of the
+// load/split/twins/sort invariant — not a single loop over interchangeable
+// rows. Adding a fourth paired collection is one call here plus its zod schema.
+async function loadPaired<C extends XingyanCollection>(
+  collection: C,
+  kindLabel: string,
+  compare: (a: CollectionEntry<C>, b: CollectionEntry<C>) => number,
+): Promise<LocaleSplit<CollectionEntry<C>>> {
+  const split = splitByLocale(await getCollection(collection));
+  checkLocaleTwins(collection, kindLabel, split, slugOf);
+  split.en.sort(compare);
+  split.zh.sort(compare);
+  return split;
+}
+
 // Load all three collections, enforce the bilingual twins gate on each, return
 // them sorted per locale. An empty collection is legal — the surface renders
 // its empty state (a line whose first entries are still being written).
 export async function loadXingyanSurface(): Promise<XingyanSurface> {
   const [briefings, courses, articles] = await Promise.all([
-    getCollection('briefings'),
-    getCollection('academy'),
-    getCollection('research'),
+    loadPaired('briefings', 'briefing', newestFirst),
+    loadPaired('academy', 'course', courseOrder),
+    loadPaired('research', 'research piece', newestFirst),
   ]);
-
-  const briefingSplit = splitByLocale(briefings);
-  checkLocaleTwins('briefings', 'briefing', briefingSplit, slugOf);
-  briefingSplit.en.sort(newestFirst);
-  briefingSplit.zh.sort(newestFirst);
-
-  const courseSplit = splitByLocale(courses);
-  checkLocaleTwins('academy', 'course', courseSplit, slugOf);
-  courseSplit.en.sort(courseOrder);
-  courseSplit.zh.sort(courseOrder);
-
-  const articleSplit = splitByLocale(articles);
-  checkLocaleTwins('research', 'research piece', articleSplit, slugOf);
-  articleSplit.en.sort(newestFirst);
-  articleSplit.zh.sort(newestFirst);
-
-  return { briefings: briefingSplit, courses: courseSplit, articles: articleSplit };
+  return { briefings, courses, articles };
 }
 
 // ── machine-readable feed (/briefings.json) ─────────────────────────────────

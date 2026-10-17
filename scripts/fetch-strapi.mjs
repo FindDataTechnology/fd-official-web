@@ -42,32 +42,98 @@ const LOCALES = ['zh', 'en'];
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const SLUG_RE = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 const KINDS = ['paper', 'casestudy', 'note'];
+// `updates` dimensions (official-web-surface-refresh). `xingyan` joins the five
+// product lines so a research-line update can be filed without a sixth tab.
+const UPDATE_LINES = ['base', 'lex', 'wire', 'facet', 'constellation', 'xingyan'];
+const UPDATE_KINDS = ['release', 'feature', 'fix', 'note'];
 
-// Strapi content-type API endpoint → content dir + serializer kind.
+// ── collection registry ──────────────────────────────────────────────────────
+// One row per CMS content type. Adding a type = adding a row (plus a serializer
+// when its frontmatter shape is not the default) — no other file changes.
+//
+//   api       Strapi content-type API endpoint
+//   dir       target directory under src/content/
+//   kind      serializer/validator key
+//   label     human label for logs and violations
+//   twin      'locale' — one entry per locale under <dir>/<locale>/<slug>.md,
+//                        documentId pairs enforced (twins gate)
+//             'fields' — one entry per record at <dir>/<slug>.md carrying both
+//                        languages as separate fields (roadmap precedent)
+//   required  non-empty string fields (zod-required plus documentId/slug/locale)
+//   optional  non-string or nullable fields this type may carry
+//   serialize (e) => markdown; defaults to serializeDefault
+//   validate  (e, where, violations) => void; type-specific rules beyond the
+//             generic required/locale/slug checks
 const COLLECTIONS = [
-  { api: 'briefings', dir: 'briefings', kind: 'briefings', label: '内参 briefings' },
-  { api: 'courses', dir: 'academy', kind: 'academy', label: '学院 academy' },
-  { api: 'research-articles', dir: 'research', kind: 'research', label: '研究 research' },
+  {
+    api: 'briefings',
+    dir: 'briefings',
+    kind: 'briefings',
+    label: '内参 briefings',
+    twin: 'locale',
+    required: ['documentId', 'slug', 'locale', 'title', 'body', 'date', 'summary'],
+    optional: [],
+    serialize: (e) => serializeFeed('briefings', e),
+    validate: validateFeedFields,
+  },
+  {
+    api: 'courses',
+    dir: 'academy',
+    kind: 'academy',
+    label: '学院 academy',
+    twin: 'locale',
+    required: ['documentId', 'slug', 'locale', 'title', 'body', 'summary', 'source_material'],
+    // yizuo-course-system: level（use|build 读者分层）/ track（轨，预留）/
+    // updated（YYYY-MM-DD，课程更新时间）——CMS 侧均可空，空值不出 front-matter。
+    optional: ['level', 'track', 'updated'],
+    serialize: serializeAcademy,
+    validate: (e, where, violations) => {
+      if (e.order != null && typeof e.order !== 'number') {
+        violations.push(`${where}：order 必须是数字`);
+      }
+    },
+  },
+  {
+    api: 'research-articles',
+    dir: 'research',
+    kind: 'research',
+    label: '研究 research',
+    twin: 'locale',
+    required: ['documentId', 'slug', 'locale', 'title', 'body', 'date', 'summary', 'kind'],
+    optional: [],
+    serialize: (e) => serializeFeed('research', e),
+    validate: (e, where, violations) => {
+      validateFeedFields(e, where, violations);
+      if (e.kind != null && !KINDS.includes(e.kind)) {
+        violations.push(`${where}：kind "${e.kind}" 不在 ${KINDS.join('/')} 内`);
+      }
+    },
+  },
+  {
+    // official-web-surface-refresh: 项目动态. Field-paired — one record carries
+    // both languages, so there is no locale split and no twins gate; the four
+    // language fields are required instead. Strapi's i18n is off for this type.
+    api: 'updates',
+    dir: 'updates',
+    kind: 'updates',
+    label: '项目动态 updates',
+    twin: 'fields',
+    required: ['documentId', 'slug', 'title_zh', 'title_en', 'summary_zh', 'summary_en'],
+    optional: ['date', 'line', 'kind', 'version', 'url'],
+    serialize: serializeUpdate,
+    validate: (e, where, violations) => {
+      if (e.date == null || !DATE_RE.test(e.date)) {
+        violations.push(`${where}：date "${e.date}" 不符合 YYYY-MM-DD`);
+      }
+      if (!UPDATE_LINES.includes(e.line)) {
+        violations.push(`${where}：line "${e.line}" 不在 ${UPDATE_LINES.join('/')} 内`);
+      }
+      if (!UPDATE_KINDS.includes(e.kind)) {
+        violations.push(`${where}：kind "${e.kind}" 不在 ${UPDATE_KINDS.join('/')} 内`);
+      }
+    },
+  },
 ];
-
-// Required non-empty string fields per kind (zod-required fields plus the
-// keys the writer needs: documentId / slug / locale / body).
-const STRING_FIELDS = {
-  briefings: ['documentId', 'slug', 'locale', 'title', 'body', 'date', 'summary'],
-  academy: ['documentId', 'slug', 'locale', 'title', 'body', 'summary', 'source_material'],
-  research: ['documentId', 'slug', 'locale', 'title', 'body', 'date', 'summary', 'kind'],
-};
-
-// Optional non-string fields per kind (yizuo-course-system): academy 的
-// `level`（枚举 use|build，读者分层）、`track`（轨，预留）、`updated`
-// （YYYY-MM-DD，课程更新时间）。CMS 侧均可空——拉取后缺省序列化跳过
-// （front-matter 不出该行），zod 侧全部 optional；`updated` 缺失由 3.5 的
-// 构建期告警提示，不阻断。
-const OPTIONAL_FIELDS = {
-  briefings: [],
-  academy: ['level', 'track', 'updated'],
-  research: [],
-};
 
 // ── frontmatter serialization ────────────────────────────────────────────────
 // Hand-rolled on purpose (no new dependencies — the field set is closed), and
@@ -122,32 +188,56 @@ function sourcesBlock(kind, arr) {
   return 'sources:\n' + arr.map((s) => '  - ' + sourceItem(kind, s)).join('\n');
 }
 
-function toMarkdown(kind, e) {
-  const fm = [];
-  if (kind === 'academy') {
-    fm.push(`title: ${dq(e.title)}`);
-    fm.push(`summary: ${dq(e.summary)}`);
-    if (e.order != null) fm.push(`order: ${e.order}`);
-    // 读者分层三字段（yizuo-course-system）：非空才出行——存量未回填的
-    // 课程 front-matter 与既有提交字节一致（fixture 契约不被扰动）。
-    if (e.level != null && e.level !== '') fm.push(`level: ${e.level}`);
-    if (e.track != null && e.track !== '') fm.push(`track: ${dq(e.track)}`);
-    // updated 必须带引号：裸 YYYY-MM-DD 会踩 YAML timestamp core schema，
-    // 到 zod 手里已是 Date 对象，academy schema 直接拒收（research 的 date
-    // 带引号同理）。
-    if (e.updated != null && e.updated !== '') fm.push(`updated: ${dq(e.updated)}`);
-    fm.push(`source_material: ${dq(e.source_material)}`);
-    fm.push(`pack_url: ${e.pack_url ? dq(e.pack_url) : "''"}`);
-  } else {
-    fm.push(`date: ${dq(e.date)}`);
-    fm.push(`title: ${kind === 'research' ? dq(e.title) : scalar(e.title)}`);
-    fm.push(`summary: ${kind === 'research' ? dq(e.summary) : scalar(e.summary)}`);
-    if (kind === 'research') fm.push(`kind: ${e.kind}`);
-    fm.push(`tags: ${flowList(e.tags)}`);
-    fm.push(sourcesBlock(kind, e.sources));
-  }
-  const body = String(e.body ?? '').replace(/\n+$/, '') + '\n';
-  return `---\n${fm.join('\n')}\n---\n\n${body}`;
+// Shared tail: body with trailing newlines normalized to exactly one.
+const bodyOf = (e) => String(e.body ?? '').replace(/\n+$/, '') + '\n';
+const md = (fm, body) => `---\n${fm.join('\n')}\n---\n\n${body}`;
+
+// `academy` frontmatter: title/summary/source_material always double-quoted,
+// pack_url '' or quoted, order bare; level bare (use|build) / track quoted /
+// updated quoted YYYY-MM-DD (an unquoted date rides the YAML timestamp schema
+// and arrives at zod as a Date object) — each emitted only when present.
+function serializeAcademy(e) {
+  const fm = [`title: ${dq(e.title)}`, `summary: ${dq(e.summary)}`];
+  if (e.order != null) fm.push(`order: ${e.order}`);
+  if (e.level != null && e.level !== '') fm.push(`level: ${e.level}`);
+  if (e.track != null && e.track !== '') fm.push(`track: ${dq(e.track)}`);
+  if (e.updated != null && e.updated !== '') fm.push(`updated: ${dq(e.updated)}`);
+  fm.push(`source_material: ${dq(e.source_material)}`);
+  fm.push(`pack_url: ${e.pack_url ? dq(e.pack_url) : "''"}`);
+  return md(fm, bodyOf(e));
+}
+
+// Dated feed types (briefings / research). `research` double-quotes title and
+// summary and quotes source items carrying ASCII parens (the committed en
+// sources annotate the Chinese original in parens); briefings stay minimal.
+function serializeFeed(kind, e) {
+  const quote = (s) => (kind === 'research' ? dq(s) : scalar(s));
+  const fm = [`date: ${dq(e.date)}`, `title: ${quote(e.title)}`, `summary: ${quote(e.summary)}`];
+  if (kind === 'research') fm.push(`kind: ${e.kind}`);
+  fm.push(`tags: ${flowList(e.tags)}`);
+  fm.push(sourcesBlock(kind, e.sources));
+  return md(fm, bodyOf(e));
+}
+
+// Default serializer used when a registry row omits `serialize`.
+const serializeDefault = (e) => serializeFeed('briefings', e);
+
+// `updates` — field-paired frontmatter. Every language field is quoted (they
+// are prose), `date` is quoted (bare dates become Date objects in YAML), the
+// dimensions are bare enumerations, and version/url are emitted only when set.
+function serializeUpdate(e) {
+  const fm = [
+    `date: ${dq(e.date)}`,
+    `line: ${e.line}`,
+    `kind: ${e.kind}`,
+    `title_zh: ${dq(e.title_zh)}`,
+    `title_en: ${dq(e.title_en)}`,
+    `summary_zh: ${dq(e.summary_zh)}`,
+    `summary_en: ${dq(e.summary_en)}`,
+  ];
+  if (e.version != null && e.version !== '') fm.push(`version: ${dq(e.version)}`);
+  if (e.url != null && e.url !== '') fm.push(`url: ${dq(e.url)}`);
+  return md(fm, bodyOf(e));
 }
 
 // ── fetch ────────────────────────────────────────────────────────────────────
@@ -232,10 +322,11 @@ function entryName(e) {
   return `(无 slug，documentId=${e.documentId ?? e.id ?? '未知'})`;
 }
 
-function validateStructure(kind, entries, label, violations) {
+function validateStructure(row, entries, violations) {
+  const { label } = row;
   for (const e of entries) {
     const where = `${label} 条目 ${entryName(e)}`;
-    for (const f of STRING_FIELDS[kind]) {
+    for (const f of row.required) {
       if (typeof e[f] !== 'string' || e[f] === '') {
         violations.push(`${where}：缺少必填字段 ${f}`);
       }
@@ -246,35 +337,40 @@ function validateStructure(kind, entries, label, violations) {
     if (typeof e.slug === 'string' && e.slug !== '' && !SLUG_RE.test(e.slug)) {
       violations.push(`${where}：slug "${e.slug}" 不是合法文件名（仅限字母数字 . _ -）`);
     }
-    if (kind === 'briefings' || kind === 'research') {
-      if (e.date != null && !DATE_RE.test(e.date)) {
-        violations.push(`${where}：date "${e.date}" 不符合 YYYY-MM-DD`);
-      }
-      const tags = e.tags;
-      if (!Array.isArray(tags)) {
-        violations.push(`${where}：tags 必须是字符串数组`);
-      } else if (tags.some((t) => typeof t !== 'string' || t === '')) {
-        violations.push(`${where}：tags 含非字符串或空项`);
-      }
-    }
-    if (kind === 'research' && e.kind != null && !KINDS.includes(e.kind)) {
-      violations.push(`${where}：kind "${e.kind}" 不在 ${KINDS.join('/')} 内`);
-    }
     if (e.sources != null) {
       if (!Array.isArray(e.sources)) violations.push(`${where}：sources 必须是字符串数组`);
       else if (e.sources.some((s) => typeof s !== 'string' || s === ''))
         violations.push(`${where}：sources 含非字符串或空项`);
     }
-    if (kind === 'academy' && e.order != null && typeof e.order !== 'number') {
-      violations.push(`${where}：order 必须是数字`);
-    }
+    // Type-specific rules (date/tags/kind/order/…), declared on the registry row.
+    row.validate?.(e, where, violations);
+  }
+}
+
+// Shared rules for the dated feed types: date format + tags shape.
+function validateFeedFields(e, where, violations) {
+  if (e.date != null && !DATE_RE.test(e.date)) {
+    violations.push(`${where}：date "${e.date}" 不符合 YYYY-MM-DD`);
+  }
+  const tags = e.tags;
+  if (!Array.isArray(tags)) {
+    violations.push(`${where}：tags 必须是字符串数组`);
+  } else if (tags.some((t) => typeof t !== 'string' || t === '')) {
+    violations.push(`${where}：tags 含非字符串或空项`);
   }
 }
 
 // D4: group published entries by documentId — every group must carry both a
 // zh and an en entry, with one shared slug across locales (otherwise the
 // file-level twins gate would fail the build later with a worse message).
-function validateTwins(entries, label, violations) {
+// `twin: 'fields'` types carry both languages on one record: there are no
+// pairs to check, only the per-locale file-collision guard below.
+function validateTwins(row, entries, violations) {
+  const { label } = row;
+  if (row.twin === 'fields') {
+    validateSlugCollisions(entries, label, violations);
+    return;
+  }
   const groups = new Map();
   for (const e of entries) {
     const key = String(e.documentId ?? '');
@@ -296,6 +392,12 @@ function validateTwins(entries, label, violations) {
       );
     }
   }
+  validateSlugCollisions(entries, label, violations);
+}
+
+// Two records writing the same `<locale>/<slug>.md` silently overwrite one
+// another — always a violation, for both twin strategies.
+function validateSlugCollisions(entries, label, violations) {
   const seen = new Map(); // `${locale}/${slug}` → documentId
   for (const e of entries) {
     if (typeof e.slug !== 'string' || !LOCALES.includes(e.locale)) continue;
@@ -331,6 +433,17 @@ async function countExistingMd() {
 
 // ── write ────────────────────────────────────────────────────────────────────
 
+// Path for one entry under its collection row: paired types nest by locale,
+// field-paired types are flat (`<dir>/<slug>.md`, the roadmap precedent).
+const relPath = (row, e) =>
+  row.twin === 'fields'
+    ? `src/content/${row.dir}/${e.slug}.md`
+    : `src/content/${row.dir}/${e.locale}/${e.slug}.md`;
+
+// The directory holding one row's files (all of them, for field-paired types).
+const rowDirs = (row) =>
+  row.twin === 'fields' ? [``] : LOCALES.map((l) => `${l}/`);
+
 async function writeAll(files) {
   // Astro data-store pitfall first (see header).
   await rm(join(ROOT, 'node_modules/.astro'), { recursive: true, force: true });
@@ -345,12 +458,12 @@ async function writeAll(files) {
     await writeFile(p, content);
   }
 
-  // 2. Commit: rewrite every locale dir as the full pulled set, deleting
+  // 2. Commit: rewrite every target dir as the full pulled set, deleting
   //    committed files that are no longer published.
   const summary = [];
   for (const c of COLLECTIONS) {
-    for (const locale of LOCALES) {
-      const prefix = `src/content/${c.dir}/${locale}/`;
+    for (const locale of rowDirs(c)) {
+      const prefix = `src/content/${c.dir}/${locale}`;
       const wanted = [...files.keys()].filter((rel) => rel.startsWith(prefix));
       const targetDir = join(ROOT, prefix);
       for (const rel of wanted) {
@@ -366,7 +479,7 @@ async function writeAll(files) {
           deleted++;
         }
       }
-      summary.push({ label: c.label, dir: c.dir, locale, written: wanted.length, deleted });
+      summary.push({ label: c.label, dir: c.dir, locale: locale || '—', written: wanted.length, deleted });
     }
   }
 
@@ -375,10 +488,104 @@ async function writeAll(files) {
   return summary;
 }
 
+// ── self-test (registry strategies) ──────────────────────────────────────────
+// Exercises both twin strategies against fixed cases, so the registry's
+// validation path is proven before any type that uses it ships. Run with
+// `node scripts/fetch-strapi.mjs --self-test`; no network, no writes.
+function selfTest() {
+  const paired = COLLECTIONS.find((c) => c.twin === 'locale');
+  // A synthetic field-paired row: same code path `updates` will take.
+  const fields = {
+    api: 'fields-probe',
+    dir: 'fields-probe',
+    kind: 'fields-probe',
+    label: '自测 fields',
+    twin: 'fields',
+    required: ['documentId', 'slug', 'locale', 'title_zh', 'title_en'],
+    optional: ['date'],
+    validate: (e, where, violations) => {
+      if (e.date != null && !DATE_RE.test(e.date)) {
+        violations.push(`${where}：date "${e.date}" 不符合 YYYY-MM-DD`);
+      }
+    },
+  };
+  // Field-paired entries carry both languages on one record.
+  const entry = (over = {}) => ({
+    documentId: 'doc1',
+    slug: 'one',
+    locale: 'zh',
+    title_zh: '标题',
+    title_en: 'Title',
+    ...over,
+  });
+  // Paired entries must satisfy the paired row's full required set (the
+  // briefings set today: title/body/date/summary/tags/…).
+  const pairedEntry = (over = {}) => ({
+    documentId: 'doc1',
+    slug: 'one',
+    locale: 'zh',
+    title: '标题',
+    body: '正文',
+    date: '2026-10-17',
+    summary: '摘要',
+    tags: ['产品'],
+    sources: [],
+    ...over,
+  });
+
+  const cases = [
+    // —— locale-paired strategy ——
+    ['paired: 双语成对通过', paired, [pairedEntry({ locale: 'zh' }), pairedEntry({ locale: 'en' })], 0],
+    ['paired: 缺 en 被点名', paired, [pairedEntry({ locale: 'zh' })], 1],
+    ['paired: 必填缺失被点名', paired, [pairedEntry({ locale: 'zh', title: '' }), pairedEntry({ locale: 'en' })], 1],
+    // —— field-paired strategy ——
+    ['fields: 单条双语通过', fields, [entry()], 0],
+    ['fields: 缺 en 字段被点名', fields, [entry({ title_en: '' })], 1],
+    ['fields: 日期格式非法被点名', fields, [entry({ date: '2026/10/17' })], 1],
+    // —— shared slug-collision guard (both strategies) ——
+    ['fields: 同 slug 冲突被点名', fields, [entry(), entry({ documentId: 'doc2' })], 1],
+    [
+      'paired: 同 locale 同 slug 冲突被点名',
+      paired,
+      // Both documents are complete pairs, so the pairing rule is satisfied
+      // and the only violations left are the two file collisions (zh/one.md
+      // and en/one.md each claimed by both documents) — one per locale.
+      [
+        pairedEntry({ locale: 'zh', documentId: 'doc1' }),
+        pairedEntry({ locale: 'en', documentId: 'doc1' }),
+        pairedEntry({ locale: 'zh', documentId: 'doc2' }),
+        pairedEntry({ locale: 'en', documentId: 'doc2' }),
+      ],
+      2,
+    ],
+  ];
+
+  let ok = true;
+  for (const [id, row, entries, expected] of cases) {
+    const violations = [];
+    validateStructure(row, entries, violations);
+    validateTwins(row, entries, violations);
+    const pass = violations.length === expected;
+    ok = ok && pass;
+    console.log(
+      `  ${pass ? 'ok  ' : 'FAIL'} ${id}${pass ? '' : ` — 期望 ${expected} 条违例，实得 ${violations.length}: ${JSON.stringify(violations)}`}`,
+    );
+  }
+  // Path shape per strategy.
+  const pairedPath = relPath(paired, { locale: 'zh', slug: 'x' });
+  const fieldsPath = relPath(fields, { locale: 'zh', slug: 'x' });
+  const pathsOk = pairedPath === 'src/content/briefings/zh/x.md' && fieldsPath === 'src/content/fields-probe/x.md';
+  ok = ok && pathsOk;
+  console.log(`  ${pathsOk ? 'ok  ' : 'FAIL'} 路径形状（paired 按 locale 分目录 / fields 平铺）`);
+
+  process.exit(ok ? 0 : 1);
+}
+
 // ── main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
   const args = process.argv.slice(2);
+  if (args.includes('--self-test')) selfTest();
   const fi = args.indexOf('--fixture');
   const fixtureDir = fi >= 0 ? args[fi + 1] : null;
   if (fi >= 0 && !fixtureDir) {
@@ -407,8 +614,8 @@ async function main() {
   //    violation, then fail closed.
   const violations = [];
   for (const c of COLLECTIONS) {
-    validateStructure(c.kind, pulled[c.kind], c.label, violations);
-    validateTwins(pulled[c.kind], c.label, violations);
+    validateStructure(c, pulled[c.kind], violations);
+    validateTwins(c, pulled[c.kind], violations);
   }
   const existing = await countExistingMd();
   if (total === 0) {
@@ -427,8 +634,9 @@ async function main() {
   // 3. Serialize the full set, stage it, commit, print the summary.
   const files = new Map();
   for (const c of COLLECTIONS) {
+    const serialize = c.serialize ?? serializeDefault;
     for (const e of pulled[c.kind]) {
-      files.set(`src/content/${c.dir}/${e.locale}/${e.slug}.md`, toMarkdown(c.kind, e));
+      files.set(relPath(c, e), serialize(e));
     }
   }
   const summary = await writeAll(files);

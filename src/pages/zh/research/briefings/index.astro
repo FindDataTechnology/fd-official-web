@@ -1,0 +1,169 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../../components/Layout.astro';
+import { t, type UiKey } from '../../../../i18n';
+import { splitByLocale, checkLocaleTwins } from '../../../../lib/twins';
+
+// 内参索引页（official-web-surface-refresh）——元数据 + 标签即时过滤，正文在详情页。
+const locale = 'zh';
+const entries = await getCollection('briefings');
+const split = splitByLocale(entries);
+checkLocaleTwins('briefings', 'briefing', split, (e) => e.id.split('/')[1] ?? e.id);
+const list = split.en.sort(
+  (a, b) => b.data.date.localeCompare(a.data.date) || a.id.localeCompare(b.id),
+);
+// Tags present in the data, alphabetical so the filter row is stable.
+const tags = [...new Set(list.flatMap((e) => e.data.tags))].sort();
+const title = `${t(locale, 'research.briefings.title')} — FindData Technology`;
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'research.briefings.sub')}>
+  <a class="doc-back" href="/zh/research#briefings">← {t(locale, 'research.back')}</a>
+  <h1 class="page">{t(locale, 'research.briefings.title')}</h1>
+  <p class="page-sub">{t(locale, 'research.briefings.sub')}</p>
+  {
+    list.length ? (
+      <>
+        <nav class="idx-filter" aria-label={t(locale, 'updates.filter')}>
+          <button type="button" class="idx-chip active" data-tag="all">
+            {t(locale, 'updates.all')}
+          </button>
+          {tags.map((tag) => (
+            <button type="button" class="idx-chip" data-tag={tag}>
+              {tag}
+            </button>
+          ))}
+        </nav>
+        <ol class="idx-list" id="briefing-index">
+          {list.map((e) => (
+            <li class="idx-item" data-tags={e.data.tags.join('|')}>
+              <p class="idx-meta">
+                <time datetime={e.data.date}>{e.data.date}</time>
+                {e.data.tags.map((tag) => (
+                  <span class="idx-tag">{tag}</span>
+                ))}
+              </p>
+              <a class="idx-title" href={`/zh/research/briefings/${e.id.split('/')[1]}`}>
+                {e.data.title}
+              </a>
+              <p class="idx-sum">{e.data.summary}</p>
+            </li>
+          ))}
+        </ol>
+        <p class="idx-empty" hidden>
+          {t(locale, 'research.briefings.empty')}
+        </p>
+      </>
+    ) : (
+      <p class="page-sub">{t(locale, 'research.briefings.empty')}</p>
+    )
+  }
+</Layout>
+
+<script>
+  // Progressive enhancement only: everything renders server-side; filtering
+  // hides rows and mirrors the choice into ?tag= for sharing.
+  const chips = document.querySelectorAll<HTMLButtonElement>('.idx-chip');
+  const rows = document.querySelectorAll<HTMLElement>('.idx-item');
+  const empty = document.querySelector<HTMLElement>('.idx-empty');
+  const apply = (tag: string) => {
+    let visible = 0;
+    rows.forEach((row) => {
+      const tags = (row.dataset.tags ?? '').split('|');
+      const match = tag === 'all' || tags.includes(tag);
+      row.hidden = !match;
+      if (match) visible++;
+    });
+    if (empty) empty.hidden = visible > 0;
+    chips.forEach((chip) => chip.classList.toggle('active', chip.dataset.tag === tag));
+  };
+  const initial = new URLSearchParams(location.search).get('tag') ?? 'all';
+  apply(initial);
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      const tag = chip.dataset.tag ?? 'all';
+      const url = new URL(location.href);
+      if (tag === 'all') url.searchParams.delete('tag');
+      else url.searchParams.set('tag', tag);
+      history.replaceState(null, '', url);
+      apply(tag);
+    }),
+  );
+</script>
+
+<style>
+  .idx-filter {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 18px 0 22px;
+  }
+  .idx-chip {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    padding: 3px 11px;
+  }
+  .idx-chip:hover {
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+  .idx-chip.active {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .idx-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 78ch;
+  }
+  .idx-item + .idx-item {
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+    padding-top: 16px;
+  }
+  .idx-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 0 5px;
+  }
+  .idx-meta time {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.76rem;
+  }
+  .idx-tag {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    padding: 0 8px;
+  }
+  .idx-title {
+    color: var(--text);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .idx-title:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .idx-sum {
+    color: var(--muted);
+    font-size: 0.94rem;
+    margin: 4px 0 0;
+  }
+  .idx-empty {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+  }
+</style>

@@ -1,8 +1,50 @@
 ---
-import BaseLanding from '../../components/BaseLanding.astro';
+import Layout from '../../components/Layout.astro';
+import LineMark from '../../components/LineMark.astro';
+import LineTabs from '../../components/LineTabs.astro';
+import { PRODUCT_LINES, LADDER_CHARS, LADDER_NUMERALS } from '../../content.config';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { t } from '../../i18n';
 
-// /zh/products 默认展示第一条产品线（壹座）——自 add-platform-product-page 起
-// 即壹座专属产品页；各线 tab 页在 /zh/products/<line>。
+// 产品总览（official-web-surface-refresh D8）——/zh/products 是五线目录，不是某条线
+// 的落地页；壹座落地页在 /zh/products/base。这里给阶梯叙事 + 五线卡 + tab 导航。
+const locale = 'zh';
+const title = `${t(locale, 'apps.title')} — FindData Technology`;
 ---
 
-<BaseLanding locale="zh" />
+<Layout locale={locale} title={title} description={t(locale, 'apps.sub')}>
+  <h1 class="page">{t(locale, 'apps.title')}</h1>
+  <p class="page-sub">{t(locale, 'apps.sub')}</p>
+
+  <div class="ladder">
+    <p class="ladder-body">{t(locale, 'apps.ladder.body')}</p>
+    <p class="ladder-brand">{t(locale, 'apps.ladder.brand')}</p>
+  </div>
+
+  <LineTabs locale={locale} line="base" />
+
+  <ul class="grid ladder-rail overview">
+    {
+      PRODUCT_LINES.map((l, i) => (
+        <li class="card">
+          <a class="card-main" href={getRelativeLocaleUrl(locale, `products/${l}`)}>
+            <span class="rung-top">
+              <LineMark char={LADDER_CHARS[i]} name={t(locale, `line.${l}`)} size="md" />
+              <span class="rung-numeral" aria-hidden="true">
+                {LADDER_NUMERALS[i]}
+              </span>
+            </span>
+            <span class="name lines-name">{t(locale, `line.${l}`)}</span>
+            <span class="why">{t(locale, `line.${l}.why`)}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
+
+<style>
+  .overview {
+    margin-top: 26px;
+  }
+</style>
