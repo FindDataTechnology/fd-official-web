@@ -2,8 +2,10 @@
 title: "Wanxing and Facet Together: Build Your First Personal Workflow"
 summary: "Combine the skills and MCP servers you installed in Yizuo into your own workflow (a custom preset), deploy it on Wanxing as a service programs can call, and run it with one A2A request, a visitor chat page, and the console."
 order: 2
+level: build
+updated: "2026-10-18"
 source_material: "Yizuo·Wanxing User Manual §1.3–§1.4, §2 (pack installation, custom presets and publish-and-deploy, deploying an agent as a service, A2A calls, deployer console, chat facade); Platform Guides pack (the Facet Pack Builder guide skill, including the four permission gates and the pack build chain)"
-pack_url: ''
+pack_url: "https://facet.finddatatech.cloud/#/packs/bQ-NlOBloZegGfkiczktDA"
 ---
 
 ## What You Will Be Able to Do
@@ -12,7 +14,9 @@ Combine the skills and MCP servers you installed in Yizuo into your own personal
 
 ## Prerequisites
 
-- Course one completed, or existing familiarity with the Yizuo pack marketplace and the trace page.
+> This is a build-your-own tier course (advanced): for users who want to deploy workflows for programs to call. If you just want to get things done, finish the getting-things-done tier courses first — this one can wait.
+
+- Course one completed (or you already know the Yizuo pack marketplace and the trace page), and Install Your First Pack completed.
 - A platform account; the publish-and-deploy shortcut additionally requires your account to be in the creators group.
 - To call a service you need a call key (an `sk-` credential, provided by the platform) and a tool that can send HTTPS requests (`curl` is enough).
 - No deployable preset yet? That does not block the lesson: any public service in the Wanxing catalog can be called with the method in step 5, and the caller-side work is exactly the same.
