@@ -9,7 +9,19 @@ Ops notes for the FindDataTechnology official site (this repo → `/opt/fd/web` 
 
 **回滚：** revert 该 tag bump 提交（ArgoCD 自动回到上一版）；或宿主 nginx `location /` 临时切回静态根（`.bak-static-20260922` 备份配置；`/opt/fd/web/dist*` 停留在 2026-09-22 的版本）。
 
-**历史路径（均已退役）：** ① GitHub-secrets SSH + rsync（`deploy.yml`）：2026-08-29 删除；`DEPLOY_SSH_KEY`/`DEPLOY_HOST`/`DEPLOY_USER` 已从 GitHub secrets 清除，服务器旧部署公钥已撤销（旧私钥登录被拒），Mac 侧换 `fd-deploy`（`~/.ssh/fd_deploy_new`）。② cheap-1 国内构建 + rsync 静态目录（`scripts/build-deploy.sh` + `/etc/cron.d/fd-web-deploy` 每 6h）：2026-09-21 上线、09-22 切回 pod 路径，cron 已全注释停跑；其构建环境在构建箱 `/opt/fd/fd-web-build.env`（chmod 600，含 `FD_INDICATORS_MCP_TOKEN`/`GITHUB_TOKEN`/`FD_WEB_DEPLOY_PASS`）。GitHub secrets 现为 `TCR_USERNAME`/`TCR_PASSWORD`。手动发布 = dispatch `image` workflow + 本地 bump tag（`/fd-site-deploy` 同路径），或直接触发 ArgoCD sync。
+**历史路径（均已退役）：** ① GitHub-secrets SSH + rsync（`deploy.yml`）：2026-08-29 删除；`DEPLOY_SSH_KEY`/`DEPLOY_HOST`/`DEPLOY_USER` 已从 GitHub secrets 清除，服务器旧部署公钥已撤销（旧私钥登录被拒），Mac 侧换 `fd-deploy`（`~/.ssh/fd_deploy_new`）。② cheap-1 国内构建 + rsync 静态目录（`scripts/build-deploy.sh` + `/etc/cron.d/fd-web-deploy` 每 6h）：2026-09-21 上线、09-22 切回 pod 路径，cron 已全注释停跑；其构建环境在构建箱 `/opt/fd/fd-web-build.env`（chmod 600）。GitHub secrets 现为 `TCR_USERNAME`/`TCR_PASSWORD`。手动发布 = dispatch `image` workflow + 本地 bump tag（`/fd-site-deploy` 同路径），或直接触发 ArgoCD sync。
+
+**构建箱环境变量（`/opt/fd/fd-web-build.env`，cheap-1，chmod 600）**——`build-deploy.sh` 在构建前自检，缺必需键即中止并指名：
+
+| 键 | 必需性 | 缺失时的行为 |
+|---|---|---|
+| `GITHUB_TOKEN` | **必需** | 无安全降级：抓取走匿名请求，额度耗尽时 `/repos` 详情页静默变少而构建仍成功。2026-10-18 因此丢过 12 个页面，见 `docs/official-web-repos-outage-20261018.md`。**当前未设置**（10-16 被一次编辑挤掉）——补上后构建才不再依赖匿名额度 |
+| `FD_WEB_DEPLOY_PASS` | **必需** | 无法 rsync 部署 |
+| `STRAPI_URL` / `STRAPI_READ_TOKEN` | **必需** | CMS 拉取失败即构建失败（fail-closed） |
+| `FD_INDICATORS_MCP_TOKEN` / `FD_CALIBERS_MCP_TOKEN` | 可选 | 有安全降级：用仓内快照，只 warn 不阻断 |
+| `FD_INDICATORS_MCP_URL` | 可选 | 有默认值 `https://www.finddatatech.cloud/mcp` |
+
+> **改这个文件时注意**：2026-10-16 那次为 strapi 切换编辑同一文件，把 `GITHUB_TOKEN` 挤掉了，两天后引发线上事故。每次编辑后用 `sudo grep -oE '^[A-Z_]+=' /opt/fd/fd-web-build.env` 核对键是否齐全。
 
 **ArgoCD UI（chengsi）：** `ssh -L 18443:127.0.0.1:30443 ubuntu@124.220.7.175` → http://127.0.0.1:18443（`argocd-server` NodePort 30443；admin 口令在本地密码库）。
 

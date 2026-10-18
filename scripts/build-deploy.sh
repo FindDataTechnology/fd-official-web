@@ -26,6 +26,28 @@ CLONE_URL="${CLONE_URL:-https://github.com/FindDataTechnology/fd-official-web.gi
 WORK="${WORK:-/opt/fd/build/fd-official-web}"
 ENVF="${ENVF:-/opt/fd/fd-web-build.env}"
 [ -f "$ENVF" ] && . "$ENVF"
+
+# Credential self-check (repos-fetch-resilience D6). Required = no safe
+# degradation when absent: GITHUB_TOKEN missing means the fetch runs anonymous
+# and a partial repo surface can ship silently (real incident 2026-10-18: the
+# key was dropped by an env edit, 12 /repos pages vanished, build still exit 0).
+# Optional = has a committed-snapshot fallback, so warn only.
+REQUIRED_KEYS="GITHUB_TOKEN FD_WEB_DEPLOY_PASS STRAPI_URL STRAPI_READ_TOKEN"
+OPTIONAL_KEYS="FD_INDICATORS_MCP_TOKEN FD_CALIBERS_MCP_TOKEN"
+missing=""
+for k in $REQUIRED_KEYS; do
+  [ -n "${!k:-}" ] || missing="$missing $k"
+done
+if [ -n "$missing" ]; then
+  echo "✗ 构建环境缺少必需键（$ENVF）：$missing" >&2
+  echo "  这些键缺失时没有安全降级路径：GITHUB_TOKEN 缺失会让仓库抓取走匿名请求，" >&2
+  echo "  额度耗尽时 /repos 详情页会静默变少而构建仍成功。请补齐后重跑。" >&2
+  exit 1
+fi
+for k in $OPTIONAL_KEYS; do
+  [ -n "${!k:-}" ] || echo "! 可选键 $k 未设置——使用仓内快照（有安全降级，不阻断构建）" >&2
+done
+
 # Base image; docker.io is unreachable from the CN build box, so fall back to
 # a working mirror and retag when the canonical name is missing.
 NODE_IMAGE="${NODE_IMAGE:-node:22-alpine}"
@@ -35,7 +57,7 @@ if ! docker image inspect "$NODE_IMAGE" >/dev/null 2>&1    && ! docker pull "$NO
   docker tag "$NODE_MIRROR" "$NODE_IMAGE"
 fi
 
-: "${FD_WEB_DEPLOY_PASS:?FD_WEB_DEPLOY_PASS missing in $ENVF}"
+# FD_WEB_DEPLOY_PASS is already asserted by the required-key self-check above.
 DEPLOY_HOST="${FD_WEB_DEPLOY_HOST:-124.220.7.175}"
 DEPLOY_USER="${FD_WEB_DEPLOY_USER:-ubuntu}"
 DEPLOY_PATH="${FD_WEB_DEPLOY_PATH:-/opt/fd/web/dist}"

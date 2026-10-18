@@ -97,11 +97,28 @@ try {
   }
 
   repos.sort((a, b) => rank(a.name) - rank(b.name) || b.stars - a.stars);
+  const failed = repos.filter((r) => !r.hasReadme);
+  const got = repos.length - failed.length;
+
+  // Widespread failure is a broken build, not a degraded one (repos-fetch-
+  // resilience). A few repos without a README is the documented degradation —
+  // they render in the grid without a detail page. But when a majority is
+  // missing, the site would ship with most of its repo detail pages gone while
+  // every earlier step reported success (real incident 2026-10-18: 12 of 17
+  // 403'd, build exit 0, deployed). Write nothing and fail instead.
+  if (repos.length > 0 && failed.length > repos.length / 2) {
+    console.error(
+      `[repos] README fetch failed for ${failed.length}/${repos.length} repos ` +
+        `(${got} succeeded) — majority missing, build aborted. ` +
+        `Failed: ${failed.map((r) => r.name).join(', ')}. ` +
+        `Check GITHUB_TOKEN validity and api.github.com/rate_limit.`,
+    );
+    process.exit(1);
+  }
+
   await mkdir(new URL('./', REPOS_OUT), { recursive: true });
   await writeFile(REPOS_OUT, JSON.stringify({ generated_at: new Date().toISOString(), repos }, null, 2));
-  console.log(
-    `[repos] fetched ${repos.length} repos, ${repos.filter((r) => r.hasReadme).length} READMEs`,
-  );
+  console.log(`[repos] fetched ${repos.length} repos, ${got} READMEs (${failed.length} failed)`);
 
 } catch (err) {
   // Never overwrite the committed fallback with emptiness — one flaky build
