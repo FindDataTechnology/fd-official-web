@@ -15,7 +15,7 @@ Ops notes for the FindDataTechnology official site (this repo → `/opt/fd/web` 
 
 | 键 | 必需性 | 缺失时的行为 |
 |---|---|---|
-| `GITHUB_TOKEN` | **必需** | 无安全降级：抓取走匿名请求，额度耗尽时 `/repos` 详情页静默变少而构建仍成功。2026-10-18 因此丢过 12 个页面，见 `docs/official-web-repos-outage-20261018.md`。**当前未设置**（10-16 被一次编辑挤掉）——补上后构建才不再依赖匿名额度 |
+| `GITHUB_TOKEN` | **必需** | 无安全降级：抓取走匿名请求，额度耗尽时 `/repos` 详情页静默变少而构建仍成功。2026-10-18 因此丢过 12 个页面，见 `docs/official-web-repos-outage-20261018.md`。**当前已设置**（2026-10-19 补，fine-grained token、resource owner `law-ai-official`、只读公开仓、2027-01-17 到期，届时需轮换） |
 | `FD_WEB_DEPLOY_PASS` | **必需** | 无法 rsync 部署 |
 | `STRAPI_URL` / `STRAPI_READ_TOKEN` | **必需** | CMS 拉取失败即构建失败（fail-closed） |
 | `FD_INDICATORS_MCP_TOKEN` / `FD_CALIBERS_MCP_TOKEN` | 可选 | 有安全降级：用仓内快照，只 warn 不阻断 |
