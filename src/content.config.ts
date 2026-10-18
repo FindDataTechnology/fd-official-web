@@ -122,6 +122,18 @@ const releases = defineCollection({
 // The five product lines above are untouched: Xingyan is a parallel research
 // surface, not a sixth line tab.
 
+// A source entry: either plain text (statement only, not clickable) or a
+// labelled pointer to a publicly reachable location (xingyan-source-links: a
+// page must not claim a full text is available without giving an address).
+// Both forms coexist so the existing string-only entries need no rewrite.
+const SOURCE_ITEM = z.union([
+  z.string(),
+  z.object({
+    label: z.string(),
+    url: z.string().url('source url must be absolute (https://…)'),
+  }),
+]);
+
 // `briefings` — 内参: event-driven single entries (no issue numbers, no
 // calendar promise). `sources` carries the traceable references behind the
 // entry's claims (briefing-feed spec: every assertion must be traceable).
@@ -132,7 +144,7 @@ const briefings = defineCollection({
     title: z.string(),
     summary: z.string(),
     tags: z.array(z.string()),
-    sources: z.array(z.string()).optional().default([]),
+    sources: z.array(SOURCE_ITEM).optional().default([]),
   }),
 });
 
@@ -168,7 +180,7 @@ const research = defineCollection({
     summary: z.string(),
     kind: z.enum(['paper', 'casestudy', 'note']),
     tags: z.array(z.string()),
-    sources: z.array(z.string()).optional().default([]),
+    sources: z.array(SOURCE_ITEM).optional().default([]),
   }),
 });
 

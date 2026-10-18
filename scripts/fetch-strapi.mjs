@@ -178,7 +178,27 @@ function flowItem(s) {
 }
 const flowList = (arr) => '[' + arr.map(flowItem).join(', ') + ']';
 
+// A source is either plain text (the committed style, byte-frozen) or a
+// labelled pointer to a public address (xingyan-source-links). The string form
+// keeps its exact existing quoting rules — the fixture round-trip depends on
+// it. The object form is written as a block mapping: `label` follows the same
+// human-prose quoting rules as a string source, `url` is always double-quoted
+// because it is a machine field whose bare form would otherwise trip the YAML
+// plain-scalar guards (`:` in https://, etc).
 function sourceItem(kind, s) {
+  // An object carrying a label but no address is a plain statement: emit it in
+  // the string form so it renders exactly like the committed sources. Emitting
+  // `url: ""` instead would trip the zod url check and red the build over a
+  // content-entry omission the author can see and fix.
+  if (s && typeof s === 'object' && typeof s.label === 'string') {
+    if (typeof s.url !== 'string' || s.url === '') {
+      return kind === 'research' && /[()]/.test(s.label) ? dq(s.label) : scalar(s.label);
+    }
+    // `label` opens on the dash line (`  - label: …`); `url` continues at the
+    // same indent the label sits at (four spaces), forming one block mapping.
+    const label = kind === 'research' && /[()]/.test(s.label) ? dq(s.label) : scalar(s.label);
+    return `label: ${label}\n    url: ${dq(s.url)}`;
+  }
   if (kind === 'research' && /[()]/.test(s)) return dq(s);
   return scalar(s);
 }
@@ -338,9 +358,24 @@ function validateStructure(row, entries, violations) {
       violations.push(`${where}：slug "${e.slug}" 不是合法文件名（仅限字母数字 . _ -）`);
     }
     if (e.sources != null) {
-      if (!Array.isArray(e.sources)) violations.push(`${where}：sources 必须是字符串数组`);
-      else if (e.sources.some((s) => typeof s !== 'string' || s === ''))
-        violations.push(`${where}：sources 含非字符串或空项`);
+      if (!Array.isArray(e.sources)) violations.push(`${where}：sources 必须是数组`);
+      else {
+        e.sources.forEach((s, i) => {
+          // String form (the committed style) or {label, url} (xingyan-source-links).
+          // A label without an address is normal — it serializes back to the
+          // string form. An address without a label cannot be rendered.
+          if (typeof s === 'string') {
+            if (s === '') violations.push(`${where}：sources[${i}] 是空字符串`);
+            return;
+          }
+          if (!s || typeof s !== 'object')
+            return violations.push(`${where}：sources[${i}] 既不是字符串也不是对象`);
+          if (typeof s.label !== 'string' || s.label === '')
+            violations.push(`${where}：sources[${i}].label 缺失或为空`);
+          if (s.url != null && s.url !== '' && !/^https?:\/\//i.test(String(s.url)))
+            violations.push(`${where}：sources[${i}].url "${s.url}" 不是绝对地址`);
+        });
+      }
     }
     // Type-specific rules (date/tags/kind/order/…), declared on the registry row.
     row.validate?.(e, where, violations);

@@ -17,7 +17,8 @@ interface Props {
   date?: string;
   kind?: 'paper' | 'casestudy' | 'note';
   tags?: readonly string[];
-  sources?: readonly string[];
+  /** Plain text, or {label, url} when the source has a public address. */
+  sources?: readonly (string | { label: string; url: string })[];
   packUrl?: string;
   /** Academy only — declared reader tier; renders the meta badge (yizuo-course-system). */
   tier?: 'use' | 'build';
@@ -84,9 +85,19 @@ const tierLabel = tier ? t(locale, `research.course.tier.${tier}` as UiKey) : nu
       <section class="xy-sources">
         <h2>{t(locale, 'research.sources.title')}</h2>
         <ul>
-          {sources.map((source) => (
-            <li>{source}</li>
-          ))}
+          {
+            sources.map((source) =>
+              typeof source === 'string' ? (
+                <li>{source}</li>
+              ) : (
+                <li>
+                  <a href={source.url} target="_blank" rel="noopener noreferrer">
+                    {source.label}
+                  </a>
+                </li>
+              )
+            )
+          }
         </ul>
       </section>
     )
@@ -172,6 +183,12 @@ const tierLabel = tier ? t(locale, `research.course.tier.${tier}` as UiKey) : nu
   .xy-sources li {
     margin: 6px 0;
     overflow-wrap: anywhere;
+  }
+  /* A source carrying an address reads as an actionable download, not prose. */
+  .xy-sources a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   /* pack band — the same instrument-panel voice as .demo-cta on /repos */
   .xy-pack {

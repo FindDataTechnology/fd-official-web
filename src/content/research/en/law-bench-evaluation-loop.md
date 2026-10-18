@@ -5,8 +5,10 @@ summary: "An evaluation loop for Chinese contract drafting: all-pass binary aggr
 kind: paper
 tags: [research, evaluation, contract-drafting]
 sources:
-  - "Full paper (Chinese and English versions, paper archive no. 01 in the Xingyan research files)"
+  - label: "Full paper (English, draft)"
+    url: "https://cms.finddatatech.cloud/uploads/01_law_bench_evaluation_loop_en_787e29d053.docx"
   - "Human blind-labelling pilot: 126 contract-criterion pairs, two annotators, stratified sampling"
+  - "Version status: draft — author affiliations, corresponding-author email and volume/page numbers are pending; the publisher identifier will be added here on formal publication"
 ---
 
 ## Bottom line first

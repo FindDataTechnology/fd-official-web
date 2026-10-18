@@ -5,8 +5,10 @@ summary: "面向中文合同起草的评估闭环：以「全部评审项通过�
 kind: paper
 tags: [研究, 评测, 合同起草]
 sources:
-  - 论文全文（中英双语，见《星研研究档案》01 号论文存档）
+  - label: 论文全文（中文，初稿）
+    url: "https://cms.finddatatech.cloud/uploads/01_law_bench_evaluation_loop_zh_3b004d8a62.docx"
   - 人工盲标试点：126 个合同-评审项对、双标注、分层抽样
+  - 版本状态：初稿——作者单位、通讯作者邮箱、卷期页码待补齐；正式发表后此处补出版方标识
 ---
 
 ## 结论先行
