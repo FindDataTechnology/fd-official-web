@@ -1,8 +1,16 @@
 {
-  "capturedAt": "2026-10-19T19:49:09.680Z",
+  "capturedAt": "2026-10-19T20:33:22.844Z",
   "apiBase": "https://wire.finddatatech.cloud",
-  "total": 2,
+  "total": 3,
   "dashboards": [
+    {
+      "id": 21,
+      "title": "A股行情图表 · 招商银行（600036）",
+      "panelCount": 10,
+      "version": 2,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
     {
       "id": 20,
       "title": "中国宏观景气 · 周期仪表盘",
