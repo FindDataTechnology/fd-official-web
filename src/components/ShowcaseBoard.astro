@@ -1,0 +1,294 @@
+---
+// 看板橱窗呈现组件（official-web-showcase）。
+//
+// 两种形态，同一个组件（列表与详情共享卡片语言）：
+//   - mode="list"   → 看板卡片网格（标题 / 面板数 / 数据截至）
+//   - mode="detail" → KPI 卡网格 + 图表（构建期预渲染的静态 SVG 内联）
+//
+// 设计要点（见 openspec/changes/official-web-showcase/design.md）：
+//   - **零运行时图表依赖**：SVG 已在构建期由 scripts/fetch-showcase.mjs 用
+//     echarts SSR 渲染好，这里只做字符串内联。页面不需要任何 JS 就能看图。
+//   - **文本兜底**（D2）：每张图附 aria-label 与题注，含标题与系列数——
+//     SVG 对读屏软件不友好，纯文本信息是必要补充。
+//   - 双语：所有文案走 t(locale, key)，不在此写死中文。
+import { t } from '../i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+interface Panel {
+  id: string;
+  type: string;
+  title?: string;
+  label?: string;
+  value?: string | null;
+  unit?: string;
+  subtitle?: string;
+  source?: string;
+  svg?: string | null;
+  seriesCount?: number;
+  seriesNames?: string[];
+  note?: string;
+  renderError?: string;
+}
+
+interface Board {
+  id: number;
+  title: string;
+  panelCount?: number;
+  refreshedAt?: string | null;
+}
+
+interface Props {
+  locale: 'en' | 'zh';
+  mode: 'list' | 'detail';
+  boards?: Board[];
+  /** detail 模式下的看板本体（含面板）。 */
+  board?: Board & { panels: Panel[] };
+  capturedAt?: string | null;
+  /** 详情页返回列表的链接与交互版外链。 */
+  backHref?: string;
+  interactiveHref?: string;
+}
+
+const { locale, mode, boards = [], board, capturedAt = null, backHref, interactiveHref } =
+  Astro.props;
+
+/** 日期本地化（与站点其它页一致，不手写格式）。 */
+function fmtDate(value: string | null | undefined): string | null {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
+const kpiPanels = mode === 'detail' ? (board?.panels ?? []).filter((p) => p.type === 'kpi') : [];
+const chartPanels = mode === 'detail' ? (board?.panels ?? []).filter((p) => p.type !== 'kpi') : [];
+---
+
+{
+  mode === 'list' ? (
+    boards.length === 0 ? (
+      <p class="page-sub showcase-empty" data-testid="showcase-empty">
+        {t(locale, 'showcase.empty')}
+      </p>
+    ) : (
+      <ul class="showcase-grid" data-testid="showcase-grid">
+        {boards.map((item) => {
+          const asOf = fmtDate(item.refreshedAt);
+          return (
+            <li class="showcase-card">
+              <a class="showcase-card-main" href={getRelativeLocaleUrl(locale, `showcase/${item.id}`)}>
+                <span class="showcase-card-title">{item.title}</span>
+                <span class="showcase-card-meta">
+                  {item.panelCount != null
+                    ? t(locale, 'showcase.panelCount').replace('{count}', String(item.panelCount))
+                    : ''}
+                  {asOf ? ` · ${t(locale, 'showcase.asOf').replace('{at}', asOf)}` : ''}
+                </span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    )
+  ) : (
+    <div data-testid="showcase-detail">
+      {backHref && (
+        <p class="showcase-back">
+          <a href={backHref}>← {t(locale, 'showcase.backToList')}</a>
+        </p>
+      )}
+
+      {/* KPI 卡网格：纯文本，无 SVG。
+          单数面板占满一行会更协调——用 grid 自适应列宽即可。 */}
+      {kpiPanels.length > 0 && (
+        <div class="showcase-kpi-grid" data-testid="showcase-kpis">
+          {kpiPanels.map((panel) => (
+            <div class="showcase-kpi">
+              <span class="showcase-kpi-value">
+                {panel.value ?? '—'}
+                {panel.unit && <span class="showcase-kpi-unit">{panel.unit}</span>}
+              </span>
+              <span class="showcase-kpi-label">{panel.label ?? panel.title ?? ''}</span>
+              {panel.subtitle && <span class="showcase-kpi-sub">{panel.subtitle}</span>}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* 图表：构建期 SVG 直接内联（无 JS 可见）。 */}
+      {chartPanels.map((panel) => {
+        const asOf = fmtDate(capturedAt);
+        const seriesLabel =
+          panel.seriesCount != null
+            ? t(locale, 'showcase.seriesCount').replace('{count}', String(panel.seriesCount))
+            : '';
+        const spoken = [panel.title, seriesLabel].filter(Boolean).join(' · ');
+        return (
+          <figure class="showcase-chart" data-testid="showcase-chart">
+            {panel.title && <figcaption class="showcase-chart-title">{panel.title}</figcaption>}
+            {panel.svg ? (
+              <div
+                class="showcase-chart-svg"
+                role="img"
+                aria-label={spoken}
+                // 构建期产物，来源是本仓快照（非用户输入）——内联是安全的。
+                set:html={panel.svg}
+              />
+            ) : (
+              <p class="showcase-chart-missing" data-testid="showcase-chart-missing">
+                {t(locale, 'showcase.chartUnavailable')}
+              </p>
+            )}
+            <div class="showcase-chart-meta">
+              {seriesLabel && <span>{seriesLabel}</span>}
+              {panel.source && <span class="showcase-chart-source">{panel.source}</span>}
+              {asOf && <span>{t(locale, 'showcase.asOf').replace('{at}', asOf)}</span>}
+            </div>
+          </figure>
+        );
+      })}
+
+      {interactiveHref && (
+        <p class="showcase-interactive" data-testid="showcase-interactive">
+          <a href={interactiveHref} target="_blank" rel="noopener noreferrer">
+            {t(locale, 'showcase.openInteractive')}
+          </a>
+        </p>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    list-style: none;
+    padding: 0;
+    margin: 1.6rem 0 0;
+  }
+  .showcase-card {
+    border: 1px solid var(--line, #e5e7eb);
+    border-radius: 10px;
+    transition: border-color 0.15s ease;
+  }
+  .showcase-card:hover {
+    border-color: var(--ink, #111);
+  }
+  .showcase-card-main {
+    display: block;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .showcase-card-title {
+    display: block;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .showcase-card-meta {
+    display: block;
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--muted, #6b7280);
+  }
+  .showcase-empty {
+    margin-top: 2rem;
+  }
+
+  .showcase-back {
+    margin: 0 0 1rem;
+    font-size: 13px;
+  }
+  .showcase-back a {
+    color: var(--muted, #6b7280);
+    text-decoration: none;
+  }
+  .showcase-back a:hover {
+    color: var(--ink, #111);
+  }
+
+  .showcase-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 1.4rem 0 1.8rem;
+  }
+  .showcase-kpi {
+    border: 1px solid var(--line, #e5e7eb);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .showcase-kpi-value {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+  }
+  .showcase-kpi-unit {
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 2px;
+    color: var(--muted, #6b7280);
+  }
+  .showcase-kpi-label {
+    display: block;
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--muted, #6b7280);
+  }
+  .showcase-kpi-sub {
+    display: block;
+    margin-top: 2px;
+    font-size: 11.5px;
+    color: var(--muted, #9ca3af);
+  }
+
+  .showcase-chart {
+    margin: 0 0 22px;
+    border: 1px solid var(--line, #e5e7eb);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .showcase-chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  /* SVG 响应式：viewBox 已有绝对尺寸，宽度自适应、高度按比例。
+     echarts SSR 输出带 width/height 属性——覆盖为 100% 才不会被裁切。 */
+  .showcase-chart-svg :global(svg) {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+  }
+  .showcase-chart-missing {
+    font-size: 12.5px;
+    color: var(--muted, #9ca3af);
+    padding: 24px 0;
+    text-align: center;
+  }
+  .showcase-chart-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 11.5px;
+    color: var(--muted, #9ca3af);
+  }
+  .showcase-chart-source {
+    font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  }
+  .showcase-interactive {
+    margin: 8px 0 0;
+    font-size: 13px;
+  }
+</style>

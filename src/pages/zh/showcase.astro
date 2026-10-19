@@ -1,0 +1,17 @@
+---
+// 看板橱窗列表（中文）——official-web-showcase。
+import Layout from '../../components/Layout.astro';
+import ShowcaseBoard from '../../components/ShowcaseBoard.astro';
+import { t } from '../../i18n';
+import snapshot from '../../data/showcase.json';
+
+const locale = 'zh';
+const title = t(locale, 'showcase.title') + ' — FindData Technology';
+const boards = snapshot.dashboards ?? [];
+---
+
+<Layout locale={locale} title={title} description={t(locale, 'showcase.subtitle')}>
+  <h1 class="page">{t(locale, 'showcase.title')}</h1>
+  <p class="page-sub">{t(locale, 'showcase.subtitle')}</p>
+  <ShowcaseBoard locale={locale} mode="list" boards={boards} capturedAt={snapshot.capturedAt} />
+</Layout>

@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-17T15:53:26.580Z",
+  "generated_at": "2026-10-19T19:49:08.007Z",
   "repos": [
     {
       "name": "fd-open-data-mcp",
       "description": "Open-data ontology MCP: a semantic concept layer over multi-datasource financial/economic data (akshare, yfinance, edgar, wbgapi, cn-report, cn-gov).",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-10-17",
+      "updated": "2026-10-19",
       "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
       "hasReadme": true
     },
@@ -15,7 +15,7 @@
       "description": "The open-data datasource protocol: a manifest contract a datasource exposes to be ingested by fd-open-data-mcp.",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-10-05",
+      "updated": "2026-10-19",
       "url": "https://github.com/FindDataTechnology/fd-open-data-protocol",
       "hasReadme": true
     },
@@ -26,6 +26,15 @@
       "stars": 2,
       "updated": "2026-10-15",
       "url": "https://github.com/FindDataTechnology/fd-cn-report",
+      "hasReadme": true
+    },
+    {
+      "name": "law-bench",
+      "description": "Chinese legal contract drafting & evaluation workbench (寻数·识律 Lex): clause corpus, taxonomy-driven assembly, LLM review, self-healing iteration, prompt comparison — web workbench, public API, MCP server.",
+      "language": "Python",
+      "stars": 1,
+      "updated": "2026-10-19",
+      "url": "https://github.com/FindDataTechnology/law-bench",
       "hasReadme": true
     },
     {
@@ -42,8 +51,17 @@
       "description": "Official website of FindData Technology (寻数科技) — the public facade of the five product lines: products, open-source repos, docs, and a live MCP demo.",
       "language": "Astro",
       "stars": 0,
-      "updated": "2026-10-17",
+      "updated": "2026-10-19",
       "url": "https://github.com/FindDataTechnology/fd-official-web",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-sentiment",
+      "description": "Document sentiment scoring MCP for the FindData wire line: auditable sentiment scores with mandatory evidence spans, idempotent caching by (doc_id, content_hash, prompt_version, model), and a gold-set evaluator with confidence calibration.",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-10-19",
+      "url": "https://github.com/FindDataTechnology/fd-sentiment",
       "hasReadme": true
     },
     {
@@ -51,7 +69,7 @@
       "description": "[wire] Multi-tenant paper-trading service with simulated fills, MCP server, and quant strategy sandbox",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-10-17",
+      "updated": "2026-10-19",
       "url": "https://github.com/FindDataTechnology/fd-paper-trading",
       "hasReadme": true
     },
@@ -60,7 +78,7 @@
       "description": "Deterministic compute plane + decision ledger for the FindData quant line: 50 pure-calculation MCP tools (technical indicators, portfolio stats, fundamental ratios, valuation, regime, factor stats, validation, decision ledger). No fetch, no DB, no LLM — same input, same output.",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-10-17",
+      "updated": "2026-10-19",
       "url": "https://github.com/FindDataTechnology/fd-quant",
       "hasReadme": true
     },
@@ -69,7 +87,7 @@
       "description": "Open-source auth gateway connecting 1500+ SaaS providers to AI agents through SDK, CLI, MCP, HTTP, and OpenAPI.",
       "language": "TypeScript",
       "stars": 0,
-      "updated": "2026-10-17",
+      "updated": "2026-10-19",
       "url": "https://github.com/FindDataTechnology/open-connector-mt",
       "hasReadme": true
     },
@@ -78,7 +96,7 @@
       "description": "Industry data spiders with remote browser support.",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-10-16",
+      "updated": "2026-10-18",
       "url": "https://github.com/FindDataTechnology/fd-industry-data",
       "hasReadme": true
     },
@@ -125,15 +143,6 @@
       "stars": 0,
       "updated": "2026-10-08",
       "url": "https://github.com/FindDataTechnology/fd-mcp-registry",
-      "hasReadme": true
-    },
-    {
-      "name": "law-bench",
-      "description": "Chinese legal contract drafting & evaluation workbench (寻数·识律 Lex): clause corpus, taxonomy-driven assembly, LLM review, self-healing iteration, prompt comparison — web workbench, public API, MCP server.",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-10-05",
-      "url": "https://github.com/FindDataTechnology/law-bench",
       "hasReadme": true
     },
     {

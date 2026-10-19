@@ -1,0 +1,47 @@
+---
+// 看板详情（中文）——official-web-showcase。与英文版同构，仅 locale 与路径前缀不同。
+import Layout from '../../../components/Layout.astro';
+import ShowcaseBoard from '../../../components/ShowcaseBoard.astro';
+import { t } from '../../../i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import snapshot from '../../../data/showcase.json';
+
+const locale = 'zh';
+
+export function getStaticPaths() {
+  // glob/map 必须建在函数内：Astro 的 getStaticPaths 在隔离作用域执行，
+  // 引用模块级 const 会在构建期报 "is not defined"。
+  const detailFiles = import.meta.glob('../../../data/showcase-details/*.json', {
+    eager: true,
+    import: 'default',
+  }) as Record<string, any>;
+  const detailsById = new Map<string, any>(
+    Object.entries(detailFiles).map(([filePath, data]) => [
+      filePath.replace(/^.*\/([^/]+)\.json$/, '$1'),
+      data,
+    ]),
+  );
+  const boards = snapshot.dashboards ?? [];
+  return boards.map((board: any) => ({
+    params: { slug: String(board.id) },
+    props: { board, detail: detailsById.get(String(board.id)) ?? null },
+  }));
+}
+
+const { board, detail } = Astro.props as { board: any; detail: any };
+const panels = detail?.panels ?? [];
+const title = `${board.title} — ${t(locale, 'showcase.title')} — FindData Technology`;
+const INTERACTIVE_BASE = 'https://wire.finddatatech.cloud/#/showcase';
+---
+
+<Layout locale={locale} title={title} description={board.title}>
+  <h1 class="page">{board.title}</h1>
+  <ShowcaseBoard
+    locale={locale}
+    mode="detail"
+    board={{ ...board, panels }}
+    capturedAt={snapshot.capturedAt}
+    backHref={getRelativeLocaleUrl(locale, 'showcase')}
+    interactiveHref={`${INTERACTIVE_BASE}/${board.id}`}
+  />
+</Layout>

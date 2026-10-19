@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-10-19T19:49:09.680Z",
+  "apiBase": "https://wire.finddatatech.cloud",
+  "total": 2,
+  "dashboards": [
+    {
+      "id": 20,
+      "title": "中国宏观景气 · 周期仪表盘",
+      "panelCount": 9,
+      "version": 2,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 19,
+      "title": "国际对比：中美日德印韩六国发展轨迹（1960–2025）",
+      "panelCount": 18,
+      "version": 2,
+      "publishedAt": null,
+      "refreshedAt": null
+    }
+  ]
+}
