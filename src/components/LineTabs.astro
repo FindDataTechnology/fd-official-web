@@ -29,8 +29,9 @@ const PINYIN: Record<ProductLine, string> = {
   facet: 'Qianmian',
   constellation: 'Wanxing',
 };
-const deskName = locale === 'zh' ? '寻数·客服台' : 'Desk';
+const deskName = locale === 'zh' ? '寻数·营销' : 'Marketing';
 const deskTag = locale === 'zh' ? '板块' : 'Board';
+const deskHref = 'https://marketing.finddatatech.cloud/';
 ---
 
 <nav class="line-tabs" aria-label={t(locale, 'apps.title')}>
@@ -45,7 +46,7 @@ const deskTag = locale === 'zh' ? '板块' : 'Board';
     ))
   }
   <span class="tab-divider" aria-hidden="true"></span>
-  <a href={getRelativeLocaleUrl(locale, 'crm')} class={line === 'desk' ? 'active' : ''} aria-current={line === 'desk' ? 'page' : undefined}>
+  <a href={deskHref} class={line === 'desk' ? 'active' : ''} aria-current={line === 'desk' ? 'page' : undefined}>
     <LineMark char="服" name={deskName} size="xs" />
     <span>{deskName}</span>
     <span class="tab-tag"> · {deskTag}</span>

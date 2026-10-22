@@ -1,14 +1,12 @@
 ---
 name: "DAAS Platform"
 tagline: "The whole data platform on your machine — one install command, one SQLite file, 161 MCP tools and 18 skills. A thousand users, a thousand workflows."
-kind: "Local AI workflow platform"
-line: facet
+kind: "Local data platform (Wire line)"
+line: wire
 order: 10
 ---
 
-DAAS is the first facet of the Facet line (寻数·谦面) — a thousand faces, one
-platform: everyone assembles their own text-and-data AI workflows, and the
-platform stays local and yours.
+DAAS now ships under the Wire line (寻数·柏讯) — the data line: the ledger that feeds every campaign.
 
 ## One command, the whole platform
 
