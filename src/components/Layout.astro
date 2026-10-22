@@ -60,6 +60,20 @@ const ghPath =
     <meta property="og:locale" content={locale === 'zh' ? 'zh_CN' : 'en_US'} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/global.css" />
+    <!-- CRM 客服挂件（Chatwoot, crm-board-adoption 3.1）：desk.finddatatech.cloud，A 租户网站挂件 inbox -->
+    <script is:inline>
+      window.chatwootSettings = { position: 'right', type: 'standard', launcherTitle: '联系寻数' };
+      (function (d, t) {
+        var BASE_URL = 'https://desk.finddatatech.cloud';
+        var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        g.src = BASE_URL + '/packs/js/sdk.js';
+        g.defer = true;
+        s.parentNode.insertBefore(g, s);
+        g.onload = function () {
+          window.chatwootSDK.run({ websiteToken: 'm6tDm3u1VFmSk36qG8KfKo6b', baseUrl: BASE_URL });
+        };
+      })(document, 'script');
+    </script>
   </head>
   <body>
     <header class="site">
