@@ -41,10 +41,25 @@ const title = `${t(locale, 'apps.title')} — FindData Technology`;
       ))
     }
   </ul>
+
+  {/* 服务板块（crm-board-adoption）：客服台是五线之上的板块，独立落地页 /zh/crm，
+     有意不进 LADDER/PRODUCT_LINES 契约。 */}
+  <section class="crm-board-entry">
+    <h2>服务板块</h2>
+    <a class="card crm-board-card" href="/zh/crm/">
+      <span class="name lines-name">寻数客服台</span>
+      <span class="why">客服接待服务：网站挂件 + AI 起草（发送必经人工确认）+ 自托管收件箱。本站右下角气泡就是运行实况。</span>
+    </a>
+  </section>
 </Layout>
 
 <style>
   .overview {
     margin-top: 26px;
   }
+
+  .crm-board-entry { margin-top: 30px; }
+  .crm-board-entry h2 { font-family: var(--font-display); font-size: 1.2rem; margin: 0 0 12px; }
+  .crm-board-card { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; }
+  .crm-board-card:hover { border-color: var(--accent); }
 </style>

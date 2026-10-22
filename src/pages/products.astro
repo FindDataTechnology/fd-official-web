@@ -41,10 +41,25 @@ const title = `${t(locale, 'apps.title')} — FindData Technology`;
       ))
     }
   </ul>
+
+  {/* Service board (crm-board-adoption): the desk is a board above the five
+     lines — its own landing at /crm, deliberately outside LADDER/PRODUCT_LINES. */}
+  <section class="crm-board-entry">
+    <h2>Service board</h2>
+    <a class="card crm-board-card" href="/crm/">
+      <span class="name lines-name">FindData Desk</span>
+      <span class="why">Customer-service desk: website widget, AI-drafted replies with human-confirmed sending, self-hosted inbox. Live on this site — see the bubble at the bottom-right.</span>
+    </a>
+  </section>
 </Layout>
 
 <style>
   .overview {
     margin-top: 26px;
   }
+
+  .crm-board-entry { margin-top: 30px; }
+  .crm-board-entry h2 { font-family: var(--font-display); font-size: 1.2rem; margin: 0 0 12px; }
+  .crm-board-card { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; }
+  .crm-board-card:hover { border-color: var(--accent); }
 </style>
