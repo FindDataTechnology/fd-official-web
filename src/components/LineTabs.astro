@@ -2,6 +2,13 @@
 // The five-line tab navigation, shared by the products catalog and the base
 // line's landing (extracted from ProductCatalog when the base line got its
 // own landing — one owner of the tab markup).
+//
+// 2026-10-23 (crm-board-adoption): appended the service-board tab「客服台」.
+// It is deliberately NOT a sixth line — the 一十百千万 ladder is capped by
+// contract — so it (a) sits after a visual divider, (b) uses a non-ladder
+// mark「服」, (c) carries a board tag, and (d) links to /crm (board landing),
+// not /products/<line>. `line` prop accepts 'desk' for the active state on
+// the board landing.
 import { PRODUCT_LINES, LADDER_CHARS, type ProductLine } from '../content.config';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { t } from '../i18n';
@@ -9,7 +16,7 @@ import LineMark from './LineMark.astro';
 
 interface Props {
   locale: string;
-  line: ProductLine;
+  line: ProductLine | 'desk';
 }
 
 const { locale, line } = Astro.props;
@@ -22,6 +29,8 @@ const PINYIN: Record<ProductLine, string> = {
   facet: 'Qianmian',
   constellation: 'Wanxing',
 };
+const deskName = locale === 'zh' ? '寻数·客服台' : 'Desk';
+const deskTag = locale === 'zh' ? '板块' : 'Board';
 ---
 
 <nav class="line-tabs" aria-label={t(locale, 'apps.title')}>
@@ -35,6 +44,12 @@ const PINYIN: Record<ProductLine, string> = {
       </a>
     ))
   }
+  <span class="tab-divider" aria-hidden="true"></span>
+  <a href={getRelativeLocaleUrl(locale, 'crm')} class={line === 'desk' ? 'active' : ''} aria-current={line === 'desk' ? 'page' : undefined}>
+    <LineMark char="服" name={deskName} size="xs" />
+    <span>{deskName}</span>
+    <span class="tab-tag"> · {deskTag}</span>
+  </a>
 </nav>
 
 <style>
@@ -43,6 +58,7 @@ const PINYIN: Record<ProductLine, string> = {
     flex-wrap: wrap;
     gap: 8px;
     margin: 8px 0 24px;
+    align-items: center;
   }
   .line-tabs a {
     display: inline-flex;
@@ -76,5 +92,12 @@ const PINYIN: Record<ProductLine, string> = {
   .tab-tag {
     opacity: 0.8;
     font-weight: 400;
+  }
+  /* 板块分隔线：五线阶梯（一十百千万）与客服台板块之间的视觉断口 */
+  .tab-divider {
+    width: 1px;
+    height: 22px;
+    background: var(--border-strong);
+    margin: 0 4px;
   }
 </style>

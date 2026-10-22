@@ -9,6 +9,7 @@
 // 实跑、AI 接待 pack 已上谦面市场、自托管收件箱已上产），不写价格/客户案例/
 // 用量数字；渠道范围如实（当前仅网站挂件）。
 import Layout from './Layout.astro';
+import LineTabs from './LineTabs.astro';
 
 interface Props {
   locale: 'en' | 'zh';
@@ -121,6 +122,9 @@ const title = (locale === 'zh' ? '寻数客服台' : 'FindData Desk') + ' — Fi
       {s.live}
     </p>
   </section>
+
+  {/* ── 1.5 · line tabs（含客服台板块 tab，激活态） ───────────── */}
+  <LineTabs locale={locale} line="desk" />
 
   {/* ── 2 · values ───────────────────────────────────────────── */}
   <section class="crm-values">
