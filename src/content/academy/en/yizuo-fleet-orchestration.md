@@ -22,7 +22,7 @@ Turn an assistant workbench that only chats into a team with roles, collaboratio
 
 | Word | Meaning | Analogy |
 | --- | --- | --- |
-| Post | A stable position in the team, bound to an executor (an AI persona, an agent cluster, a remote agent, or a lightweight tool that needs no model) and a cadence | A "position" in a company — the position outlives the person |
+| Post | A stable position in the team, bound to an executor (an AI persona, an agent cluster, a remote agent, or a lightweight tool that needs no model) and a schedule | A "position" in a company — the position outlives the person |
 | Cadence | The post's scheduled turn: what to do daily at 9, or every few hours | A shift schedule |
 | Orchestration edge | A declared collaboration between posts: who triggers whom, who hands off to whom, who may dispatch to whom | Arrows on an org flow chart |
 
@@ -30,9 +30,9 @@ Turn an assistant workbench that only chats into a team with roles, collaboratio
 
 ### 1. Create your first fleet and read the cockpit
 
-Open "Fleets" in the left navigation → "Create fleet" → add posts. Name each post, bind an executor, and give posts that need scheduled work a cadence (a cron expression, e.g. daily at 9). Saved posts appear in the org tree.
+Open "Fleets" in the left navigation → "Create fleet" → add posts. Name each post, bind an executor, and give posts that need scheduled work a schedule (a cron expression, e.g. daily at 9). Saved posts appear in the org tree.
 
-Open the fleet detail — this is the cockpit: each post card shows live status (on duty / paused / missing / vacant / passive), the effective model, and the latest turn outcome; the health block summarizes the whole team (including a "failing" count); the daily stream gathers each post's latest report; when a decision needs you, a banner reads "waiting for N items".
+Open the fleet detail — this is the cockpit: each post card shows live status (on duty / paused / overdue / Vacant / passive), the effective model, and the latest turn outcome; the health block summarizes the whole team (including a "failing" count); the latest reports gathers each post's latest report; when a decision needs you, an approvals banner reads "waiting for N items".
 
 ### 2. Let the Architect write the orchestration (recommended)
 
@@ -40,9 +40,9 @@ With the Fleet Architect installed, return to the chat page, select it in the pe
 
 > Build a content desk: an editor-in-chief, two writers reporting to them, plus a pipeline where the topic scout's finished work automatically flows to a writer.
 
-The Architect will not touch anything directly — it first hands you a **draft diff**: post by post, what will be created or changed, how the edges connect, which posts are scheduled versus passive; large changes include a cost estimate (turns per post per day, roughly how many tokens per month). Only after you explicitly approve does it land. A newly created fleet is born all-paused — review the structure and cadences in the cockpit, then press "Start fleet".
+The Architect will not touch anything directly — it first hands you a **draft diff**: post by post, what will be created or changed, how the edges connect, which posts are scheduled versus passive; large changes include a cost estimate (turns per post per day, roughly how many tokens per month). Only after you explicitly approve does it land. A newly created fleet is born all-paused — review the structure and schedules in the cockpit, then press "Start fleet".
 
-You can do without the Architect: create posts, set cadences, and swap executors by hand in the cockpit. The Architect's value is turning "one sentence" into "a reviewable org draft".
+You can do without the Architect: create posts, set schedules, and swap executors by hand in the cockpit. The Architect's value is turning "one sentence" into "a reviewable org draft".
 
 ### 3. Declare collaboration: four kinds of edges
 
@@ -68,14 +68,14 @@ After starting, back to the cockpit:
 
 ### 5. Keep iterating: the org chart is alive
 
-Once the team runs, iteration is another sentence to the Architect: add or remove posts, change cadences, swap executors, add a handoff, switch a post from scheduled to passive (zero idle cost — it only runs when woken). Every change follows the same "draft diff → your approval → landed" path; deleting a post with edges clears those edges, and the Architect will call that out for separate confirmation.
+Once the team runs, iteration is another sentence to the Architect: add or remove posts, change schedules, swap executors, add a handoff, switch a post from scheduled to passive (zero idle cost — it only runs when woken). Every change follows the same "draft diff → your approval → landed" path; deleting a post with edges clears those edges, and the Architect will call that out for separate confirmation.
 
 ## Self-check Exercises
 
 1. Build a three-post fleet: an editor-in-chief plus two writers, with a 9am daily patrol on the chief.
 2. Declare a handoff "writers hand off to the chief for the summary"; confirm it appears in the Orchestration panel.
 3. Manually trigger one chief turn; watch the handoff fire and the sidebar session appear.
-4. On a post card, find the latest turn's status and model; swap that post to another persona and confirm history still belongs to the post.
+4. On a post card, find the latest turn's status and model; reassign that post to another persona and confirm history still belongs to the post.
 
 ## FAQ
 
