@@ -23,7 +23,7 @@ Turn an assistant workbench that only chats into a team with roles, collaboratio
 | Word | Meaning | Analogy |
 | --- | --- | --- |
 | Post | A stable position in the team, bound to an executor (an AI persona, an agent cluster, a remote agent, or a lightweight tool that needs no model) and a schedule | A "position" in a company — the position outlives the person |
-| Cadence | The post's scheduled turn: what to do daily at 9, or every few hours | A shift schedule |
+| Scheduled run | The post's scheduled turn: what to do daily at 9, or every few hours | A shift schedule |
 | Orchestration edge | A declared collaboration between posts: who triggers whom, who hands off to whom, who may dispatch to whom | Arrows on an org flow chart |
 
 ## Steps
@@ -32,7 +32,7 @@ Turn an assistant workbench that only chats into a team with roles, collaboratio
 
 Open "Fleets" in the left navigation → "Create fleet" → add posts. Name each post, bind an executor, and give posts that need scheduled work a schedule (a cron expression, e.g. daily at 9). Saved posts appear in the org tree.
 
-Open the fleet detail — this is the cockpit: each post card shows live status (on duty / paused / overdue / Vacant / passive), the effective model, and the latest turn outcome; the health block summarizes the whole team (including a "failing" count); the latest reports gathers each post's latest report; when a decision needs you, an approvals banner reads "waiting for N items".
+Open the fleet detail — this is the cockpit: each post card shows live status (on duty / paused / overdue / Vacant / passive), the effective model, and the latest turn outcome; the health block summarizes the whole team (including a "failing" count); the latest outputs gathers each post's latest output; when a decision needs you, an approvals banner reads "waiting for N items".
 
 ### 2. Let the Architect write the orchestration (recommended)
 
