@@ -53,6 +53,12 @@ const USE_RULES = [
   },
 ];
 
+// Pure image-definition lines are content carriers, not course language: a
+// CMS-hosted screenshot URL trips tech-identifier without carrying any prose
+// (illustrated courses embed one per screenshot). Strictly whole-line — prose
+// followed by an image on the same line stays gated.
+const IMAGE_LINE = /^!\[[^\]]*\]\([^)]*\)\s*$/;
+
 const USE_RULE_IDS = new Set(USE_RULES.map((r) => r.id).concat('code-block'));
 
 // Lines starting a troubleshooting section: below these, error-code (and any
@@ -171,6 +177,7 @@ function scanUseLayer(file, text) {
     }
     if (TROUBLESHOOT_HEADING.test(line.trim())) inTroubleshoot = true;
     if (literals.some((lit) => line.includes(lit))) return;
+    if (IMAGE_LINE.test(line.trim())) return;
     for (const r of USE_RULES) {
       if (ruleOff(r.id)) continue;
       // Error codes and shell output belong in the troubleshooting section.
@@ -215,6 +222,9 @@ async function selfTest() {
     ['tech identifier Logto', '登录由 Logto 统一处理。', 1],
     ['error code with keyword', '若提示 502 错误，请重试。', 1],
     ['code block', '在终端执行：\n\n```\ncurl -H "Authorization: Bearer sk-xxx" ...\n```', 1],
+    // —— image lines: content carriers, exempt as whole lines ——
+    ['cms image line', '![驾驶舱顶部](https://cms.finddatatech.cloud/uploads/shot-abc123.png)', 0],
+    ['prose plus image stays gated', '这一步会校验 MCP 引用 ![x](https://cms.example/u.png)。', 1],
   ];
   for (const [id, body, expect] of cases) {
     const hits = useHits(course(body));
