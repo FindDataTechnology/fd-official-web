@@ -1,21 +1,109 @@
 {
-  "capturedAt": "2026-10-19T20:33:22.844Z",
+  "capturedAt": "2026-10-26T21:16:16.295Z",
   "apiBase": "https://wire.finddatatech.cloud",
-  "total": 3,
+  "total": 14,
   "dashboards": [
+    {
+      "id": 35,
+      "title": "中国人口与就业 · 31 省 20 年面板",
+      "panelCount": 12,
+      "version": 3,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 34,
+      "title": "中国民生与物价 · 居民收入与消费价格（收入仅 8 省）",
+      "panelCount": 10,
+      "version": 3,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 33,
+      "title": "中国财政与金融 · 存款贷款与预算收支（覆盖 13 省）",
+      "panelCount": 11,
+      "version": 3,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 32,
+      "title": "中国经济总量与产业结构 · 31 省面板",
+      "panelCount": 12,
+      "version": 3,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 31,
+      "title": "中国消费与农业 · 31 省消费、耕地与农业产出",
+      "panelCount": 11,
+      "version": 3,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 30,
+      "title": "中国区域与城市格局 · 人口/经济/财政三大面板透视",
+      "panelCount": 16,
+      "version": 3,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 29,
+      "title": "A股财报截面 (2005–2024)",
+      "panelCount": 13,
+      "version": 3,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 28,
+      "title": "电力与碳 · 排放结构与发电构成（柏讯行业看板）",
+      "panelCount": 10,
+      "version": 6,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 27,
+      "title": "医药与生物 · 安全监测与批签发（柏讯行业看板）",
+      "panelCount": 7,
+      "version": 5,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 26,
+      "title": "影视文娱 · 电影大盘票房（柏讯行业看板）",
+      "panelCount": 9,
+      "version": 7,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 25,
+      "title": "快递物流 · 行业规模与景气（柏讯行业看板）",
+      "panelCount": 8,
+      "version": 5,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
     {
       "id": 21,
       "title": "A股行情图表 · 招商银行（600036）",
       "panelCount": 10,
-      "version": 2,
+      "version": 3,
       "publishedAt": null,
       "refreshedAt": null
     },
     {
       "id": 20,
       "title": "中国宏观景气 · 周期仪表盘",
-      "panelCount": 9,
-      "version": 2,
+      "panelCount": 15,
+      "version": 4,
       "publishedAt": null,
       "refreshedAt": null
     },
@@ -23,7 +111,7 @@
       "id": 19,
       "title": "国际对比：中美日德印韩六国发展轨迹（1960–2025）",
       "panelCount": 18,
-      "version": 2,
+      "version": 3,
       "publishedAt": null,
       "refreshedAt": null
     }

@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-19T19:49:08.007Z",
+  "generated_at": "2026-10-26T21:16:12.406Z",
   "repos": [
     {
       "name": "fd-open-data-mcp",
       "description": "Open-data ontology MCP: a semantic concept layer over multi-datasource financial/economic data (akshare, yfinance, edgar, wbgapi, cn-report, cn-gov).",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-10-19",
+      "updated": "2026-10-20",
       "url": "https://github.com/FindDataTechnology/fd-open-data-mcp",
       "hasReadme": true
     },
@@ -47,21 +47,30 @@
       "hasReadme": true
     },
     {
+      "name": "open-connector-mt",
+      "description": "Open-source auth gateway connecting 1500+ SaaS providers to AI agents through SDK, CLI, MCP, HTTP, and OpenAPI.",
+      "language": "TypeScript",
+      "stars": 0,
+      "updated": "2026-10-26",
+      "url": "https://github.com/FindDataTechnology/open-connector-mt",
+      "hasReadme": true
+    },
+    {
       "name": "fd-official-web",
       "description": "Official website of FindData Technology (寻数科技) — the public facade of the five product lines: products, open-source repos, docs, and a live MCP demo.",
       "language": "Astro",
       "stars": 0,
-      "updated": "2026-10-19",
+      "updated": "2026-10-26",
       "url": "https://github.com/FindDataTechnology/fd-official-web",
       "hasReadme": true
     },
     {
-      "name": "fd-sentiment",
-      "description": "Document sentiment scoring MCP for the FindData wire line: auditable sentiment scores with mandatory evidence spans, idempotent caching by (doc_id, content_hash, prompt_version, model), and a gold-set evaluator with confidence calibration.",
+      "name": "fd-industry-data",
+      "description": "Industry data spiders with remote browser support.",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-10-19",
-      "url": "https://github.com/FindDataTechnology/fd-sentiment",
+      "updated": "2026-10-25",
+      "url": "https://github.com/FindDataTechnology/fd-industry-data",
       "hasReadme": true
     },
     {
@@ -69,8 +78,26 @@
       "description": "[wire] Multi-tenant paper-trading service with simulated fills, MCP server, and quant strategy sandbox",
       "language": "Python",
       "stars": 0,
-      "updated": "2026-10-19",
+      "updated": "2026-10-25",
       "url": "https://github.com/FindDataTechnology/fd-paper-trading",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-vertical-packs",
+      "description": "Vertical pack entry skills + cloud agents catalog for the FindData platform market.",
+      "language": null,
+      "stars": 0,
+      "updated": "2026-10-22",
+      "url": "https://github.com/FindDataTechnology/fd-vertical-packs",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-sentiment",
+      "description": "Document sentiment scoring MCP for the FindData wire line: auditable sentiment scores with mandatory evidence spans, idempotent caching by (doc_id, content_hash, prompt_version, model), and a gold-set evaluator with confidence calibration.",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-10-22",
+      "url": "https://github.com/FindDataTechnology/fd-sentiment",
       "hasReadme": true
     },
     {
@@ -83,39 +110,12 @@
       "hasReadme": true
     },
     {
-      "name": "open-connector-mt",
-      "description": "Open-source auth gateway connecting 1500+ SaaS providers to AI agents through SDK, CLI, MCP, HTTP, and OpenAPI.",
-      "language": "TypeScript",
-      "stars": 0,
-      "updated": "2026-10-19",
-      "url": "https://github.com/FindDataTechnology/open-connector-mt",
-      "hasReadme": true
-    },
-    {
-      "name": "fd-industry-data",
-      "description": "Industry data spiders with remote browser support.",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-10-18",
-      "url": "https://github.com/FindDataTechnology/fd-industry-data",
-      "hasReadme": true
-    },
-    {
       "name": "fd-vaas-skills",
       "description": "VAAS — Video Automation & Distribution System: natural-language video creation and multi-platform publishing skill chain.",
       "language": "Python",
       "stars": 0,
       "updated": "2026-10-16",
       "url": "https://github.com/FindDataTechnology/fd-vaas-skills",
-      "hasReadme": true
-    },
-    {
-      "name": "fd-vertical-packs",
-      "description": "Vertical pack entry skills + cloud agents catalog for the FindData platform market.",
-      "language": null,
-      "stars": 0,
-      "updated": "2026-10-15",
-      "url": "https://github.com/FindDataTechnology/fd-vertical-packs",
       "hasReadme": true
     },
     {
