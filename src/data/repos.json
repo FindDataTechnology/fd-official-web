@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T21:16:12.406Z",
+  "generated_at": "2026-10-26T22:44:54.322Z",
   "repos": [
     {
       "name": "fd-open-data-mcp",
@@ -47,21 +47,21 @@
       "hasReadme": true
     },
     {
-      "name": "open-connector-mt",
-      "description": "Open-source auth gateway connecting 1500+ SaaS providers to AI agents through SDK, CLI, MCP, HTTP, and OpenAPI.",
-      "language": "TypeScript",
-      "stars": 0,
-      "updated": "2026-10-26",
-      "url": "https://github.com/FindDataTechnology/open-connector-mt",
-      "hasReadme": true
-    },
-    {
       "name": "fd-official-web",
       "description": "Official website of FindData Technology (寻数科技) — the public facade of the five product lines: products, open-source repos, docs, and a live MCP demo.",
       "language": "Astro",
       "stars": 0,
       "updated": "2026-10-26",
       "url": "https://github.com/FindDataTechnology/fd-official-web",
+      "hasReadme": true
+    },
+    {
+      "name": "open-connector-mt",
+      "description": "Open-source auth gateway connecting 1500+ SaaS providers to AI agents through SDK, CLI, MCP, HTTP, and OpenAPI.",
+      "language": "TypeScript",
+      "stars": 0,
+      "updated": "2026-10-26",
+      "url": "https://github.com/FindDataTechnology/open-connector-mt",
       "hasReadme": true
     },
     {
