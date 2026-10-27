@@ -4,7 +4,7 @@ summary: "Install one pack, answer a few questions, and get your own AI twin: it
 level: 'use'
 order: 12
 source_material: "Platform AI-twin capability release notes and internal acceptance records (2026-10 twin capability and matter queue); the Twin Workshop pack conversation flow"
-updated: '2026-10-26'
+updated: '2026-10-27'
 pack_url: ''
 ---
 
@@ -60,7 +60,7 @@ Follow the guide the workshop gives you:
 2. Once published, open the pack and choose "deploy as a service", ticking the reception role;
 3. Bind your billing method in the wizard (visitor conversations are charged to you, not to visitors).
 
-Deployment takes a few minutes to take effect. Afterwards, your pack in the market carries a "twin" badge.
+Deployment takes a few minutes to take effect. Afterwards, your pack in the market carries a "Facade" badge.
 
 ### 5. Send the link out
 

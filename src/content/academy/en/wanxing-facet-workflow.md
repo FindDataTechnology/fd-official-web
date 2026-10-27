@@ -1,11 +1,11 @@
 ---
 title: "Wanxing and Facet Together: Build Your First Personal Workflow"
 summary: "Combine the skills and MCP servers you installed in Yizuo into your own workflow (a custom preset), deploy it on Wanxing as a service programs can call, and run it with one A2A request, a visitor chat page, and the console."
+level: 'build'
 order: 2
-level: build
-updated: "2026-10-18"
 source_material: "Yizuo·Wanxing User Manual §1.3–§1.4, §2 (pack installation, custom presets and publish-and-deploy, deploying an agent as a service, A2A calls, deployer console, chat facade); Platform Guides pack (the Facet Pack Builder guide skill, including the four permission gates and the pack build chain)"
-pack_url: "https://facet.finddatatech.cloud/#/packs/bQ-NlOBloZegGfkiczktDA"
+updated: '2026-10-27'
+pack_url: 'https://facet.finddatatech.cloud/#/packs/bQ-NlOBloZegGfkiczktDA'
 ---
 
 ## What You Will Be Able to Do
@@ -14,9 +14,7 @@ Combine the skills and MCP servers you installed in Yizuo into your own personal
 
 ## Prerequisites
 
-> This is a build-your-own tier course (advanced): for users who want to deploy workflows for programs to call. If you just want to get things done, finish the getting-things-done tier courses first — this one can wait.
-
-- Course one completed (or you already know the Yizuo pack marketplace and the trace page), and Install Your First Pack completed.
+- Course one completed, or existing familiarity with the Yizuo pack marketplace and the trace page.
 - A platform account; the publish-and-deploy shortcut additionally requires your account to be in the creators group.
 - To call a service you need a call key (an `sk-` credential, provided by the platform) and a tool that can send HTTPS requests (`curl` is enough).
 - No deployable preset yet? That does not block the lesson: any public service in the Wanxing catalog can be called with the method in step 5, and the caller-side work is exactly the same.
@@ -50,7 +48,7 @@ The console (`#/console`, sign-in required):
 
 | Panel | What you can do |
 | --- | --- |
-| Fleet board | Status overview of all agents (refreshes every 30 seconds) |
+| Cluster board | Status overview of all agents (refreshes every 30 seconds) |
 | Per-agent timeline | The agent's most recent events, including latency |
 | Deployments | List your deployments; pause / resume |
 | Caller allowlist | Add / remove caller emails for private agents (not needed for public ones) |
@@ -93,4 +91,14 @@ Public agents: anyone can open `https://wanxing.finddatatech.cloud/#/chat/<slug>
 
 Turn your workflow into a pack others can use: prepare skills → register them in the registry → assemble the manifest and pass validation → publish to Facet → open up permissions → accept. The full recipe for that chain is in the Facet Pack Builder guide, the other skill in the official Platform Guides pack in the same marketplace. When a user cannot install or use a pack, check the four gates in order: the pack-install group gate, registry scope, billing identity, and the user's own marketplace credential — the last one only the user can set up, by connecting the MCP market in Yizuo.
 
-Companion Facet pack: the dual-format pack for this course will be available on the Facet marketplace (`facet.finddatatech.cloud`); once it is published, search for the course name under Settings → Packs in Yizuo to subscribe and install. The marketplace URL will be filled in on this page once the pack is published.
+Companion Facet pack: the dual-format pack for this course will be available on the Facet marketplace once published; from then on you can search for the course name under Settings → Packs in Yizuo to subscribe and install. The publication status is shown at the entry at the bottom of this page (it reads "coming soon" until the pack ships).
+
+## If It Did Not Work
+
+- **You have no deployable preset yet**: that does not block the lesson. Pick any public service in the Wanxing catalog and call it with the method in step 5 — the caller side is exactly the same, so get comfortable calling first and come back to deploy your own.
+- **The "publish and deploy" action is greyed out**: that shortcut requires your account to be in the creators group. Ask platform operations to add you, or use the standard entry (the "deploy as a service" button on the pack details page) — same result, two extra steps.
+- **You clicked deploy but the state never turns online**: deployment takes effect in about five minutes, so wait on the fleet board and look again; if it is still offline, send the errors from that agent's timeline in the console to platform operations.
+- **Calls return 401 or 402**: 401 means the call key is invalid or expired — paste a fresh one; 402 means insufficient balance or a suspended caller — top up or ask operations to restore it.
+- **Calls return 409 or 429**: 409 means the previous turn has not finished (one turn at a time per caller and agent) — wait for it to end; 429 means rate limiting — retry after the wait the response tells you.
+- **Calls return 423**: the agent is paused. Resume it in the console's deployments panel, then retry.
+- **The visitor chat page will not open**: first confirm the agent is public (private agents need the visitor on the caller allowlist); then check the allowance — when it runs out the page stays open but asks the visitor to paste their own call key.
