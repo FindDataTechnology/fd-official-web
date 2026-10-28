@@ -5,7 +5,9 @@ Ops notes for the FindDataTechnology official site (this repo → `/opt/fd/web` 
 ## Deploy
 
 **TCR 镜像 + ArgoCD 拉取式 GitOps**（2026-09-22 起为线上模型；镜像通道 2026-10-01 切 TCR）。
-发版 = 在 `deploy/k8s/fd-web.yaml` 把镜像 tag 升到目标 sha（一条 bump commit，如 `chore(deploy): roll official-web to sha-xxxxxxx`）。链路：push `main` → GitHub Actions `.github/workflows/image.yml`（push / 手动 dispatch）在镜像内构建 Astro 站（多阶段 `Dockerfile`；指标导出经 BuildKit secret `fd_indicators_token`，缺失时退回仓库内快照）→ 推 `hkccr.ccs.tencentyun.com/fd-web/official-web:sha-<sha>`（腾讯云 TCR 个人版）→ 集群从 `ccr.ccs.tencentyun.com` 拉取（国内分发经 cheap-3 tcr-relay 回灌，见 commit 1ab5fc1）。chengsi 上的 ArgoCD app `fd-web`（source = gitee `main`，path `deploy/k8s`，`directory.include` 仅 `fd-web.yaml`；auto-sync + prune + selfHeal）轮询到 bump 后滚动 `official-web` Deployment（2 副本，固定 `vm-0-9-ubuntu` 节点，NodePort **30442**）；宿主 nginx `location /` 反代该 NodePort。
+**发版（2026-10-16 起在役线＝静态 rsync）**：`www` 的 `location /` 指向 `root /opt/fd/web/dist`，上架 = 把新镜像的构建产物铺进该目录（源：新镜像 pod `kubectl cp <pod>:/usr/share/nginx/html/.`，或构建机 `build-deploy.sh`）——替换时保留 live `dist/data/calibers.json`，旧目录留 `dist.bak-<日期>` 回滚。Pod 线（NodePort 30442）自 2026-09-10 停更、留可回退（`.bak-pod-20261016`）；镜像线仍走 `deploy/k8s/fd-web.yaml` bump（ArgoCD auto-sync），但仅供 pod 回退线使用。
+
+历史口径（pod 为主路径）见下：发版 = 在 `deploy/k8s/fd-web.yaml` 把镜像 tag 升到目标 sha（一条 bump commit，如 `chore(deploy): roll official-web to sha-xxxxxxx`）。链路：push `main` → GitHub Actions `.github/workflows/image.yml`（push / 手动 dispatch）在镜像内构建 Astro 站（多阶段 `Dockerfile`；指标导出经 BuildKit secret `fd_indicators_token`，缺失时退回仓库内快照）→ 推 `hkccr.ccs.tencentyun.com/fd-web/official-web:sha-<sha>`（腾讯云 TCR 个人版）→ 集群从 `ccr.ccs.tencentyun.com` 拉取（国内分发经 cheap-3 tcr-relay 回灌，见 commit 1ab5fc1）。chengsi 上的 ArgoCD app `fd-web`（source = gitee `main`，path `deploy/k8s`，`directory.include` 仅 `fd-web.yaml`；auto-sync + prune + selfHeal）轮询到 bump 后滚动 `official-web` Deployment（2 副本，固定 `vm-0-9-ubuntu` 节点，NodePort **30442**）；宿主 nginx `location /` 反代该 NodePort。
 
 **回滚：** revert 该 tag bump 提交（ArgoCD 自动回到上一版）；或宿主 nginx `location /` 临时切回静态根（`.bak-static-20260922` 备份配置；`/opt/fd/web/dist*` 停留在 2026-09-22 的版本）。
 
