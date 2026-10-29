@@ -28,7 +28,7 @@ records and archived documents are stored by the crawl pipeline.
 ## What it is for
 
 The corpus is the reference layer of our legal line: it grounds clause
-libraries and drafting workflows (see [LawBench](/products/law-bench)), powers
+libraries and drafting workflows (see [LiangLü's contract workbench](/products/lianglu)), powers
 clause retrieval, and gives reviewers a standard-form baseline to compare a
 draft against.
 
