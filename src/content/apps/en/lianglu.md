@@ -7,9 +7,16 @@ line: lex
 order: 10
 ---
 
-LiangLü (良律) belongs to the Lex family (寻数·识律). Its core audience is not only lawyers and other legal practitioners — it is also for ordinary people: why the law says what it says, how it used to be, whether it is reasonable, and what harms it carries. The law's legitimacy depends on the changing times, and it takes the effort of both practitioners and the public to keep it healthy. That is what we hope to contribute.
+LiangLü (良律) is the flagship product of the Lex family (寻数·识律) and the line's main
+platform. Its core audience is not only lawyers and other legal practitioners — it is also for
+ordinary people: why the law says what it says, how it used to be, whether it is reasonable, and
+what harms it carries. The law's legitimacy depends on the changing times, and it takes the
+effort of both practitioners and the public to keep it healthy. That is what we hope to contribute.
 
-As a product, LiangLü is the line's main platform: backed by the line's fine-tuned legal models and the law_db corpus served through the business MCP, it turns contract work into a measurable pipeline — generate a draft from a curated clause library, review it with multiple AI models in parallel, and score the result against reusable rubrics.
+Behind the platform are the line's fine-tuned legal models and the law_db corpus served through
+the business MCP; it turns contract work into a measurable pipeline — generate a draft from a
+curated clause library, review it with multiple AI models in parallel, and score the result
+against reusable rubrics.
 
 ## Contract workbench (LawBench)
 

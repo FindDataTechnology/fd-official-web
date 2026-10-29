@@ -2,6 +2,7 @@
 name: "Zhengxin · Political Thought, Understood"
 tagline: "Enter the history of political thought by understanding rather than taking sides: read the sources, question the concepts, trace the lineages — disagreements are shown, never adjudicated."
 kind: "Political-thought tool"
+demoUrl: "https://zhengxin.finddatatech.cloud"
 line: lex
 order: 33
 ---
@@ -21,4 +22,6 @@ Understanding, not endorsement: no predictions, no recommendations, no advocacy.
 
 ## Status
 
-Zhengxin currently ships as a private deployment; there is no public demo yet — watch the Lex family's updates.
+Zhengxin's services are deployed and running; its public entry
+`zhengxin.finddatatech.cloud` is being brought online (DNS and the edge site
+are the last steps).

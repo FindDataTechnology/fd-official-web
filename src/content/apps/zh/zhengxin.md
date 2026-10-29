@@ -2,6 +2,7 @@
 name: "政心 · 理解政治思想"
 tagline: "以「理解」而非「表态」进入政治思想史：读原典、问概念、辨脉络——呈现分歧，从不裁断分歧。"
 kind: "政治思想理解工具"
+demoUrl: "https://zhengxin.finddatatech.cloud"
 line: lex
 order: 33
 ---
@@ -21,4 +22,4 @@ order: 33
 
 ## 状态
 
-政心目前为私有化部署形态，尚无公开体验入口——请关注识律家族的动态。
+政心的服务已部署运行，公网入口 `zhengxin.finddatatech.cloud` 正在接入（DNS 与边缘站点就绪后开通）。
