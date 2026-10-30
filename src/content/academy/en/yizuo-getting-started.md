@@ -64,15 +64,15 @@ Choose Share from the session menu to get a `/share/:token` read-only link that 
 - Tools are real: find at least one tool-call record (with the tool name and its return) in the call trace page.
 - The hand-off works: open the share link in a private window and see the full session without signing in.
 
-## Next Steps
-
-Once the capabilities are connected, the next step is to turn them into your own standing workflow: continue to course two, Wanxing and Facet Together, where you combine skills and external tools into a custom preset and deploy that workflow as a service programs can call.
-
-Companion pack: the dual-carrier pack for this course will be available on the marketplace once published; from then on you can search for the course name under Settings → Packs in Yizuo to subscribe and install. The publication status is shown at the entry at the bottom of this page (it reads "coming soon" until the pack ships).
-
 ## If It Did Not Work
 
 - **The login page will not open, or the connection step fails**: this is your organization account's single sign-in — ask platform operations to confirm the account is provisioned. A page that will not open at all is usually network restrictions; try a normal network.
 - **You cannot find the role you just installed in the chat page's selector**: check Settings → Skills first to confirm the skill really installed; the agent selector sits at the top of the chat page — refresh and open it again. A skill installed but the external tools missing almost always means the "connect market" step was skipped.
 - **The call trace page shows no tool calls**: the model answered from its own knowledge instead of querying data. Rephrase the question, ask it to cite its data source and show how it queried, and run the turn again.
 - **The share link will not open, or asks you to sign in**: make sure you sent the whole link (it is easy to truncate); if it still fails, regenerate the link from the session menu.
+
+## Next Steps
+
+Once the capabilities are connected, the next step is to turn them into your own standing workflow: continue to course two, Wanxing and Facet Together, where you combine skills and external tools into a custom preset and deploy that workflow as a service programs can call.
+
+Companion pack: the dual-carrier pack for this course will be available on the marketplace once published; from then on you can search for the course name under Settings → Packs in Yizuo to subscribe and install. The publication status is shown at the entry at the bottom of this page (it reads "coming soon" until the pack ships).

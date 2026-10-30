@@ -84,29 +84,78 @@ export async function loadXingyanSurface(): Promise<XingyanSurface> {
   return { briefings, courses, articles };
 }
 
-// ── machine-readable feed (/briefings.json) ─────────────────────────────────
-// The distribution pipeline (VAAS multi-platform push, social drafts) consumes
-// this instead of scraping HTML — the same build-time export pattern as
-// /releases.json, one build, one collection, one twins gate. One record per
-// briefing with both locales side by side, newest first.
+// ── machine-readable feeds (/briefings.json, /academy.json, /research.json) ──
+// Machine consumers (the distribution pipeline, customer agents, answer
+// engines) read these instead of scraping HTML — the same build-time export
+// pattern as /releases.json: one build, one collection, one twins gate. One
+// record per entry with both locales side by side; the claim skeleton rides
+// along so an agent can resolve `slug/claim-id` down to evidence without
+// parsing prose. The three collections differ only in ordering and a couple of
+// type-specific fields, so the builder is parameterized rather than triplicated.
+
+// Where each zone lives on the site (the collection name is not always the URL
+// segment: research articles are served under /research/articles/).
+const ZONE_PATH: Record<XingyanCollection, string> = {
+  briefings: 'briefings',
+  academy: 'academy',
+  research: 'articles',
+};
+
+function feedRecord(en: CollectionEntry<XingyanCollection>, zh: CollectionEntry<XingyanCollection>) {
+  const slug = slugOf(en);
+  const zone = ZONE_PATH[en.collection as XingyanCollection];
+  // Both twins carry the same extra fields by collection; read them off `en`
+  // and let absent ones stay out of the record instead of emitting null keys.
+  const d = en.data as Record<string, unknown>;
+  const dz = zh.data as Record<string, unknown>;
+  const extra: Record<string, unknown> = {};
+  for (const key of ['kind', 'level', 'order'] as const) {
+    if (key in d) extra[key] = d[key];
+  }
+  return {
+    slug,
+    ...('date' in d ? { date: d.date } : {}),
+    ...('updated' in d ? { updated: d.updated } : {}),
+    ...extra,
+    tags: [...((d.tags as string[]) ?? [])],
+    title: { en: d.title, zh: dz.title },
+    summary: { en: d.summary, zh: dz.summary },
+    sources: { en: [...((d.sources as unknown[]) ?? [])], zh: [...((dz.sources as unknown[]) ?? [])] },
+    // Same claim IDs on both sides; each side carries its own section anchors
+    // (the heading text follows the language).
+    claims: { en: [...((d.claims as unknown[]) ?? [])], zh: [...((dz.claims as unknown[]) ?? [])] },
+    body: { en: en.body ?? '', zh: zh.body ?? '' },
+    url: { en: `/research/${zone}/${slug}`, zh: `/zh/research/${zone}/${slug}` },
+  };
+}
+
+async function buildZoneFeed<C extends XingyanCollection>(
+  collection: C,
+  en: CollectionEntry<C>[],
+  zh: CollectionEntry<C>[],
+) {
+  const entries = en.map((e) => {
+    const slug = slugOf(e);
+    // Guaranteed present: the twins gate above already failed the build
+    // otherwise.
+    const z = zh.find((x) => slugOf(x) === slug)!;
+    return feedRecord(e as CollectionEntry<XingyanCollection>, z as CollectionEntry<XingyanCollection>);
+  });
+  return { generated_at: new Date().toISOString(), [collection]: entries };
+}
 
 export async function buildBriefingsFeed() {
   const { briefings } = await loadXingyanSurface();
-  const entries = briefings.en.map((en) => {
-    const slug = slugOf(en);
-    // Guaranteed present: the twins gate above already failed the build
-    // otherwise.
-    const zh = briefings.zh.find((z) => slugOf(z) === slug)!;
-    return {
-      slug,
-      date: en.data.date,
-      tags: [...en.data.tags],
-      title: { en: en.data.title, zh: zh.data.title },
-      summary: { en: en.data.summary, zh: zh.data.summary },
-      sources: { en: [...en.data.sources], zh: [...zh.data.sources] },
-      body: { en: en.body ?? '', zh: zh.body ?? '' },
-      url: { en: `/research/briefings/${slug}`, zh: `/zh/research/briefings/${slug}` },
-    };
-  });
-  return { generated_at: new Date().toISOString(), briefings: entries };
+  return buildZoneFeed('briefings', briefings.en, briefings.zh);
+}
+
+// 学院 / 研究 两路机读面：AI 消费者取 claim 骨架与双语页面地址，不经 HTML。
+export async function buildAcademyFeed() {
+  const { courses } = await loadXingyanSurface();
+  return buildZoneFeed('academy', courses.en, courses.zh);
+}
+
+export async function buildResearchFeed() {
+  const { articles } = await loadXingyanSurface();
+  return buildZoneFeed('research', articles.en, articles.zh);
 }

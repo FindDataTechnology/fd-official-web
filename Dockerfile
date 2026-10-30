@@ -10,8 +10,19 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund --registry=https://registry.npmmirror.com
 COPY . .
+# Content source (xingyan-claim-layer D4): the build reads the published
+# collections straight from the CMS, so publishing in the admin is enough to
+# ship content — no md copying step. STRAPI_URL is a plain base address (not a
+# secret); the read token is, and rides a BuildKit secret so it never lands in
+# an image layer. When STRAPI_URL is unset, fetch-strapi keeps the committed
+# snapshot and records that choice in the content manifest — a detectable
+# fallback, never a silent one.
+ARG STRAPI_URL=""
 RUN --mount=type=secret,id=fd_indicators_token \
+    --mount=type=secret,id=fd_strapi_token \
     FD_INDICATORS_MCP_TOKEN="$(cat /run/secrets/fd_indicators_token 2>/dev/null || true)" \
+    STRAPI_URL="$STRAPI_URL" \
+    STRAPI_READ_TOKEN="$(cat /run/secrets/fd_strapi_token 2>/dev/null || true)" \
     npm run build
 
 FROM nginx:1.29-alpine

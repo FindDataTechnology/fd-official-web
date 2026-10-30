@@ -126,13 +126,29 @@ const releases = defineCollection({
 // labelled pointer to a publicly reachable location (xingyan-source-links: a
 // page must not claim a full text is available without giving an address).
 // Both forms coexist so the existing string-only entries need no rewrite.
+// `id` is the stable reference key a claim's `evidence` points at
+// (xingyan-claim-layer): optional, required only when a claim cites the entry.
 const SOURCE_ITEM = z.union([
   z.string(),
   z.object({
+    id: z.string().optional(),
     label: z.string(),
-    url: z.string().url('source url must be absolute (https://…)'),
+    url: z.string().url('source url must be absolute (https://…)').optional(),
   }),
 ]);
+
+// A claim skeleton (xingyan-claim-layer): the unit a machine consumer resolves
+// to. It stores no assertion text — that lives in each language's body; the
+// skeleton only records which section anchors it, what kind of claim it is, and
+// which sources back it. `id` is shared by the zh/en twins and is immutable
+// after publication (registry: docs/xingyan/scripts/claims_ledger.json).
+const CLAIM_ITEM = z.object({
+  id: z.string().regex(/^c\d{4}$/, 'claim id must look like c0001'),
+  section: z.string(),
+  type: z.enum(['number', 'causal', 'promise']),
+  evidence: z.array(z.string()).min(1, 'a claim must cite at least one source id'),
+});
+const CLAIMS = z.array(CLAIM_ITEM).optional().default([]);
 
 // `briefings` — 内参: event-driven single entries (no issue numbers, no
 // calendar promise). `sources` carries the traceable references behind the
@@ -145,6 +161,7 @@ const briefings = defineCollection({
     summary: z.string(),
     tags: z.array(z.string()),
     sources: z.array(SOURCE_ITEM).optional().default([]),
+    claims: CLAIMS,
   }),
 });
 
@@ -167,6 +184,7 @@ const academy = defineCollection({
     updated: z.string().regex(DATE, 'updated must be YYYY-MM-DD').optional(),
     source_material: z.string(),
     pack_url: z.string().optional().default(''),
+    claims: CLAIMS,
   }),
 });
 
@@ -181,6 +199,7 @@ const research = defineCollection({
     kind: z.enum(['paper', 'casestudy', 'note']),
     tags: z.array(z.string()),
     sources: z.array(SOURCE_ITEM).optional().default([]),
+    claims: CLAIMS,
   }),
 });
 

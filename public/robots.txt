@@ -1,0 +1,31 @@
+# robots.txt — www.finddatatech.cloud
+#
+# 通用与 AI 抓取一律放行：星研（内参 / 学院 / 研究）的内容本来就写给机器读的。
+# 机读面优先走三个 feed（见 /llms.txt），比爬 HTML 更省也更准。
+
+User-agent: *
+Allow: /
+
+# AI 训练与检索型抓取：显式放行，不设区段限制。
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+Sitemap: https://www.finddatatech.cloud/sitemap.xml

@@ -47,3 +47,6 @@ id_ed25519*
 
 # browser-acceptance screenshots (local evidence, never shipped)
 gui-test-screenshots/
+
+# build-time content source manifest (written by scripts/fetch-strapi.mjs)
+public/content-manifest.json

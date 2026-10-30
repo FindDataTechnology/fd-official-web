@@ -466,7 +466,39 @@ async function countExistingMd() {
   return n;
 }
 
-// ── write ────────────────────────────────────────────────────────────────────
+// ── content manifest (detectable fallback, xingyan-claim-layer D4) ───────────
+// Every build records where the Xingyan content came from, so "the site is
+// showing the snapshot while the CMS says otherwise" is a checkable fact rather
+// than a guess. Written into public/ so it ships with the artifacts (the spec
+// requires the version manifest to be published alongside the build) — a
+// consumer can fetch /content-manifest.json and see source=cms|snapshot plus the
+// per-zone counts and short content hash. No coordinates, no credentials.
+async function writeManifest({ source, reason, files }) {
+  const { createHash } = await import('node:crypto');
+  const zones = {};
+  for (const c of COLLECTIONS) {
+    const rels = [...files.keys()].filter((r) => r.startsWith(`src/content/${c.dir}/`));
+    const digest = createHash('sha256');
+    for (const r of rels.sort()) digest.update(`${r}\n${files.get(r)}\n`);
+    zones[c.dir] = {
+      items: new Set(rels.map((r) => r.split('/').pop().replace(/\.md$/, ''))).size,
+      files: rels.length,
+      sha: digest.digest('hex').slice(0, 8),
+    };
+  }
+  const manifest = {
+    source,
+    ...(reason ? { reason } : {}),
+    generated_at: new Date().toISOString(),
+    total_files: files.size,
+    zones,
+  };
+  const target = join(ROOT, 'public/content-manifest.json');
+  await writeFile(target, `${JSON.stringify(manifest, null, 2)}\n`);
+  return manifest;
+}
+
+
 
 // Path for one entry under its collection row: paired types nest by locale,
 // field-paired types are flat (`<dir>/<slug>.md`, the roadmap precedent).
@@ -630,7 +662,30 @@ async function main() {
   const token = process.env.STRAPI_READ_TOKEN ?? '';
 
   if (!fixtureDir && !base) {
+    // Snapshot fallback: keep the committed md, but leave a manifest saying so.
+    // The official build passes STRAPI_URL; this branch is local dev / a build
+    // that explicitly chose the snapshot. Either way the choice is on record.
+    const files = new Map();
+    for (const c of COLLECTIONS) {
+      for (const locale of LOCALES) {
+        const dir = join(ROOT, 'src/content', c.dir, locale);
+        const names = await readdir(dir).catch(() => []);
+        for (const name of names) {
+          if (!name.endsWith('.md')) continue;
+          const rel = `src/content/${c.dir}/${locale}/${name}`;
+          files.set(rel, await readFile(join(ROOT, rel), 'utf8'));
+        }
+      }
+    }
+    const manifest = await writeManifest({
+      source: 'snapshot',
+      reason: 'STRAPI_URL 未设置——使用仓内快照（本地开发模式或显式选择快照）',
+      files,
+    });
     console.log('STRAPI_URL 未设置，跳过拉取，使用仓内快照（本地开发模式）');
+    console.log(
+      `[strapi] 内容来源清单：source=${manifest.source} 共 ${manifest.total_files} 个文件（回退已留痕）`,
+    );
     process.exit(0);
   }
 
@@ -676,11 +731,21 @@ async function main() {
   }
   const summary = await writeAll(files);
 
+  // Record where this build's content came from (D4: a fallback must be
+  // detectable, never silent).
+  const manifest = await writeManifest({ source: fixtureDir ? 'fixture' : 'cms', files });
+
   const mode = fixtureDir ? 'fixture' : '在线';
   console.log(`[strapi] 写入完成（${mode} 模式，共 ${files.size} 个文件）：`);
   for (const s of summary) {
     console.log(`  ${s.dir.padEnd(10)} ${s.locale} 写入 ${s.written} / 删除 ${s.deleted}`);
   }
+  console.log(
+    `[strapi] 内容来源清单：source=${manifest.source} ` +
+      Object.entries(manifest.zones)
+        .map(([z, v]) => `${z}=${v.items}条/${v.sha}`)
+        .join(' '),
+  );
 }
 
 try {

@@ -5,10 +5,26 @@ summary: "面向中文合同起草的评估闭环：以「全部评审项通过�
 kind: paper
 tags: [研究, 评测, 合同起草]
 sources:
-  - label: 论文全文（中文，初稿）
+  - id: src-1
+    label: 论文全文（中文，初稿）
     url: "https://cms.finddatatech.cloud/uploads/01_law_bench_evaluation_loop_zh_3b004d8a62.docx"
-  - 人工盲标试点：126 个合同-评审项对、双标注、分层抽样
-  - 版本状态：初稿——作者单位、通讯作者邮箱、卷期页码待补齐；正式发表后此处补出版方标识
+  - id: src-2
+    label: 人工盲标试点：126 个合同-评审项对、双标注、分层抽样
+  - id: src-3
+    label: 版本状态：初稿——作者单位、通讯作者邮箱、卷期页码待补齐；正式发表后此处补出版方标识
+claims:
+  - id: c0001
+    section: "结论先行"
+    type: number
+    evidence: [src-1, src-2]
+  - id: c0002
+    section: "结果"
+    type: number
+    evidence: [src-1]
+  - id: c0003
+    section: "对实践的意义"
+    type: number
+    evidence: [src-2]
 ---
 
 ## 结论先行

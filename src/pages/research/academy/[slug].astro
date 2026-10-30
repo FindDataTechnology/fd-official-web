@@ -2,6 +2,7 @@
 import { render } from 'astro:content';
 import Layout from '../../../components/Layout.astro';
 import XingyanEntry from '../../../components/XingyanEntry.astro';
+import XingyanJsonLd from '../../../components/XingyanJsonLd.astro';
 import { t } from '../../../i18n';
 import { loadXingyanSurface, slugOf, type XingyanLocale } from '../../../lib/xingyan';
 
@@ -20,6 +21,19 @@ const title = `${entry.data.title} — FindData Technology`;
 ---
 
 <Layout locale={locale} title={title} description={entry.data.summary}>
+  <XingyanJsonLd
+    locale={locale}
+    site={Astro.site?.toString().replace(/\/$/, '') ?? 'https://www.finddatatech.cloud'}
+    title={entry.data.title}
+    summary={entry.data.summary}
+    path={`/research/academy/${slugOf(entry)}`}
+    twinPath={`/zh/research/academy/${slugOf(entry)}`}
+    date={entry.data.date}
+    updated={entry.data.updated}
+    level={entry.data.level === 'use' || entry.data.level === 'build' ? entry.data.level : undefined}
+    sources={entry.data.sources}
+    schemaType="Course"
+  />
   <XingyanEntry
     locale={locale}
     backHref="/research#academy"

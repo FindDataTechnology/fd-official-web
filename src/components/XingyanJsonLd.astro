@@ -1,0 +1,71 @@
+---
+// Structured data for the Xingyan (星研) detail pages — one block for all three
+// carriers, generated from the same entry object the page renders (never a
+// second hand-typed copy, so the dates and titles cannot drift from the prose).
+//
+// Why it exists: answer engines and agent crawlers read the machine block
+// before (or instead of) the prose. It carries the article identity, the
+// bilingual counterpart URL, and the source citations, which is exactly what an
+// answer engine needs to quote the page and let a reader check the evidence.
+import type { XingyanLocale } from '../lib/xingyan';
+
+interface Props {
+  locale: XingyanLocale;
+  /** Absolute site origin, e.g. https://www.finddatatech.cloud */
+  site: string;
+  title: string;
+  summary: string;
+  /** Self path including locale prefix, e.g. /zh/research/academy/foo */
+  path: string;
+  /** Twin path in the other language (bilingual mutual reference). */
+  twinPath: string;
+  /** Published date (YYYY-MM-DD) — briefings / research carry one. */
+  date?: string;
+  /** Last content revision (YYYY-MM-DD) — courses carry `updated`. */
+  updated?: string;
+  /** reader tier for courses; omitted for the other two carriers. */
+  level?: 'use' | 'build';
+  sources?: readonly (string | { id?: string; label: string; url?: string })[];
+  /** Logical schema.org type for this carrier. */
+  schemaType: 'Article' | 'Course' | 'Report';
+}
+
+const { locale, site, title, summary, path, twinPath, date, updated, level, sources = [], schemaType } =
+  Astro.props;
+
+const url = new URL(path, site).toString();
+const inLanguage = locale === 'zh' ? 'zh-CN' : 'en';
+const published = date ?? updated;
+const revised = updated ?? date;
+
+// Citations: a source with a public address becomes a citation URL; a
+// text-only source keeps its label as a name (xingyan-source-links: never claim
+// a full text without an address).
+const citations = sources.map((s) =>
+  typeof s === 'string' ? { '@type': 'CreativeWork', name: s } : { '@type': 'CreativeWork', name: s.label, ...(s.url ? { url: s.url } : {}) },
+);
+
+const data = {
+  '@context': 'https://schema.org',
+  '@type': schemaType,
+  headline: title,
+  description: summary,
+  inLanguage,
+  url,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  ...(published ? { datePublished: published } : {}),
+  ...(revised ? { dateModified: revised } : {}),
+  ...(schemaType === 'Course' && level
+    ? {
+        educationalLevel: level,
+        isAccessibleForFree: true,
+        provider: { '@type': 'Organization', name: 'FindData Technology', url: site },
+      }
+    : { publisher: { '@type': 'Organization', name: 'FindData Technology', url: site } }),
+  ...(citations.length ? { citation: citations } : {}),
+  // 双语互指：同一断言/条目在另一语言的地址，供跨语言去重与合并引用。
+  ...(twinPath ? { sameAs: [new URL(twinPath, site).toString()] } : {}),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

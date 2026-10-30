@@ -14,10 +14,11 @@
     "data-modules:check": "node scripts/check-data-modules.mjs",
     "content:check": "node scripts/check-content-integrity.mjs",
     "dev": "astro dev",
-    "build": "npm run strapi:fetch && npm run content:check && npm run repos:fetch && npm run indicators:fetch && npm run showcase:fetch && npm run calibers:fetch && npm run data-modules:build && astro build",
+    "build": "npm run strapi:fetch && npm run content:check && npm run repos:fetch && npm run indicators:fetch && npm run showcase:fetch && npm run calibers:fetch && npm run data-modules:build && astro build && npm run discoverable:check",
     "preview": "astro preview",
     "astro": "astro",
-    "showcase:fetch": "node scripts/fetch-showcase.mjs"
+    "showcase:fetch": "node scripts/fetch-showcase.mjs",
+    "discoverable:check": "node scripts/check-discoverable.mjs"
   },
   "dependencies": {
     "astro": "^7.2.0",

@@ -1,0 +1,43 @@
+# 寻数科技 · 星研（FindData · Xingyan）
+
+> 星研是寻数科技的对外研究线，三个交付面：内参（事件驱动条目）、学院（免费课程）、研究（论文/案例/评测）。内容按「机器可读」标准撰写：每节自足、术语唯一、断言可溯源。本文件给 AI 消费者指出机读入口——优先取 feed，不必爬 HTML。
+
+## 机读入口（推荐）
+
+- [内参 feed](https://www.finddatatech.cloud/briefings.json)：条目流，含双语标题/摘要/来源/claim 骨架/正文
+- [学院 feed](https://www.finddatatech.cloud/academy.json)：课程，含 level（use/build）、order、claim 骨架、正文
+- [研究 feed](https://www.finddatatech.cloud/research.json)：长文，含 kind（paper/casestudy/note）、日期、claim 骨架、正文
+- [星研订阅源](https://www.finddatatech.cloud/research/feed.xml)：三栏合并 RSS 2.0
+
+三个 feed 一次构建产出，与页面同源——不会出现「页面更新了 feed 没更新」。每条记录含：
+
+| 字段 | 含义 |
+| --- | --- |
+| `slug` | 稳定标识，URL 组成部分，永不改 |
+| `title` / `summary` | 双语（`en` / `zh`） |
+| `claims` | claim 骨架数组：`id`（形如 `c0001`）、`section`（锚定的正文小节标题）、`type`（`number` / `causal` / `promise`）、`evidence`（指向 `sources` 的 `id`） |
+| `sources` | 来源条目；带 `url` 的可直接抵达 |
+| `body` | 该语言正文全文 |
+| `url` | 该语言页面地址 |
+
+**claim 的引用方式**：`<slug>/<claim-id>`（如 `law-bench-evaluation-loop/c0002`）。这个组合全局唯一且在双语间指向同一断言；claim ID 发布后不变更、不复用。
+
+## 人类可读入口
+
+- [星研主页](https://www.finddatatech.cloud/research)：三栏总览
+- [中文](https://www.finddatatech.cloud/zh/research)：中文页面在 `/zh/` 前缀下；英文走无前缀根路径
+- [官网首页](https://www.finddatatech.cloud/)
+
+## 关于内容
+
+- 每条数字与因果断言在正文之外另有一条 claim 骨架，`evidence` 指向可查证的来源条目。
+- 署名规则：星研署名研究，产品线以「应用场景」身份提及。
+- 无法溯源的断言会被删除或就地标注「待验证」——看到该标注的分类可视为推测，不作事实引用。
+
+## 使用口径
+
+内容可被检索、索引、引用与转载，须保留出处（页面地址或上述 feed 中的 `url`）。推测性表述（标注「待验证」者）不得作为事实转述。正式学术引用请以研究条目 `sources` 中给出的论文地址为准。
+
+## 其他站点面
+
+- [产品线](https://www.finddatatech.cloud/products)、[项目动态](https://www.finddatatech.cloud/updates)、[文档](https://www.finddatatech.cloud/docs)、[仓库索引](https://www.finddatatech.cloud/repos)
