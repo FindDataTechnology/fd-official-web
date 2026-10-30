@@ -2,7 +2,7 @@
 name: "良律 · 理解法律"
 tagline: "法律不只属于从业者：合同起草与三重 AI 评审、法条与类案检索、可回归的 rubric 评测——也让每个人读懂法律为何如此、以前如何、是否合理。"
 kind: "法律 AI 平台"
-demoUrl: "https://lex.finddatatech.cloud"
+demoUrl: "https://law.finddatatech.cloud"
 line: lex
 order: 10
 ---
@@ -41,4 +41,4 @@ order: 10
 
 ## 在线体验
 
-良律平台已上线：[打开良律](https://lex.finddatatech.cloud)。
+良律已上线：[打开良律](https://law.finddatatech.cloud)。

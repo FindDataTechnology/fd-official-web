@@ -2,7 +2,7 @@
 name: "LiangLü · Law, for Everyone"
 tagline: "Law is not only for practitioners: contract drafting with triple AI review, statute & case retrieval, regression-testable rubrics — and help everyone understand why the law is as it is."
 kind: "Legal AI platform"
-demoUrl: "https://lex.finddatatech.cloud"
+demoUrl: "https://law.finddatatech.cloud"
 line: lex
 order: 10
 ---
@@ -70,4 +70,4 @@ Regression-Testable"](/research/articles/law-bench-evaluation-loop).
 
 ## Try it
 
-The LiangLü platform is live: [open 良律](https://lex.finddatatech.cloud).
+LiangLü is live: [open 良律](https://law.finddatatech.cloud).

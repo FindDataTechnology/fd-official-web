@@ -22,4 +22,4 @@ order: 33
 
 ## 状态
 
-政心的服务已部署运行，公网入口 `zhengxin.finddatatech.cloud` 正在接入（DNS 与边缘站点就绪后开通）。
+政心已上线：[打开政心](https://zhengxin.finddatatech.cloud)。

@@ -22,6 +22,4 @@ Understanding, not endorsement: no predictions, no recommendations, no advocacy.
 
 ## Status
 
-Zhengxin's services are deployed and running; its public entry
-`zhengxin.finddatatech.cloud` is being brought online (DNS and the edge site
-are the last steps).
+Zhengxin is live: [open 政心](https://zhengxin.finddatatech.cloud).
