@@ -43,7 +43,7 @@ spec:
           # era; Harbor storage backend returning 500 on all manifests — socat→RustFS
           # tunnel down — after the node pruned the cached image post-eviction).
           # Node-level registries.yaml supplies TCR auth on vm-0-9 (chengsi).
-          image: ccr.ccs.tencentyun.com/fd-web/official-web:sha-26fdcf6 # 同课按 AI 读者标准重写（26fdcf6）；ccr digest 8c53a4c5 实证
+          image: ccr.ccs.tencentyun.com/fd-web/official-web:sha-c4c3040 # 星研机读面（三 feed/JSON-LD/robots/llms/sitemap）+ claim 骨架（c4c3040）
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
