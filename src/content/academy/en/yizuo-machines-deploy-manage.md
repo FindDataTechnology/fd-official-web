@@ -20,7 +20,7 @@ pack_url: ''
 
 ### Step 1: Download and install the desktop app
 
-From the product page **www.finddatatech.cloud/products/base**:
+From the product page (right here on this site: [Base product](/products/base)):
 
 | OS | File |
 |---|---|
@@ -42,8 +42,9 @@ on boot. It is the 7×24 backbone of the machine.
 
 ### Step 3: Mint a pairing code in the console
 
-Sign in at **platform.finddatatech.cloud** in a browser →
-**Settings → Paired devices**.
+Sign in to your **Yizuo console** in a browser (on the hosted platform that's
+the address you use day to day; on a self-hosted instance, your own instance's
+address) → **Settings → Paired devices**.
 
 The page shows a **6-digit pairing code and a QR**: single use, valid for
 **5 minutes**; hit refresh for a new one after expiry.
@@ -54,8 +55,8 @@ Back in the desktop app, either:
 
 - **Scan**: on the pairing screen hit the scan button and point the camera
   at the QR from step 3 — server address and account bind in one capture;
-- **Type**: enter the server address (`https://platform.finddatatech.cloud`)
-  and the same 6 digits manually.
+- **Type**: enter the server address — the same one you signed into the console
+  with in step 3 — and the same 6 digits manually.
 
 The moment pairing succeeds, the console's **Machines** page shows this
 machine.
