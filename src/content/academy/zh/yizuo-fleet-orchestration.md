@@ -1,11 +1,11 @@
 ---
 title: "壹座集群编排：从单助手到一个会协作的集群"
 summary: "把多个岗位组成一个集群，用自然语言声明协作方式——主管派活、流水线流转、多岗并行加裁决、外部事件唤醒——并在驾驶舱里看见每个岗位在做什么、谁在失败。"
-level: 'use'
 order: 3
+level: use
+updated: "2026-10-27"
 source_material: "壹座·萬星使用手册 集群篇；集群编排产品验收记录（2026-10）；集群架构师功能集使用说明"
-updated: '2026-10-27'
-pack_url: 'https://facet.finddatatech.cloud/#/packs/NoBBXkvxZnJNHlCrAwWp-w'
+pack_url: "https://facet.finddatatech.cloud/#/packs/NoBBXkvxZnJNHlCrAwWp-w"
 ---
 
 ## 学完你能做什么

@@ -3,10 +3,11 @@ title: "免密钥连上数据：在 WorkBuddy 里装功能集并接通"
 summary: "在 WorkBuddy 里添加市场源、安装功能集、用一条命令建立数据连接。全程不需要手抄或粘贴密钥；通行证到期由一条命令续期，并自动改写客户端连接配置。"
 order: 7
 level: build
-updated: '2026-10-31'
+updated: "2026-10-31"
 source_material: "谦面 CLI facet 0.3.0（facet auth 三道选道）、facet-marketplace 市场仓投影（2026-10-31，75 个功能集 / 54 个含数据引用）、WorkBuddy 5.9.3 客户端产物核定"
-pack_url: ""
+pack_url: ''
 ---
+
 
 ## 学完你能做什么
 

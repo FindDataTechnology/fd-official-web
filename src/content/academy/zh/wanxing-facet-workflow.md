@@ -1,11 +1,11 @@
 ---
 title: "萬星与谦面协作入门：搭起你的第一个个人工作流"
 summary: "把壹座里装好的技能与 MCP 组装成你自己的个人工作流（自建预设），部署到萬星成为可被程序调用的服务，并用一条 A2A 请求、一个访客对话页和控制台把它管起来。"
-level: 'build'
 order: 2
+level: build
+updated: "2026-10-27"
 source_material: "壹座·萬星使用手册 §1.3–§1.4、§2（能力包安装、自建预设与发布并部署、部署为服务、A2A 调用、部署者控制台、chat 门面）；平台指南能力包（《谦面能力包制作指南》技能，含四层权限闸与 pack 制作链路）"
-updated: '2026-10-27'
-pack_url: 'https://facet.finddatatech.cloud/#/packs/bQ-NlOBloZegGfkiczktDA'
+pack_url: "https://facet.finddatatech.cloud/#/packs/bQ-NlOBloZegGfkiczktDA"
 ---
 
 ## 学完你能做什么

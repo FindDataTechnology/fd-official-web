@@ -1,12 +1,13 @@
 ---
 title: "永忆自部署入门：把长期记忆装进你自己的服务器"
 summary: "永忆（YongYi）是一套 MIT 开源的 agent 长期记忆服务。本课带你从零把它部署到自己的机器或集群上——单机起服务、发第一枚令牌问记忆、把运维面挡在公网之外，并按可复现的纪律做备份与验收。"
-level: 'build'
 order: 3
+level: build
+updated: "2026-10-29"
 source_material: "永忆公开仓 FindDataTechnology/fd-memory：docs/DEPLOYMENT.md（部署教程）、README.md（配置与快速起跑）、docs/federation-recipe.md（多节点接入）"
-updated: '2026-10-29'
 pack_url: ''
 ---
+
 
 ## 学完你能做什么
 

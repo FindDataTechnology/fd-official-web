@@ -1,11 +1,11 @@
 ---
 title: "Yizuo Cluster Orchestration: From a Single Assistant to a Cluster That Works Together"
 summary: "Compose multiple posts into a cluster, declare how they collaborate in plain language — a supervisor dispatching work, a pipeline handing off, parallel work with a judge, external events waking posts — and watch every post's status and failures in the cockpit."
-level: 'use'
 order: 3
+level: use
+updated: "2026-10-27"
 source_material: "Yizuo·Wanxing User Manual, Clusters chapter; cluster orchestration product acceptance records (2026-10); Cluster Architect pack usage notes"
-updated: '2026-10-27'
-pack_url: 'https://facet.finddatatech.cloud/#/packs/NoBBXkvxZnJNHlCrAwWp-w'
+pack_url: "https://facet.finddatatech.cloud/#/packs/NoBBXkvxZnJNHlCrAwWp-w"
 ---
 
 ## What You Will Be Able to Do

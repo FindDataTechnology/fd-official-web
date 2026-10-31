@@ -1,10 +1,10 @@
 ---
 title: "Your AI Twin: Turn What You Know Into Someone People Can Chat With"
 summary: "Install one pack, answer a few questions, and get your own AI twin: it receives visitors on your behalf, hands you the questions it cannot answer, and relays your reply back word for word. All in the browser, no configuration files."
-level: 'use'
 order: 12
+level: use
+updated: "2026-10-27"
 source_material: "Platform AI-twin capability release notes and internal acceptance records (2026-10 twin capability and matter queue); the Twin Workshop pack conversation flow"
-updated: '2026-10-27'
 pack_url: ''
 ---
 

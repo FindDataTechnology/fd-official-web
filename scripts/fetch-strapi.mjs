@@ -186,6 +186,16 @@ const flowList = (arr) => '[' + arr.map(flowItem).join(', ') + ']';
 // because it is a machine field whose bare form would otherwise trip the YAML
 // plain-scalar guards (`:` in https://, etc).
 function sourceItem(kind, s) {
+  // A source carrying a reference key must emit it: claims point at it by id
+  // (xingyan-claim-layer), so dropping it on the round-trip would silently
+  // orphan every claim's evidence. `id` goes first (machine field, bare),
+  // then label, then url.
+  if (s && typeof s === 'object' && typeof s.id === 'string' && s.id) {
+    const label = kind === 'research' && /[()]/.test(s.label ?? '') ? dq(s.label) : scalar(s.label ?? '');
+    const lines = [`id: ${s.id}`, `    label: ${label}`];
+    if (typeof s.url === 'string' && s.url !== '') lines.push(`    url: ${dq(s.url)}`);
+    return lines.join('\n');
+  }
   // An object carrying a label but no address is a plain statement: emit it in
   // the string form so it renders exactly like the committed sources. Emitting
   // `url: ""` instead would trip the zod url check and red the build over a
@@ -208,6 +218,22 @@ function sourcesBlock(kind, arr) {
   return 'sources:\n' + arr.map((s) => '  - ' + sourceItem(kind, s)).join('\n');
 }
 
+// claim 骨架（xingyan-claim-layer）：锚 + 证据，不存断言文本。`section` 是小节
+// 标题原文（可能含「·」「：」等），一律双引号；`evidence` 用 flow list 保序。
+// 没有 claims 时整段不输出——未声明骨架的存量条目不受该契约约束。
+function claimsBlock(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return [];
+  const lines = ['claims:'];
+  for (const c of arr) {
+    const ev = Array.isArray(c.evidence) ? c.evidence : [];
+    lines.push(`  - id: ${c.id}`);
+    lines.push(`    section: ${dq(c.section ?? '')}`);
+    lines.push(`    type: ${c.type}`);
+    lines.push(`    evidence: [${ev.join(', ')}]`);
+  }
+  return lines;
+}
+
 // Shared tail: body with trailing newlines normalized to exactly one.
 const bodyOf = (e) => String(e.body ?? '').replace(/\n+$/, '') + '\n';
 const md = (fm, body) => `---\n${fm.join('\n')}\n---\n\n${body}`;
@@ -224,6 +250,7 @@ function serializeAcademy(e) {
   if (e.updated != null && e.updated !== '') fm.push(`updated: ${dq(e.updated)}`);
   fm.push(`source_material: ${dq(e.source_material)}`);
   fm.push(`pack_url: ${e.pack_url ? dq(e.pack_url) : "''"}`);
+  fm.push(...claimsBlock(e.claims));
   return md(fm, bodyOf(e));
 }
 
@@ -236,6 +263,7 @@ function serializeFeed(kind, e) {
   if (kind === 'research') fm.push(`kind: ${e.kind}`);
   fm.push(`tags: ${flowList(e.tags)}`);
   fm.push(sourcesBlock(kind, e.sources));
+  fm.push(...claimsBlock(e.claims));
   return md(fm, bodyOf(e));
 }
 

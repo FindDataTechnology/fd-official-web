@@ -3,7 +3,7 @@ title: "装上第一个能力包"
 summary: "给壹座接上现成的行业能力：连接市场、订阅能力包、安装到运行时，然后在对话里选中它干活——每一步只给动作和预期现象。"
 order: 2
 level: use
-updated: '2026-10-27'
+updated: "2026-10-18"
 source_material: "壹座·萬星使用手册 §1.3（能力包安装动线）"
 pack_url: "https://facet.finddatatech.cloud/#/packs/bQ-NlOBloZegGfkiczktDA"
 ---

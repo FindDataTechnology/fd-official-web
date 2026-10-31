@@ -1,11 +1,11 @@
 ---
 title: "Wanxing and Facet Together: Build Your First Personal Workflow"
 summary: "Combine the skills and MCP servers you installed in Yizuo into your own workflow (a custom preset), deploy it on Wanxing as a service programs can call, and run it with one A2A request, a visitor chat page, and the console."
-level: 'build'
 order: 2
+level: build
+updated: "2026-10-27"
 source_material: "Yizuo·Wanxing User Manual §1.3–§1.4, §2 (pack installation, custom presets and publish-and-deploy, deploying an agent as a service, A2A calls, deployer console, chat facade); Platform Guides pack (the Facet Pack Builder guide skill, including the four permission gates and the pack build chain)"
-updated: '2026-10-27'
-pack_url: 'https://facet.finddatatech.cloud/#/packs/bQ-NlOBloZegGfkiczktDA'
+pack_url: "https://facet.finddatatech.cloud/#/packs/bQ-NlOBloZegGfkiczktDA"
 ---
 
 ## What You Will Be Able to Do

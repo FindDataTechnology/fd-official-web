@@ -3,10 +3,11 @@ title: "Connect Without Keys: Install a Pack in WorkBuddy and Hook Up Your Data"
 summary: "Add a marketplace source in WorkBuddy, install a pack, and establish the data connection with one command. No key is ever copied or pasted; renewal takes one command and rewrites the client connection config for you."
 order: 7
 level: build
-updated: '2026-10-31'
+updated: "2026-10-31"
 source_material: "Facet CLI 0.3.0 (facet auth lane selection), facet-marketplace projection (2026-10-31: 75 packs, 54 with data references), WorkBuddy 5.9.3 client build review"
-pack_url: ""
+pack_url: ''
 ---
+
 
 ## What You Will Be Able To Do
 

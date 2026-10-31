@@ -1,12 +1,13 @@
 ---
 title: "Self-Hosting YongYi: Put Long-Term Memory on Your Own Server"
 summary: "YongYi is an MIT-licensed, open-source long-term memory service for AI agents. This course walks you through deploying it from zero on your own machine or cluster — start the service, mint your first token, ask the memory, fence the admin face away from the public internet, and keep backup and acceptance habits that actually reproduce."
-level: 'build'
 order: 3
+level: build
+updated: "2026-10-29"
 source_material: "Public repo FindDataTechnology/fd-memory: docs/DEPLOYMENT.md (deployment tutorial), README.md (configuration & quick start), docs/federation-recipe.md (multi-node onboarding)"
-updated: '2026-10-29'
 pack_url: ''
 ---
+
 
 ## What you'll be able to do
 
