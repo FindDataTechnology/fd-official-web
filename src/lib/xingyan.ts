@@ -141,8 +141,15 @@ async function buildZoneFeed<C extends XingyanCollection>(
     const z = zh.find((x) => slugOf(x) === slug)!;
     return feedRecord(e as CollectionEntry<XingyanCollection>, z as CollectionEntry<XingyanCollection>);
   });
-  return { generated_at: new Date().toISOString(), [collection]: entries };
+  return { schema_version: XINGYAN_FEED_SCHEMA_VERSION, generated_at: new Date().toISOString(), [collection]: entries };
 }
+
+// Feed contract version (major only). Bumped on a breaking change to the record
+// shape, never per content edit: a supply consumer asserts it against its
+// declared compatible range and refuses a mismatch instead of guessing fields
+// (sister change xingyan-content-supply, design D-S2). Declared here, once —
+// all three zones share one contract.
+export const XINGYAN_FEED_SCHEMA_VERSION = '1';
 
 export async function buildBriefingsFeed() {
   const { briefings } = await loadXingyanSurface();

@@ -26,13 +26,22 @@ const read = (p) => {
 
 // 1) 三个 feed + 发现文件必须在
 const feeds = ['briefings.json', 'academy.json', 'research.json'];
+const FEED_SCHEMA_VERSION = '1';
 for (const f of feeds) {
   const body = read(f);
   if (body === null) continue;
+  let feed;
   try {
-    JSON.parse(body);
+    feed = JSON.parse(body);
   } catch {
     problems.push(`${f} 不是合法 JSON`);
+    continue;
+  }
+  // 供给侧消费方靠这个字段做版本断言：缺了它只能猜版本，等于把契约退回人为约定。
+  if (feed.schema_version !== FEED_SCHEMA_VERSION) {
+    problems.push(
+      `${f} 的 schema_version=${JSON.stringify(feed.schema_version)}，期望 ${FEED_SCHEMA_VERSION}`,
+    );
   }
 }
 
