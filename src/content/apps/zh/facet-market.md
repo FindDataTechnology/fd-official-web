@@ -28,3 +28,9 @@ npx @finddatatechnology/facet install <包 id> --target claude-code|cursor
 ## 在线体验
 
 [打开谦面市场](https://facet.finddatatech.cloud)。
+
+## 素材广场
+
+市场里的能力以「素材」的全景呈现：智能体（功能集）、技能、MCP 服务（含每个服务的全部公开工具）三类一屏可见，为不同语言背景的人与 AI 提供机器可读目录（llms.txt / catalog.json / 每素材自足页）。
+
+[打开壹座·智能体素材广场](https://agent.finddatatech.cloud)。
