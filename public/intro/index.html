@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>寻数科技 FindData · 会自己进化的 AI 智能体团队</title>
+<meta name="description" content="让 AI 智能体团队替你把活干完、持续运行、自己进化：五条产品线已在生产运行，软件 MIT 开源、可免费自托管。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.finddatatech.cloud/intro/">
+<meta property="og:title" content="寻数科技 FindData · 会自己进化的 AI 智能体团队">
+<meta property="og:description" content="一支能长期干活的 AI 智能体团队：7×24 运行、按复盘持续进化。五条产品线已在生产运行，软件 MIT 开源、可免费自托管。">
+<meta property="og:image" content="https://www.finddatatech.cloud/intro/og-hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#070c17; --surface:#0b1220; --panel:#101a2b;
+  --hair:#1b2638; --hair-strong:#22304a;
+  --ink:#e9e2d2; --ink-dim:#b6ac97; --ink-faint:#978e79;
+  --ember:#e0895f; --ember-hi:#ee9d74; --ember-deep:#b5613c;
+  --cyan:#4fd0d8; --cyan-dim:#269fa8; --teal:#3aa6a0;
+  --serif:"Noto Serif SC","Songti SC","SimSun",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --measure:68ch;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--serif);font-weight:300;font-size:16px;line-height:1.78;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+::selection{background:var(--ember);color:#140a04}
+*:focus-visible{outline:1px solid var(--ember);outline-offset:3px}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--ground)}
+::-webkit-scrollbar-thumb{background:var(--hair-strong);border:3px solid var(--ground);border-radius:0}
+::-webkit-scrollbar-thumb:hover{background:var(--ink-faint)}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 72px}
+.sheet > .wrap{padding-top:10px;padding-bottom:10px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.lbl{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+.rule{height:1px;background:var(--hair);border:0;margin:0}
+
+/* ── 页眉 ── */
+.topbar{position:sticky;top:0;z-index:9;background:rgba(7,12,23,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+.topbar .wrap{display:flex;align-items:center;gap:18px;height:56px}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink);white-space:nowrap}
+.brand .cn{font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.brand .en{font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.08em}
+.topnav{margin-left:auto;display:flex;gap:22px}
+.topnav a{font-family:var(--mono);font-size:12.5px;color:var(--ink-dim);text-decoration:none;transition:color .16s ease-out}
+.topnav a:hover{color:var(--ember)}
+
+/* ── 首屏 ── */
+.hero{padding:92px 24px 76px 24px;border-bottom:1px solid var(--hair)}
+.seals{display:flex;align-items:flex-end;gap:14px;margin-bottom:44px}
+.seal{display:grid;place-items:center;width:52px;height:52px;border:1.5px solid var(--ember-deep);color:var(--ember);
+  font-family:var(--serif);font-weight:700;font-size:24px;line-height:1;transform:rotate(-1.6deg);
+  background:rgba(181,97,60,.06)}
+.seal.agent{border-color:var(--cyan-dim);color:var(--cyan);background:rgba(38,159,168,.06)}
+.seal.bridge{border-color:var(--teal);color:var(--teal);background:rgba(58,166,160,.06)}
+.seal.parent{width:64px;height:64px;font-size:30px;border-color:var(--ink-dim);color:var(--ink);background:rgba(233,226,210,.04);transform:rotate(-2.4deg)}
+.seal-meta{font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.1em;margin-left:6px}
+h1{font-size:clamp(30px,4.4vw,54px);line-height:1.18;font-weight:600;letter-spacing:-.015em;margin:0 0 22px;max-width:22ch}
+h1 em{font-style:normal;color:var(--ember)}
+.hero p.lead{max-width:var(--measure);color:var(--ink-dim);font-size:17px;margin:0 0 34px}
+.hero p.lead b{color:var(--ink);font-weight:400}
+.cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:13px;padding:11px 20px;text-decoration:none;border:1px solid var(--ember-deep);
+  color:var(--ember);background:rgba(181,97,60,.08);transition:background .16s,color .16s,transform .16s}
+.btn:hover{background:var(--ember);color:#140a04;transform:translateY(-1px)}
+.btn.ghost{border-color:var(--hair-strong);color:var(--ink-dim);background:transparent}
+.btn.ghost:hover{border-color:var(--ink-faint);color:var(--ink);background:transparent}
+.hero-note{margin-top:26px;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.02em}
+.nw{white-space:nowrap}
+.mb{display:none}
+
+/* ── 架构轴 ── */
+.axis-sec{padding:76px 24px 68px 24px;border-bottom:1px solid var(--hair);background:var(--surface)}
+.axis-head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-bottom:8px}
+h2{font-size:clamp(22px,2.6vw,30px);font-weight:600;letter-spacing:-.01em;margin:0;line-height:1.32}
+.axis-svg{width:100%;height:auto;display:block;margin:10px 0 4px}
+.axis-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:26px}
+.axis-legend div{border-top:1px solid var(--hair);padding-top:12px}
+.axis-legend .k{font-family:var(--mono);font-size:12px;color:var(--ink);letter-spacing:.06em}
+.axis-legend .v{color:var(--ink-faint);font-size:13.5px;line-height:1.7;margin-top:5px}
+
+/* ── 线 ── */
+.line{padding:64px 24px 64px 24px;border-bottom:1px solid var(--hair)}
+.line-grid{display:grid;grid-template-columns:132px 1fr;gap:44px;align-items:start}
+.mark{position:sticky;top:96px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.mark .seal{width:76px;height:76px;font-size:34px}
+.mark .slug{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--ink-faint)}
+.mark .role{font-family:var(--mono);font-size:12px;color:var(--ink-faint);writing-mode:horizontal-tb;text-align:center;line-height:1.6}
+.line-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+.line-head h3{font-size:clamp(26px,3vw,34px);font-weight:600;margin:0;letter-spacing:-.01em}
+.line-head .en{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);letter-spacing:.12em}
+.line-head .pos{color:var(--ember);font-size:15px;font-weight:400}
+.line p.intro{max-width:var(--measure);color:var(--ink-dim);margin:0 0 30px}
+
+/* 台账式清单：不用卡片 */
+dl.ledger{margin:0;border-top:1px solid var(--hair)}
+dl.ledger > div{display:grid;grid-template-columns:186px 1fr;gap:24px;padding:13px 0;border-bottom:1px solid var(--hair)}
+dl.ledger dt{font-family:var(--mono);font-size:12.5px;color:var(--ink);letter-spacing:.04em;line-height:1.6}
+dl.ledger dd{margin:0;color:var(--ink-dim);font-size:14.5px;line-height:1.72}
+dl.ledger dd b{color:var(--ink);font-weight:400}
+
+/* 产品族表（识律） */
+table.family{width:100%;border-collapse:collapse;margin:0 0 26px;font-size:14px}
+table.family th{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--ink-faint);text-align:left;
+  padding:0 12px 9px 0;border-bottom:1px solid var(--hair-strong);font-weight:400}
+table.family td{padding:11px 12px 11px 0;border-bottom:1px solid var(--hair);color:var(--ink-dim);vertical-align:top}
+table.family td.n{color:var(--ink);font-weight:400;white-space:nowrap}
+table.family td.n small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);letter-spacing:.08em}
+table.family td.flag{font-family:var(--mono);font-size:12px;color:var(--ember);white-space:nowrap}
+
+/* 代码块（谦面） */
+pre.snip{background:var(--panel);border:1px solid var(--hair);padding:16px 18px;overflow:auto;margin:0 0 22px}
+pre.snip code{font-family:var(--mono);font-size:12.5px;color:var(--ink-dim);line-height:1.8}
+pre.snip code .c{color:var(--ink-faint)}
+
+.links{display:flex;gap:8px 20px;flex-wrap:wrap;margin-top:26px;padding-top:16px;border-top:1px solid var(--hair)}
+.links a{font-family:var(--mono);font-size:12.5px;color:var(--teal);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px}
+.links a:hover{color:var(--ink);border-bottom-color:var(--ink-faint)}
+
+/* ── 规模台账 ── */
+.scale{padding:74px 24px 74px 24px;background:var(--surface);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.scale-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.sheet{border-top:1px solid var(--hair-strong)}
+.sheet-row{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--hair)}
+.sheet-row .k{font-family:var(--mono);font-size:12.5px;color:var(--ink-dim)}
+.sheet-row .v{font-family:var(--mono);font-size:19px;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.sheet-row .v small{font-size:12px;color:var(--ink-faint);letter-spacing:.06em;margin-left:6px}
+.scale-note{color:var(--ink-faint);font-size:13px;line-height:1.8;margin-top:18px;max-width:46ch}
+
+/* ── 页脚 ── */
+footer{padding:66px 24px 80px 24px}
+.foot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.foot-grid h3.fh{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--ink-faint);margin:0 0 12px;font-weight:400}
+.foot-grid ul{list-style:none;margin:0;padding:0}
+.foot-grid li{margin:0 0 7px}
+.foot-grid a{color:var(--ink-dim);text-decoration:none;font-size:14px}
+.foot-grid a:hover{color:var(--ember)}
+.boundary{margin-top:44px;padding-top:18px;border-top:1px solid var(--hair);color:var(--ink-faint);font-size:12.5px;line-height:1.8;max-width:var(--measure)}
+
+/* ── 动效：只一处，进入时轴线自绘 ── */
+@media (prefers-reduced-motion:no-preference){
+  .axis-path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.15s cubic-bezier(.16,1,.3,1) .15s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .line .seal{opacity:0;transform:rotate(-1.6deg) translateY(8px);animation:settle .6s cubic-bezier(.16,1,.3,1) forwards}
+  @keyframes settle{to{opacity:1;transform:rotate(-1.6deg) translateY(0)}}
+}
+
+/* ── 响应式 ── */
+@media (max-width:900px){
+  .wrap{padding:0 26px}
+  body{font-size:15.5px;line-height:1.72}
+  h1{line-height:1.22}
+  .mb{display:inline}
+  /* 溢出三源：产品族表、CLI 代码块、长域名 —— 移动端各自收敛 */
+  table.family{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table.family td.n,table.family td.flag{white-space:normal}
+  table.family th{white-space:normal}
+  pre.snip{max-width:100%;overflow-x:auto}
+  pre.snip code{white-space:pre-wrap;word-break:break-all}
+  .links a{overflow-wrap:anywhere}
+  dl.ledger dd,dl.ledger dt,.line p.intro,.scale-note,.boundary{overflow-wrap:anywhere}
+  .line-grid>*{min-width:0}
+  .topnav{display:none}
+  .topbar .wrap{justify-content:flex-start}
+  .line-grid{grid-template-columns:1fr;gap:22px}
+  .mark{position:static;flex-direction:row;gap:14px;align-items:center}
+  .mark .seal{width:52px;height:52px;font-size:24px}
+  .mark .role{text-align:left}
+  .scale-grid,.axis-legend,.foot-grid{grid-template-columns:1fr;gap:28px}
+  dl.ledger > div{grid-template-columns:1fr;gap:4px}
+  .seals{gap:8px;flex-wrap:nowrap}
+  .seal-meta{display:none}
+  .seal{width:38px;height:38px;font-size:17px}
+  .seal.parent{width:46px;height:46px;font-size:22px}
+}
+
+/* ── 打印：每节一页 A4，深底保留 ── */
+@media print{
+  @page{size:A4;margin:16mm}
+  .topbar,.cta{display:none}
+  .wrap{max-width:none;padding:0}
+  .sheet{break-after:page}
+  .hero{padding:0 0 14mm}
+  .axis-sec,.line,.scale{background:none;padding:0 0 10mm;border:0}
+  footer{padding:0}
+  h1{font-size:26pt}
+  body{font-size:9.5pt;line-height:1.6}
+  dl.ledger > div,table.family td,.sheet-row{border-color:#3a465c}
+  .axis-svg{max-height:112mm}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="cn">寻数</span><span class="en">FINDDATA</span></a>
+    <nav class="topnav">
+      <a href="#axis">架构</a><a href="#base">壹座</a><a href="#lex">识律</a><a href="#wire">柏讯</a>
+      <a href="#facet">谦面</a><a href="#constellation">萬星</a><a href="#scale">规模</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ══ 页一：首屏 ══ -->
+<section class="sheet hero">
+  <div class="wrap">
+    <div class="seals" aria-label="寻数父印与五线印章">
+      <span class="seal parent" title="寻 · 父印">寻</span>
+      <span class="seal" title="壹座 base">壹</span>
+      <span class="seal" title="识律 lex">识</span>
+      <span class="seal" title="柏讯 wire">柏</span>
+      <span class="seal bridge" title="谦面 facet">谦</span>
+      <span class="seal agent" title="萬星 constellation">萬</span>
+      <span class="seal-meta">五线 · 一个生态</span>
+    </div>
+
+    <h1>让 AI 智能体团队，<br>替你把活干完、<br class="mb">一直干下去，<br><em>并且自己进化。</em></h1>
+
+    <p class="lead">
+      寻数做的不是又一个聊天机器人，而是一支<b>能长期干活的 AI 智能体团队</b>：
+      你在壹座里组建它，它在你自己的机器上 <span class="nw">7×24</span> 运行，自己接任务、按时汇报、按复盘迭代——
+      不是用完即弃的会话，是持续在岗的组织。
+    </p>
+    <p class="lead">
+      它的核心能力是<b>自己进化</b>：每一轮干活都留痕，判官复盘评估，改进回写进技能与本体，
+      团队越用越强。这不是概念：五条产品线已在生产运行——90 个生产部署、500+ 在册工具、
+      3,700 万篇裁判文书与 5.7 万条指标在库；评测自愈闭环已在官网公开发表。
+    </p>
+
+    <div class="cta">
+      <a class="btn" href="https://platform.finddatatech.cloud" target="_blank" rel="noopener">进入壹座</a>
+      <a class="btn ghost" href="https://github.com/FindDataTechnology" target="_blank" rel="noopener">开源仓库</a>
+    </div>
+    <p class="hero-note">MIT 开源 · 软件免费 · 可自托管 · 可私有化 · 同一套供给可装进主流 AI harness</p>
+  </div>
+</section>
+
+<!-- ══ 页二：架构轴 ══ -->
+<section class="sheet axis-sec" id="axis">
+  <div class="wrap">
+    <div class="axis-head">
+      <h2>一张桌子，两条轴，三条供给</h2>
+      <span class="lbl">architecture</span>
+    </div>
+
+    <svg class="axis-svg" viewBox="0 0 1000 400" role="img"
+         aria-label="架构示意：左端壹座负责组建与管理集群，右端萬星负责上线运行；识律、柏讯、谦面三条供给域挂在轴下，向集群供给文本、数据、技能与发布能力。">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0,0 L10,5 L0,10 z" fill="#22304a"/>
+        </marker>
+      </defs>
+
+      <!-- 主轴 -->
+      <line class="axis-path" x1="90" y1="120" x2="910" y2="120" stroke="#22304a" stroke-width="1.5" pathLength="1" marker-end="url(#ar)"/>
+
+      <!-- 左端：壹座 -->
+      <g>
+        <rect x="42" y="86" width="120" height="68" fill="rgba(181,97,60,.10)" stroke="#b5613c"/>
+        <text x="102" y="115" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="26" font-weight="700" fill="#e0895f">壹</text>
+        <text x="102" y="140" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10.5" fill="#b6ac97" letter-spacing="1.4">建 管</text>
+      </g>
+
+      <!-- 右端：萬星 -->
+      <g>
+        <rect x="838" y="86" width="120" height="68" fill="rgba(38,159,168,.10)" stroke="#269fa8"/>
+        <text x="898" y="115" text-anchor="middle" font-family="'Noto Serif SC',serif" font-size="26" font-weight="700" fill="#4fd0d8">萬</text>
+        <text x="898" y="140" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10.5" fill="#b6ac97" letter-spacing="1.4">上 线 运 行</text>
+      </g>
+
+      <!-- 中段标签 -->
+      <text x="500" y="98" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#978e79" letter-spacing="2.4">集群（智能体团队）归属壹座 · 按业务场景跨线编排</text>
+
+      <!-- 三条供给域挂线 -->
+      <g stroke="#1b2638" stroke-width="1" stroke-dasharray="3 6">
+        <line x1="250" y1="120" x2="250" y2="246"/>
+        <line x1="500" y1="120" x2="500" y2="246"/>
+        <line x1="750" y1="120" x2="750" y2="246"/>
+      </g>
+
+      <!-- 供给节点 -->
+      <g font-family="'Noto Serif SC',serif">
+        <rect x="155" y="246" width="190" height="72" fill="#0b1220" stroke="#1b2638"/>
+        <text x="250" y="272" text-anchor="middle" font-size="17" fill="#e9e2d2">识律</text>
+        <text x="250" y="297" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#978e79" letter-spacing=".6">文本整体解决方案</text>
+
+        <rect x="405" y="246" width="190" height="72" fill="#0b1220" stroke="#1b2638"/>
+        <text x="500" y="272" text-anchor="middle" font-size="17" fill="#e9e2d2">柏讯</text>
+        <text x="500" y="297" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#978e79" letter-spacing=".6">数据整体解决方案</text>
+
+        <rect x="655" y="246" width="190" height="72" fill="#0b1220" stroke="#1b2638"/>
+        <text x="750" y="272" text-anchor="middle" font-size="17" fill="#e9e2d2">谦面</text>
+        <text x="750" y="291" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#978e79" letter-spacing=".6">技能与发布</text>
+        <text x="750" y="305" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#978e79" letter-spacing=".6">harness 直用</text>
+      </g>
+
+      <!-- 底部注 -->
+      <text x="500" y="352" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10.5" fill="#978e79" letter-spacing="1.2">
+        三条供给域向集群供给能力，同时各自独立对外售卖
+      </text>
+    </svg>
+
+    <div class="axis-legend">
+      <div><p class="k">壹座 · Base</p><p class="v">集群平台与旗舰：组建、管理、迭代、分享你自己的智能体团队。</p></div>
+      <div><p class="k">萬星 · Constellation</p><p class="v">运行时：把团队上线运行：部署、驻留、门面、计费、机群观测。</p></div>
+      <div><p class="k">识律 / 柏讯 / 谦面</p><p class="v">三条供给域：文本、数据、技能与发布。独立成线，独立售卖。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 页三：壹座 ══ -->
+<section class="sheet line" id="base">
+  <div class="wrap line-grid">
+    <div class="mark">
+      <span class="seal" style="width:76px;height:76px;font-size:34px">壹</span>
+      <span class="slug">BASE</span>
+      <span class="role">集群平台<br>宿主与旗舰</span>
+    </div>
+    <div>
+      <div class="line-head">
+        <h3>壹座</h3><span class="en">YIZUO</span><span class="pos">组建 · 管理 · 迭代 · 分享</span>
+      </div>
+      <p class="intro">
+        集群主人的工作台：把你重复做的工作交给一支会自己干活、自己汇报、自己进化的组织。
+        云端登录即用；本地一个仓库三行命令自部署，数据留在本地 SQLite；另有 macOS 与 Windows 桌面端。
+        执行过程全程可见：思维链、工具调用、技能执行实时流式呈现。
+      </p>
+
+      <dl class="ledger">
+        <div><dt>集群（智能体团队）</dt><dd>按岗位骨架与编导（触发 / 交接 / 升级）组织、持续运行，带 KPI 槽位与模板形态</dd></div>
+        <div><dt>驾驶舱</dt><dd>组织图、状态环、日报流、<b>等你拍板</b>事项：一眼看清谁在岗、谁卡住</dd></div>
+        <div><dt>智能体市场</dt><dd>安装单位是「智能体」：技能、工具、角色一起到位，装完即可上阵</dd></div>
+        <div><dt>蓝图构造间</dt><dd>把业务场景编成可上架的团队蓝图，或找蓝图构造师起草</dd></div>
+        <div><dt>记忆</dt><dd>L0 观测 → L1 笔记/交接 → L2 事实/经验 → L3 画像，回合关键事实自动沉淀</dd></div>
+        <div><dt>四端同一契约</dt><dd>网页、微信小程序、macOS / Windows 桌面端；开源 MIT</dd></div>
+        <div><dt>兄弟形态</dt><dd><b>智语</b>（人 × 多智能体共席的沟通底座，房间可 URL 直达）· <b>永忆</b>（分层长期记忆）</dd></div>
+      </dl>
+
+      <div class="links">
+        <a href="https://platform.finddatatech.cloud" target="_blank" rel="noopener">platform.finddatatech.cloud</a>
+        <a href="https://github.com/FindDataTechnology/platform" target="_blank" rel="noopener">github · platform</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 页四：识律 ══ -->
+<section class="sheet line" id="lex">
+  <div class="wrap line-grid">
+    <div class="mark">
+      <span class="seal" style="width:76px;height:76px;font-size:34px">识</span>
+      <span class="slug">LEX</span>
+      <span class="role">文本<br>整体解决方案</span>
+    </div>
+    <div>
+      <div class="line-head">
+        <h3>识律</h3><span class="en">SHILÜ</span><span class="pos">处理与文本有关的一切</span>
+      </div>
+      <p class="intro">
+        法律、论文、思想、剧本这类高精度文本工作，通用大模型做不了：不敢引用、出处不明、结果不可复核。
+        识律把「数据 → 应用 → 模型 → 交付」垂直整合，让文本结论有据可查、有链可循；六个产品，旗舰是良律。
+      </p>
+
+      <table class="family">
+        <thead><tr><th>产品</th><th>解决什么</th><th>入口</th></tr></thead>
+        <tbody>
+          <tr><td class="n">良律<small>LIANGLÜ · 旗舰</small></td>
+              <td>法律数据 · 合同智能 · 电子签署 · 自有模型，全栈可私有化，云端与客户机房双宿主</td>
+              <td class="flag">law.finddatatech.cloud</td></tr>
+          <tr><td class="n">实论<small>SHILUN</small></td>
+              <td>论文检索与严肃写作：真实文献、每条引用可解，解不开的宁删勿假</td>
+              <td class="flag">shilun.…</td></tr>
+          <tr><td class="n">哲思<small>ZHESI</small></td>
+              <td>世界观工坊：把哲学史变成参照系，生活语言提问、承受最强反驳</td>
+              <td class="flag">zhesi.…</td></tr>
+          <tr><td class="n">政心<small>ZHENGXIN</small></td>
+              <td>理解政治思想：读原典、问概念、辨脉络，呈现分歧、从不裁断</td>
+              <td class="flag">zhengxin.…</td></tr>
+          <tr><td class="n">剧创<small>JUCHUANG</small></td>
+              <td>剧本与 AI 内容底料：结构化剧本 → 分镜 → 三形态提示词，角色一致性内建</td>
+              <td class="flag">juchuang.…</td></tr>
+          <tr><td class="n">合同示范文本<small>数据服务</small></td>
+              <td>官方合同示范文本语料，每日自动采集、结构化交付</td>
+              <td class="flag">—</td></tr>
+        </tbody>
+      </table>
+
+      <dl class="ledger">
+        <div><dt>良律 · 数据底座</dt><dd><b>3,700 万</b>篇裁判文书 · <b>32,296</b> 部法规目录；法条 / 类案 / 指导案例语义检索，结果附来源引用</dd></div>
+        <div><dt>合同智能 LawBench</dt><dd>19 类有名合同 + <b>5,000+</b> 范本条款库装配草案，三评审员流水线（法律 / 商业 / 完整性）</dd></div>
+        <div><dt>电子签署</dt><dd>审查 → 定稿 → 签署 → 出证同一条链，定稿哈希锚定，合同全文不出客户侧（内测中）</dd></div>
+        <div><dt>自有法律模型</dt><dd>评审 judge_c、起草 drafter_a；量化产物与对照评测随交付</dd></div>
+        <div><dt>私有化交付</dt><dd>引用包 / 语料包 / 文书包三档；日更周更增量；离线环境核心能力可用</dd></div>
+      </dl>
+
+      <div class="links">
+        <a href="https://law.finddatatech.cloud" target="_blank" rel="noopener">law.finddatatech.cloud</a>
+        <a href="https://github.com/FindDataTechnology/law-bench" target="_blank" rel="noopener">开源引擎 · law-bench</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 页五：柏讯 ══ -->
+<section class="sheet line" id="wire">
+  <div class="wrap line-grid">
+    <div class="mark">
+      <span class="seal" style="width:76px;height:76px;font-size:34px">柏</span>
+      <span class="slug">WIRE</span>
+      <span class="role">数据<br>整体解决方案</span>
+    </div>
+    <div>
+      <div class="line-head">
+        <h3>柏讯</h3><span class="en">WIRE</span><span class="pos">让 AI 替你读世界</span>
+      </div>
+      <p class="intro">
+        数据源散、格式乱、接一个库写一次对接，拿到手的数还经常是编的。柏讯把「从数据源到可用数据」做成一条自助通路：
+        免费档不碰 AI 也能走通，AI 能力按专属 cell 开通；新建成的本体层把行数据升为业务对象。
+      </p>
+
+      <dl class="ledger">
+        <div><dt>开放数据 MCP<small style="display:block;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.08em">OPEN SOURCE</small></dt>
+             <dd>众多 Python 数据源统一成开放数据本体：<b>452</b> 个指标概念 · <b>7</b> 个数据源 · <b>53</b> 个 MCP 工具，自然语言第一次就拿到真实数据行</dd></div>
+        <div><dt>DAAS 平台<small style="display:block;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.08em">LOCAL</small></dt>
+             <dd>整个数据平台装进你的机器：一条命令、单个 SQLite、<b>161</b> 个 MCP 工具 + <b>18</b> 个技能</dd></div>
+        <div><dt>柏讯平台<small style="display:block;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.08em">B2B 自助</small></dt>
+             <dd>上传或连接器取数建数据集 · 行内修正（单条回滚、悬空行如实标注）· 四类面板拼看板 · <b>确定性刷新</b>（零 LLM、结果可复算）· 签名分享链接（钉版本、7/30/90 天、noindex）</dd></div>
+        <div><dt>本体层<small style="display:block;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.08em">ONTOLOGY</small></dt>
+             <dd>把「行数据」升为「业务对象」：实体建模、多对多关系物化、对象遍历、写面齐备，业务语义可直接查询</dd></div>
+        <div><dt>云端数据联邦<small style="display:block;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.08em">COMMERCIAL</small></dt>
+             <dd>五库联邦经单一登录门控 MCP 端点只读供给：年鉴 <b>53,900+</b> 指标 · 法律语料（<b>278</b> 指导案例、约 <b>1,670 万</b>条裁判文书）· WDI <b>1,499</b> · GTA <b>1,000+</b> · 城市面板 <b>297</b> 城</dd></div>
+      </dl>
+
+      <div class="links">
+        <a href="https://wire.finddatatech.cloud" target="_blank" rel="noopener">wire.finddatatech.cloud</a>
+        <a href="https://www.finddatatech.cloud/zh/" target="_blank" rel="noopener">官网在线体验</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 页六：谦面 ══ -->
+<section class="sheet line" id="facet">
+  <div class="wrap line-grid">
+    <div class="mark">
+      <span class="seal bridge" style="width:76px;height:76px;font-size:34px">谦</span>
+      <span class="slug">FACET</span>
+      <span class="role">技能与发布<br>直连主流 harness</span>
+    </div>
+    <div>
+      <div class="line-head">
+        <h3>谦面</h3><span class="en">FACET</span><span class="pos">不被单一平台锁定</span>
+      </div>
+      <p class="intro">
+        谦面不只是一个市场。它把主流市场打通、让主流 coding harness 直接可用，
+        <b>我们的多智能体系统并不只能跑在自家壹座</b>，同一套智能体、技能与 MCP 供给在主流 harness 上同样可用。
+      </p>
+
+      <pre class="snip"><code><span class="c"># 一行装进主流 AI 编辑器；安装是版本快照，内容有确定版本</span>
+npx @finddatatechnology/facet install &lt;包 id&gt; --target claude-code|cursor</code></pre>
+
+      <dl class="ledger">
+        <div><dt>能力市场</dt><dd>把工作流沉淀成可复用的<b>能力包</b>：浏览、订阅、发布；完整详情、版本与标签；匿名可浏览、登录可发布</dd></div>
+        <div><dt>同一市场同一身份</dt><dd>与壹座内嵌 Store 是同一个人：在谦面的订阅，在壹座 Store 同样在册</dd></div>
+        <div><dt>打通主流市场</dt><dd>第三方公开市场的名录与详情可经谦面统一浏览；站点可嵌入多个公开市场源</dd></div>
+        <div><dt>MCP 服务目录</dt><dd>外部数据与工具的标准化接入点，编辑器与智能体一次配置即可调用</dd></div>
+        <div><dt>团队模板与官方精选</dt><dd>成品智能体团队（团队模板）可直接上架与订阅</dd></div>
+      </dl>
+
+      <div class="links">
+        <a href="https://facet.finddatatech.cloud" target="_blank" rel="noopener">facet.finddatatech.cloud</a>
+        <a href="https://www.npmjs.com/package/@finddatatechnology/facet" target="_blank" rel="noopener">npm · @finddatatechnology/facet</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 页七：萬星 ══ -->
+<section class="sheet line" id="constellation">
+  <div class="wrap line-grid">
+    <div class="mark">
+      <span class="seal agent" style="width:76px;height:76px;font-size:34px">萬</span>
+      <span class="slug">CONSTELLATION</span>
+      <span class="role">运行时<br>上线运行</span>
+    </div>
+    <div>
+      <div class="line-head">
+        <h3>萬星</h3><span class="en">WANXING</span><span class="pos">人与人经由各自的智能体相连</span>
+      </div>
+      <p class="intro">
+        把智能体团队上线运行：部署、驻留、门面、计费与机群观测，跨多台机器。四条子产品线：
+      </p>
+
+      <dl class="ledger">
+        <div><dt>萬星服务平台</dt><dd>Agent 服务的对外运行与服务平台；三条调用车道：<b>API</b>（原生 A2A + 调用键 + 幂等键）· <b>对话</b>（登录访客）· <b>嵌入</b>（iframe widget，支持匿名）</dd></div>
+        <div><dt>萬星词元<small style="display:block;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.08em">FIN DATAROUTER</small></dt>
+             <dd>AI API 网关：一个入口接多家模型，chat 之外还有语音、重排、搜索、视频生成，同一把密钥、同一份账本</dd></div>
+        <div><dt>萬星连接器</dt><dd>连一次账户，agent 得到千只手：<b>1,500+</b> 外部服务、万级预置动作，统一凭据库、可控可审计</dd></div>
+        <div><dt>行业技能包</dt><dd>萬星线的群星：法律合同、法律案件、股票研究、中国宏观简报四个行业入口技能</dd></div>
+        <div><dt>结算形态</dt><dd>调用者自付 / 平台补贴基线 / 部署者主人池；按时长计费、分钟取整、<b>失败回合不计费</b></dd></div>
+      </dl>
+
+      <div class="links">
+        <a href="https://wanxing.finddatatech.cloud" target="_blank" rel="noopener">wanxing.finddatatech.cloud</a>
+        <a href="https://router.finddatatech.cloud" target="_blank" rel="noopener">router · 词元</a>
+        <a href="https://connector.finddatatech.cloud" target="_blank" rel="noopener">connector · 连接器</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 页八：规模与承载 ══ -->
+<section class="sheet scale" id="scale">
+  <div class="wrap">
+    <div class="axis-head">
+      <h2>规模与承载</h2>
+      <span class="lbl">measured / modelled</span>
+    </div>
+
+    <div class="scale-grid">
+      <div>
+        <p class="lbl" style="margin:18px 0 10px">生产侧（实测）</p>
+        <div class="sheet">
+          <div class="sheet-row"><span class="k">生产部署</span><span class="v">90</span></div>
+          <div class="sheet-row"><span class="k">唯一镜像</span><span class="v">75</span></div>
+          <div class="sheet-row"><span class="k">生产租户 cell</span><span class="v">27</span></div>
+          <div class="sheet-row"><span class="k">MCP 网关在册</span><span class="v">12<small>Server / 500+ 工具</small></span></div>
+          <div class="sheet-row"><span class="k">统一指标注册</span><span class="v">5.7<small>万条</small></span></div>
+        </div>
+        <p class="scale-note">含 gateway、cell 引擎、facet 市场、萬星三面、各线 MCP 服务与 5 条数据摄取流水线。</p>
+      </div>
+
+      <div>
+        <p class="lbl" style="margin:18px 0 10px">承载模型（可支撑上万智能体）</p>
+        <div class="sheet">
+          <div class="sheet-row"><span class="k">磁盘会话态 cold</span><span class="v">≈0<small>内存 / 单元</small></span></div>
+          <div class="sheet-row"><span class="k">温态共宿（10 智能体）</span><span class="v">1.6–1.9<small>GB / pod</small></span></div>
+          <div class="sheet-row"><span class="k">热单元 solo</span><span class="v">130–190<small>MB / agent</small></span></div>
+          <div class="sheet-row"><span class="k">单 cell 预算</span><span class="v">1536<small>Mi 硬顶</small></span></div>
+          <div class="sheet-row"><span class="k">单集群可托管</span><span class="v">上万<small>智能体</small></span></div>
+        </div>
+        <p class="scale-note">
+          在线规模靠密度摊、真并发按热单元配比。冷会话落盘近零占用，温态共宿摊销单进程，
+          真并发按 worker 槽与 runner 分片弹性扩展；所以「都在线」不会吃掉内存。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 页九：入口与边界 ══ -->
+<footer class="sheet">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h3 class="fh">平台与沟通</h3>
+        <ul>
+          <li><a href="https://platform.finddatatech.cloud" target="_blank" rel="noopener">壹座 · platform</a></li>
+          <li><a href="https://zhiyu.finddatatech.cloud" target="_blank" rel="noopener">智语 · zhiyu</a></li>
+          <li><a href="https://yongyi.finddatatech.cloud" target="_blank" rel="noopener">永忆 · yongyi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fh">文本与数据</h3>
+        <ul>
+          <li><a href="https://law.finddatatech.cloud" target="_blank" rel="noopener">识律 · 良律 law</a></li>
+          <li><a href="https://wire.finddatatech.cloud" target="_blank" rel="noopener">柏讯 · wire</a></li>
+          <li><a href="https://www.finddatatech.cloud/zh/" target="_blank" rel="noopener">开放数据 · 在线体验</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fh">市场与运行时</h3>
+        <ul>
+          <li><a href="https://facet.finddatatech.cloud" target="_blank" rel="noopener">谦面 · facet</a></li>
+          <li><a href="https://wanxing.finddatatech.cloud" target="_blank" rel="noopener">萬星 · wanxing</a></li>
+          <li><a href="https://github.com/FindDataTechnology" target="_blank" rel="noopener">GitHub · 开源仓库</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="boundary">
+      对外口径边界：本页只讲公开信息；内部部署、成本、团队组织与未发布计划不披露；定价按套餐计费、不公开标价、签约时确定。
+      研究与业务：数据领域与法律领域各一篇论文；小模型微调服务。当前进展三阶段：蝉蜕进行中、卧龙与九天计划中。
+    </p>
+    <p class="hero-note" style="margin-top:16px">寻数科技 FindData Technology · 深圳 · www.finddatatech.cloud</p>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>
