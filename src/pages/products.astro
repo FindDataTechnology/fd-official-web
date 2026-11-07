@@ -51,6 +51,18 @@ const title = `${t(locale, 'apps.title')} — FindData Technology`;
       <span class="why">Customer-service desk: website widget, AI-drafted replies with human-confirmed sending, self-hosted inbox. Live on this site — see the bubble at the bottom-right.</span>
     </a>
   </section>
+
+  {/* Second board (add-erp-domain 7.3): ERP is a board above the five lines —
+      its own landing at /erp, deliberately outside LADDER/PRODUCT_LINES.
+      如实口径: state only true capabilities; no fabricated metrics, no
+      单体 ERP / 开票自研 / 资金执行 / 已上线 claims. 板块标签 + 双语同形 ERP. */}
+  <section class="erp-board-entry">
+    <h2>ERP board</h2>
+    <a class="card erp-board-card" href={getRelativeLocaleUrl(locale, 'erp')}>
+      <span class="name lines-name">ERP <span class="erp-board-tag">· Board</span></span>
+      <span class="why">Ledger kernel · reconciliation beachhead — an industry-agnostic double-entry ledger kernel and a read-only reconciliation beachhead, assembled as a cluster-of-packs combination, not a monolithic ERP app. Funds settlement and invoicing stay with the customer’s own licensed channels.</span>
+    </a>
+  </section>
 </Layout>
 
 <style>
@@ -62,4 +74,10 @@ const title = `${t(locale, 'apps.title')} — FindData Technology`;
   .crm-board-entry h2 { font-family: var(--font-display); font-size: 1.2rem; margin: 0 0 12px; }
   .crm-board-card { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; color: var(--text); max-width: 560px; }
   .crm-board-card:hover { text-decoration: none; border-color: var(--accent); }
+
+  .erp-board-entry { margin-top: 30px; }
+  .erp-board-entry h2 { font-family: var(--font-display); font-size: 1.2rem; margin: 0 0 12px; }
+  .erp-board-card { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; color: var(--text); max-width: 560px; }
+  .erp-board-card:hover { text-decoration: none; border-color: var(--accent); }
+  .erp-board-tag { opacity: 0.8; font-weight: 400; }
 </style>

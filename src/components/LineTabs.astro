@@ -9,6 +9,15 @@
 // mark「服」, (c) carries a board tag, and (d) links to /crm (board landing),
 // not /products/<line>. `line` prop accepts 'desk' for the active state on
 // the board landing.
+//
+// 2026-11-07 (add-erp-domain 7.3): appended a SECOND board tab「ERP」, following
+// the exact same precedent as the marketing/desk board — it is NOT a sixth
+// line. It sits alongside the desk tab after the divider, uses a non-ladder
+// mark「账」, carries a board tag「板块 / Board」, is bilingual-same-form
+// (EN=ERP / 中文=ERP), and links to the board landing /erp (· /zh/erp), not
+// /products/<line>. The 5 lines + the desk board stay byte-for-byte unchanged;
+// PRODUCT_LINES / LADDER_* are a public contract and MUST NOT gain a sixth
+// entry. `line` prop accepts 'erp' for the active state on the ERP landing.
 import { PRODUCT_LINES, LADDER_CHARS, type ProductLine } from '../content.config';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { t } from '../i18n';
@@ -16,7 +25,7 @@ import LineMark from './LineMark.astro';
 
 interface Props {
   locale: string;
-  line: ProductLine | 'desk';
+  line: ProductLine | 'desk' | 'erp';
 }
 
 const { locale, line } = Astro.props;
@@ -32,6 +41,11 @@ const PINYIN: Record<ProductLine, string> = {
 const deskName = locale === 'zh' ? '寻数·营销' : 'Marketing';
 const deskTag = locale === 'zh' ? '板块' : 'Board';
 const deskHref = 'https://marketing.finddatatech.cloud/';
+// ERP board (add-erp-domain 7.3): bilingual-same-form name (EN=ERP / 中文=ERP),
+// board tag, and a link to the local board landing. Non-ladder mark「账」.
+const erpName = 'ERP';
+const erpTag = locale === 'zh' ? '板块' : 'Board';
+const erpHref = getRelativeLocaleUrl(locale, 'erp');
 ---
 
 <nav class="line-tabs" aria-label={t(locale, 'apps.title')}>
@@ -50,6 +64,11 @@ const deskHref = 'https://marketing.finddatatech.cloud/';
     <LineMark char="服" name={deskName} size="xs" />
     <span>{deskName}</span>
     <span class="tab-tag"> · {deskTag}</span>
+  </a>
+  <a href={erpHref} class={line === 'erp' ? 'active' : ''} aria-current={line === 'erp' ? 'page' : undefined}>
+    <LineMark char="账" name={erpName} size="xs" />
+    <span>{erpName}</span>
+    <span class="tab-tag"> · {erpTag}</span>
   </a>
 </nav>
 

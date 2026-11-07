@@ -1,0 +1,198 @@
+---
+// ERP 板块落地页（add-erp-domain 7.3 如实口径落档，2026-11-07）。
+// 定位：五线之上的第二个板块——与营销/客服台板块同级，不占
+// LADDER/PRODUCT_LINES 契约，独立路由 /erp 与 /zh/erp。名 ERP 双语同形
+// （EN=ERP / 中文=ERP），带「板块 / Board」标签，非 ladder 位。
+//
+// 宣传口径纪律（品牌承诺「只说跑过的」+ 口径三红线）：本页只写板块章程与
+// 守界，不写价格 / 客户案例 / 用量 / 上线数字，不引用任何可证伪的指标；不
+// 宣称单体 ERP、开票自研、资金执行、网关已上线、市场已上架、registry 已
+// 写入或官网已 deploy。全部文案以「定义 / 章程」口吻陈述，live 步骤按挂账。
+// 双语内联在本组件（页面级文案与 UI 字典分离，集中一处便于整块评审），
+// 类名 erp-* 命名空间，样式 is:inline（同 CrmLanding/BaseLanding 的理由）。
+import Layout from './Layout.astro';
+import LineTabs from './LineTabs.astro';
+
+interface Props {
+  locale: 'en' | 'zh';
+}
+const { locale } = Astro.props;
+
+const CONTACT_EMAIL = '1253774197@qq.com';
+
+const S = {
+  en: {
+    kicker: 'FindData ERP · board',
+    title: 'A ledger kernel and a reconciliation beachhead — as a board, not a sixth line',
+    sub: 'ERP is a board outside the one·ten·hundred·thousand·myriad ladder. It brings an industry-agnostic double-entry ledger kernel and a read-only reconciliation beachhead, assembled from packs. Funds and invoicing stay with the customer’s own licensed channels.',
+    boardNote: 'ERP is a board, not a sixth line. It sits outside the 一十百千万 (one·ten·hundred·thousand·myriad) ladder, carries the 「Board / 板块」 tag, and keeps the same name “ERP” in both languages. The five lines and their slugs are unchanged.',
+    shapeTitle: 'Assembled, not monolithic',
+    shapeIntro: 'ERP is defined as a cluster-of-packs combination: a ledger-kernel pack, industry fleets, a connector pack, and reporting presets — not a monolithic ERP application or a forms UI. Industry differences live entirely in template assets (connector pack, fleet blueprints, account mapping, reporting presets); the ledger kernel stays industry-agnostic.',
+    shape: [
+      {
+        h: 'Ledger kernel',
+        p: 'Double-entry event accounting behind a proposal → confirm gate: the only posting path. Balanced debits/credits are enforced by database constraints; posted entries are append-only; balances are recomputed from entries, never written directly.',
+      },
+      {
+        h: 'Reconciliation beachhead',
+        p: 'Aligns two source streams read-only and returns four classes of differences (missing / extra / amount mismatch / status mismatch), each carrying both sides’ original references. Zero writes to external systems.',
+      },
+      {
+        h: 'Industry templates (cross-border e-commerce · restaurant chains)',
+        p: 'Two vertical templates ship as four-piece assets — connector pack, fleet blueprint, account-mapping pack, report preset — installable together and versioned independently. Shopify reads through the adopted MCP connector; CN platforms are read-only over the measured support surface. POS adapters roll out vendor by vendor; vendors without an adapter are answered honestly, with a file-export channel as the stated fallback.',
+      },
+      {
+        h: 'Multi-currency & tenant isolation',
+        p: 'Records original currency and base-currency conversion (rate + as_of + source); rates without a source are rejected. Tenant-column isolation with a query gate rejects and audits cross-tenant reads.',
+      },
+    ],
+    scopeTitle: 'Scope, stated plainly',
+    scope: [
+      'Funds (二清 red line): the platform only produces reconciliation results and reconciliation instructions. Cash pooling, collection/agency payment, and split settlement are never provided — funds move through licensed channels chosen by the customer. Profit-share output is a two-party verifiable statement plus verification data for the licensed channel, never an execution face.',
+      'Invoicing / tax filing: not self-developed and currently not offered (parked). Invoice-class events can be recorded in the ledger and take part in reconciliation, but the invoice itself is handled through the customer’s existing compliant channel. The platform never forges or issues invoices on a customer’s behalf.',
+      'Heavy domains, stated as not offered: central kitchen, procurement, BOM recipes, scheduling, membership — not in the current template scope. Asked about them, we answer honestly that only reconciliation and daily close ship today; heavy domains are future incremental template assets.',
+      'POS vendors without an adapter: answered as not supported, with the export-file channel named as the real alternative path. Manual re-entry is never dressed up as automatic integration.',
+      'Execution: business actions (shipping, payment, restock, invoicing) run only through adopted external MCP servers with tenant-supplied BYOK credentials injected via environment variables — never persisted to any FindData database or log. The ledger kernel only records, reconciles, and issues reconciliation instructions; it never drives any money flow.',
+      'Two customer groups, tenant-isolated: the board serves FindData’s own use and external merchants / general-enterprise customers; all operating data is isolated per tenant (cell). No customer tenant can read another tenant’s ledger, documents, or reports.',
+      'Caliber: no pricing, customer counts, usage figures, or launch numbers appear here — nothing we have not verified.',
+    ],
+    closingH: 'Questions about the board?',
+    closingP: 'This page states the board’s charter and boundaries as-is. It is publish-ready material with a local validation pass — live site deploy, gateway rollout and registry publication are separate steps requiring live credentials and are not claimed as done.',
+  },
+  zh: {
+    kicker: '寻数 ERP · 板块',
+    title: '账本内核与对账滩头——一个板块，不是第六条线',
+    sub: 'ERP 是「一十百千万」阶梯之外的独立板块：一个行业无关的复式事件账内核，加一个只读对账滩头，以供给包组合而成。资金与开票留在客户自有的持牌 / 合规渠道。',
+    boardNote: 'ERP 是板块，不是第六条线。它位于「一十百千万」ladder 之外，带「板块 / Board」标签，双语同形（EN=ERP / 中文=ERP）；五线命名与 slug 不变。',
+    shapeTitle: '组合式，非单体',
+    shapeIntro: 'ERP 以「集群 + 供给包」组合交付：账本内核 pack + 行业舰队 + 连接器 pack + 报表 preset，而非单体 ERP 应用或表单式 UI。行业差异全部上移为行业模板资产（连接器 pack + 舰队蓝图 + 科目映射 + 报表 preset），账本内核保持行业无关。',
+    shape: [
+      {
+        h: '账本内核',
+        p: '复式事件账，写路径只出 proposal、确认门是唯一落账路径；借贷必平由数据库约束强制，已落账分录 append-only，余额由分录重算、不设直写余额字段。',
+      },
+      {
+        h: '对账滩头',
+        p: '只读对齐两源流水，产出四类差异（缺失 / 多余 / 金额不符 / 状态不符），每条含双侧原始引用，报告落档可查；对外部系统零写入。',
+      },
+      {
+        h: '行业模板（跨境电商 · 餐饮连锁）',
+        p: '两个行业模板以四件套交付——连接器 pack、舰队蓝图、科目映射 pack、报表 preset——整体安装、各件独立升级。Shopify 走已采纳 MCP 连接器读面；国内平台按实测支持面只读。POS 适配器按厂商逐个上线，未适配厂商如实回答，替代路径为导出文件通道。',
+      },
+      {
+        h: '多币种与租户隔离',
+        p: '原币 + 本位币折算双记（汇率 + as_of + 出处），无出处汇率拒绝；租户列隔离 + 查询闸，跨租户查询拒绝并审计留痕。',
+      },
+    ],
+    scopeTitle: '边界，如实说',
+    scope: [
+      '资金（二清红线）：平台只产出对账结果与核对指令，不提供资金池、代收代付或分账执行；资金归集与分账须走客户自选的持牌通道。分成产出是双方可核对的分成对账单与对接持牌通道的核对数据，不是任何执行面。',
+      '开票 / 税务申报：不自研、当前不提供（挂账）。账内可记录发票类事件并参与对账，票据本体由客户既有合规渠道处理；平台不伪造、不代开票据。',
+      '重域如实不提供：中央厨房、采购、BOM 配方、排班、会员不在当前模板范围；问及如实回答当前只交付对账与日结，重域属后续渐进模板资产，不承诺不存在的能力。',
+      'POS 未适配厂商如实回答：不支持的厂商如实报出，替代路径是导出文件通道；绝不用人工补录冒充已适配厂商的自动接入。',
+      '执行面：经营动作（发货、支付、补货、开票等）仅经采纳的外部 MCP server 完成，凭证由租户自带（BYOK）、经环境变量注入，零落库零日志。账本内核只做记录、对账与核对指令层，不直接驱动任何资金流。',
+      '双客群租户隔离：同时服务寻数自用与外部商家 / 泛企业客户，经营数据按租户（cell）隔离；任一客户租户不能读取其他租户的账、单据或报表。',
+      '口径：本页不出现价格、客户数、用量或上线数字——没实证的不写。',
+    ],
+    closingH: '对板块有疑问？',
+    closingP: '本页如实陈述板块章程与边界，属可发布工件并已通过本地校验；官网 deploy、网关 rollout、registry 写入等 live 步骤需真实凭据，按挂账处理，未宣称已上线。',
+  },
+} as const;
+const s = S[locale];
+const title = (locale === 'zh' ? 'ERP 板块' : 'ERP board') + ' — FindData Technology';
+---
+
+<Layout locale={locale} title={title} description={s.sub}>
+  {/* ── 1 · hero ─────────────────────────────────────────────── */}
+  <section class="erp-hero">
+    <p class="erp-kicker">{s.kicker}</p>
+    <h1>{s.title}</h1>
+    <p class="erp-sub">{s.sub}</p>
+    <p class="erp-board-note">{s.boardNote}</p>
+  </section>
+
+  {/* ── 1.5 · line tabs（含 ERP 板块 tab，激活态） ─────────────── */}
+  <LineTabs locale={locale} line="erp" />
+
+  {/* ── 2 · combination shape ─────────────────────────────────── */}
+  <section class="erp-shape">
+    <h2>{s.shapeTitle}</h2>
+    <p class="erp-shape-intro">{s.shapeIntro}</p>
+    <ul class="grid">
+      {
+        s.shape.map((v) => (
+          <li class="card">
+            <span class="name">{v.h}</span>
+            <span class="why">{v.p}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  {/* ── 3 · scope / 守界 ──────────────────────────────────────── */}
+  <section class="erp-scope">
+    <h2>{s.scopeTitle}</h2>
+    <ul>
+      {
+        s.scope.map((line) => (
+          <li>{line}</li>
+        ))
+      }
+    </ul>
+  </section>
+
+  {/* ── 4 · closing ──────────────────────────────────────────── */}
+  <section class="erp-closing">
+    <h2>{s.closingH}</h2>
+    <p>{s.closingP}</p>
+    <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+  </section>
+</Layout>
+
+<style is:inline>
+  /* erp-* 命名空间；变量与全局类取自 /global.css（同 CrmLanding 手法） */
+  .erp-hero { padding: 26px 0 8px; }
+  .erp-kicker {
+    margin: 0 0 14px;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: var(--fs-label);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .erp-hero h1 {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    line-height: var(--lh-display);
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    max-width: 820px;
+  }
+  .erp-sub { color: var(--muted); max-width: 680px; margin: 0; font-size: 1.05rem; }
+  .erp-board-note {
+    margin: 18px 0 0;
+    padding: 12px 16px;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 0.95rem;
+    max-width: 720px;
+  }
+
+  .erp-shape h2, .erp-scope h2, .erp-closing h2 {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    margin: 40px 0 14px;
+  }
+  .erp-shape-intro { color: var(--muted); max-width: 72ch; margin: 0 0 18px; font-size: 0.98rem; }
+  .erp-shape .card { min-height: 118px; }
+
+  .erp-scope ul { margin: 0; padding-left: 18px; color: var(--muted); }
+  .erp-scope li { margin: 6px 0; max-width: 78ch; }
+
+  .erp-closing { padding: 8px 0 40px; }
+  .erp-closing p { color: var(--muted); margin: 0 0 10px; max-width: 78ch; }
+  .erp-closing a { font-family: var(--mono); }
+</style>

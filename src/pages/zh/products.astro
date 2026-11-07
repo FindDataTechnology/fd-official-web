@@ -51,6 +51,18 @@ const title = `${t(locale, 'apps.title')} — FindData Technology`;
       <span class="why">客服接待服务：网站挂件 + AI 起草（发送必经人工确认）+ 自托管收件箱。本站右下角气泡就是运行实况。</span>
     </a>
   </section>
+
+  {/* 第二个板块（add-erp-domain 7.3）：ERP 是五线之上的板块，独立落地页
+      /zh/erp，有意不进 LADDER/PRODUCT_LINES 契约。如实口径：只述真实能力、
+      不写虚构数字，不宣称单体 ERP / 开票自研 / 资金执行 / 已上线。板块标签 +
+      双语同形 ERP。 */}
+  <section class="erp-board-entry">
+    <h2>ERP 板块</h2>
+    <a class="card erp-board-card" href={getRelativeLocaleUrl(locale, 'erp')}>
+      <span class="name lines-name">ERP <span class="erp-board-tag">· 板块</span></span>
+      <span class="why">账本内核 · 对账滩头——行业无关的复式事件账内核，加一个只读对账滩头；以「集群 + 供给包」组合交付，非单体 ERP 应用。资金归集 / 分账与开票走客户自有的持牌 / 合规渠道。</span>
+    </a>
+  </section>
 </Layout>
 
 <style>
@@ -62,4 +74,10 @@ const title = `${t(locale, 'apps.title')} — FindData Technology`;
   .crm-board-entry h2 { font-family: var(--font-display); font-size: 1.2rem; margin: 0 0 12px; }
   .crm-board-card { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; color: var(--text); max-width: 560px; }
   .crm-board-card:hover { text-decoration: none; border-color: var(--accent); }
+
+  .erp-board-entry { margin-top: 30px; }
+  .erp-board-entry h2 { font-family: var(--font-display); font-size: 1.2rem; margin: 0 0 12px; }
+  .erp-board-card { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; color: var(--text); max-width: 560px; }
+  .erp-board-card:hover { text-decoration: none; border-color: var(--accent); }
+  .erp-board-tag { opacity: 0.8; font-weight: 400; }
 </style>
