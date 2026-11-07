@@ -38,8 +38,12 @@ const S = {
         p: 'Aligns two source streams read-only and returns four classes of differences (missing / extra / amount mismatch / status mismatch), each carrying both sides’ original references. Zero writes to external systems.',
       },
       {
-        h: 'Industry templates (cross-border e-commerce · restaurant chains)',
-        p: 'Two vertical templates ship as four-piece assets — connector pack, fleet blueprint, account-mapping pack, report preset — installable together and versioned independently. Shopify reads through the adopted MCP connector; CN platforms are read-only over the measured support surface. POS adapters roll out vendor by vendor; vendors without an adapter are answered honestly, with a file-export channel as the stated fallback.',
+        h: 'Industry templates (cross-border e-commerce · restaurant chains · warehousing & distribution)',
+        p: 'Three vertical templates ship as a four-piece core — connector pack, fleet blueprint, account-mapping pack, report preset — plus a pricing-rule pack and a pageset pack, installable together and versioned independently. Shopify reads through the adopted MCP connector; CN platforms are read-only over the measured support surface. POS adapters roll out vendor by vendor; vendors without an adapter are answered honestly, with a file-export channel as the stated fallback. The warehousing & distribution template adds procurement orchestration, delivery orchestration and event billing on top — warehousing stays in the customer’s WMS, trunk haulage in the carrier’s system, settlement and payment in the customer’s finance system.',
+      },
+      {
+        h: 'Four operational surfaces, one app base',
+        p: 'Ordering desk, sales desk, supplier collaboration and carrier collaboration ship as pageset packs installed on the existing miniapp base — the same login, message channel and design system; any decision that moves stock or money goes through the confirm gate. Identity is bound per surface and fails closed: an unbound supplier or carrier account sends no request at all. Capabilities that are not built are labelled “not offered”, never dressed up as placeholder forms.',
       },
       {
         h: 'Multi-currency & tenant isolation',
@@ -50,7 +54,8 @@ const S = {
     scope: [
       'Funds (二清 red line): the platform only produces reconciliation results and reconciliation instructions. Cash pooling, collection/agency payment, and split settlement are never provided — funds move through licensed channels chosen by the customer. Profit-share output is a two-party verifiable statement plus verification data for the licensed channel, never an execution face.',
       'Invoicing / tax filing: not self-developed and currently not offered (parked). Invoice-class events can be recorded in the ledger and take part in reconciliation, but the invoice itself is handled through the customer’s existing compliant channel. The platform never forges or issues invoices on a customer’s behalf.',
-      'Heavy domains, stated as not offered: central kitchen, procurement, BOM recipes, scheduling, membership — not in the current template scope. Asked about them, we answer honestly that only reconciliation and daily close ship today; heavy domains are future incremental template assets.',
+      'Heavy domains, stated template by template: central kitchen, BOM recipes, scheduling and membership are outside the cross-border and restaurant templates. The warehousing & distribution template does include procurement and delivery orchestration — but execution still happens in the customer’s WMS and carrier systems. Anything else asked about is answered honestly; no capability that does not exist is promised.',
+      'Execution boundary for the warehousing & distribution template: inbound/outbound runs in the customer’s WMS, trunk haulage in the carrier’s system, settlement and payment in the customer’s finance system (Kingdee and similar). The platform records, reconciles and issues instructions; it does not move stock or money. Online payment channels are read-only — merchant-side queries and callback records, with no write face at all.',
       'POS vendors without an adapter: answered as not supported, with the export-file channel named as the real alternative path. Manual re-entry is never dressed up as automatic integration.',
       'Execution: business actions (shipping, payment, restock, invoicing) run only through adopted external MCP servers with tenant-supplied BYOK credentials injected via environment variables — never persisted to any FindData database or log. The ledger kernel only records, reconciles, and issues reconciliation instructions; it never drives any money flow.',
       'Two customer groups, tenant-isolated: the board serves FindData’s own use and external merchants / general-enterprise customers; all operating data is isolated per tenant (cell). No customer tenant can read another tenant’s ledger, documents, or reports.',
@@ -76,8 +81,12 @@ const S = {
         p: '只读对齐两源流水，产出四类差异（缺失 / 多余 / 金额不符 / 状态不符），每条含双侧原始引用，报告落档可查；对外部系统零写入。',
       },
       {
-        h: '行业模板（跨境电商 · 餐饮连锁）',
-        p: '两个行业模板以四件套交付——连接器 pack、舰队蓝图、科目映射 pack、报表 preset——整体安装、各件独立升级。Shopify 走已采纳 MCP 连接器读面；国内平台按实测支持面只读。POS 适配器按厂商逐个上线，未适配厂商如实回答，替代路径为导出文件通道。',
+        h: '行业模板（跨境电商 · 餐饮连锁 · 仓配分销）',
+        p: '三个行业模板以四件套为核——连接器 pack、舰队蓝图、科目映射 pack、报表 preset——另附定价规则 pack 与页面集 pack，整体安装、各件独立升级。Shopify 走已采纳 MCP 连接器读面；国内平台按实测支持面只读。POS 适配器按厂商逐个上线，未适配厂商如实回答，替代路径为导出文件通道。仓配分销模板在其上增加采购订单编排、履约编排与事件计费——入库出库仍在客户 WMS，干线在承运商系统，结算与付款在客户财务系统。',
+      },
+      {
+        h: '四端作业面，一套底座',
+        p: '订货台、业务员台、供应商协同、承运协同以页面集 pack 形式装在既有小程序底座上——同一登录、消息通道与设计系统；任何动库存、动账的拍板都走确认门。身份按面绑定、未绑定即失败关闭：未绑定的供应商或承运商账号不发任何请求。未建成能力直接标注「当前未提供」，不摆占位假表单。',
       },
       {
         h: '多币种与租户隔离',
@@ -88,7 +97,8 @@ const S = {
     scope: [
       '资金（二清红线）：平台只产出对账结果与核对指令，不提供资金池、代收代付或分账执行；资金归集与分账须走客户自选的持牌通道。分成产出是双方可核对的分成对账单与对接持牌通道的核对数据，不是任何执行面。',
       '开票 / 税务申报：不自研、当前不提供（挂账）。账内可记录发票类事件并参与对账，票据本体由客户既有合规渠道处理；平台不伪造、不代开票据。',
-      '重域如实不提供：中央厨房、采购、BOM 配方、排班、会员不在当前模板范围；问及如实回答当前只交付对账与日结，重域属后续渐进模板资产，不承诺不存在的能力。',
+      '重域按模板分别说明：中央厨房、BOM 配方、排班、会员不在跨境电商与餐饮连锁两条模板范围内；仓配分销模板包含采购与履约编排，但执行仍在客户 WMS 与承运商系统。其余问及如实回答，不承诺不存在的能力。',
+      '仓配分销模板的执行边界：入库出库在客户 WMS，干线运输在承运商系统，结算与付款在客户财务系统（金蝶等）。平台做记录、核对与下发指令，不动库存、不动资金。线上支付渠道只读——商户侧查询与回调记录，无任何写面。',
       'POS 未适配厂商如实回答：不支持的厂商如实报出，替代路径是导出文件通道；绝不用人工补录冒充已适配厂商的自动接入。',
       '执行面：经营动作（发货、支付、补货、开票等）仅经采纳的外部 MCP server 完成，凭证由租户自带（BYOK）、经环境变量注入，零落库零日志。账本内核只做记录、对账与核对指令层，不直接驱动任何资金流。',
       '双客群租户隔离：同时服务寻数自用与外部商家 / 泛企业客户，经营数据按租户（cell）隔离；任一客户租户不能读取其他租户的账、单据或报表。',
