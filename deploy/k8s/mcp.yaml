@@ -49,7 +49,7 @@ spec:
       # version never serves and the previous one keeps serving.
       initContainers:
         - name: migrate-schema
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-a4b4493  # 与主容器同片；无新增迁移（库头 0020）
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-34d55b6  # 与主容器同片；无新增迁移（库头 0020）
           imagePullPolicy: IfNotPresent
           # Same database-URL source as the server container:
           # FD_OPEN_DATA_MCP_DATABASE_URL arrives via the fd-mcp-env Secret.
@@ -89,7 +89,11 @@ spec:
           # 本片**带新迁移**：initContainer 会把库头 0020 → 0021（幂等）。回滚镜像不必退
           # 版本号：0021 只加三个可空列，旧代码不读它们。
           # 回滚=sha-47b8d74。
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-a4b4493
+          # sha-34d55b6 追加：闸门档位**透传**给集群 Job（此前该 env 只在服务端清单里，
+          # 爬虫侧永远 off——同一条规则两处两套行为）；契约缺口清零（106 族 0 缺口）。
+          # 档位仍是 warn：enforce 意味着「新族没契约就拒写」，医药域在活跃建新族，
+          # 切了会让它们的写入静默失败（decisions §5.34）。回滚=sha-a4b4493。
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-34d55b6
           imagePullPolicy: IfNotPresent
           # ENTRYPOINT in the image serves :8300 since commit 5455d38; this
           # deployment's Service/NodePort are pinned to 8899 (gateway upstream
