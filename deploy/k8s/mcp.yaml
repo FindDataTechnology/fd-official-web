@@ -49,7 +49,7 @@ spec:
       # version never serves and the previous one keeps serving.
       initContainers:
         - name: migrate-schema
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-5c9b79b
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-47b8d74  # 与主容器同片；无新增迁移（库头 0020）
           imagePullPolicy: IfNotPresent
           # Same database-URL source as the server container:
           # FD_OPEN_DATA_MCP_DATABASE_URL arrives via the fd-mcp-env Secret.
@@ -79,8 +79,12 @@ spec:
           # fetch/retention.py。库头已是 0020，无需先手工改版本表。
           # sha-70534ea 追加：W 类在写入入口裁掉窗口外的点（重抓不再写回老行）。
           # sha-5c9b79b 追加：补数入口(new-only)也执行留存语义——此前它是绕过 T 的后门。
-          # 回滚=sha-70534ea（再往前 sha-4c23a85 / sha-647f837；无新增迁移要回退）。
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-5c9b79b
+          # sha-47b8d74 追加：单点写入口 write_cache 补上契约闸 + W 窗口裁剪（此前只有
+          # T 合并，`fetch(点)` 可写进无契约的源、可把 W 类窗口外的老点写回来）；新增
+          # fetch/retention_bulk.py，五支直写观测的脚本（bulk_ingest_* / financial_consumer）
+          # 在同一事务里执行同一套收尾；并加反旁路静态闸，防止第六支脚本再漏。
+          # 回滚=sha-5c9b79b（再往前 sha-70534ea / sha-4c23a85 / sha-647f837；无新增迁移要回退）。
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-47b8d74
           imagePullPolicy: IfNotPresent
           # ENTRYPOINT in the image serves :8300 since commit 5455d38; this
           # deployment's Service/NodePort are pinned to 8899 (gateway upstream
