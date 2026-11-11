@@ -49,7 +49,7 @@ spec:
       # version never serves and the previous one keeps serving.
       initContainers:
         - name: migrate-schema
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-647f837
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-4c23a85
           imagePullPolicy: IfNotPresent
           # Same database-URL source as the server container:
           # FD_OPEN_DATA_MCP_DATABASE_URL arrives via the fd-mcp-env Secret.
@@ -70,7 +70,15 @@ spec:
           # reports/onnx-equivalence.md). Built by GitHub Actions -> hkccr,
           # cheap-3 tcr-relay -> ccr. New releases = new sha tags, so
           # IfNotPresent always pulls the referenced digest.
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-647f837
+          #
+          # sha-4c23a85 = establish-data-retention-principle 第 1-3 期：留存契约表
+          # + 写入闸门（FD_RETENTION_GATE，默认 off，不改变现有行为）+ 写路径执行
+          # T 类语义（"只留当期"从此真的只留一条，旧快照并成一条 batch 修订，
+          # 止住 yield/nav/performance 每实体每天一行的复发）。内容硬门已验：
+          # cache.py 含 _snapshot_consolidate、alembic/versions/0020_retention_contracts.py、
+          # fetch/retention.py。库头已是 0020，无需先手工改版本表。
+          # 回滚=sha-647f837（无新增迁移要回退，0019 及以前都在旧片里）。
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-4c23a85
           imagePullPolicy: IfNotPresent
           # ENTRYPOINT in the image serves :8300 since commit 5455d38; this
           # deployment's Service/NodePort are pinned to 8899 (gateway upstream
