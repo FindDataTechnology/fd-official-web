@@ -107,6 +107,13 @@ spec:
               value: "http://100.64.0.4:30803/mcp"
             - name: FD_MCP_FEDERATED_READ
               value: "1"
+            # 留存闸门第 2 档：查契约、缺了只报警、**仍允许写入**。
+            # 开关顺序是 off → warn（观察）→ enforce，不能直接跳 enforce：
+            # 缺契约即拒写会让对应源的爬取当晚全线停摆。2026-11-11 实测
+            # 112 个有数据的族在库里全部有契约（含 source 级 `*` 通配），
+            # 所以这一档应当是安静的；若日志出现"留存契约缺失"再加契约。
+            - name: FD_RETENTION_GATE
+              value: "warn"
           envFrom:
             - secretRef:
                 name: fd-mcp-env
