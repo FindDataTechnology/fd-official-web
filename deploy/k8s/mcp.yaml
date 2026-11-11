@@ -49,7 +49,7 @@ spec:
       # version never serves and the previous one keeps serving.
       initContainers:
         - name: migrate-schema
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-47b8d74  # 与主容器同片；无新增迁移（库头 0020）
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-a4b4493  # 与主容器同片；无新增迁移（库头 0020）
           imagePullPolicy: IfNotPresent
           # Same database-URL source as the server container:
           # FD_OPEN_DATA_MCP_DATABASE_URL arrives via the fd-mcp-env Secret.
@@ -84,7 +84,12 @@ spec:
           # fetch/retention_bulk.py，五支直写观测的脚本（bulk_ingest_* / financial_consumer）
           # 在同一事务里执行同一套收尾；并加反旁路静态闸，防止第六支脚本再漏。
           # 回滚=sha-5c9b79b（再往前 sha-70534ea / sha-4c23a85 / sha-647f837；无新增迁移要回退）。
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-47b8d74
+          # sha-a4b4493 追加：豁免机制（exempt_reason / exempt_owner / exempt_until +
+          # alembic 0021）——规范要求「窗口之外的保留必须有用途+到期+责任人」，此前没有落点。
+          # 本片**带新迁移**：initContainer 会把库头 0020 → 0021（幂等）。回滚镜像不必退
+          # 版本号：0021 只加三个可空列，旧代码不读它们。
+          # 回滚=sha-47b8d74。
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-a4b4493
           imagePullPolicy: IfNotPresent
           # ENTRYPOINT in the image serves :8300 since commit 5455d38; this
           # deployment's Service/NodePort are pinned to 8899 (gateway upstream
