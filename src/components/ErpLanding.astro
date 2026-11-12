@@ -31,7 +31,7 @@ const S = {
     shape: [
       {
         h: 'Ledger kernel',
-        p: 'Double-entry event accounting behind a proposal → confirm gate: the only posting path. Balanced debits/credits are enforced by database constraints; posted entries are append-only; balances are recomputed from entries, never written directly.',
+        p: 'Double-entry event accounting with two write faces: agent drafts become facts only through the confirm gate, while facts from external systems enter through the ingest lane on source authority; both are posted by human-approved posting rules, and a missing rule parks the event in a gap list instead of guessing accounts. Balanced debits/credits are enforced by database constraints; posted entries are append-only; balances are recomputed from entries, never written directly.',
       },
       {
         h: 'Reconciliation beachhead',
