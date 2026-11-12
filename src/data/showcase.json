@@ -1,8 +1,72 @@
 {
-  "capturedAt": "2026-10-26T22:44:57.929Z",
+  "capturedAt": "2026-11-12T18:51:01.498Z",
   "apiBase": "https://wire.finddatatech.cloud",
-  "total": 14,
+  "total": 22,
   "dashboards": [
+    {
+      "id": 196,
+      "title": "花卉行业 · 全球贸易链板（柏讯行业看板）",
+      "panelCount": 7,
+      "version": 2,
+      "publishedAt": "2026-11-08T04:44:32.459920Z",
+      "refreshedAt": null
+    },
+    {
+      "id": 195,
+      "title": "花卉行业 · 价格与供给板（柏讯行业看板）",
+      "panelCount": 9,
+      "version": 2,
+      "publishedAt": "2026-11-08T04:44:32.404635Z",
+      "refreshedAt": null
+    },
+    {
+      "id": 194,
+      "title": "花卉行业 · 公司财务板（柏讯行业看板）",
+      "panelCount": 9,
+      "version": 3,
+      "publishedAt": "2026-11-08T04:44:32.328292Z",
+      "refreshedAt": null
+    },
+    {
+      "id": 189,
+      "title": "市场结构板 · 两融 / 北向 / 成交（柏讯证券业线）",
+      "panelCount": 7,
+      "version": 2,
+      "publishedAt": "2026-11-07T16:24:13.842813Z",
+      "refreshedAt": "2026-11-07T16:34:55.183262+00:00"
+    },
+    {
+      "id": 188,
+      "title": "券商行业板 · 协会汇总与上市券商对比（柏讯证券业线）",
+      "panelCount": 9,
+      "version": 5,
+      "publishedAt": "2026-11-07T16:24:11.238884Z",
+      "refreshedAt": "2026-11-07T16:40:48.141406+00:00"
+    },
+    {
+      "id": 146,
+      "title": "跨境电商 · 政策热区（TBT/SPS 技贸壁垒，柏讯行业看板）",
+      "panelCount": 4,
+      "version": 2,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 145,
+      "title": "跨境电商 · 物流压力（港口与景气，柏讯行业看板）",
+      "panelCount": 5,
+      "version": 3,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
+    {
+      "id": 144,
+      "title": "跨境电商 · 外圈贸易画像（柏讯行业看板）",
+      "panelCount": 7,
+      "version": 2,
+      "publishedAt": null,
+      "refreshedAt": null
+    },
     {
       "id": 35,
       "title": "中国人口与就业 · 31 省 20 年面板",

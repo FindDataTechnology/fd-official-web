@@ -36,7 +36,7 @@ const title = `${app.data.name} — FindData Technology`;
       {app.data.kind && <span>· {app.data.kind}</span>}
     </p>
     {app.data.demoUrl && (
-      <a class="repo-demo-btn" href={app.data.demoUrl} target="_blank" rel="noopener noreferrer">▶ {t(locale, 'apps.cta')}</a>
+      <a class="repo-demo-btn" href={app.data.demoUrl} target="_blank" rel="noopener noreferrer">▶ {app.data.ctaLabel ?? t(locale, 'apps.cta')}</a>
     )}
     <Content />
   </article>

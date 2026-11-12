@@ -62,6 +62,10 @@ const apps = defineCollection({
     tagline: z.string(),
     kind: z.string().optional(),
     demoUrl: z.string().optional(),
+    // Optional per-app CTA label override. An app that opens a console (rather
+    // than a demo) says so: the generic 'apps.cta' is "Try it live", which is
+    // the wrong promise for a signed-in workbench.
+    ctaLabel: z.string().optional(),
     line: z.enum(PRODUCT_LINES),
     order: z.number().optional().default(100),
   }),

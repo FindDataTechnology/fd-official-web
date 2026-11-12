@@ -1,0 +1,65 @@
+{
+  "id": 189,
+  "title": "市场结构板 · 两融 / 北向 / 成交（柏讯证券业线）",
+  "version": 2,
+  "publishedAt": "2026-11-07T16:24:13.842813Z",
+  "refreshedAt": "2026-11-07T16:34:55.183262+00:00",
+  "panels": [
+    {
+      "id": "kpi-series-total",
+      "type": "kpi",
+      "label": "在册市场结构指标",
+      "value": "9",
+      "unit": "项",
+      "subtitle": "两融 3 ＋ 北向 3 ＋ 成交估值 3"
+    },
+    {
+      "id": "kpi-series-landed",
+      "type": "kpi",
+      "label": "已落库市场结构指标",
+      "value": "0",
+      "unit": "项",
+      "subtitle": "首轮调度（UTC 18:50 起）未到；0 即真实状态"
+    },
+    {
+      "id": "kpi-families-pending",
+      "type": "kpi",
+      "label": "待接入数据族",
+      "value": "3",
+      "unit": "族",
+      "subtitle": "两融 / 北向 / 成交与估值"
+    },
+    {
+      "id": "table-equity_margin",
+      "type": "table",
+      "title": "两融余额（来源 / 分层 / 期数）",
+      "svg": null,
+      "seriesCount": 0,
+      "note": "no-static-config"
+    },
+    {
+      "id": "table-northbound",
+      "type": "table",
+      "title": "北向资金（来源 / 分层 / 期数）",
+      "svg": null,
+      "seriesCount": 0,
+      "note": "no-static-config"
+    },
+    {
+      "id": "table-market_turnover",
+      "type": "table",
+      "title": "市场成交与估值（来源 / 分层 / 期数）",
+      "svg": null,
+      "seriesCount": 0,
+      "note": "no-static-config"
+    },
+    {
+      "id": "table-provenance",
+      "type": "table",
+      "title": "面板来源与数据期数标注",
+      "svg": null,
+      "seriesCount": 0,
+      "note": "no-static-config"
+    }
+  ]
+}

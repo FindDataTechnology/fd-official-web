@@ -1,0 +1,81 @@
+{
+  "id": 188,
+  "title": "券商行业板 · 协会汇总与上市券商对比（柏讯证券业线）",
+  "version": 5,
+  "publishedAt": "2026-11-07T16:24:11.238884Z",
+  "refreshedAt": "2026-11-07T16:40:48.141406+00:00",
+  "panels": [
+    {
+      "id": "kpi-brokers-covered",
+      "type": "kpi",
+      "label": "已披露 2026Q3 财报的上市券商",
+      "value": "46",
+      "unit": "家",
+      "subtitle": "2026Q3（2026-09-30）· 47 家成分中 46 家已入库"
+    },
+    {
+      "id": "kpi-brokers-total",
+      "type": "kpi",
+      "label": "上市券商成分数（官方口径）",
+      "value": "47",
+      "unit": "家",
+      "subtitle": "含国投资本等控股壳；口算 43 为约数"
+    },
+    {
+      "id": "kpi-sac-observations",
+      "type": "kpi",
+      "label": "协会汇总（SAC）观测条数",
+      "value": "0",
+      "unit": "条",
+      "subtitle": "未落库：平台观测=0，待首轮调度（不填数）"
+    },
+    {
+      "id": "bar-revenue",
+      "type": "bar",
+      "title": "上市券商营业收入对比（2026Q3，单位：亿元）",
+      "svg": null,
+      "seriesCount": 0,
+      "note": "no-static-config"
+    },
+    {
+      "id": "bar-net-income",
+      "type": "bar",
+      "title": "上市券商净利润对比（2026Q3，单位：亿元）",
+      "svg": null,
+      "seriesCount": 0,
+      "note": "no-static-config"
+    },
+    {
+      "id": "table-brokers",
+      "type": "table",
+      "title": "上市券商财务对比（2026Q3）",
+      "svg": null,
+      "seriesCount": 0,
+      "note": "no-static-config"
+    },
+    {
+      "id": "table-broker-debt",
+      "type": "table",
+      "title": "券商资产负债率（%，第二批抽取序列）",
+      "svg": null,
+      "seriesCount": 0,
+      "note": "no-static-config"
+    },
+    {
+      "id": "table-sac",
+      "type": "table",
+      "title": "协会行业汇总（SAC 经营数据，官方层）",
+      "svg": null,
+      "seriesCount": 0,
+      "note": "no-static-config"
+    },
+    {
+      "id": "table-provenance",
+      "type": "table",
+      "title": "面板来源与数据期数标注",
+      "svg": null,
+      "seriesCount": 0,
+      "note": "no-static-config"
+    }
+  ]
+}
