@@ -1,11 +1,19 @@
-# fd-official-web in-cluster serving stack.
-# Managed by ArgoCD (Application: deploy/argocd/app-fd-web.yaml, path deploy/k8s,
-# source = gitee main). Image builds: Jenkins job `fd-official-web` (multi-stage
-# Dockerfile builds the Astro site in-image and pushes to Harbor); bump this tag
-# to roll. Host nginx proxies location / to this NodePort.
+# fd-official-web in-cluster stack — **NOT in the www request path**（2026-10-16 起）。
 #
-# Pinned to the chengsi node: host nginx proxies location / to this NodePort and
-# cross-node pod networking is unavailable in this NAT-jailed cluster.
+# 谁在服务 www.finddatatech.cloud：宿主机 nginx `location /` 直出静态目录
+# `/opt/fd/web/dist`（见 124.220.7.175:/etc/nginx/sites-enabled/www.finddatatech.cloud）。
+# 该目录由 cheap1 的 `/opt/fd/fd-web-deploy.sh` 发布：同步 gitee/main → docker 内 `npm run build`
+# → rsync 到本目录（旧目录留 `dist.prev` 供回滚）。EdgeOne CDN 在更前面，`max-age=300`。
+#
+# 因此：**改这里的 image tag 不会改变线上页面**。2026-11-13 实历——把 tag 从 sha-85fdd08
+# bump 到 sha-78dd486，Argo 同步、两个 Pod 都换片、pod 内 `/usr/share/nginx/html/zh/products/lex/`
+# 确实含新改动，而公网仍是旧的（13635 字节 vs 产物 14493 字节，`eo-cache-status: MISS`
+# 回源也是旧的），因为源站根本不回这两个 Pod。同一天先前那句「Host nginx proxies location /
+# to this NodePort」就是这条假绿的源头，已删。
+#
+# 本 Deployment 保留为**回滚备选**（Pod 线自 09-10 政策起内容陈旧，2026-10-16 翻回静态线时
+# 保留了它）。要让 Pod 线重新接管，必须同时改 nginx `location /` 回 `proxy_pass` 到 30442，
+# 否则只是空转。发布官网请走 cheap1 那条线，不是这里。
 apiVersion: v1
 kind: Namespace
 metadata:
