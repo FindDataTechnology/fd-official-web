@@ -49,9 +49,7 @@ spec:
       # version never serves and the previous one keeps serving.
       initContainers:
         - name: migrate-schema
-          # 2026-11-13 converge-line-identity-and-keys：镜像内需含 /app/line-manifest.json
-          # （/.well-known 自描述端点；Dockerfile.torch 单阶段片 /app 里没有它 → 404）。回滚=sha-c086bad。
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-4e45bb3  # 与主容器同片；无新增迁移（库头 0021，未带 0022/0023） + /.well-known 自描述端点（change 1.4，公开免鉴权）（同片说明见 fd-infra-deploy：基座取 0022 之前，库头仍 0021）
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-c086bad  # 与主容器同片；无新增迁移（库头 0021，未带 0022/0023） + /.well-known 自描述端点（change 1.4，公开免鉴权）（同片说明见 fd-infra-deploy：基座取 0022 之前，库头仍 0021）
           imagePullPolicy: IfNotPresent
           # Same database-URL source as the server container:
           # FD_OPEN_DATA_MCP_DATABASE_URL arrives via the fd-mcp-env Secret.
@@ -95,9 +93,7 @@ spec:
           # 爬虫侧永远 off——同一条规则两处两套行为）；契约缺口清零（106 族 0 缺口）。
           # 档位仍是 warn：enforce 意味着「新族没契约就拒写」，医药域在活跃建新族，
           # 切了会让它们的写入静默失败（decisions §5.34）。回滚=sha-a4b4493。
-          # 2026-11-13 converge-line-identity-and-keys：镜像内需含 /app/line-manifest.json
-          # （/.well-known 自描述端点；Dockerfile.torch 单阶段片 /app 里没有它 → 404）。回滚=sha-c086bad。
-          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-4e45bb3  # + /.well-known 自描述端点（change 1.4，公开免鉴权）（同片说明见 fd-infra-deploy：基座取 0022 之前，库头仍 0021）
+          image: ccr.ccs.tencentyun.com/finddata/fd-open-data-mcp:sha-c086bad  # + /.well-known 自描述端点（change 1.4，公开免鉴权）（同片说明见 fd-infra-deploy：基座取 0022 之前，库头仍 0021）
           imagePullPolicy: IfNotPresent
           # ENTRYPOINT in the image serves :8300 since commit 5455d38; this
           # deployment's Service/NodePort are pinned to 8899 (gateway upstream
