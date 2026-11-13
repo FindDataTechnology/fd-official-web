@@ -11,9 +11,14 @@
 # 回源也是旧的），因为源站根本不回这两个 Pod。同一天先前那句「Host nginx proxies location /
 # to this NodePort」就是这条假绿的源头，已删。
 #
-# 本 Deployment 保留为**回滚备选**（Pod 线自 09-10 政策起内容陈旧，2026-10-16 翻回静态线时
-# 保留了它）。要让 Pod 线重新接管，必须同时改 nginx `location /` 回 `proxy_pass` 到 30442，
-# 否则只是空转。发布官网请走 cheap1 那条线，不是这里。
+# 本 Deployment 保留为**服务路径备选**，不是内容回滚目标。两条理由都必须看：
+#   ① 它的镜像停在 `sha-78dd486`，而内容已前进到 `e647bf2`（删掉哲思卡上那句「可私有化
+#      部署」）。**按它回滚会把那个过度承诺重新发布一遍**——回滚内容请用 fd-deploy 上的
+#      `dist.prev`（每次部署自动保留上一版），或重跑一个更早的 gitee 提交。
+#   ② 镜像内构建拿不到 cheap1 那条线的 `GITHUB_TOKEN` / `STRAPI_*` / MCP token，抓取面
+#      与在役产物本就不同，内容不可假定等价。
+# 要让 Pod 线重新接管，必须同时改 nginx `location /` 回 `proxy_pass` 到 30442，否则只是空转；
+# 接管后还得先按上面的差异重出一版镜像。发布官网请走 cheap1 那条线，不是这里。
 apiVersion: v1
 kind: Namespace
 metadata:
