@@ -50,3 +50,6 @@ gui-test-screenshots/
 
 # build-time content source manifest (written by scripts/fetch-strapi.mjs)
 public/content-manifest.json
+
+# codebase knowledge graph (graphify; local tooling output, never shipped)
+graphify-out/
