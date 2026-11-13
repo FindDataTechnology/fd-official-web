@@ -18,4 +18,4 @@ Zhesi is the Lex family's contemplative sub-line — a long-term workshop for yo
 
 ## Reference frame and boundaries
 
-The reference frame assembles four community-maintained sources (Stanford Encyclopedia of Philosophy, Philosophy Atlas, Wikidata, PhilPapers Surveys) with no self-built extraction. The personal layer — stance cards, tensions, annals — stays in private storage with authorized, audited access; private deployment available.
+The reference frame assembles four community-maintained sources (Stanford Encyclopedia of Philosophy, Philosophy Atlas, Wikidata, PhilPapers Surveys) with no self-built extraction. The personal layer — stance cards, tensions, annals — stays in private storage with authorized, audited access.
