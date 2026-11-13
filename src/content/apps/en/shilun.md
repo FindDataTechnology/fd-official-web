@@ -4,6 +4,7 @@ tagline: "Serious writing begins with serious citation: real literature retrieva
 kind: "Paper retrieval and serious writing"
 demoUrl: "https://shilun.finddatatech.cloud"
 line: lex
+availability: incubation
 order: 31
 ---
 

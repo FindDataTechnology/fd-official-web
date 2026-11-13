@@ -73,6 +73,14 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
         <li class="card">
           <a class="card-main" href={getRelativeLocaleUrl(locale, `products/${slugOf(a)}`)}>
             <span class="name">{a.data.name}</span>
+            {/* 成熟度标注（spec lex-family-branding「家族成员平级呈现」）：
+                平级不等于同等成熟。词表与真源 fd-lex/docs/product-lineup.json
+                的 members[].availability 一致；缺省不显示，避免给未见过的档位编词。 */}
+            {a.data.availability && (
+              <span class:list={['maturity', `maturity--${a.data.availability}`]}>
+                {t(locale, `apps.maturity.${a.data.availability}`)}
+              </span>
+            )}
             <span class="desc">{a.data.tagline}</span>
             <span class="meta">{[a.data.kind, a.data.demoUrl ? t(locale, 'apps.cta') : ''].filter(Boolean).join(' · ')}</span>
           </a>
@@ -111,5 +119,26 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
     margin: 0;
     font-weight: 700;
     letter-spacing: 0.5px;
+  }
+  /* 成熟度标注：同一形态、同一位置的三个档位。颜色只表达"能不能买"，
+     不做等级褒贬；孵化态用中性灰，避免把"还没商业化"画成"差"。 */
+  .maturity {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    letter-spacing: 0.4px;
+    line-height: 1.6;
+    color: var(--text-soft);
+    background: var(--bg-soft);
+  }
+  .maturity--live {
+    border-color: color-mix(in srgb, var(--accent, #a6402f) 40%, var(--border));
+    color: var(--accent, #a6402f);
+  }
+  .maturity--preview {
+    border-style: dashed;
   }
 </style>

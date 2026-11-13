@@ -4,6 +4,7 @@ tagline: "First the script, then the picture: structured scriptwriting, dramatic
 kind: "Script writing and AI material"
 demoUrl: "https://juchuang.finddatatech.cloud"
 line: lex
+availability: incubation
 order: 32
 ---
 

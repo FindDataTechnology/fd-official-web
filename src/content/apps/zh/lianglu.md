@@ -4,6 +4,7 @@ tagline: "法律不只属于从业者：合同起草与三重 AI 评审、法条
 kind: "法律 AI 平台"
 demoUrl: "https://law.finddatatech.cloud"
 line: lex
+availability: live
 order: 10
 ---
 

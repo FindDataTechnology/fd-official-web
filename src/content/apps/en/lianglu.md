@@ -4,6 +4,7 @@ tagline: "Law is not only for practitioners: contract drafting with triple AI re
 kind: "Legal AI platform"
 demoUrl: "https://law.finddatatech.cloud"
 line: lex
+availability: live
 order: 10
 ---
 

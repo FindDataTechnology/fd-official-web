@@ -4,6 +4,7 @@ tagline: "严肃的写作从严肃的引用开始：真实文献检索、公文�
 kind: "论文检索与严肃写作"
 demoUrl: "https://shilun.finddatatech.cloud"
 line: lex
+availability: incubation
 order: 31
 ---
 

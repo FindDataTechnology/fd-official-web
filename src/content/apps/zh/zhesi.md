@@ -4,6 +4,7 @@ tagline: "把哲学史变成你的参照系：生活语言提问、承受最强�
 kind: "世界观工坊"
 demoUrl: "https://zhesi.finddatatech.cloud"
 line: lex
+availability: incubation
 order: 30
 ---
 

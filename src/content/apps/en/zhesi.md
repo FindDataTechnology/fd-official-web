@@ -4,6 +4,7 @@ tagline: "Make the history of philosophy your frame of reference: ask in plain l
 kind: "Worldview workshop"
 demoUrl: "https://zhesi.finddatatech.cloud"
 line: lex
+availability: incubation
 order: 30
 ---
 

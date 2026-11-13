@@ -4,6 +4,7 @@ tagline: "以「理解」而非「表态」进入政治思想史：读原典、�
 kind: "政治思想理解工具"
 demoUrl: "https://zhengxin.finddatatech.cloud"
 line: lex
+availability: incubation
 order: 33
 ---
 

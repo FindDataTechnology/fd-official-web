@@ -4,6 +4,7 @@ tagline: "Enter the history of political thought by understanding rather than ta
 kind: "Political-thought tool"
 demoUrl: "https://zhengxin.finddatatech.cloud"
 line: lex
+availability: incubation
 order: 33
 ---
 

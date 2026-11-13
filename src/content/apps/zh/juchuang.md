@@ -4,6 +4,7 @@ tagline: "先有剧本，才有画面：结构化剧本创作，接哲思立场�
 kind: "剧本创作与 AI 底料"
 demoUrl: "https://juchuang.finddatatech.cloud"
 line: lex
+availability: incubation
 order: 32
 ---
 

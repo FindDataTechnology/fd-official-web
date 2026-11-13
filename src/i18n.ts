@@ -59,6 +59,11 @@ export const ui = {
     'apps.cta': 'Try it live',
     'apps.detail': 'Learn more',
     'apps.empty': 'No entries in this line yet — check back soon.',
+    // 成熟度标注（与 fd-lex/docs/product-lineup.json 的 availability 同词表）。
+    // 只说"现在能不能买/用"，不写上线时间——孵化成员不得有时间承诺。
+    'apps.maturity.live': 'Available',
+    'apps.maturity.preview': 'In preview',
+    'apps.maturity.incubation': 'In incubation',
     // wire line only: entry to the Baixun B2B platform (wire.finddatatech.cloud)
     'apps.wire.entry': 'Enter the Wire Platform',
     'apps.wire.entry.sub': 'The line’s B2B self-service data platform — indicator catalog, analyses built through AI conversation, and your own datasets (upload → engine materialization → preview → deliverable provenance). Self-serve signup on tiered, metered plans: wire.finddatatech.cloud.',
@@ -394,6 +399,9 @@ export const ui = {
     'apps.back': '全部产品',
     'apps.cta': '在线体验',
     'apps.detail': '了解更多',
+    'apps.maturity.live': '可售',
+    'apps.maturity.preview': '内测中',
+    'apps.maturity.incubation': '孵化中',
     'apps.empty': '该条线暂无产品——敬请期待。',
     'apps.wire.entry': '进入柏讯平台',
     'apps.wire.entry.sub': '柏讯线的 B2B 自助数据平台——指标目录、AI 对话构建分析、自有数据集（上传 → 引擎物化 → 预览 → 产物溯源）。自助注册，分档按量计费：wire.finddatatech.cloud。',

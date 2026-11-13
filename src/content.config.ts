@@ -68,6 +68,10 @@ const apps = defineCollection({
     ctaLabel: z.string().optional(),
     line: z.enum(PRODUCT_LINES),
     order: z.number().optional().default(100),
+    // 成熟度：与真源 fd-lex/docs/product-lineup.json 的 members[].availability 同词表。
+    // live=有完整商业面；preview=能力可用、对外通道未开；incubation=有站点、无商业面。
+    // 家族页要求「平级呈现但不抹平成熟度」，故本字段由卡面如实显示。
+    availability: z.enum(['live', 'preview', 'incubation']).optional(),
   }),
 });
 
