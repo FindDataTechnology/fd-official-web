@@ -121,5 +121,9 @@ const ghPath =
         <a class="mps" href="https://beian.mps.gov.cn/#/query/webSearch?code=44030002016558" target="_blank" rel="noopener noreferrer">粤公网安备44030002016558号</a>
       </div>
     </footer>
+    {/* 跨线副驾（spread-line-copilot 3.x）：一行 loader，宿主不写任何 postMessage 协议。
+        loader 自己解析 official 线的绑定并在未绑定/已暂停时**不注入**（页面不留死卡）。
+        来源白名单在萬星侧配置；本页域名必须在其内，匿名凭据才会被铸发。 */}
+    <script is:inline src="https://wanxing.finddatatech.cloud/copilot.js" data-line="official" defer></script>
   </body>
 </html>
