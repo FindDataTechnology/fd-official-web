@@ -123,7 +123,36 @@ const ghPath =
     </footer>
     {/* 跨线副驾（spread-line-copilot 3.x）：一行 loader，宿主不写任何 postMessage 协议。
         loader 自己解析 official 线的绑定并在未绑定/已暂停时**不注入**（页面不留死卡）。
-        来源白名单在萬星侧配置；本页域名必须在其内，匿名凭据才会被铸发。 */}
+        来源白名单在萬星侧配置；本页域名必须在其内，匿名凭据才会被铸发。
+
+        host 钩子（harden-copilot-ask-and-intent 4.1）：官网是静态站，唯一有意义的
+        页面动作是站内锚点跳转，所以只声明 navigate 一个动词；context() 递当前路径，
+        让助手知道访客在看哪一页。两者都必须在 loader 执行**之前**挂上——loader 在
+        wx-copilot-ready 时就会来取。 */}
+    <script is:inline>
+      window.WanxingCopilot = window.WanxingCopilot || {};
+      window.WanxingCopilot.context = () => ({
+        line: "寻数官网",
+        page: location.pathname + location.hash,
+      });
+      // 只允许站内锚点/同源路径：外部 URL、javascript: 一律拒绝（导航是特权动作）。
+      window.WanxingCopilot.intents = {
+        navigate: (arg) => {
+          const to = String(arg ?? "");
+          if (!to.startsWith("#") && !(to.startsWith("/") && !to.startsWith("//"))) {
+            throw new Error("navigate 只接受站内路径或锚点");
+          }
+          if (to.startsWith("#")) {
+            location.hash = to;
+            const el = document.getElementById(to.slice(1));
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          } else {
+            location.href = to;
+          }
+          return { message: `已导航到 ${to}` };
+        },
+      };
+    </script>
     <script is:inline src="https://wanxing.finddatatech.cloud/copilot.js" data-line="official" defer></script>
   </body>
 </html>
