@@ -56,7 +56,7 @@ spec:
           # era; Harbor storage backend returning 500 on all manifests — socat→RustFS
           # tunnel down — after the node pruned the cached image post-eviction).
           # Node-level registries.yaml supplies TCR auth on vm-0-9 (chengsi).
-          image: ccr.ccs.tencentyun.com/fd-web/official-web:sha-324e8dc #｜2026-11-16 sha-324e8dc：官网副驾补 host 钩子（harden-copilot-ask-and-intent 4.1）——context() 递 pathname+hash、navigate 意图只接受站内锚点与同源路径（外部 URL / javascript: / 协议相对 URL 一律拒绝）。此前官网只有一行 loader，助手不知道访客在哪一页。源 fd-official-web 324e8dc（run 43868511999 绿）；回滚=sha-a80db18
+          image: ccr.ccs.tencentyun.com/fd-web/official-web:sha-d4258e1 #｜2026-11-19 sha-d4258e1：/crm 落地页两处修（close-marketing-funnel 1.4）——①PACK_URL 死链 eSMuaEbCjcQ0OkdGaGLbqA（市场 404）改指在架的 0aVynUNHmscTAxu7fGs-NQ v2「CRM 客服套件」；②容器内 nginx 加 absolute_redirect off，否则目录补斜杠的 301 在宿主 nginx 反代后只能看见 http，把外部的 https 降级成 http://www.finddatatech.cloud/crm/（同缺陷也在营销站，那边走 cheap-1 file_server 已单独发布）。源 fd-official-web d4258e1（run 44469658476 绿，digest 48ec2c4d）；回滚=sha-324e8dc
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
