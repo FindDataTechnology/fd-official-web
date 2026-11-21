@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T18:50:56.690Z",
+  "generated_at": "2026-11-21T20:10:34.099Z",
   "repos": [
     {
       "name": "fd-open-data-mcp",
@@ -17,7 +17,7 @@
       "stars": 0,
       "updated": "2026-11-12",
       "url": "https://github.com/FindDataTechnology/fd-open-data-protocol",
-      "hasReadme": true
+      "hasReadme": false
     },
     {
       "name": "fd-cn-report",
@@ -26,7 +26,7 @@
       "stars": 3,
       "updated": "2026-11-09",
       "url": "https://github.com/FindDataTechnology/fd-cn-report",
-      "hasReadme": true
+      "hasReadme": false
     },
     {
       "name": "platform",
@@ -35,15 +35,474 @@
       "stars": 1,
       "updated": "2026-11-10",
       "url": "https://github.com/FindDataTechnology/platform",
+      "hasReadme": false
+    },
+    {
+      "name": "mcp-gateway-registry",
+      "description": "Private fork of agentic-community/mcp-gateway-registry with finddatatech/Logto production patches",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-21",
+      "url": "https://github.com/FindDataTechnology/mcp-gateway-registry",
       "hasReadme": true
     },
     {
-      "name": "law-bench",
-      "description": "Chinese legal contract drafting & evaluation workbench (寻数·识律 Lex): clause corpus, taxonomy-driven assembly, LLM review, self-healing iteration, prompt comparison — web workbench, public API, MCP server.",
+      "name": "fd-bot-web",
+      "description": "Standalone site for fd-bot — the self-hosted IM transport layer",
+      "language": "CSS",
+      "stars": 0,
+      "updated": "2026-11-20",
+      "url": "https://github.com/FindDataTechnology/fd-bot-web",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-ci",
+      "description": "Shared CI workflows for FindDataTechnology repos (workflow_call targets). No topology, no credentials.",
+      "language": null,
+      "stars": 0,
+      "updated": "2026-11-20",
+      "url": "https://github.com/FindDataTechnology/fd-ci",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-bot",
+      "description": "IM transport service: platform protocols and connections only, no business semantics",
+      "language": "JavaScript",
+      "stars": 0,
+      "updated": "2026-11-20",
+      "url": "https://github.com/FindDataTechnology/fd-bot",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-qicai-web",
+      "description": "[lex] 启材 Qicai — 判过许可的教育素材目录",
+      "language": "Astro",
+      "stars": 0,
+      "updated": "2026-11-20",
+      "url": "https://github.com/FindDataTechnology/fd-qicai-web",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-erp-vertical-api-images",
+      "description": "出片快照仓：fd-erp-vertical-api（双包 vendor）。镜像走 GitHub Actions 免费线 → hkccr → ccr",
       "language": "Python",
-      "stars": 1,
-      "updated": "2026-11-09",
-      "url": "https://github.com/FindDataTechnology/law-bench",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/fd-erp-vertical-api-images",
+      "hasReadme": false
+    },
+    {
+      "name": "fd-wire",
+      "description": "柏讯 Wire — B2B data platform",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/fd-wire",
+      "hasReadme": true
+    },
+    {
+      "name": "mattermost-image",
+      "description": "Mattermost upstream image re-host — the cluster cannot pull docker.io (2026-11-19: four mirror paths all failed). Mirror-only repo: one Dockerfile pinning the upstream tag.",
+      "language": "Dockerfile",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/mattermost-image",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-law-data",
+      "description": "[lex] Authoritative legal source crawling — snapshots, incremental pulls, backfills and the block-and-recover loop over five canonical sources",
+      "language": "JavaScript",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/fd-law-data",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-data-quality",
+      "description": "[wire] Data quality baselines — per-source invariants and regression gates over the observation catalogue",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/fd-data-quality",
+      "hasReadme": true
+    },
+    {
+      "name": "finddata-skills",
+      "description": "[wire] Skill sources for the wire presets — one SKILL.md per capability, assembled into suite snapshots",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/finddata-skills",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-text-core",
+      "description": "[wire] Text engine — corpus ingest, chunked retrieval and domain verticals (news, papers) served as a retrieval API",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/fd-text-core",
+      "hasReadme": true
+    },
+    {
+      "name": "wire-ops-mcp",
+      "description": "[wire] AI operation surface for the Wire customer plane — demands, workorders and metering, exposed as agent tools",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/wire-ops-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "wanxing-ops-mcp",
+      "description": "[constellation] AI operation surface for the agent fleet — fleet board, run ledger and fleet-health inspection",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/wanxing-ops-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "lex-ops-mcp",
+      "description": "[lex] AI operation surface for the Lex line — meter audit, metering and line-native key tracks, exposed as agent tools",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/lex-ops-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "law-bench-internal",
+      "description": "[lex] LawBench workbench — clause corpus, taxonomy-driven contract assembly and LLM evaluation",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/law-bench-internal",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-erp",
+      "description": "[base] ERP board — industry-neutral double-entry event core plus vertical template assets, served as REST and MCP surfaces",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/fd-erp",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-find-data-business-mcp",
+      "description": "[wire] Business MCP — wenshu judgment documents and domain federation over the open-data platform",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/fd-find-data-business-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "helm-law-scraw",
+      "description": "[lex] Helm chart for the legal crawl stack — source crawlers, auth broker and the schedule/concurrency shape they run under",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/helm-law-scraw",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-proxy-service",
+      "description": "[base] Proxy pool — provider registry, circuit breaker, rate limits and per-source routing for outbound fetches",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/fd-proxy-service",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-lex",
+      "description": "[lex] Legal workbench platform — matter management, metering and metering audit, served as REST and MCP surfaces",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-19",
+      "url": "https://github.com/FindDataTechnology/fd-lex",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-erp-ledger-mcp",
+      "description": "[base] ERP ledger MCP — append-only books over the ERP record core, exposed as agent tools",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-erp-ledger-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-strapi",
+      "description": "[base] Content service behind the public site — Strapi with an internal-identifier gate on publish",
+      "language": "TypeScript",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-strapi",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-bench-web",
+      "description": "[lex] Bench web — browser workbench for contract drafting and evaluation",
+      "language": "Astro",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-bench-web",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-source-scouting",
+      "description": "[wire] Data source scouting — discovery and evaluation notes for candidate upstream sources",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-source-scouting",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-agent-graph",
+      "description": "[facet] Agent graph — declarative topology for agent fleets: nodes, edges, and the gate that checks them",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-agent-graph",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-erp-vertical-templates",
+      "description": "[base] ERP vertical templates — industry-specific record layouts and vocabularies",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-erp-vertical-templates",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-erp-vertical-api",
+      "description": "[base] ERP vertical API — per-industry record schemas and a REST surface over the ledger core",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-erp-vertical-api",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-agent-run",
+      "description": "[base] Agent run ledger and board — what an agent did, turn by turn, with a verifiable record",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-agent-run",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-zhengxin-reference",
+      "description": "[lex] Zhengxin reference — probe samples for the zhengxin benchmark corpus",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-zhengxin-reference",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-legal-search-mcp",
+      "description": "[lex] Legal search MCP — retrieval over the legal corpus, exposed as agent tools",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-legal-search-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "scraw-ops",
+      "description": "[wire] Crawl operations — the shared scrapyd + redis service every crawler project deploys into",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/scraw-ops",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-source-probe",
+      "description": "[wire] Source probe — checks whether an upstream source is reachable and what it returns",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-source-probe",
+      "hasReadme": true
+    },
+    {
+      "name": "supply-annotations",
+      "description": "[facet] Supply annotations — cross-language annotation vocabulary for supply-domain facts",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/supply-annotations",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-scraw-harness",
+      "description": "[wire] Crawl harness — shared scaffolding for source adapters: retries, pacing, evidence capture",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-scraw-harness",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-legal-kg",
+      "description": "[lex] Legal knowledge graph — concept extraction and relation building over legal corpora",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-legal-kg",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-file-service",
+      "description": "[base] File ingest, storage and text extraction — S3-backed object store, Gotenberg conversion, parsers with a defined failure taxonomy",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-file-service",
+      "hasReadme": true
+    },
+    {
+      "name": "wire-build-mcp",
+      "description": "[wire] Artifact build MCP — create and publish data-entry forms and record views from specs, draft-first write discipline",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/wire-build-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "facet-ops-mcp",
+      "description": "[facet] AI operation surface for the facet registry and pack marketplace — browse and publish packs, manage agent-card catalogue entries",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/facet-ops-mcp",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-info",
+      "description": "[wire] Information-stream index: unified entry contract, idempotent ingest, cursor queries, evidence addressing",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-info",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-ontology-kernel",
+      "description": "[base] Shared mechanisms behind ontology surfaces: one write path, append-only event trail, closed vocabularies, conformance gate",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-ontology-kernel",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-repo-readiness",
+      "description": "[base] Repo readiness tooling: what should not be published (worktree vs history), plus three OpenSpec hygiene guards",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-repo-readiness",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-zhesi-reference",
+      "description": null,
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-zhesi-reference",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-zhengxin",
+      "description": "政心（Zhengxin）—— 识律家族成员：政治思想理解工具。呈现分歧而不裁断分歧；参照系在 fd-zhengxin-reference。",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-zhengxin",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-juchuang",
+      "description": "剧创（Juchuang）—— 识律家族成员：AI 时代的剧本工坊。结构化剧本与分镜，角色一致性，语料受公版边界约束。",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-juchuang",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-zhesi",
+      "description": "哲思（Zhesi）—— 识律家族成员：世界观工坊。用生活语言提问，把困惑映射到哲学史真实的争论坐标；参照系检索在 fd-zhesi-reference。",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-zhesi",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-shilun",
+      "description": "实论（Shilun）—— 识律家族成员：论文检索与严肃写作。检索与引文能力经 fd-text-core，每个结果带出处。",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-shilun",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-caas",
+      "description": "CaaS — Communicate as a Service: turn a demand into something seen or heard (video, articles, charts, documents, voice), delivered in the form each recipient can read.",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-caas",
+      "hasReadme": true
+    },
+    {
+      "name": "sub2api",
+      "description": "萬星·词元 (ciyuan) — sub2api 增量谱系 fork（ADR-0024）：三车道 audio/rerank/websearch + 月度跟上游",
+      "language": "Go",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/sub2api",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-appliance",
+      "description": "寻数 fd-appliance（本地真源镜像，2026-11-12 建）",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-appliance",
+      "hasReadme": true
+    },
+    {
+      "name": "fd-wanxing",
+      "description": "萬星（Constellation 线）—— 智能体服务的对外运行与服务平台：部署、驻留、门面、计费与机群观测。A2A 服务化、多机机群、线副驾嵌入协议。",
+      "language": "JavaScript",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fd-wanxing",
+      "hasReadme": true
+    },
+    {
+      "name": "fleet-packs-public",
+      "description": "智能体团队 pack 铸造源（公开快照）—— 69 份在架 pack、铸造脚本与自检判据",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-18",
+      "url": "https://github.com/FindDataTechnology/fleet-packs-public",
       "hasReadme": true
     },
     {
@@ -107,7 +566,7 @@
       "stars": 0,
       "updated": "2026-11-12",
       "url": "https://github.com/FindDataTechnology/fd-sentiment",
-      "hasReadme": true
+      "hasReadme": false
     },
     {
       "name": "fd-industry-data",
@@ -116,7 +575,7 @@
       "stars": 0,
       "updated": "2026-11-12",
       "url": "https://github.com/FindDataTechnology/fd-industry-data",
-      "hasReadme": true
+      "hasReadme": false
     },
     {
       "name": "fd-official-web",
@@ -125,16 +584,7 @@
       "stars": 0,
       "updated": "2026-11-12",
       "url": "https://github.com/FindDataTechnology/fd-official-web",
-      "hasReadme": true
-    },
-    {
-      "name": "fd-vaas-skills",
-      "description": "VAAS — Video Automation & Distribution System: natural-language video creation and multi-platform publishing skill chain.",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-11-11",
-      "url": "https://github.com/FindDataTechnology/fd-vaas-skills",
-      "hasReadme": true
+      "hasReadme": false
     },
     {
       "name": "fd-daas-mcp",
@@ -143,7 +593,7 @@
       "stars": 0,
       "updated": "2026-11-09",
       "url": "https://github.com/FindDataTechnology/fd-daas-mcp",
-      "hasReadme": true
+      "hasReadme": false
     },
     {
       "name": "fd-mcp-registry",
@@ -152,16 +602,7 @@
       "stars": 0,
       "updated": "2026-11-05",
       "url": "https://github.com/FindDataTechnology/fd-mcp-registry",
-      "hasReadme": true
-    },
-    {
-      "name": "crawldata-engine",
-      "description": "Data-stream acquisition & processing engine: open-data ontology MCP, crawl control plane, governed storage, event streams, analysis backends, ops panel",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-11-05",
-      "url": "https://github.com/FindDataTechnology/crawldata-engine",
-      "hasReadme": true
+      "hasReadme": false
     },
     {
       "name": "mcp-registry-publish",
@@ -170,7 +611,7 @@
       "stars": 0,
       "updated": "2026-10-31",
       "url": "https://github.com/FindDataTechnology/mcp-registry-publish",
-      "hasReadme": true
+      "hasReadme": false
     },
     {
       "name": "facet-marketplace",
@@ -188,7 +629,7 @@
       "stars": 0,
       "updated": "2026-10-13",
       "url": "https://github.com/FindDataTechnology/fd-cn-gov",
-      "hasReadme": true
+      "hasReadme": false
     }
   ]
 }
