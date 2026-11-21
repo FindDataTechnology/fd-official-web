@@ -33,4 +33,4 @@ An install is a version snapshot: what lands in your project has a definite vers
 
 The market's capabilities are laid out as a panorama of materials: agents (packs), skills, and MCP servers (each with its full public tool surface) in one view, with machine-readable catalogs for humans and AI agents of any language background (llms.txt / catalog.json / one self-contained page per material).
 
-[Open the Yizuo Agent Materials Plaza](https://agent.finddatatech.cloud).
+[Open the Yizuo Agent Materials Plaza](https://facet.finddatatech.cloud).
