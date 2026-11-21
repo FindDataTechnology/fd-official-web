@@ -5,6 +5,7 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import { t } from '../i18n';
 import { type ProductLine } from '../content.config';
 import LineTabs from './LineTabs.astro';
+import constellationStatus from '../data/constellation-status.json';
 
 interface Props {
   locale: string;
@@ -17,6 +18,20 @@ const { locale, line } = Astro.props;
 const apps = (await getCollection('apps'))
   .filter((a) => a.id.startsWith(`${locale}/`) && a.data.line === line)
   .sort((a, b) => (a.data.order ?? 100) - (b.data.order ?? 100));
+// 萬星 line entry strip (surface-constellation-entry-strip): the line's four
+// products share one platform, so the line page needs ONE place to enter it.
+// Figures come from the build-time snapshot; a missing figure is omitted, never
+// rendered as 0 (a fresh checkout with an empty export must not claim "0 agents").
+// `stale` is never true here — the exporter drops the whole file on failure, so
+// an older snapshot is honest on its own generated_at.
+const WANXING = 'https://wanxing.finddatatech.cloud';
+const cxStatus = line === 'constellation'
+  ? {
+      agents: Number.isFinite(constellationStatus?.agents) ? constellationStatus.agents : null,
+      turns7d: Number.isFinite(constellationStatus?.turns7d) ? constellationStatus.turns7d : null,
+      at: typeof constellationStatus?.generated_at === 'string' ? constellationStatus.generated_at.slice(0, 10) : null,
+    }
+  : null;
 // App slug = filename under the locale dir (en/<slug>.md → <slug>).
 const slugOf = (a) => a.id.split('/')[1];
 const title = t(locale, 'apps.title') + ' — FindData Technology';
@@ -67,6 +82,42 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
       <p class="page-sub">{t(locale, 'line.lex.desc')}</p>
     )
   }
+  {
+    // 萬星 line only (surface-constellation-entry-strip): the line page used to
+    // end at four app cards with no line-level way in. Three entries into the
+    // platform itself, plus the two running figures — a static page carrying a
+    // live-ish readout needs to say when it was taken, so the snapshot date is
+    // printed beside them.
+    cxStatus && (
+      <div class="wire-entry" data-testid="constellation-entry-strip">
+        <div class="cx-entries">
+          <a class="demo-cta" href={`${WANXING}/#/catalog`} target="_blank" rel="noopener noreferrer">
+            <span class="demo-cta-label">▶ {t(locale, 'cx.entry.catalog')}</span>
+            <span class="demo-cta-sub">{t(locale, 'cx.entry.catalog.sub')}</span>
+          </a>
+          <p class="cx-links">
+            <a class="button button-secondary" href={`${WANXING}/#/docs`} target="_blank" rel="noopener noreferrer">
+              {t(locale, 'cx.entry.docs')}
+            </a>
+            <a class="button button-secondary" href={`${WANXING}/#/console`} target="_blank" rel="noopener noreferrer">
+              {t(locale, 'cx.entry.console')}
+            </a>
+          </p>
+        </div>
+        {(cxStatus.agents !== null || cxStatus.turns7d !== null) && (
+          <p class="cx-figures">
+            {cxStatus.agents !== null && (
+              <span><b>{cxStatus.agents}</b> {t(locale, 'cx.figures.agents')}</span>
+            )}
+            {cxStatus.turns7d !== null && (
+              <span><b>{cxStatus.turns7d}</b> {t(locale, 'cx.figures.turns')}</span>
+            )}
+            {cxStatus.at && <span class="cx-asof">{t(locale, 'cx.figures.asOf')} {cxStatus.at}</span>}
+          </p>
+        )}
+      </div>
+    )
+  }
   <ul class:list={['grid', { 'grid--feature': apps.length > 0 && apps.length <= 2 }]}>
     {
       apps.map((a) => (
@@ -102,6 +153,36 @@ const title = t(locale, 'apps.title') + ' — FindData Technology';
   }
   .wire-entry .button-secondary {
     margin-top: 10px;
+  }
+  /* 萬星入口带（surface-constellation-entry-strip）：复用 wire-entry 的间距与按钮，
+     只加两件事——两个次按钮并排，以及一行等宽的运行数字。 */
+  .cx-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0 0;
+  }
+  .cx-links .button-secondary {
+    margin-top: 0;
+  }
+  .cx-figures {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 18px;
+    margin: 12px 0 0;
+    font-size: var(--fs-mono);
+    color: var(--muted);
+  }
+  .cx-figures b {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+  }
+  .cx-asof {
+    font-size: 0.75rem;
+    color: var(--muted);
+    opacity: 0.75;
   }
   .ladder {
     margin: 0 0 24px;
