@@ -52,7 +52,15 @@ try {
   );
   // Public only — an authenticated build token can see private repos; the
   // public grid and feed must never include them (or their commit activity).
-  const list = all.filter((r) => !r.private);
+  //
+  // Archived too (2026-11-22): an archived repo is retired, and the grid is a
+  // "here is what we ship" surface, not an archive index. Without this filter a
+  // retired repo keeps its card forever — `mcp-registry-publish` and
+  // `crawldata-engine` were both still listed after being retired. Deleting the
+  // repo isn't enough on its own either: `src/content/repos/` is gitignored and
+  // regenerated here at build time, so this filter is the only place that
+  // decides what the grid shows.
+  const list = all.filter((r) => !r.private && !r.archived);
   if (!list.length) throw new Error('no public repos returned');
   await rm(README_DIR, { recursive: true, force: true });
   await mkdir(README_DIR, { recursive: true });
