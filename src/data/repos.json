@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T20:10:34.099Z",
+  "generated_at": "2026-11-21T20:24:52.238Z",
   "repos": [
     {
       "name": "fd-open-data-mcp",
@@ -17,7 +17,7 @@
       "stars": 0,
       "updated": "2026-11-12",
       "url": "https://github.com/FindDataTechnology/fd-open-data-protocol",
-      "hasReadme": false
+      "hasReadme": true
     },
     {
       "name": "fd-cn-report",
@@ -26,7 +26,7 @@
       "stars": 3,
       "updated": "2026-11-09",
       "url": "https://github.com/FindDataTechnology/fd-cn-report",
-      "hasReadme": false
+      "hasReadme": true
     },
     {
       "name": "platform",
@@ -35,7 +35,16 @@
       "stars": 1,
       "updated": "2026-11-10",
       "url": "https://github.com/FindDataTechnology/platform",
-      "hasReadme": false
+      "hasReadme": true
+    },
+    {
+      "name": "scraw-ops",
+      "description": "[wire] Crawl operations — the shared crawl service (queue + scheduler) every crawler project deploys into",
+      "language": "Python",
+      "stars": 0,
+      "updated": "2026-11-21",
+      "url": "https://github.com/FindDataTechnology/scraw-ops",
+      "hasReadme": true
     },
     {
       "name": "mcp-gateway-registry",
@@ -317,15 +326,6 @@
       "hasReadme": true
     },
     {
-      "name": "scraw-ops",
-      "description": "[wire] Crawl operations — the shared scrapyd + redis service every crawler project deploys into",
-      "language": "Python",
-      "stars": 0,
-      "updated": "2026-11-18",
-      "url": "https://github.com/FindDataTechnology/scraw-ops",
-      "hasReadme": true
-    },
-    {
       "name": "fd-source-probe",
       "description": "[wire] Source probe — checks whether an upstream source is reachable and what it returns",
       "language": "Python",
@@ -566,7 +566,7 @@
       "stars": 0,
       "updated": "2026-11-12",
       "url": "https://github.com/FindDataTechnology/fd-sentiment",
-      "hasReadme": false
+      "hasReadme": true
     },
     {
       "name": "fd-industry-data",
@@ -575,7 +575,7 @@
       "stars": 0,
       "updated": "2026-11-12",
       "url": "https://github.com/FindDataTechnology/fd-industry-data",
-      "hasReadme": false
+      "hasReadme": true
     },
     {
       "name": "fd-official-web",
@@ -584,7 +584,7 @@
       "stars": 0,
       "updated": "2026-11-12",
       "url": "https://github.com/FindDataTechnology/fd-official-web",
-      "hasReadme": false
+      "hasReadme": true
     },
     {
       "name": "fd-daas-mcp",
@@ -593,7 +593,7 @@
       "stars": 0,
       "updated": "2026-11-09",
       "url": "https://github.com/FindDataTechnology/fd-daas-mcp",
-      "hasReadme": false
+      "hasReadme": true
     },
     {
       "name": "fd-mcp-registry",
@@ -602,7 +602,7 @@
       "stars": 0,
       "updated": "2026-11-05",
       "url": "https://github.com/FindDataTechnology/fd-mcp-registry",
-      "hasReadme": false
+      "hasReadme": true
     },
     {
       "name": "mcp-registry-publish",
@@ -611,7 +611,7 @@
       "stars": 0,
       "updated": "2026-10-31",
       "url": "https://github.com/FindDataTechnology/mcp-registry-publish",
-      "hasReadme": false
+      "hasReadme": true
     },
     {
       "name": "facet-marketplace",
@@ -629,7 +629,7 @@
       "stars": 0,
       "updated": "2026-10-13",
       "url": "https://github.com/FindDataTechnology/fd-cn-gov",
-      "hasReadme": false
+      "hasReadme": true
     }
   ]
 }

@@ -68,6 +68,13 @@ const TROUBLESHOOT_HEADING = /^(#{1,6}\s+.*(如果没成功|排障|故障排查|
 
 // Directory names skipped when scanned directly under src/content/.
 const MIRROR_DIR = join('src', 'content', 'repos'); // build-time GitHub mirror — out of scope
+// The metadata half of that same mirror. `scripts/fetch-repos.mjs` writes both
+// from the GitHub API in one pass, so they carry exactly the same text
+// (descriptions). Exempting only the directory let a retired identifier slip
+// through here while its sibling copy stayed exempt — 2026-11-22: a `scraw-ops`
+// description mentioning scrapyd failed the build the moment the snapshot was
+// refreshed. Retirements in mirrored text are fixed on GitHub, not here.
+const MIRROR_DATA = join('src', 'data', 'repos.json');
 const EXTS = new Set(['.md', '.mdx', '.astro', '.ts', '.mts', '.js', '.mjs', '.json', '.html']);
 
 async function* walk(dir) {
@@ -83,6 +90,7 @@ async function* walk(dir) {
       if (p === MIRROR_DIR || p.endsWith(`/${MIRROR_DIR}`)) continue;
       yield* walk(p);
     } else if (EXTS.has(extname(e.name))) {
+      if (p === MIRROR_DATA) continue;
       yield p;
     }
   }
