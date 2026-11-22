@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-11-22T10:56:10.735Z",
+  "numbers": {
+    "concepts": {
+      "value": 452,
+      "source": "src/data/indicators.json (active_concepts)",
+      "as_of": "2026-09-21T16:24:36.872Z"
+    },
+    "sources": {
+      "value": 6,
+      "source": "src/data/indicators.json (distinct concept sources)",
+      "as_of": "2026-09-21T16:24:36.872Z"
+    },
+    "registry_total": {
+      "value": null,
+      "source": "src/data/calibers.json (unavailable — export ran without FD_CALIBERS_MCP_TOKEN)",
+      "as_of": "2026-11-22T10:56:01.246Z"
+    },
+    "open_data_tools": {
+      "value": 87,
+      "source": "http://chengsi.mesh.finddata.cn:30899/mcp tools/list",
+      "as_of": "2026-11-22T10:56:10.245Z"
+    },
+    "public_dashboards": {
+      "value": 23,
+      "source": "https://wire.finddatatech.cloud/api/v1/showcase/dashboards (total)",
+      "as_of": "2026-11-22T10:56:10.734Z"
+    }
+  }
+}
