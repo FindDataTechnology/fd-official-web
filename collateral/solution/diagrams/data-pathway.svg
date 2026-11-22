@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 300" font-family="system-ui,'PingFang SC','Noto Sans CJK SC',sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <rect width="1120" height="300" fill="#ffffff"/>
+  <!-- 六个阶段框 -->
+  <g>
+    <rect x="20"  y="40" width="150" height="110" rx="10" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+    <text x="95"  y="68"  text-anchor="middle" font-size="13" fill="#6b7280">世界</text>
+    <text x="95"  y="92"  text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">数据源</text>
+    <text x="95"  y="126" text-anchor="middle" font-size="12" fill="#374151">政府公开·统计·行业</text>
+
+    <rect x="198" y="40" width="150" height="110" rx="10" fill="#eef2ff" stroke="#818cf8" stroke-width="1.5"/>
+    <text x="273" y="68"  text-anchor="middle" font-size="13" fill="#6366f1">采集 · 包</text>
+    <text x="273" y="92"  text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">数据源即包</text>
+    <text x="273" y="126" text-anchor="middle" font-size="12" fill="#374151">可安装 · 可审计</text>
+
+    <rect x="376" y="40" width="150" height="110" rx="10" fill="#eef2ff" stroke="#818cf8" stroke-width="1.5"/>
+    <text x="451" y="68"  text-anchor="middle" font-size="13" fill="#6366f1">一个本体</text>
+    <text x="451" y="92"  text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">语义本体</text>
+    <text x="451" y="126" text-anchor="middle" font-size="12" fill="#374151">统一口径 · 跨源对得上</text>
+
+    <rect x="554" y="40" width="150" height="110" rx="10" fill="#eef2ff" stroke="#818cf8" stroke-width="1.5"/>
+    <text x="629" y="68"  text-anchor="middle" font-size="13" fill="#6366f1">统一接口</text>
+    <text x="629" y="92"  text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">MCP 网关</text>
+    <text x="629" y="126" text-anchor="middle" font-size="12" fill="#374151">500+ 工具 · 自然语言</text>
+
+    <rect x="732" y="40" width="150" height="110" rx="10" fill="#fff7ed" stroke="#fb923c" stroke-width="1.5"/>
+    <text x="807" y="68"  text-anchor="middle" font-size="13" fill="#ea580c">替你把活干完</text>
+    <text x="807" y="92"  text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">智能体集群</text>
+    <text x="807" y="126" text-anchor="middle" font-size="12" fill="#374151">持续运行 · 自己汇报</text>
+
+    <rect x="910" y="40" width="150" height="110" rx="10" fill="#f0fdf4" stroke="#4ade80" stroke-width="1.5"/>
+    <text x="985" y="68"  text-anchor="middle" font-size="13" fill="#16a34a">你用的产出</text>
+    <text x="985" y="92"  text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">看板 · 报告 · API</text>
+    <text x="985" y="126" text-anchor="middle" font-size="12" fill="#374151">真实数据行</text>
+  </g>
+  <!-- 箭头 -->
+  <g stroke="#6b7280" stroke-width="2" fill="none">
+    <line x1="170" y1="95" x2="196" y2="95" marker-end="url(#arr)"/>
+    <line x1="348" y1="95" x2="374" y2="95" marker-end="url(#arr)"/>
+    <line x1="526" y1="95" x2="552" y2="95" marker-end="url(#arr)"/>
+    <line x1="704" y1="95" x2="730" y2="95" marker-end="url(#arr)"/>
+    <line x1="882" y1="95" x2="908" y2="95" marker-end="url(#arr)"/>
+  </g>
+  <!-- 底部长句：数据留在你手里 -->
+  <path d="M95,172 L95,196 L985,196 L985,172" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <rect x="420" y="184" width="240" height="30" rx="15" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="540" y="204" text-anchor="middle" font-size="14" font-weight="bold" fill="#1d4ed8">数据留在你手里（自托管 / 私有化）</text>
+  <text x="20" y="256" font-size="13" fill="#6b7280">一条通路 · 四个坚持：自然语言可达｜一个本体｜数据源即包｜数据留在你手里</text>
+</svg>
