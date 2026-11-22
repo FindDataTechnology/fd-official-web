@@ -24,6 +24,10 @@ const STATIC = [
   'crm',
 ];
 
+// Pages that exist in one language only. /solution/ is a static asset
+// (public/solution/) whose content is Chinese; there is no /zh/solution/.
+const SINGLE_LOCALE = ['solution'];
+
 const ZONES: Record<string, string> = {
   briefings: 'briefings',
   academy: 'academy',
@@ -37,6 +41,9 @@ export const GET: APIRoute = async () => {
     urls.push({ loc: `${SITE}/${p}`.replace(/\/$/, '/') });
     if (p) urls.push({ loc: `${SITE}/zh/${p}` });
     else urls.push({ loc: `${SITE}/zh/` });
+  }
+  for (const p of SINGLE_LOCALE) {
+    urls.push({ loc: `${SITE}/${p}/` });
   }
 
   const collections = ['briefings', 'academy', 'research'] as const;
