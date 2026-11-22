@@ -305,6 +305,11 @@ committed 快照（`src/data/constellation-status.json`），MUST NOT 硬编码�
 - **WHEN** the snapshot carries no `agents` or no `turns7d`
 - **THEN** that figure is not rendered at all, and no `0` stands in for it
 
+#### Scenario: A zero read is refused, not recorded
+
+- **WHEN** the status endpoint answers with `agents: 0` or `turns7d: 0`, or flags either value `stale: true`
+- **THEN** the export keeps the previous snapshot unchanged and logs a warning — a zero is the endpoint failing to compute (it answers zeros when its own upstream is unreachable), not a fleet fact, and it MUST NOT overwrite a good snapshot or reach the page
+
 ### Requirement: Constellation status snapshot is a build-time export
 
 构建 SHALL 用一个导出脚本从萬星公开状态端点（`GET /api/wanxing/v1/status`）生成
