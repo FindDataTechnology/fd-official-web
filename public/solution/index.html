@@ -10,7 +10,7 @@
   :root{
     --ink:#111827; --sub:#4b5563; --faint:#6b7280;
     --line:#e5e7eb; --bg:#ffffff; --soft:#f9fafb;
-    --accent:#4f46e5; --accent-soft:#eef2ff;
+    --accent:#4f46e5; --accent-soft:#eef2ff; --accent-line:#c7d2fe;
     --warm:#fff7ed; --warm-line:#fb923c;
     --green:#f0fdf4; --green-line:#4ade80;
   }
@@ -23,7 +23,6 @@
   .hero h1{font-size:2.4rem;margin:0 0 12px;letter-spacing:.01em}
   .hero .lead{font-size:1.15rem;color:var(--sub);max-width:42em}
   .hero .lead b{color:var(--accent)}
-  .kicker{font-size:.85rem;color:var(--accent);font-weight:600;letter-spacing:.12em;margin-bottom:10px}
   /* nav */
   nav.anchors{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
        border-bottom:1px solid var(--line);z-index:9}
@@ -56,7 +55,7 @@
   .stat .num{font-size:1.35rem;font-weight:800;color:var(--accent)}
   .stat .lbl{font-size:.9rem;color:var(--sub)}
   /* scenarios */
-  .scene{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 18px;margin:14px 0;background:#fff}
+  .scene{border:1px solid var(--accent-line);border-radius:10px;padding:14px 18px;margin:14px 0;background:#fff}
   .scene h3{margin:0 0 6px}
   .scene .ev{font-size:.9rem;color:var(--sub);background:var(--accent-soft);border-radius:8px;padding:8px 12px;margin-top:10px}
   a{color:var(--accent)}
@@ -82,7 +81,6 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="kicker">FINDDATA · 整体解决方案</div>
     <h1>寻数数据整体解决方案</h1>
     <p class="lead">用自然语言提问，拿回<b>真实数据行</b>——更完整的说法是：<b>让 AI 智能体团队替你持续处理数据</b>。</p>
   </div>
