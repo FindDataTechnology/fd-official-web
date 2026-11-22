@@ -50,7 +50,10 @@
   th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
   th{background:var(--soft)}
   /* stats */
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:20px 0}
+  /* 6 stat cards: 4 columns would leave a 4+2 row with dead space on the right.
+     240px lands on 3 columns at the 960px wrap (3+3), and 2 on narrow screens
+     (2+2+2) — both stay symmetric. */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:20px 0}
   .stat{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--soft)}
   .stat .num{font-size:1.35rem;font-weight:800;color:var(--accent)}
   .stat .lbl{font-size:.9rem;color:var(--sub)}
@@ -242,6 +245,12 @@
     <h3>场景四 · 主题看板：指标到仪表盘</h3>
     <p>从指标本体出发，搭出可刷新的主题看板：宏观周期、六国对比、A 股财报截面、区域经济与省级系列。</p>
     <div class="ev">证据：公开看板 23 块（as-of 2026-11-22，取自柏讯公开看板接口，见 wire.finddatatech.cloud/showcase）；演示视频《看板搭建 150s》</div>
+  </div>
+  <div class="scene">
+    <h3>场景五 · 行业对账模板（ERP 板块）</h3>
+    <p>一个行业无关的复式账本内核，加两个行业模板（跨境电商、餐饮连锁）。行业差异上移为<b>模板资产四件套</b>（连接器 pack + 舰队蓝图 + 科目映射 pack + 报表 preset），整体安装、各件独立升级。8 件账本工具，写路径只出 proposal、确认门唯一落账，借贷必平由数据库约束强制。</p>
+    <p class="muted">能力实底如实标注：跨境内圈当前全部为「需一次接入」而非已接通，拼多多不提供；资金归集/代收代付/分账执行不提供（二清红线）；POS 未适配厂商不以人工补录冒充自动接入。市场 live 上架按挂账处理，「待上架」不得读作「已支持」。</p>
+    <div class="ev">证据：模板包与测试见 <code>fd-erp-vertical-templates/</code>（测试全绿以仓库实测为准，不写死条数）；边界如实口径页见官网 <a href="/erp">/erp</a></div>
   </div>
 </section>
 

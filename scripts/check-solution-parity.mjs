@@ -50,6 +50,26 @@ export function numbersIn(text) {
   return out;
 }
 
+// Scene sections are a chapter's actual payload: the heading said "五个通用场景"
+// while the page shipped four, and neither a number nor a chapter check could
+// see it. Count both sides' scene units and compare them as sets.
+export function scenesIn(text) {
+  const out = new Set();
+  for (const m of text.matchAll(/^###\s*场景[一二三四五六七八九十]+[：:]\s*(.+)$/gm)) {
+    out.add(m[1].trim());
+  }
+  return out;
+}
+
+// Section headings that claim a count ("五个通用场景") must match what follows.
+export function chapterCountClaims(text) {
+  const claims = [];
+  for (const m of text.matchAll(/[一二三四五六七八九十]+、[^<\n]*?([一二三四五六七八九十]+)个[^<\n]*?(场景|看板|模板)/g)) {
+    claims.push(m[0].trim());
+  }
+  return claims;
+}
+
 export function chaptersIn(text) {
   return CHAPTERS.filter((c) => text.includes(`<span class="no">${c}</span>`) || new RegExp(`^##\\s*${c}`, 'm').test(text));
 }
@@ -83,6 +103,22 @@ export function compare(mdText, htmlText) {
   const mdNums = numbersIn(mdText);
   const orphaned = [...numbersIn(htmlText)].filter((n) => !mdNums.has(n));
   if (orphaned.length) problems.push(`页面数字在真源中不存在（可能是页面落后）：${orphaned.join(', ')}`);
+
+  const mdScenes = scenesIn(mdText);
+  const htmlScenes = new Set();
+  for (const m of htmlText.matchAll(/<h3>\s*场景[一二三四五六七八九十]+\s*·\s*(.+?)<\/h3>/g)) {
+    htmlScenes.add(m[1].trim());
+  }
+  // Compare on the leading label before the separator: the source writes
+  // "主题看板——指标到仪表盘" where the page writes "主题看板：指标到仪表盘".
+  const leadOf = (t) => t.split(/[—:：]/)[0].trim();
+  const htmlLeads = [...htmlScenes].map(leadOf);
+  // The page may shorten or extend the label ("行业对账模板（ERP 板块）" vs
+  // "行业对账模板"); a prefix match either way counts as the same scene.
+  const matches = (lead) => htmlLeads.some((h) => h.startsWith(lead) || lead.startsWith(h));
+  const missingScenes = [...mdScenes].filter((t) => !matches(leadOf(t)));
+  if (missingScenes.length) problems.push(`场景真源有、页面无：${missingScenes.join(' / ')}`);
+  if (mdScenes.size !== htmlScenes.size) problems.push(`场景数不一致：真源 ${mdScenes.size} / 页面 ${htmlScenes.size}`);
 
   const mdUrls = demoTargets(mdText);
   const htmlUrls = demoTargets(htmlText);
