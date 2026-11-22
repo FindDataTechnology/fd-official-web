@@ -210,21 +210,21 @@
 
 <section id="evidence">
   <h2><span class="no">三、</span>实证篇：实测口径</h2>
-  <p class="muted">以下数字全部为公开可核的实测口径（2026-11-05 复核）：</p>
+  <p class="muted">以下数字全部为公开可核的实测口径（随系统变化的值带 as-of 与出处；持续增长量只报门槛形式）：</p>
   <div class="stats">
-    <div class="stat"><div class="num">452 / 7 / 53</div><div class="lbl">开放数据本体：指标概念 / 数据源 / MCP 工具</div></div>
-    <div class="stat"><div class="num">12 · 500+</div><div class="lbl">统一 MCP 网关：在册 Server / 工具</div></div>
-    <div class="stat"><div class="num">5.7 万条</div><div class="lbl">统一指标注册</div></div>
-    <div class="stat"><div class="num">3,700 万</div><div class="lbl">识律·良律裁判文书篇数</div></div>
+    <div class="stat"><div class="num">452 / 6 / 87</div><div class="lbl">开放数据本体：指标概念 / 数据源 / MCP 工具（as-of 2026-11-22）</div></div>
+    <div class="stat"><div class="num">10+ · 500+</div><div class="lbl">统一 MCP 网关：在册 Server / 工具（门槛值，精确数以台账为准）</div></div>
+    <div class="stat"><div class="num">5 万+ 条</div><div class="lbl">统一指标注册（门槛值）</div></div>
+    <div class="stat"><div class="num">约 3,700 万</div><div class="lbl">识律·良律裁判文书篇数（截至 2026-10-08）</div></div>
     <div class="stat"><div class="num">32,296</div><div class="lbl">法规目录（部）</div></div>
-    <div class="stat"><div class="num">90 / 75</div><div class="lbl">生产侧部署数 / 唯一镜像数</div></div>
+    <div class="stat"><div class="num">私有化</div><div class="lbl">全栈可交付客户机房；生产承载细节不在对外材料披露</div></div>
   </div>
   <p><b>承载模型：</b>单集群可托管上万智能体——分层承载，冷会话落盘近零内存、温态共宿摊销、真并发按 worker 槽弹性配比。</p>
-  <p class="muted">我们不展示无法当场验证的数字：没有虚构的客户案例，没有拍脑袋的增长曲线。</p>
+  <p class="muted">我们不展示无法当场验证的数字：没有虚构的案例陈述，没有拍脑袋的增长曲线。</p>
 </section>
 
 <section id="scenes">
-  <h2><span class="no">四、</span>场景篇：四个通用场景</h2>
+  <h2><span class="no">四、</span>场景篇：五个通用场景</h2>
   <div class="scene">
     <h3>场景一 · 自然语言问数，返回真实数据行</h3>
     <p>一句话（如「中国 GDP 2023」）→ 网关 <code>ai_search</code> → 返回带单位、频率、来源的指标与数据行。</p>
@@ -233,7 +233,7 @@
   <div class="scene">
     <h3>场景二 · 从数据源到可用数据的自助通路</h3>
     <p>上传数据 → 自动入指标目录 → 生成质量画像 → 编排变换管线，全程在控制台自助完成。</p>
-    <div class="ev">证据：<a href="https://wire.finddatatech.cloud">wire.finddatatech.cloud</a> 指标目录（57,000+ 指标免登可搜）；试用号走查路径见《演示指南》</div>
+    <div class="ev">证据：<a href="https://wire.finddatatech.cloud">wire.finddatatech.cloud</a> 指标目录（5 万+ 指标免登可搜）；试用号走查路径见《演示指南》</div>
   </div>
   <div class="scene">
     <h3>场景三 · 持续运行的智能体团队</h3>
@@ -243,7 +243,7 @@
   <div class="scene">
     <h3>场景四 · 主题看板：指标到仪表盘</h3>
     <p>从指标本体出发，搭出可刷新的主题看板：宏观周期、六国对比、A 股财报截面、区域经济与省级系列。</p>
-    <div class="ev">证据：16 块主题看板（构建脚本齐备）；演示视频《看板搭建 150s》</div>
+    <div class="ev">证据：公开看板 23 块（as-of 2026-11-22，取自柏讯公开看板接口，见 wire.finddatatech.cloud/showcase）；演示视频《看板搭建 150s》</div>
   </div>
 </section>
 
@@ -256,7 +256,7 @@
     <tr><td><a href="https://wire.finddatatech.cloud">wire.finddatatech.cloud</a></td><td>目录免登；控制台用试用号</td><td>数据资产目录 → 质量画像 → 管线编排</td></tr>
     <tr><td>识律 / 谦面 / law-bench 各入口</td><td>试用号（凭证按既有通道发放）</td><td>法律文本、技能市场、合同评审</td></tr>
   </table>
-  <p><b>Demo 数据集：</b>开放数据本体（452 概念 / 7 源）、指标注册（5.7 万条）、主题看板（16 块）、司法语料（3,700 万文书 / 32,296 法规）。<b>全部为真实生产数据口径，不是假数样本。</b></p>
+  <p><b>Demo 数据集：</b>开放数据本体（452 概念 / 6 源）、指标注册（5 万+ 条）、公开看板（23 块）、司法语料（约 3,700 万文书 / 32,296 法规）。<b>全部为真实生产数据口径，不是假数样本。</b></p>
   <p class="muted">演示账号、入口与试走路径详见《演示指南》（本包交付物 ❸）；视频演示（主片 + 两条辅片）见演示包。</p>
 </section>
 

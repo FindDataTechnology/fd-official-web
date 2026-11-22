@@ -16,6 +16,7 @@ export const ui = {
     'nav.indicators': 'Indicators',
     'nav.dataModules': 'Data Modules',
     'nav.showcase': 'Dashboards',
+    'nav.solution': 'Solution',
     'showcase.title': 'Dashboard Showcase',
     'showcase.subtitle':
       'Industry and macro dashboards published by FindData. Every chart below is a real, captured result — no sign-up needed.',
@@ -364,6 +365,7 @@ export const ui = {
     'nav.indicators': '数据指标',
     'nav.dataModules': '数据板块',
     'nav.showcase': '看板橱窗',
+    'nav.solution': '解决方案',
     'showcase.title': '看板橱窗',
     'showcase.subtitle':
       '寻数官方发布的行业与宏观看板。下面每一张图都是真实取数的结果——无需注册即可阅读。',

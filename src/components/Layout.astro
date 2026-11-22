@@ -35,6 +35,11 @@ const sunk = [
   { href: getRelativeLocaleUrl(locale, 'docs'), key: 'nav.docs' },
   { href: getRelativeLocaleUrl(locale, 'roadmap'), key: 'nav.roadmap' },
   { href: getRelativeLocaleUrl(locale, 'releases'), key: 'nav.releases' },
+  // Solution package (reanchor-solution-package D5): footer-only on purpose.
+  // site-shell pins the header to three entries; this page is a "read the whole
+  // picture" surface, not a product tab. It is a static asset (public/solution/),
+  // not an Astro route, and its content is Chinese — both locales link to /solution/.
+  { href: '/solution/', key: 'nav.solution' },
 ];
 // ponytail: inline SVG, one path reused for both footer GitHub links
 const ghPath =
