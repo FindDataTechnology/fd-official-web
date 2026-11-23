@@ -123,7 +123,16 @@ const ghPath =
                 if (!id || !id.identifier || !id.identifier_hash) return; // stay anonymous
                 keep(ID_KEY, id.visitorId || id.identifier);
                 keep(HASH_KEY, id.identifier_hash);
-                window.$chatwoot.setUser(id.identifier, { identifier_hash: id.identifier_hash });
+                // Chatwoot's setUser REJECTS a payload that carries only
+                // identifier_hash — it demands one of [avatar_url, email, name].
+                // Measured 2026-11-24: without `name` the call throws
+                // "User object should have one of the keys [...]", the identity
+                // is never bound, and the visitor silently stays anonymous.
+                // The name here is a neutral label, not an identity claim.
+                window.$chatwoot.setUser(id.identifier, {
+                  identifier_hash: id.identifier_hash,
+                  name: '官网访客',
+                });
               })
               .catch(function () { /* anonymous is a valid state, never a broken page */ });
           })();
