@@ -5,15 +5,15 @@ Ops notes for the FindDataTechnology official site (this repo → `/opt/fd/web` 
 ## Deploy
 
 **TCR 镜像 + ArgoCD 拉取式 GitOps**（2026-09-22 起为线上模型；镜像通道 2026-10-01 切 TCR）。
-**发版（2026-10-16 起在役线＝静态 rsync）**：`www` 的 `location /` 指向 `root /opt/fd/web/dist`，上架 = 把新镜像的构建产物铺进该目录（源：新镜像 pod `kubectl cp <pod>:/usr/share/nginx/html/.`，或构建机 `build-deploy.sh`）——替换时保留 live `dist/data/calibers.json`，旧目录留 `dist.bak-<日期>` 回滚。Pod 线（NodePort 30442）自 2026-09-10 停更、留可回退（`.bak-pod-20261016`）；镜像线仍走 `deploy/k8s/fd-web.yaml` bump（ArgoCD auto-sync），但仅供 pod 回退线使用。
+**发版（2026-10-16 起在役线＝静态 rsync）**：`www` 的 `location /` 指向 `root /opt/fd/web/dist`，上架 = 把新镜像的构建产物铺进该目录（源：新镜像 pod `kubectl cp <pod>:/usr/share/nginx/html/.`，或构建机 `build-deploy.sh`）——替换时保留 live `dist/data/calibers.json`，旧目录留 `dist.bak-<日期>` 回滚。Pod 线（NodePort 30442）自 2026-09-10 停更、留可回退（`.bak-pod-20261016`）；镜像线仍走 `部署仓 all-services/fd-web` bump（ArgoCD auto-sync），但仅供 pod 回退线使用。
 
-历史口径（pod 为主路径）见下：发版 = 在 `deploy/k8s/fd-web.yaml` 把镜像 tag 升到目标 sha（一条 bump commit，如 `chore(deploy): roll official-web to sha-xxxxxxx`）。链路：push `main` → GitHub Actions `.github/workflows/image.yml`（push / 手动 dispatch）在镜像内构建 Astro 站（多阶段 `Dockerfile`；指标导出经 BuildKit secret `fd_indicators_token`，缺失时退回仓库内快照）→ 推 `hkccr.ccs.tencentyun.com/fd-web/official-web:sha-<sha>`（腾讯云 TCR 个人版）→ 集群从 `ccr.ccs.tencentyun.com` 拉取（国内分发经 cheap-3 tcr-relay 回灌，见 commit 1ab5fc1）。chengsi 上的 ArgoCD app `fd-web`（source = gitee `main`，path `deploy/k8s`，`directory.include` 仅 `fd-web.yaml`；auto-sync + prune + selfHeal）轮询到 bump 后滚动 `official-web` Deployment（2 副本，固定 `vm-0-9-ubuntu` 节点，NodePort **30442**）；宿主 nginx `location /` 反代该 NodePort。
+历史口径（pod 为主路径）见下：发版 = 在 `部署仓 all-services/fd-web` 把镜像 tag 升到目标 sha（一条 bump commit，如 `chore(deploy): roll official-web to sha-xxxxxxx`）。链路：push `main` → GitHub Actions `.github/workflows/image.yml`（push / 手动 dispatch）在镜像内构建 Astro 站（多阶段 `Dockerfile`；指标导出经 BuildKit secret `fd_indicators_token`，缺失时退回仓库内快照）→ 推 `hkccr.ccs.tencentyun.com/fd-web/official-web:sha-<sha>`（腾讯云 TCR 个人版）→ 集群从 `ccr.ccs.tencentyun.com` 拉取（国内分发经 relay 节点 tcr-relay 回灌，见 commit 1ab5fc1）。chengsi 上的 ArgoCD app `fd-web`（source = gitee `main`，path `deploy/k8s`，`directory.include` 仅 `fd-web.yaml`；auto-sync + prune + selfHeal）轮询到 bump 后滚动 `official-web` Deployment（2 副本，固定 `vm-0-9-ubuntu` 节点，NodePort **30442**）；宿主 nginx `location /` 反代该 NodePort。
 
 **回滚：** revert 该 tag bump 提交（ArgoCD 自动回到上一版）；或宿主 nginx `location /` 临时切回静态根（`.bak-static-20260922` 备份配置；`/opt/fd/web/dist*` 停留在 2026-09-22 的版本）。
 
-**历史路径（均已退役）：** ① GitHub-secrets SSH + rsync（`deploy.yml`）：2026-08-29 删除；`DEPLOY_SSH_KEY`/`DEPLOY_HOST`/`DEPLOY_USER` 已从 GitHub secrets 清除，服务器旧部署公钥已撤销（旧私钥登录被拒），Mac 侧换 `fd-deploy`（`~/.ssh/fd_deploy_new`）。② cheap-1 国内构建 + rsync 静态目录（`scripts/build-deploy.sh` + `/etc/cron.d/fd-web-deploy` 每 6h）：2026-09-21 上线、09-22 切回 pod 路径，cron 已全注释停跑；其构建环境在构建箱 `/opt/fd/fd-web-build.env`（chmod 600）。GitHub secrets 现为 `TCR_USERNAME`/`TCR_PASSWORD`。手动发布 = dispatch `image` workflow + 本地 bump tag（`/fd-site-deploy` 同路径），或直接触发 ArgoCD sync。
+**历史路径（均已退役）：** ① GitHub-secrets SSH + rsync（`deploy.yml`）：2026-08-29 删除；`DEPLOY_SSH_KEY`/`DEPLOY_HOST`/`DEPLOY_USER` 已从 GitHub secrets 清除，服务器旧部署公钥已撤销（旧私钥登录被拒），Mac 侧换 `fd-deploy`（`~/.ssh/fd_deploy_new`）。② 一台构建节点 国内构建 + rsync 静态目录（`scripts/build-deploy.sh` + `/etc/cron.d/fd-web-deploy` 每 6h）：2026-09-21 上线、09-22 切回 pod 路径，cron 已全注释停跑；其构建环境在构建箱 `/opt/fd/fd-web-build.env`（chmod 600）。GitHub secrets 现为 `TCR_USERNAME`/`TCR_PASSWORD`。手动发布 = dispatch `image` workflow + 本地 bump tag（`/fd-site-deploy` 同路径），或直接触发 ArgoCD sync。
 
-**构建箱环境变量（`/opt/fd/fd-web-build.env`，cheap-1，chmod 600）**——`build-deploy.sh` 在构建前自检，缺必需键即中止并指名：
+**构建箱环境变量（`/opt/fd/fd-web-build.env`，一台构建节点，chmod 600）**——`build-deploy.sh` 在构建前自检，缺必需键即中止并指名：
 
 | 键 | 必需性 | 缺失时的行为 |
 |---|---|---|
@@ -42,7 +42,7 @@ Ops notes for the FindDataTechnology official site (this repo → `/opt/fd/web` 
 ```
 
 **MCP storage (2026-09-21):** the deployed MCP reads the **canonical Postgres**
-(`fd_open_data` on `guangzhou-xinru`, reached over the tailnet at `100.64.0.3:30432`)
+(`fd_open_data` on `canonical PG 所在主节点`, reached over the tailnet at `canonical PG`)
 via `FD_OPEN_DATA_MCP_DATABASE_URL` in the `fd-mcp-env` secret. The on-box SQLite
 (`.../metadata/daas.db`) is dev-only and was the source of a long-running
 "empty catalog" incident — do not point the Deployment back at it. The
@@ -62,21 +62,21 @@ Secrets are k8s Secrets made from the on-box .env files (`fd-mcp-env`, `librecha
 
 nginx config: `/etc/nginx/sites-available/fd` (IP-on-:80 fallback, default_server) + `www.finddatatech.cloud` + `chat.finddatatech.cloud` (TLS, managed by certbot). Repo copies: `deploy/nginx/`. Routes: `www` `/` → **30442**（pod） · `www`+`fd` `/mcp` → **30899** (bearer check + `limit_req`) · `www` `/demo-api` → **8898**（fd-demo-proxy → MCP） · `chat` `/` → **30830** (WebSocket/SSE, long timeouts).
 
-## Images — Harbor registry on china-cheap-2
+## Images — Harbor registry on 一台中国构建节点
 
-Private Harbor (v2.12) runs on **china-cheap-2** (`103.236.89.174`, SSH port `20400`, root; creds in the finddata workspace `ssh-config.json`). It speaks **plain HTTP on loopback only** (no usable public HTTP ports on that box; tailnet ACLs block peers), so consumers reach it through SSH tunnels:
+Private Harbor (v2.12) runs on **一台中国构建节点** (<harbor-public-ip>, SSH port `20400`, root; creds in the finddata workspace `ssh-config.json`). It speaks **plain HTTP on loopback only** (no usable public HTTP ports on that box; tailnet ACLs block peers), so consumers reach it through SSH tunnels:
 
 - **This box**: `harbor-tunnel.service` (systemd, key `~/.ssh/harbor_tunnel`) → `127.0.0.1:5000`.
-- On cheap-2 itself: `harbor-endpoint.service` (socat watchdog) forwards `127.0.0.1:5000` → harbor nginx container (docker host-ports are broken on that box — internal k3s iptables — don't expose Harbor directly).
+- On 一台中国构建节点 itself: `harbor-endpoint.service` (socat watchdog) forwards `127.0.0.1:5000` → harbor nginx container (docker host-ports are broken on that box — internal k3s iptables — don't expose Harbor directly).
 - Harbor admin password: see the operator's local `finddata/.harbor-creds` (never commit).
-- cheap-2 egress is heavily firewalled (no docker.io CDNs, no pypi.org, no github) — **never build there**; use it only as storage.
+- 一台中国构建节点 egress is heavily firewalled (no docker.io CDNs, no pypi.org, no github) — **never build there**; use it only as storage.
 - **2026-10-07 复核：** 官网已回到镜像形态（TCR，见 Deploy）；mcp 镜像亦切 TCR（Harbor 作回退 tag），librechat 基础镜像引用 `harbor.finddatatech.cloud:8080`（以 `deploy/k8s/*.yaml` 为准）。
 
 ### Image sources
 
-- `finddata/fd-open-data-mcp:torch` — build from the exact `/opt/fd/finddata` tree (use the web-box `Dockerfile`; the GitHub HEAD one is the slim variant). Build on the **america box** (23.144.68.246; full internet, docker + skopeo): sync source there (`FROM scratch` + `COPY` + `docker push` into its registry works when SSH is GFW-flaky), `docker build`, push to its local registry (`127.0.0.1:5000`).
-- Foreign images (`mongo:7`, `meilisearch:v1.6`, `librechat`) — `skopeo copy` on the america box from docker.io/ghcr.
-- **Relay into Harbor** (america↔cheap-2 links are unreliable): run on THIS box — `skopeo copy --src-tls-verify=false --dest-tls-verify=false --dest-creds admin:$HP docker://23.144.68.246:5000/<img> docker://127.0.0.1:5000/<img>`. Slow (≈3 Mbps) but unattended.
+- `finddata/fd-open-data-mcp:torch` — build from the exact `/opt/fd/finddata` tree (use the web-box `Dockerfile`; the GitHub HEAD one is the slim variant). Build on the **the America box box** (23.144.68.246; full internet, docker + skopeo): sync source there (`FROM scratch` + `COPY` + `docker push` into its registry works when SSH is GFW-flaky), `docker build`, push to its local registry (`127.0.0.1:5000`).
+- Foreign images (`mongo:7`, `meilisearch:v1.6`, `librechat`) — `skopeo copy` on the the America box box from docker.io/ghcr.
+- **Relay into Harbor** (远端↔一台中国构建节点 links are unreliable): run on THIS box — `skopeo copy --src-tls-verify=false --dest-tls-verify=false --dest-creds admin:$HP docker://23.144.68.246:5000/<img> docker://127.0.0.1:5000/<img>`. Slow (≈3 Mbps) but unattended.
 
 ### k3s pull config
 

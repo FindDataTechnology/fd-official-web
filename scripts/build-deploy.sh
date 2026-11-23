@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Domestic build + deploy for fd-official-web (runs on the build box, e.g. cheap-1).
+# Domestic build + deploy for fd-official-web (runs on the build box, e.g. 一台构建节点).
 #
 # Builds the full site inside node:22-alpine (the box needs only docker — no
 # host Node), then rsyncs dist/ to the web box's static root, which nginx
@@ -15,7 +15,7 @@
 #   FD_INDICATORS_MCP_TOKEN   MCP bearer for the indicator export
 #   FD_INDICATORS_MCP_URL     default https://www.finddatatech.cloud/mcp
 #   FD_CALIBERS_MCP_TOKEN     business-mcp service-lane bearer (FDBIZ_INTERNAL_TOKEN)
-#   FD_CALIBERS_MCP_URL       default http://100.64.0.4:30803 (business-mcp service lane)
+#   FD_CALIBERS_MCP_URL       default <calibers-mcp-endpoint> (business-mcp service lane)
 #   STRAPI_URL                Strapi base for editorial content pull (empty = skip,
 #                             falls back to committed snapshots). The CMS runs on
 #                             this box; default is the loopback origin.
@@ -78,7 +78,7 @@ docker run --rm \
   -e FD_INDICATORS_MCP_TOKEN="${FD_INDICATORS_MCP_TOKEN:-}" \
   -e FD_INDICATORS_MCP_URL="${FD_INDICATORS_MCP_URL:-https://www.finddatatech.cloud/mcp}" \
   -e FD_CALIBERS_MCP_TOKEN="${FD_CALIBERS_MCP_TOKEN:-}" \
-  -e FD_CALIBERS_MCP_URL="${FD_CALIBERS_MCP_URL:-http://100.64.0.4:30803}" \
+  -e FD_CALIBERS_MCP_URL="${FD_CALIBERS_MCP_URL:-<calibers-mcp-endpoint>}" \
   -e STRAPI_URL="${STRAPI_URL:-}" \
   -e STRAPI_READ_TOKEN="${STRAPI_READ_TOKEN:-}" \
   -v "$WORK":/app -w /app "$NODE_IMAGE" \

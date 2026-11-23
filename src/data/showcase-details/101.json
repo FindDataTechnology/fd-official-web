@@ -3,7 +3,7 @@
   "title": "中国宏观景气 · 周期仪表盘",
   "version": 1,
   "publishedAt": "2026-10-20T02:00:00Z",
-  "refreshedAt": "数据源 fd_open_data@100.64.0.3 semantic_observations (akshare) · 单位: % (PMI 为指数) · 价格/PMI 序列更新至 2025-08, LPR 与 M1/M2 更新至 2026-08 · 提取日期 2026-09-20 · 只读查询",
+  "refreshedAt": "数据源 fd_open_data (canonical PG) semantic_observations (akshare) · 单位: % (PMI 为指数) · 价格/PMI 序列更新至 2025-08, LPR 与 M1/M2 更新至 2026-08 · 提取日期 2026-09-20 · 只读查询",
   "panels": [
     {
       "id": "kpi-1",
