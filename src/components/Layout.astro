@@ -196,7 +196,7 @@ const ghPath =
         // 「找人工」：Copilot 判定访客要人时出这张卡，点它就是真人的意图。
         // 宿主的动作是把 Chatwoot 客服挂件打开——那是唯一真有人接的通道。
         // 访客只看到「产品向导」一个气泡，要人时一键就落到客服台。
-        open_support: () => {
+        open-support: () => {
           if (window.$chatwoot && typeof window.$chatwoot.toggle === "function") {
             window.$chatwoot.toggle("open");
             return { message: "已打开人工客服" };
