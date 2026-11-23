@@ -134,7 +134,12 @@ const ghPath =
                   name: '官网访客',
                 });
               })
-              .catch(function () { /* anonymous is a valid state, never a broken page */ });
+              .catch(function (e) {
+                // Anonymous is a valid state, but a SILENT one hid a month of
+                // "identity never binds" (2026-11-24). One console line costs
+                // nothing and makes the next diagnosis one look.
+                try { console.warn("[visitor-identity] bind failed:", e && e.message); } catch (_) {}
+              });
           })();
         }
       })(document, 'script');
