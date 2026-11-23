@@ -66,17 +66,68 @@ const ghPath =
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/global.css" />
     <!-- CRM 客服挂件（Chatwoot, crm-board-adoption 3.1）：desk.finddatatech.cloud，A 租户网站挂件 inbox -->
+    <!--
+      跨入口访客身份（chatwoot-ai-handoff 5.x）：同一个访客在 Copilot 侧与客服挂件侧
+      必须是同一个 contact，交人时人工才看得到 AI 已经聊过什么。
+
+      浏览器只持有一个**不透明**的 id（localStorage，无 PII）；把它交给服务端换成
+      { identifier, identifier_hash } 再 setUser——哈希用的 hmac_token 是服务端密钥，
+      绝不下发。没有哈希的裸 identifier 是可伪造的（Chatwoot 在本 inbox 未强制 hmac
+      时会直接接受），所以这一步不能省。
+
+      任何一步失败都静默降级为匿名访客：挂件照常可用，只是这次不与其它入口关联。
+    -->
     <script is:inline>
       window.chatwootSettings = { position: 'right', type: 'standard', launcherTitle: '联系寻数' };
       (function (d, t) {
         var BASE_URL = 'https://desk.finddatatech.cloud';
+        var WEBSITE_TOKEN = 'm6tDm3u1VFmSk36qG8KfKo6b';
+        var IDENTITY_URL = 'https://platform.finddatatech.cloud/api/widget/visitor-identity';
+        var ID_KEY = 'fd.visitor.id';
+        var HASH_KEY = 'fd.visitor.hash';
         var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
         g.src = BASE_URL + '/packs/js/sdk.js';
         g.defer = true;
         s.parentNode.insertBefore(g, s);
         g.onload = function () {
-          window.chatwootSDK.run({ websiteToken: 'm6tDm3u1VFmSk36qG8KfKo6b', baseUrl: BASE_URL });
+          window.chatwootSDK.run({ websiteToken: WEBSITE_TOKEN, baseUrl: BASE_URL });
+          bindVisitorIdentity();
         };
+
+        // 只存两样：不透明 id 与它对应的 hash。两者都拿不到时就是匿名访客，
+        // 那是合法状态，不是故障。私隐模式下 localStorage 会抛，退回本页会话。
+        function stored(k) { try { return window.localStorage.getItem(k) || null; } catch (_) { return null; } }
+        function keep(k, v) { try { window.localStorage.setItem(k, v); } catch (_) { /* session-only */ } }
+
+        function bindVisitorIdentity() {
+          var tries = 0;
+          (function attempt() {
+            if (!window.$chatwoot || typeof window.$chatwoot.setUser !== 'function') {
+              if (++tries > 40) return; // ~10s then stay anonymous
+              return setTimeout(attempt, 250);
+            }
+            // Revisit: echo the id AND the hash we were given. The server signs
+            // only ids it minted (a bare id would be an oracle); presenting the
+            // hash is what proves we already hold that identity.
+            var held = stored(ID_KEY);
+            var body = held
+              ? { websiteToken: WEBSITE_TOKEN, visitorId: held, identifierHash: stored(HASH_KEY) }
+              : { websiteToken: WEBSITE_TOKEN };
+            fetch(IDENTITY_URL, {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify(body),
+            })
+              .then(function (r) { return r.ok ? r.json() : null; })
+              .then(function (id) {
+                if (!id || !id.identifier || !id.identifier_hash) return; // stay anonymous
+                keep(ID_KEY, id.visitorId || id.identifier);
+                keep(HASH_KEY, id.identifier_hash);
+                window.$chatwoot.setUser(id.identifier, { identifier_hash: id.identifier_hash });
+              })
+              .catch(function () { /* anonymous is a valid state, never a broken page */ });
+          })();
+        }
       })(document, 'script');
     </script>
   </head>
