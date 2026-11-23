@@ -193,6 +193,17 @@ const ghPath =
       });
       // 只允许站内锚点/同源路径：外部 URL、javascript: 一律拒绝（导航是特权动作）。
       window.WanxingCopilot.intents = {
+        // 「找人工」：Copilot 判定访客要人时出这张卡，点它就是真人的意图。
+        // 宿主的动作是把 Chatwoot 客服挂件打开——那是唯一真有人接的通道。
+        // 访客只看到「产品向导」一个气泡，要人时一键就落到客服台。
+        open_support: () => {
+          if (window.$chatwoot && typeof window.$chatwoot.toggle === "function") {
+            window.$chatwoot.toggle("open");
+            return { message: "已打开人工客服" };
+          }
+          // SDK 还没就绪：把地址给出去，不让访客卡在一张点了没反应的卡上。
+          throw new Error("客服窗口还没准备好，请稍后点官网右下角的客服图标");
+        },
         navigate: (arg) => {
           const to = String(arg ?? "");
           if (!to.startsWith("#") && !(to.startsWith("/") && !to.startsWith("//"))) {
