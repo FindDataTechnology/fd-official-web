@@ -10,6 +10,7 @@ import {
   DESKTOP_PLATFORMS,
   type DesktopPlatformKey,
 } from '../lib/desktop-releases';
+import { newestMobileRelease } from '../lib/mobile-releases';
 
 interface Props {
   locale: 'en' | 'zh';
@@ -18,6 +19,10 @@ const { locale } = Astro.props;
 
 const { releases } = loadDesktopReleases();
 const latest = releases[0] ?? null;
+// Mobile (mobile-distribution): Android is a public sideload APK, so it belongs
+// in the same band; iOS has no public build (no paid developer account) and is
+// stated as such rather than rendered as a dead link.
+const mobile = newestMobileRelease();
 // Closed platform set, fixed display order regardless of JSON key order.
 const keys = latest
   ? DESKTOP_PLATFORMS.filter((k) => latest.platforms[k as DesktopPlatformKey])
@@ -69,6 +74,27 @@ const keys = latest
       </div>
     )
   }
+
+  <div class="band-mobile">
+    <h3>{t(locale, 'mobile.title')}</h3>
+    <p class="band-sub">{t(locale, 'mobile.sub')}</p>
+    <div class="band-row">
+      <div class="band-platform">
+        <span class="band-name">{t(locale, 'mobile.android')}</span>
+        {mobile && <span class="band-beta">v{mobile.version}</span>}
+      </div>
+      <div class="band-links">
+        {mobile ? (
+          <a class="band-get primary" href={mobile.url} target="_blank" rel="noopener noreferrer">
+            {t(locale, 'mobile.download')} · {t(locale, 'mobile.android')} v{mobile.version}
+          </a>
+        ) : (
+          <p class="band-note">{t(locale, 'mobile.none')}</p>
+        )}
+      </div>
+    </div>
+    <p class="band-note band-ios">{t(locale, 'mobile.iosAbsent')}</p>
+  </div>
 </section>
 
 <style is:inline>
@@ -85,6 +111,9 @@ const keys = latest
   }
   .download-band h2 { font-size: var(--fs-h2); margin: 0 0 6px; }
   .band-sub { color: var(--muted); margin: 0 0 24px; max-width: 68ch; }
+  .band-mobile { margin-top: 32px; border-top: 1px solid var(--border); padding-top: 26px; }
+  .band-mobile h3 { font-size: var(--fs-h2); margin: 0 0 6px; }
+  .band-ios { margin-top: 12px; }
   .band-release {
     background: var(--panel);
     border: 1px solid var(--border);

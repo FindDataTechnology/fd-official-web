@@ -5,7 +5,7 @@
 // validator. Reader rule (design D2): unknown fields are ignored, missing or
 // malformed known fields fail the build naming the entry and field.
 
-export const DESKTOP_PLATFORMS = ['macos', 'windows'] as const;
+export const DESKTOP_PLATFORMS = ['macos', 'windows', 'linux'] as const;
 export type DesktopPlatformKey = (typeof DESKTOP_PLATFORMS)[number];
 
 export interface DesktopPlatformEntry {
