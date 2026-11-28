@@ -8,9 +8,14 @@
 # dist.prev copy on the web box.
 #
 # Env (from /opt/fd/fd-web-build.env, chmod 600 — never commit):
-#   FD_WEB_DEPLOY_HOST   default 124.220.7.175
-#   FD_WEB_DEPLOY_USER   default ubuntu
-#   FD_WEB_DEPLOY_PASS   SSH password for the deploy user
+#   FD_WEB_DEPLOY_HOST   default cheap1 (the edge box serving
+#                        www.finddatatech.cloud from /opt/fd/web/dist, see
+#                        cheap1:/etc/caddy/Caddyfile). The old default,
+#                        124.220.7.175, is the chengsi box that has been
+#                        offline since 2026-11-26 — the site moved to the edge.
+#   FD_WEB_DEPLOY_USER   default root
+#   FD_WEB_DEPLOY_PASS   SSH password for the deploy user (unused when the
+#                        caller already has a key; rsync over ssh is enough)
 #   GITHUB_TOKEN         optional — lifts the anonymous 60/h GitHub API cap
 #   FD_INDICATORS_MCP_TOKEN   MCP bearer for the indicator export
 #   FD_INDICATORS_MCP_URL     default https://www.finddatatech.cloud/mcp
@@ -58,8 +63,8 @@ if ! docker image inspect "$NODE_IMAGE" >/dev/null 2>&1    && ! docker pull "$NO
 fi
 
 # FD_WEB_DEPLOY_PASS is already asserted by the required-key self-check above.
-DEPLOY_HOST="${FD_WEB_DEPLOY_HOST:-124.220.7.175}"
-DEPLOY_USER="${FD_WEB_DEPLOY_USER:-ubuntu}"
+DEPLOY_HOST="${FD_WEB_DEPLOY_HOST:-cheap1}"
+DEPLOY_USER="${FD_WEB_DEPLOY_USER:-root}"
 DEPLOY_PATH="${FD_WEB_DEPLOY_PATH:-/opt/fd/web/dist}"
 
 echo "== $(date -u +%FT%TZ) build start =="
