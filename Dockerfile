@@ -1,9 +1,12 @@
 # fd-official-web runtime image — multi-stage: build the Astro site inside the
 # image, then package only dist/ into nginx. No host paths involved (the Jenkins
 # agent is containerized, so volume-mount builds see an empty dir).
-# Data freshness: the build fetches repos anonymously; the indicator export uses
-# the /mcp bearer passed as a BuildKit secret (fd_indicators_token) — without it
-# the committed snapshots are kept, so the image always builds.
+# Data freshness: the build fetches each repo's README from the GitHub API; it
+# MUST authenticate (fd_github_token) — anonymous calls hit the shared
+# 60-req/hour IP quota and the build aborts with "majority missing" (2026-11-28:
+# 48/73 repos 403'd and the site image stopped publishing). The indicator export
+# uses the /mcp bearer (fd_indicators_token). Each secret is optional: without it
+# that step falls back to the committed snapshot, so the image still builds.
 # Requires DOCKER_BUILDKIT=1 (secret mounts; docker >= 18.09).
 FROM node:22-alpine AS build
 WORKDIR /app
@@ -20,9 +23,11 @@ COPY . .
 ARG STRAPI_URL=""
 RUN --mount=type=secret,id=fd_indicators_token \
     --mount=type=secret,id=fd_strapi_token \
+    --mount=type=secret,id=fd_github_token \
     FD_INDICATORS_MCP_TOKEN="$(cat /run/secrets/fd_indicators_token 2>/dev/null || true)" \
     STRAPI_URL="$STRAPI_URL" \
     STRAPI_READ_TOKEN="$(cat /run/secrets/fd_strapi_token 2>/dev/null || true)" \
+    GITHUB_TOKEN="$(cat /run/secrets/fd_github_token 2>/dev/null || true)" \
     npm run build
 
 FROM nginx:1.29-alpine

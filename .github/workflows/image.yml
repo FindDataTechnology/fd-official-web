@@ -14,3 +14,9 @@ jobs:
     with:
       image: official-web
       namespace: fd-web
+      # The build fetches every repo's README from the GitHub API. Without a
+      # token those calls share the anonymous per-IP quota and the build aborts
+      # once the majority 403s (2026-11-28: 48/73). GITHUB_TOKEN is the job's
+      # own automatic token — nothing to provision — mounted as a BuildKit
+      # secret so it never lands in an image layer.
+      build_secrets: fd_github_token=${{ github.token }}
