@@ -95,3 +95,5 @@ sshpass -p "$FD_WEB_DEPLOY_PASS" ssh -o StrictHostKeyChecking=no "$DEPLOY_USER@$
 sshpass -p "$FD_WEB_DEPLOY_PASS" rsync -a --delete -e "ssh -o StrictHostKeyChecking=no" \
   "$WORK/dist/" "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
 echo "== $(date -u +%FT%TZ) deploy done: $(git -C "$WORK" rev-parse --short=8 HEAD) =="
+# 裸域 finddatatech.cloud 打不开是另一个独立问题（证书不含裸域），与发版无关：
+# 见 finddata/docs/runbooks/official-site-apex-domain.md
