@@ -65,7 +65,10 @@ const keys = latest
             </div>
           );
         })}
-        <p class="band-unsigned">{t(locale, 'download.unsigned.note')}</p>
+        <p class="band-unsigned">
+          {t(locale, 'download.unsigned.note')}
+          {keys.includes('linux') && t(locale, 'download.unsigned.linux')}
+        </p>
       </div>
     ) : (
       <div class="band-empty">

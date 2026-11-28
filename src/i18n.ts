@@ -156,8 +156,10 @@ export const ui = {
     'download.source.github': 'GitHub Releases (international)',
     'download.beta': 'Beta',
     'download.officialComingSoon': 'Official direct link coming soon — downloading from GitHub Releases for now.',
+    'download.unsigned.linux':
+      'Linux: the AppImage needs no install — make it executable and run it; if your system lacks FUSE 2, run it with --appimage-extract-and-run.',
     'download.unsigned.note':
-      'First installers ship unsigned. macOS: if Gatekeeper blocks the app, right-click it and choose Open (or allow it under System Settings → Privacy & Security). Windows: if SmartScreen appears, choose More info → Run anyway. Linux: the AppImage needs no install — make it executable and run it; if your system lacks FUSE 2, run it with --appimage-extract-and-run.',
+      'First installers ship unsigned. macOS: if Gatekeeper blocks the app, right-click it and choose Open (or allow it under System Settings → Privacy & Security). Windows: if SmartScreen appears, choose More info → Run anyway.',
     'home.lines.title': 'Products',
     'home.lines.sub': 'Five product lines — the supply domains of your agent cluster.',
     'home.research.title': 'Research & services',
@@ -503,8 +505,10 @@ export const ui = {
     'download.source.github': 'GitHub Releases（国际）',
     'download.beta': 'Beta',
     'download.officialComingSoon': '官网直链即将上线——当前可从 GitHub Releases 下载。',
+    'download.unsigned.linux':
+      'Linux：AppImage 免安装——赋予可执行权限后直接运行；若系统缺少 FUSE 2，用 --appimage-extract-and-run 启动。',
     'download.unsigned.note':
-      '首批安装包未做签名。macOS：若被 Gatekeeper 拦截，右键点击应用选择「打开」（或在 系统设置 → 隐私与安全性 中放行）。Windows：若出现 SmartScreen，选择「更多信息」→「仍要运行」。Linux：AppImage 免安装——赋予可执行权限后直接运行；若系统缺少 FUSE 2，用 --appimage-extract-and-run 启动。',
+      '首批安装包未做签名。macOS：若被 Gatekeeper 拦截，右键点击应用选择「打开」（或在 系统设置 → 隐私与安全性 中放行）。Windows：若出现 SmartScreen，选择「更多信息」→「仍要运行」。',
     'home.lines.title': '产品',
     'home.lines.sub': '五条产品线——你的 agent 集群的供给域。',
     'home.research.title': '研究与业务',
